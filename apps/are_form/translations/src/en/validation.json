@@ -1,0 +1,30 @@
+{
+  "country-of-hearing": {
+    "required": "Where is the appeal hearing to be held"
+  },
+  "appeal-stage": {
+    "required": "Select an appeal stage",
+    "regex": "You must select an appeal stage from the list"
+  },
+  "start-date": {
+    "required": "Enter the start date for the calculation",
+    "numeric": "Date must only contain numbers",
+    "future": "The date is in the future",
+    "format": "Enter the start date in the correct format"
+  },
+  "start-date-day": {
+    "required": "Enter the day for the start date",
+    "numeric": "Day must only contain numbers",
+    "date-day": "Invalid day"
+  },
+  "start-date-month": {
+    "required": "Enter the month for the start date",
+    "numeric": "Day must only contain numbers",
+    "date-month": "Invalid month"
+  },
+  "start-date-year": {
+    "required": "Enter the year for the start date",
+    "numeric": "Year must only contain numbers",
+    "date-year": "Invalid year"
+  }
+}

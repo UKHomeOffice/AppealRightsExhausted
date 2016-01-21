@@ -1,0 +1,52 @@
+{{< govuk-template}}
+
+{{$head}}
+    {{> partials-head}}
+{{/head}}
+
+{{$pageTitle}}
+    {{$header}}{{/header}} &ndash; GOV.UK
+{{/pageTitle}}
+
+{{$headerClass}}with-proposition{{/headerClass}}
+{{$insideHeader}}{{/insideHeader}}
+
+{{$main}}
+  <main id="content" class="main" role="main">
+    <div class="phase-banner">
+      <p>
+        <strong class="phase-tag">BETA</strong>
+        <span>This is a new service – your <a href="mailto:ian.damen@digital.homeoffice.gov.uk?subject=ARE Calculator Beta feedback">feedback</a> will help us to improve it.</span>
+      </p>
+    </div>
+    <span id="step">
+      {{> partials-back}} <span>{{$step}}{{/step}}</span>
+    </span>
+    <div class="grid-row">
+      {{> partials-maincontent-left}}
+    </div>
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-65423788-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+    <script type="text/javascript" src="/public/js/bundle.js"></script>
+  </main>
+{{/main}}
+
+{{$footerSupportLinks}}
+  <ul>
+    <li><a href="/cookies">Cookies</a></li>
+    <li><a href="/terms-and-conditions">Terms and conditions</a></li>
+  </ul>
+{{/footerSupportLinks}}
+
+{{/ govuk-template}}

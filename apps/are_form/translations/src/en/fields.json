@@ -1,0 +1,35 @@
+{
+  "start-date": {
+    "label": "Date",
+    "legend": "Start date for calculation",
+    "hint": "For example, 11  6  2015"
+  },
+  "start-date-day": {
+    "label": "Day"
+  },
+  "start-date-month": {
+    "label": "Month"
+  },
+  "start-date-year": {
+    "label": "Year"
+  },
+  "appeal-stage": {
+    "label": "At which stage is the appellant in the appeal process?"
+  },
+
+  "country-of-hearing": {
+    "legend": "Where is the appeal lodged? (This will affect which exclusions days are applied)",
+    "options": {
+      "England & Wales": {
+        "label": "label for England & Wales"
+      },
+      "Scotland": {
+        "selected": true,
+        "label": "label for Scotland"
+      },
+      "Northern Ireland": {
+        "label": "label for Northern Ireland"
+      }
+    }
+  }
+}

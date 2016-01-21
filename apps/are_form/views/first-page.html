@@ -1,0 +1,61 @@
+{{<layout}}
+{{$step}}Step 1 of 2{{/step}}
+
+{{$journeyHeader}}
+{{#t}}journey.header{{/t}}
+{{/journeyHeader}}
+
+{{$validationSummary}}
+{{> partials-validation-summary}}
+{{/validationSummary}}
+
+{{$propositionHeader}}
+{{> partials-navigation}}
+{{/propositionHeader}}
+
+{{$header}}{{#t}}pages.first-page.header{{/t}}{{/header}}
+
+{{$content}}
+<p>{{#t}}pages.first-page.description{{/t}}</p>
+<ul type="square">
+    {{#t}}pages.first-page.factors{{/t}}</LI>
+</ul>
+
+{{<partials-form}}
+
+{{$form}}
+<h1>Country of Hearing</h1>
+{{#radio-group}}country-of-hearing{{/radio-group}}
+<h1>Appeal Stage</h1>
+<div class="are-dropdown">
+{{#select}}appeal-stage{{/select}}
+</div>
+
+<fieldset id="start-date-group" class="panel-indent {{#errors.start-date}}validation-error{{/errors.start-date}}">
+    <legend class="visuallyhidden">
+        <span class="form-label-bold">{{#t}}fields.start-date.legend{{/t}}</span>
+    </legend>
+
+    {{#errors.start-date}}
+            <span id="start-date-error" class="error-message">
+              {{errors.start-date.message}}
+            </span>
+    {{/errors.start-date}}
+    <P>
+    <h1>Start Date</h1>
+
+    <div class="form-group form-date">
+        <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
+        {{#input-date}}start-date{{/input-date}}
+    </div>
+
+</fieldset>
+
+{{#input-submit}}calculate{{/input-submit}}
+{{/form}}
+
+{{/partials-form}}
+
+{{/content}}
+
+{{/layout}}

@@ -1,0 +1,26 @@
+{
+  "first-page": {
+    "header": "Appeal Rights Exhausted Date Calculator",
+    "description": "This calculates the date when an applicant's Appeal rights are exhausted. It is dependent upon the following factors:",
+    "factors": "<LI>(a) Country where the appeal was received<LI>(b) Stage of the appeal"
+  },
+
+  "result": {
+    "header": "ARE Calculated Date",
+    "description": "This is the calculated ARE date based on the information you provided",
+    "table": {
+      "headers": {
+        "start-date": "Start Date for calculation",
+        "display-start-date": "Start Date",
+        "revised-start-date": "Revised Start Date",
+        "country-of-hearing": "Country of Hearing",
+        "appeal-stage": "Appeal Stage",
+        "rules": "Rules",
+        "ruleNumber": "Rule Reference",
+        "time-limit": "Time Limit",
+        "admin-allowance": "Admin Allowance",
+        "trigger": "Trigger"
+      }
+    }
+  }
+}
