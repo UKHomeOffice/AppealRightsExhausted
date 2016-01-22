@@ -19,8 +19,7 @@ module.exports = {
   'appeal-stage': {
     validate: ['required' ],
     className: ['typeahead', 'js-hidden'],
-    options: staticAppealStages.getstaticAppealStages(),
-    type: 'typeahead'
+    options: [' '].concat(staticAppealStages.getstaticAppealStages())
   },
 
   'start-date': {

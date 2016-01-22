@@ -21,8 +21,13 @@ module.exports = {
   '/confirm': {
     controller: require('./controllers/result'),
     template: 'result.html',
+    next: '/reset'
+  },
+  '/reset': {
+    controller: require('./controllers/reset'),
+    template: 'reset.html',
     backLink: false,
-    clearSession: false
+    clearSession: true
   }
 }
 ;

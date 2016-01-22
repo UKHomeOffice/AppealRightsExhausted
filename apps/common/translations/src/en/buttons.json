@@ -3,5 +3,7 @@
   "send": "Send",
   "change": "Change",
   "close": "Close",
+  "start-again": "Start again",
+  "reset": "Reset",
   "calculate": "Calculate"
 }

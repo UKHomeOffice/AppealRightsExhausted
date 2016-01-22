@@ -6,7 +6,7 @@ module.exports = {
 
    return [
       { 'value': 'FT_IC',
-        'label': 'First Tier IAC Appeal - In Country Appeals',
+        'label': '01. First Tier IAC Appeal - In Country Appeals',
         'timeLimit': {'value': 14, 'type': 'calendar'},
         'startDateLabel': 'Date Refusal letter sent by HO',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014',
@@ -18,7 +18,7 @@ module.exports = {
       },
 
       { 'value': 'FT_OOC_1',
-        'label': 'First Tier IAC Appeal - Out of Country Appeals where the appellant must leave the UK before appealing',
+        'label': '02. First Tier IAC Appeal - Out of Country Appeals where the appellant must leave the UK before appealing',
         'timeLimit': {'value': 28, 'type': 'calendar'},
         'startDateLabel': 'Appellants date of departure',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014',
@@ -30,7 +30,7 @@ module.exports = {
       },
 
       { 'value': 'FT_OOC_2',
-        'label': 'First Tier IAC Appeal - Other out of Country Appeals (e.g Voluntary Departure)',
+        'label': '03. First Tier IAC Appeal - Other out of Country Appeals (e.g Voluntary Departure)',
         'timeLimit': {'value': 28, 'type': 'calendar'},
         'startDateLabel': 'Date of receipt of the Refusal letter',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014',
@@ -42,7 +42,7 @@ module.exports = {
       },
 
       { 'value': 'FT_IC_FAST',
-        'label': 'First Tier IAC Appeal - In Country Detained Fast Track',
+        'label': '04. First Tier IAC Appeal - In Country Detained Fast Track',
         'timeLimit': {'value': 2, 'type': 'working'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014 Schedule The Fast Track Rules',
@@ -54,7 +54,7 @@ module.exports = {
       },
 
       { 'value': 'FT_UT_IC',
-        'label': 'First Tier IAC PTA to the UT - In Country',
+        'label': '05. First Tier IAC PTA to the UT - In Country',
         'timeLimit': {'value': 14, 'type': 'calendar'},
         'startDateLabel': 'Date written reasons for the decision sent',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014',
@@ -66,7 +66,7 @@ module.exports = {
       },
 
       { 'value': 'FT_UT_OOC',
-        'label': 'First Tier IAC PTA to the UT - Out of Country',
+        'label': '06. First Tier IAC PTA to the UT - Out of Country',
         'timeLimit': {'value': 28, 'type': 'calendar'},
         'startDateLabel': 'Date written reasons for the decision sent',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014',
@@ -78,7 +78,7 @@ module.exports = {
       },
 
       { 'value': 'FT_UT_FAST',
-        'label': 'First Tier IAC PTA to the UT - Detained Fast Track',
+        'label': '07. First Tier IAC PTA to the UT - Detained Fast Track',
         'timeLimit': {'value': 3, 'type': 'working'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014 Schedule The Fast Track Rules',
@@ -90,7 +90,7 @@ module.exports = {
       },
 
       { 'value': 'UT_IC',
-        'label': 'Upper Tribunal IAC PTA - In Country',
+        'label': '08. Upper Tribunal IAC PTA - In Country',
         'timeLimit': {'value': 14, 'type': 'calendar'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'The Tribunal Procedure (Upper Tribunal) Rules 2008',
@@ -102,7 +102,7 @@ module.exports = {
       },
 
       { 'value': 'UT_OOC',
-        'label': 'Upper Tribunal IAC PTA - Out of Country',
+        'label': '09. Upper Tribunal IAC PTA - Out of Country',
         'timeLimit': {'value': 1, 'type': 'calendarmonth'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'The Tribunal Procedure (Upper Tribunal) Rules 2008',
