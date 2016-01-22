@@ -40,6 +40,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     selectedAppealStage = staticAppealStages.getstaticAppealStages().filter(function (obj) {
         return obj.value == json['appeal-stage'];
     });
+    
     json['start-date-label']      = selectedAppealStage[0].startDateLabel;
     json['appeal-stage-label']    = selectedAppealStage[0].label;
     json['time-limit-value']      = selectedAppealStage[0].timeLimit.value;
