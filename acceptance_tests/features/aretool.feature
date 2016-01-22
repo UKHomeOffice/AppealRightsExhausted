@@ -3,13 +3,9 @@ Feature: I am able to navigate through the ARE calculation form with the validat
   Scenario: I am able to navigate through the ARE calculation form with the validation working as expected
     Given I am on the start page for the form
     Then I can see the questions for the first page of the form
-    When I just click continue without selecting a country
+    When I just click calculate without selecting a country
     Then I am presented with validation errors for the first page
     When I complete the first page of the form correctly
-    Then I am taken to the page to specify the start date
-    When I just click calculate without selecting a start date
-    Then I am presented with validation errors for the second page
-    When I provide a start date and click calculate
     Then I am taken to the result page
 
 

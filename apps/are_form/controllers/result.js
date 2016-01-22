@@ -29,9 +29,7 @@ ConfirmController.prototype.saveValues = function saveValues(req, res, callback)
 
 };
 
-
 ConfirmController.prototype.getValues = function getValues(req, res, callback) {
-
 
     var json = req.sessionModel.toJSON();
     var calculatedDate = new Date(json['start-date-formatted']);
@@ -42,7 +40,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     selectedAppealStage = staticAppealStages.getstaticAppealStages().filter(function (obj) {
         return obj.value == json['appeal-stage'];
     });
-    json['start-date-label']      = selectedAppealStage[0]['start-date-label'];
+    json['start-date-label']      = selectedAppealStage[0].startDateLabel;
     json['appeal-stage-label']    = selectedAppealStage[0].label;
     json['time-limit-value']      = selectedAppealStage[0].timeLimit.value;
     json['time-limit-type']       = selectedAppealStage[0].timeLimit.type;
@@ -60,7 +58,6 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     if (calculatedDate.isWeekend() || calculatedDate.isExclusionDay(selectedExclusionDates) ) {
       calculatedDate = calculatedDate.addDaysIgnoringWeekendsAndExclusionDays(1, selectedExclusionDates);
       json['revised-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
-
   	} else {
       json['revised-start-date'] = 'n/a'
     }

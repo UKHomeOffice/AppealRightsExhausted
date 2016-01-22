@@ -3,8 +3,12 @@
 /*eslint no-process-env: 0*/
 /*eslint no-inline-comments: 0*/
 /*eslint camelcase: 0*/
+
+process.title = 'are';
+
 module.exports = {
   env: process.env.NODE_ENV,
+  siteroot: process.env.SITEROOT || '',
   port: process.env.PORT || 8080,
   listen_host: process.env.LISTEN_HOST || '0.0.0.0',
   session: {

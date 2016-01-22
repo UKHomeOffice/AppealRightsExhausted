@@ -1,12 +1,12 @@
 {
-  "name": "HOF-Example",
+  "name": "are_calculator",
   "version": "0.0.1",
   "main": "app.js",
-  "description": "An example of how to use the HOF package for creating forms",
+  "description": "This calculates the date when an appellants appeal rights are exhausted",
   "license": "GPLv2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/UKHomeOffice/hof-example-form/"
+    "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "scripts": {
     "start": "node .",

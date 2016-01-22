@@ -35,13 +35,12 @@ module.exports = {
       if (country === 'All') {
           return exclusionDays
       } else {
-
-      return exclusionDays.filter( function (xd, idx, arr) {
-            return ( arr[idx].hasOwnProperty(country) &&
+          return exclusionDays.filter( function (xd, idx, arr) {
+              return ( arr[idx].hasOwnProperty(country) &&
                      xd[country] == true &&
                      xd.exclusionDate >= startDate &&
                      xd.exclusionDate <= endDate);
-            });
+          });
       };
   }
 }
