@@ -24,17 +24,11 @@ if (config.env === 'development' || config.env === 'so-ci' ) {
 app.use(function injectLocals(req, res, next) {
   req.baseUrl = config.siteroot + req.baseUrl;
   res.locals.assetPath = config.siteroot + '/public';
-  res.locals.gaTagId = config.ga.tagId;
+//  res.locals.gaTagId = config.ga.tagId;
   next();
 });
 
-var hofTemplate = require('hof').template;
-hofTemplate.setup(app, {
-  path: config.siteroot + '/govuk-assets'
-});
-
-app.use('/govuk-assets', servestatic(hofTemplate.assetPath));
-
+require('hof').template.setup(app);
 app.set('view engine', 'html');
 app.set('views', path.resolve(__dirname, './apps/common/views'));
 app.enable('view cache');
