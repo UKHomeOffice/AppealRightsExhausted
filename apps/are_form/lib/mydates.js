@@ -10,20 +10,21 @@ var moment = require('moment');
 																	   exclusionDays) {
 
 		var myDate = new Date(this.valueOf());
+		timeLimitType = timeLimitType.replace(/ /g,'');
 
-		if (timeLimitType == 'calendar') {
+		if (timeLimitType == 'calendardays') {
 				myDate = myDate.addDays(timeLimitValue)
 		} else if (timeLimitType == 'calendarmonth') {
 				myDate.setMonth(myDate.getMonth() + timeLimitValue);
-		} else if (timeLimitType == 'working') {
+		} else if (timeLimitType == 'workingdays') {
 				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(timeLimitValue,exclusionDays);
 		}
 
-		if (adminAllowanceType == 'calendar') {
+		if (adminAllowanceType == 'calendardays') {
 				myDate = myDate.addDays(adminAllowanceValue)
 		} else if (adminAllowanceType == 'calendarmonth') {
 				myDate.setMonth(myDate.getMonth() + adminAllowanceValue);
-		} else if (adminAllowanceType == 'working') {
+		} else if (adminAllowanceType == 'workingdays') {
 				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(adminAllowanceValue,exclusionDays);
 		}
 
