@@ -17,7 +17,7 @@ util.inherits(ResetController, BaseController);
 ResetController.prototype.getValues = function getValues(req, res, callback) {
 
   req.sessionModel.reset();
-  res.redirect("./first-page");
+  res.redirect("./");
   callback();
 
 };

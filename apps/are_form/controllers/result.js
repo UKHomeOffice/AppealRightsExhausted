@@ -40,7 +40,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     selectedAppealStage = staticAppealStages.getstaticAppealStages().filter(function (obj) {
         return obj.value == json['appeal-stage'];
     });
-    
+
     json['start-date-label']      = selectedAppealStage[0].startDateLabel;
     json['appeal-stage-label']    = selectedAppealStage[0].label;
     json['time-limit-value']      = selectedAppealStage[0].timeLimit.value;
@@ -71,7 +71,8 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
                                    selectedExclusionDates);
 
     json['are-date'] = moment(result).format('dddd, DD MMMM YYYY');
-
+    json['exclusion-date-range'] = moment(staticExclusionDates.getFirstExclusionDate()).format('dddd, DD-MMM-YYYY') +
+                  " to " + moment(staticExclusionDates.getLastExclusionDate()).format('dddd, DD-MMM-YYYY')
    callback(null, json);
 
 };

@@ -14,7 +14,7 @@ var moment = require('moment');
 
 		if (timeLimitType == 'calendardays') {
 				myDate = myDate.addDays(timeLimitValue)
-		} else if (timeLimitType == 'calendarmonth') {
+		} else if (timeLimitType == 'calendarmonths') {
 				myDate.setMonth(myDate.getMonth() + timeLimitValue);
 		} else if (timeLimitType == 'workingdays') {
 				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(timeLimitValue,exclusionDays);
@@ -22,7 +22,7 @@ var moment = require('moment');
 
 		if (adminAllowanceType == 'calendardays') {
 				myDate = myDate.addDays(adminAllowanceValue)
-		} else if (adminAllowanceType == 'calendarmonth') {
+		} else if (adminAllowanceType == 'calendarmonths') {
 				myDate.setMonth(myDate.getMonth() + adminAllowanceValue);
 		} else if (adminAllowanceType == 'workingdays') {
 				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(adminAllowanceValue,exclusionDays);

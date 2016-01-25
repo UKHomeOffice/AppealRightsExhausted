@@ -18,7 +18,7 @@
   },
 
   "country-of-hearing": {
-    "legend": "Where is the appeal lodged? (This will affect which exclusions days are applied)",
+    "legend": "Where is the appeal lodged? (This affects which exclusions days are applied)",
     "options": {
       "England & Wales": {
         "label": "label for England & Wales"

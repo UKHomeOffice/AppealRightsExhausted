@@ -65,7 +65,12 @@
         </td>
         <td></td>
     </tr>
-    <tr><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<P><P>{{#input-submit}}start-again{{/input-submit}}
+<h3>The calculation used the following information:<h3>
+<table id="supporting-info" class="table-details">
+    <tbody>
     <tr>
         <td>{{#t}}Based on{{/t}}</td>
         <td>
@@ -107,10 +112,17 @@
         </td>
         <td></td>
     </tr>
+    <tr>
+        <td>{{#t}}pages.result.table.headers.exclusion-date-range{{/t}}</td>
+        <td>
+            {{values.exclusion-date-range}}
+        </td>
+        <td></td>
+    </tr>
     </tbody>
 </table>
 <p><p>
-{{#input-submit}}start-again{{/input-submit}}
+
 {{/form}}
 
 

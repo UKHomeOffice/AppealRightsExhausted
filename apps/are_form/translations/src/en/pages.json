@@ -19,7 +19,8 @@
         "ruleNumber": "Rule Reference",
         "time-limit": "Time Limit",
         "admin-allowance": "Admin Allowance",
-        "trigger": "Trigger"
+        "trigger": "Trigger",
+        "exclusion-date-range": "Current range of Exclusion Dates"
       }
     }
   }
