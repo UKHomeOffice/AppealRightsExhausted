@@ -6,21 +6,21 @@
   },
 
   "result": {
-    "header": "ARE Calculated Date",
-    "description": "This is the calculated ARE date based on the information you provided",
+    "header": "ARE calculated date",
+    "description": "The calculation is based on the following information:",
     "table": {
       "headers": {
         "start-date": "Start Date for calculation",
-        "display-start-date": "Start Date",
-        "revised-start-date": "Revised Start Date",
-        "country-of-hearing": "Country of Hearing",
-        "appeal-stage": "Appeal Stage",
+        "display-start-date": "Start date",
+        "revised-start-date": "Revised start date",
+        "country-of-hearing": "Country of hearing",
+        "appeal-stage": "Appeal stage",
         "rules": "Rules",
-        "ruleNumber": "Rule Reference",
-        "time-limit": "Time Limit",
-        "admin-allowance": "Admin Allowance",
+        "ruleNumber": "Rule reference",
+        "time-limit": "Time limit",
+        "admin-allowance": "Admin allowance",
         "trigger": "Trigger",
-        "exclusion-date-range": "Current range of Exclusion Dates"
+        "exclusion-date-range": "Current range of exclusion dates"
       }
     }
   }

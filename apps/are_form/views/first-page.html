@@ -16,17 +16,12 @@
 {{$header}}{{#t}}pages.first-page.header{{/t}}{{/header}}
 
 {{$content}}
-<p>{{#t}}pages.first-page.description{{/t}}</p>
-<ul type="square">
-    {{#t}}pages.first-page.factors{{/t}}</LI>
-</ul>
-
 {{<partials-form}}
 
 {{$form}}
-<h1>Country of Hearing</h1>
+<h1>Where was the appeal lodged?</h1>
 {{#radio-group}}country-of-hearing{{/radio-group}}
-<h1>Appeal Stage</h1>
+<h1>What is the appeal stage?</h1>
 <div class="are-dropdown">
 {{#select}}appeal-stage{{/select}}
 </div>
@@ -42,8 +37,7 @@
             </span>
     {{/errors.start-date}}
     <P>
-    <h1>Start Date</h1>
-
+    <h1>Start date</h1>
     <div class="form-group form-date">
         <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
         {{#input-date}}start-date{{/input-date}}

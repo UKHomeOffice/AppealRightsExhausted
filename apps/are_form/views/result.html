@@ -19,7 +19,7 @@
 
 {{$form}}
 <div class="highlighted-result">
-  ARE Calculated Date
+  {{#t}}pages.result.header{{/t}}
   <h1><B>{{values.are-date}}</B></h1>
 </div>
 
@@ -68,7 +68,7 @@
   </tbody>
 </table>
 <P><P>{{#input-submit}}start-again{{/input-submit}}
-<h3>The calculation used the following information:<h3>
+<h3>  {{#t}}pages.result.description{{/t}}<h3>
 <table id="supporting-info" class="table-details">
     <tbody>
     <tr>

@@ -14,11 +14,11 @@
     "label": "Year"
   },
   "appeal-stage": {
-    "label": "At which stage is the appellant in the appeal process?"
+    "label": "Choose an appeal stage from the drop down menu"
   },
 
   "country-of-hearing": {
-    "legend": "Where is the appeal lodged? (This affects which exclusions days are applied)",
+    "legend": " ",
     "options": {
       "England & Wales": {
         "label": "label for England & Wales"
