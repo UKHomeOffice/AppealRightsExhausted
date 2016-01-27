@@ -1,6 +1,7 @@
 'use strict';
 
 var moment = require('moment');
+var staticExclusionDates = require('../lib/staticExclusionDates');
 
 	Date.prototype.AREDate = function (country,
 																		 timeLimitValue,
@@ -10,14 +11,28 @@ var moment = require('moment');
 																	   exclusionDays) {
 
 		var myDate = new Date(this.valueOf());
+		var selectedExclusionDates = {}
+
+    selectedExclusionDates = staticExclusionDates.getExclusionDays(country,
+                                   moment(myDate).format('YYYY-MM-DD'));
+
+		if (myDate.isWeekend() || myDate.isExclusionDay(selectedExclusionDates) ) {
+			myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(1,selectedExclusionDates)
+		}
+
 		timeLimitType = timeLimitType.replace(/ /g,'');
+		adminAllowanceType = adminAllowanceType.replace(/ /g,'');
 
 		if (timeLimitType == 'calendardays') {
 				myDate = myDate.addDays(timeLimitValue)
 		} else if (timeLimitType == 'calendarmonths') {
 				myDate.setMonth(myDate.getMonth() + timeLimitValue);
 		} else if (timeLimitType == 'workingdays') {
-				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(timeLimitValue,exclusionDays);
+				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(timeLimitValue,selectedExclusionDates);
+		}
+
+		if (myDate.isWeekend() || myDate.isExclusionDay(selectedExclusionDates) ) {
+			myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(1,selectedExclusionDates)
 		}
 
 		if (adminAllowanceType == 'calendardays') {
@@ -25,11 +40,11 @@ var moment = require('moment');
 		} else if (adminAllowanceType == 'calendarmonths') {
 				myDate.setMonth(myDate.getMonth() + adminAllowanceValue);
 		} else if (adminAllowanceType == 'workingdays') {
-				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(adminAllowanceValue,exclusionDays);
+				myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(adminAllowanceValue,selectedExclusionDates);
 		}
 
-		if (myDate.isWeekend() || myDate.isExclusionDay(exclusionDays) ) {
-			myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(1,exclusionDays)
+		if (myDate.isWeekend() || myDate.isExclusionDay(selectedExclusionDates) ) {
+			myDate = myDate.addDaysIgnoringWeekendsAndExclusionDays(1,selectedExclusionDates)
 		}
 		return myDate;
 	};

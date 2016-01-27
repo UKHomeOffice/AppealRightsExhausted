@@ -151,11 +151,11 @@ module.exports = {
 
       { 'value': 'COA_IAC',
         'label': '13. Court of Appeal via IAC',
-        'timeLimit': {'value': 21, 'type': 'calendar days'},
+        'timeLimit': {'value': 21+2, 'type': 'calendar days'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'Civil Procedure Rules',
         'ruleNumber': '52.4',
-        'adminAllowance': {'value': 2, 'type': 'calendar days'},
+        'adminAllowance': {'value': 1, 'type': 'working days'},
         'country': 'England & Wales only',
         'trigger': 'IA157 PTA to the CoA refused',
         'sortCode': 130
@@ -163,11 +163,11 @@ module.exports = {
 
       { 'value': 'COS_IAC',
         'label': '14. Court of Sessions via IAC',
-        'timeLimit': {'value': 42, 'type': 'calendar days'},
+        'timeLimit': {'value': 42+1, 'type': 'calendar days'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'Civil Procedure Rules',
         'ruleNumber': 'Rule 41.20',
-        'adminAllowance': {'value': 1, 'type': 'calendar days'},
+        'adminAllowance': {'value': 1, 'type': 'working days'},
         'country': 'Scotland & Northern Ireland only',
         'trigger': 'IA157 PTA to the CoA refused',
         'sortCode': 140
@@ -175,11 +175,11 @@ module.exports = {
 
       { 'value': 'COA_DIRECT',
         'label': '15. Court of Appeal Direct',
-        'timeLimit': {'value': 7, 'type': 'calendar days'},
+        'timeLimit': {'value': 7+2, 'type': 'calendar days'},
         'startDateLabel': 'Start Date (tbc)',
         'rules': 'Civil Procedure Rules',
         'ruleNumber': '52.3',
-        'adminAllowance': {'value': 2, 'type': 'calendar days'},
+        'adminAllowance': {'value': 1, 'type': 'working days'},
         'country': 'Scotland & Northern Ireland only',
         'trigger': 'IA157 PTA to the CoA refused',
         'sortCode': 150

@@ -20,6 +20,7 @@
         "time-limit": "Time limit",
         "admin-allowance": "Admin allowance",
         "trigger": "Trigger",
+        "total-number-of-exclusion-dates": "Total number of exclusion dates",
         "exclusion-date-range": "Current range of exclusion dates"
       }
     }

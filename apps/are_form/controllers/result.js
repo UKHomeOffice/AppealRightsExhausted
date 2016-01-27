@@ -71,6 +71,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
                                    selectedExclusionDates);
 
     json['are-date'] = moment(result).format('dddd, DD MMMM YYYY');
+    json['total-number-of-exclusion-dates'] = staticExclusionDates.getTotalNumberOfExclusionDates();
     json['exclusion-date-range'] = moment(staticExclusionDates.getFirstExclusionDate()).format('dddd, DD-MMM-YYYY') +
                   " to " + moment(staticExclusionDates.getLastExclusionDate()).format('dddd, DD-MMM-YYYY')
    callback(null, json);
