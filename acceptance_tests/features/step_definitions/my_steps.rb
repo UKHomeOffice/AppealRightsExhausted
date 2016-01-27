@@ -1,4 +1,4 @@
-$testAppealStage = "First Tier IAC PTA to the UT - In Country"
+$testAppealStage = "05. First Tier IAC PTA to the UT - In Country"
 $testCountry =  "England & Wales"
 
 Given(/^I am on the start page for the form$/) do
@@ -7,9 +7,9 @@ end
 
 Then(/^I can see the questions for the first page of the form$/) do
   expect(page).to have_content 'Step 1 of '
-  expect(page).to have_content 'Country of Hearing'
-  expect(page).to have_content 'Appeal Stage'
-  expect(page).to have_content 'Start Date'
+  expect(page).to have_content /where was the appeal lodged/i
+  expect(page).to have_content /what is the appeal stage/i
+  expect(page).to have_content /start date/i
 
 end
 
@@ -32,7 +32,7 @@ When(/^I complete the first page of the form correctly$/) do
 end
 
 Then(/^I am taken to the result page$/) do
-  expect(page).to have_content 'ARE Calculated Date'
+  expect(page).to have_content /are calculated date/i
   expect(page).to have_content $testAppealStage
   expect(page).to have_content $testCountry
   expect(page).to have_content 'Saturday, 10 October 2015'
