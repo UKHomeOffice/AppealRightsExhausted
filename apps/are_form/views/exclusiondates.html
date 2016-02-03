@@ -1,0 +1,28 @@
+{{<layout}}
+
+{{$header}}
+  Number of exclusion dates: {{values.reference-exclusiondate-list-count}}
+{{/header}}
+
+{{$content}}
+  <table>
+    <thead><tr>
+      <td>Date</td>
+      <td>Description</td>
+      <td>England & Wales</td>
+      <td>Scotland</td>
+      <td>Northern Ireland</td>
+    </tr></th>
+    {{#values.reference-exclusiondate-list}}
+    <tr>
+   <td>{{exclusionDate}}</td>
+   <td>{{description}}</td>
+   <td>{{England & Wales}}</td>
+   <td>{{Scotland}}</td>
+   <td>{{Northern Ireland}}</td>
+   </tr>
+   {{/values.reference-exclusiondate-list}}
+ </table>
+{{/content}}
+
+{{/layout}}

@@ -5,10 +5,10 @@ var _ = require('underscore');
 var controllers = require('hof').controllers;
 var BaseController = controllers.base;
 var moment = require('moment');
-var ARECalculator = require('../lib/mydates');
-var staticExclusionDates = require('../lib/staticExclusionDates');
-var staticAppealStages   = require('../lib/staticAppealStages');
-
+//var ARECalculator = require('../lib/mydates');
+//var staticExclusionDates = require('../lib/staticExclusionDates');
+//var staticAppealStages   = require('../lib/staticAppealStages');
+var are = require('../lib/classARE');
 
 var ConfirmController = function ConfirmController() {
   // this.confirmStep = '/result';
@@ -32,49 +32,26 @@ ConfirmController.prototype.saveValues = function saveValues(req, res, callback)
 ConfirmController.prototype.getValues = function getValues(req, res, callback) {
 
     var json = req.sessionModel.toJSON();
-    var calculatedDate = new Date(json['start-date-formatted']);
+    var result = new are.Calculator(moment(json['start-date'], 'DD-MM-YYYY'),
+                                    json['country-of-hearing'],
+                                    json['appeal-stage']);
 
-    json['display-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
+    json['are-date'] = result.areDate;
+    json['start-date'] = result.startDate;
+    json['base-date']             = result.baseDate;
+    json['start-date-label']      = result.appealInfo.startDateLabel;
+    json['appeal-stage-label']    = result.appealInfo.label;
+    json['time-limit-value']      = result.appealInfo.timeLimit.value;
+    json['time-limit-type']       = result.appealInfo.timeLimit.type;
+    json['rules']                 = result.appealInfo.rules;
+    json['ruleNumber']            = result.appealInfo.ruleNumber;
+    json['admin-allowance-value'] = result.appealInfo.adminAllowance.value;
+    json['admin-allowance-type']  = result.appealInfo.adminAllowance.type;
+    json['trigger']               = result.appealInfo.trigger;
+    json['number-of-exclusion-dates-applied'] = result.excludedDates.length;
+    json['exclusion-date-range'] = result.excludedDateRange;
 
-    var selectedAppealStage = {};
-    selectedAppealStage = staticAppealStages.getstaticAppealStages().filter(function (obj) {
-        return obj.value == json['appeal-stage'];
-    });
-
-    json['start-date-label']      = selectedAppealStage[0].startDateLabel;
-    json['appeal-stage-label']    = selectedAppealStage[0].label;
-    json['time-limit-value']      = selectedAppealStage[0].timeLimit.value;
-    json['time-limit-type']       = selectedAppealStage[0].timeLimit.type;
-    json['rules']                 = selectedAppealStage[0].rules;
-    json['ruleNumber']            = selectedAppealStage[0].ruleNumber;
-    json['admin-allowance-value'] = selectedAppealStage[0].adminAllowance.value;
-    json['admin-allowance-type']  = selectedAppealStage[0].adminAllowance.type;
-    json['trigger']               = selectedAppealStage[0].trigger;
-
-    var selectedExclusionDates = {}
-
-    selectedExclusionDates = staticExclusionDates.getExclusionDays(json['country-of-hearing'],
-                                   moment(json['start-date'], 'DD-MM-YYYY').format('YYYY-MM-DD'));
-
-    if (calculatedDate.isWeekend() || calculatedDate.isExclusionDay(selectedExclusionDates) ) {
-      calculatedDate = calculatedDate.addDaysIgnoringWeekendsAndExclusionDays(1, selectedExclusionDates);
-      json['revised-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
-  	} else {
-      json['revised-start-date'] = 'n/a'
-    }
-
-    var result = calculatedDate.AREDate(json['country-of-hearing'],
-                                   json['time-limit-value'],
-                                   json['time-limit-type'],
-                                   json['admin-allowance-value'],
-                                   json['admin-allowance-type'],
-                                   selectedExclusionDates);
-
-    json['are-date'] = moment(result).format('dddd, DD MMMM YYYY');
-    json['total-number-of-exclusion-dates'] = staticExclusionDates.getTotalNumberOfExclusionDates();
-    json['exclusion-date-range'] = moment(staticExclusionDates.getFirstExclusionDate()).format('dddd, DD-MMM-YYYY') +
-                  " to " + moment(staticExclusionDates.getLastExclusionDate()).format('dddd, DD-MMM-YYYY')
-   callback(null, json);
+    callback(null, json);
 
 };
 

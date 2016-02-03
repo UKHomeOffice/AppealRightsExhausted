@@ -10,9 +10,9 @@
     "description": "The calculation is based on the following information:",
     "table": {
       "headers": {
-        "start-date": "Start Date for calculation",
-        "display-start-date": "Start date",
-        "revised-start-date": "Revised start date",
+        "base-date": "Base date",
+        "display-start-date": "Supplied date",
+        "start-date": "Start date",
         "country-of-hearing": "Country of hearing",
         "appeal-stage": "Appeal stage",
         "rules": "Rules",
@@ -20,7 +20,7 @@
         "time-limit": "Time limit",
         "admin-allowance": "Admin allowance",
         "trigger": "Trigger",
-        "total-number-of-exclusion-dates": "Total number of exclusion dates",
+        "number-of-exclusion-dates-applied": "Number of exclusion dates applied",
         "exclusion-date-range": "Current range of exclusion dates"
       }
     }

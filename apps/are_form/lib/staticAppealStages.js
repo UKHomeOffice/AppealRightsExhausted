@@ -10,10 +10,10 @@ module.exports = {
         'timeLimit': {'value': 14, 'type': 'calendar days'},
         'startDateLabel': 'Date Refusal letter sent by HO',
         'rules': 'The Tribunal Procedure (First-tier tribunal) (Immigration and Asylum Chamber) Rules 2014',
-       'ruleNumber': '19(2)',
+        'ruleNumber': '19(2)',
         'adminAllowance': {'value': 1, 'type': 'working days'},
         'country': 'All',
-       'trigger': 'Refusal Notice',
+        'trigger': 'Refusal Notice',
         'sortCode': 10
       },
 

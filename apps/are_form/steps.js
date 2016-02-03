@@ -5,6 +5,21 @@ module.exports = {
     controller: require('../common/controllers/start'),
     next: '/first-page'
   },
+  '/policy': {
+    controller: require('./controllers/referencelist'),
+    template: 'policy',
+    backLink: 'first-page'
+  },
+  '/appealstages': {
+    controller: require('./controllers/referencelist'),
+    template: 'appealstages',
+    backLink: 'first-page'
+  },
+  '/exclusiondates': {
+    controller: require('./controllers/referencelist'),
+    template: 'exclusiondates',
+    backLink: 'first-page'
+  },
   '/first-page': {
     controller: require('./controllers/first-page'),
     template: 'first-page',

@@ -21,14 +21,14 @@
     "legend": " ",
     "options": {
       "England & Wales": {
-        "label": "label for England & Wales"
+        "label": "England & Wales"
       },
       "Scotland": {
         "selected": true,
-        "label": "label for Scotland"
+        "label": "Scotland"
       },
       "Northern Ireland": {
-        "label": "label for Northern Ireland"
+        "label": "Northern Ireland"
       }
     }
   }

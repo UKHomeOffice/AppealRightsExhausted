@@ -1,0 +1,24 @@
+{{<layout}}
+
+{{$header}}
+  Number of appeal stages: {{values.reference-appeal-list-count}}
+{{/header}}
+
+{{$content}}
+  <h1>{{values.reference-appeal-list.label}}</h1>
+  <table>
+    {{#values.reference-appeal-list}}
+    <tr>
+   <td>{{label}}</td>
+   <td>{{trigger}}</td>
+   <td>{{rules}}</td>
+   <td>{{ruleNumber}}</td>
+   <td>{{timeLimit.value}} {{timeLimit.type}}</td>
+
+   </tr>
+   {{/values.reference-appeal-list}}
+ </table>
+
+{{/content}}
+
+{{/layout}}

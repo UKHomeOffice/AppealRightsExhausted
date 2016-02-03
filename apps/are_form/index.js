@@ -19,11 +19,22 @@ router.use(mixins(fields, {
   translate: i18n.translate.bind(i18n)
 }));
 
+//router.get('exclusiondates', function renderExclusionDates(req, res) {
+//  res.render('exclusiondates');
+//});
+
+//router.get('views/appealstages', function renderAppealStages(req, res) {
+//  res.render('appealstages');
+//});
+
 router.use('/are-form/', wizard(require('./steps'), fields, {
   controller: BaseController,
   templatePath: path.resolve(__dirname, 'views'),
   translate: i18n.translate.bind(i18n),
   params: '/:action?'
 }));
+
+
+
 
 module.exports = router;

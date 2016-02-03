@@ -4,7 +4,7 @@ var util = require('util');
 var controllers = require('hof').controllers;
 var _ = require('underscore');
 
-var staticAppealStages   = require('../lib/staticAppealStages');
+//var staticAppealStages   = require('../lib/staticAppealStages');
 var DateController = controllers.date;
 
 var FirstPageController = function FirstPageController() {
