@@ -35,6 +35,6 @@ Then(/^I am taken to the result page$/) do
   expect(page).to have_content /are calculated date/i
   expect(page).to have_content $testAppealStage
   expect(page).to have_content $testCountry
-  expect(page).to have_content 'Saturday, 10 October 2015'
+  expect(page).to have_content 'Saturday 10 October 2015'
 #  expect(page).to have_no_content 'This is a hidden field, toggled by the above radio buttons'
 end

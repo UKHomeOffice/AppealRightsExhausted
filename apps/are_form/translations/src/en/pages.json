@@ -21,7 +21,8 @@
         "admin-allowance": "Admin allowance",
         "trigger": "Trigger",
         "number-of-exclusion-dates-applied": "Number of exclusion dates applied",
-        "exclusion-date-range": "Current range of exclusion dates"
+        "exclusion-date-range": "Current range of exclusion dates",
+        "excluded-dates": "Excluded dates"
       }
     }
   }

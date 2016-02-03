@@ -49,8 +49,10 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     json['admin-allowance-type']  = result.appealInfo.adminAllowance.type;
     json['trigger']               = result.appealInfo.trigger;
     json['number-of-exclusion-dates-applied'] = result.excludedDates.length;
-    json['exclusion-date-range'] = result.excludedDateRange;
+    json['exclusion-date-range']  = result.excludedDateRange;
+    json['excludedDates']        = [].concat(result.excludedDates);
 
+console.log('**',json['excludedDates'])
     callback(null, json);
 
 };

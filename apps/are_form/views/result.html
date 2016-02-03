@@ -61,7 +61,7 @@
     <tr>
         <td>{{#t}}pages.result.table.headers.start-date{{/t}}</td>
         <td>
-            {{values.start-date}}
+            <strong>{{values.start-date}}</strong>
         </td>
         <td></td>
     </tr>
@@ -120,12 +120,23 @@
         <td></td>
     </tr>
     <tr>
+        <td>{{#t}}pages.result.table.headers.excluded-dates{{/t}}</td>
+        <td>
+          {{#values.excludedDates}}
+          <p>{{.}}</p>
+          {{/values.excludedDates}}
+        </td>
+        <td></td>
+   </tr>
+    <tr>
         <td>{{#t}}pages.result.table.headers.exclusion-date-range{{/t}}</td>
         <td>
             {{values.exclusion-date-range}}
         </td>
         <td></td>
     </tr>
+
+
     </tbody>
 </table>
 <p><p>

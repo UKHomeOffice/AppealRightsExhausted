@@ -6,7 +6,7 @@
 
 {{$content}}
   <table>
-    <thead><tr>
+    <th><tr>
       <td>Date</td>
       <td>Description</td>
       <td>England & Wales</td>
@@ -17,9 +17,9 @@
     <tr>
    <td>{{exclusionDate}}</td>
    <td>{{description}}</td>
-   <td>{{England & Wales}}</td>
-   <td>{{Scotland}}</td>
-   <td>{{Northern Ireland}}</td>
+   <td>{{#England & Wales}}&#9745{{/England & Wales}}</td>
+   <td>{{#Scotland}}&#9745{{/Scotland}}</td>
+   <td>{{#Northern Ireland}}&#9745{{/Northern Ireland}}</td>
    </tr>
    {{/values.reference-exclusiondate-list}}
  </table>
