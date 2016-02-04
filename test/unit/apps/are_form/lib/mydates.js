@@ -4,7 +4,7 @@ var moment = require('moment');
 process.env.NODE_ENV = 'test';
 var assert = require('assert');
 //var mystages = require('../../../../../apps/are_form/lib/staticAppealStages.js');
-var are = require('../../../../../apps/are_form/lib/classARE.js');
+var are  = require('../../../../../apps/are_form/lib/classARE.js');
 var moment = require('moment');
 
 describe('ARE Calculations Test Cases', function() {

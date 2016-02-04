@@ -1,5 +1,5 @@
 'use strict';
-var staticAppealStages   = require("../lib/staticAppealStages");
+var staticAppealStages   = require('../lib/staticAppealStages');
 
 module.exports = {
   'country-of-hearing': {

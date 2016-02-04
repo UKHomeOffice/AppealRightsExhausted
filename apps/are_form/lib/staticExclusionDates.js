@@ -42,11 +42,11 @@ module.exports = {
    },
 
  getFirstExclusionDate: function () {
-      return mysort(exclusionDays,"exclusionDate")[0].exclusionDate || '-';
+      return mysort(exclusionDays,'exclusionDate')[0].exclusionDate || '-';
   },
 
   getLastExclusionDate: function () {
-      return mysort(exclusionDays,"exclusionDate")[exclusionDays.length - 1].exclusionDate || '-';
+      return mysort(exclusionDays,'exclusionDate')[exclusionDays.length - 1].exclusionDate || '-';
   },
 
   getExclusionDays: function (country, startDate, endDate) {
