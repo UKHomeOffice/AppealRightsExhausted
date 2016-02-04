@@ -6,7 +6,6 @@ Given(/^I am on the start page for the form$/) do
 end
 
 Then(/^I can see the questions for the first page of the form$/) do
-  expect(page).to have_content 'Step 1 of '
   expect(page).to have_content /where was the appeal lodged/i
   expect(page).to have_content /what is the appeal stage/i
   expect(page).to have_content /start date/i
