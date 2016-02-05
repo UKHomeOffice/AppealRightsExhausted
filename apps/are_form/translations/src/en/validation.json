@@ -1,6 +1,7 @@
 {
   "country-of-hearing": {
-    "required": "Where is the appeal hearing to be held"
+    "required": "Where is the appeal hearing to be held",
+    "countryAppealStageError": "Country not valid for selected appeal stage"
   },
   "appeal-stage": {
     "required": "Select an appeal stage",
@@ -25,6 +26,7 @@
   "start-date-year": {
     "required": "Enter the year for the start date",
     "numeric": "Year must only contain numbers",
+    "minlength": "Year must contain at least two digits",
     "date-year": "Invalid year"
   }
 }

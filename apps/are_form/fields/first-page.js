@@ -30,10 +30,11 @@ module.exports = {
   'start-date-day': {
     validate: ['required', 'numeric']
   },
+
   'start-date-month': {
     validate: ['required', 'numeric']
   },
   'start-date-year': {
-    validate: ['required', 'numeric']
+    validate: ['required', 'numeric', { type: 'minlength', arguments: [2] } ]
   }
 };
