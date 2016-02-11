@@ -17,7 +17,7 @@ When(/^I just click calculate without selecting a country$/) do
 end
 
 Then(/^I am presented with validation errors for the first page$/) do
-  expect(page).to have_content 'Where is the appeal hearing to be held'
+  expect(page).to have_content /select where the appeal hearing is to be held/i
   expect(page).to have_content 'Please fix the following error'
 end
 
@@ -31,7 +31,7 @@ When(/^I complete the first page of the form correctly$/) do
 end
 
 Then(/^I am taken to the result page$/) do
-  expect(page).to have_content /are calculated date/i
+  expect(page).to have_content /calculate are date/i
   expect(page).to have_content $testAppealStage
   expect(page).to have_content $testCountry
   expect(page).to have_content 'Saturday 10 October 2015'
