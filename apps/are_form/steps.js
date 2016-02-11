@@ -36,6 +36,7 @@ module.exports = {
   '/confirm': {
     controller: require('./controllers/result'),
     template: 'result.html',
+    backLink: false,
     next: '/reset'
   },
   '/reset': {

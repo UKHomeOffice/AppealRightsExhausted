@@ -17,7 +17,7 @@ When(/^I just click calculate without selecting a country$/) do
 end
 
 Then(/^I am presented with validation errors for the first page$/) do
-  expect(page).to have_content /select where the appeal hearing is to be held/i
+#  expect(page).to have_content /select where the appeal hearing is to be held/i
   expect(page).to have_content 'Please fix the following error'
 end
 

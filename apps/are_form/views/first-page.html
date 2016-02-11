@@ -1,6 +1,4 @@
 {{<layout}}
-{{$step}}Step 1 of 2{{/step}}
-
 {{$journeyHeader}}
 {{#t}}journey.header{{/t}}
 {{/journeyHeader}}
@@ -23,13 +21,16 @@
 {{#radio-group}}country-of-hearing{{/radio-group}}
 <h1>What is the appeal stage?</h1>
 <div class="are-dropdown">
+  {{#errors.appeal-stage}}
+          <span id="appeal-stage-error" class="error-message">
+            {{errors.appeal-stage.message}}
+          </span>
+  {{/errors.appeal-stage}}
 {{#select}}appeal-stage{{/select}}
 </div>
 
-<fieldset id="start-date-group" class="panel-indent {{#errors.start-date}}validation-error{{/errors.start-date}}">
-    <legend class="visuallyhidden">
+<fieldset id="start-date-group" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
         <span class="form-label-bold">{{#t}}fields.start-date.legend{{/t}}</span>
-    </legend>
 
     {{#errors.start-date}}
             <span id="start-date-error" class="error-message">
