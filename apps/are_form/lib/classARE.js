@@ -98,7 +98,11 @@ module.exports.Calculator = class {
 
     	  for (var index in exclusionDays) {
     			if (exclusionDays[index].exclusionDate == formattedDate) {
-            this.excludedDates.push(moment(date,format).format(format) + ' (' + exclusionDays[index].description +')');
+            // only add date to exclusion date list if it has not already been added
+            var dateToAdd = moment(date,format).format(format) + ' (' + exclusionDays[index].description +')'
+            if (this.excludedDates.indexOf(dateToAdd) == -1)  {
+              this.excludedDates.push(dateToAdd);
+            }
     				return true;
     			}
     		}
