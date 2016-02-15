@@ -7,3 +7,11 @@ var formFocus = toolkit.formFocus;
 
 helpers.documentReady(progressiveReveal);
 helpers.documentReady(formFocus);
+
+if ($('#which-excluded-dates').length) {
+  $('#which-excluded-dates').click(function() {
+
+    $('#excluded-dates').toggleClass('hidden');
+
+  });
+}
