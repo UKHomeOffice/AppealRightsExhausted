@@ -37,6 +37,10 @@ function mysort(obj, key_name) {
 
 module.exports = {
 
+  getEarliestStartDateAllowed: function() {
+    return '01-01-2015'
+  },
+
   getTotalNumberOfExclusionDates: function () {
        return exclusionDays.length;
    },

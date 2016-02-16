@@ -1,5 +1,5 @@
-$testAppealStage = "05. First Tier IAC PTA to the UT - In Country"
-$testCountry =  "England & Wales"
+$testAppealStage = '05. First Tier IAC PTA to the UT - In Country'
+$testCountry =  'England & Wales'
 
 Given(/^I am on the start page for the form$/) do
   visit config['aretool_app_host']
@@ -22,7 +22,7 @@ Then(/^I am presented with validation errors for the first page$/) do
 end
 
 When(/^I complete the first page of the form correctly$/) do
-  find_by_id("country-of-hearing-" +$testCountry).click
+  find_by_id("country-of-hearing-" + $testCountry).click
   select($testAppealStage, :from => 'appeal-stage')
   fill_in "start-date-day", :with => '10'
   fill_in "start-date-month", :with => '10'

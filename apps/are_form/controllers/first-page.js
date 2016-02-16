@@ -4,10 +4,11 @@ var util = require('util');
 //var controllers = require('hof').controllers;
 var DateController = require('hof').controllers.date;
 var ErrorController = require('../../../lib/base-error');
-
+var moment = require('moment');
 var _ = require('underscore');
 
 var staticAppealStages   = require('../lib/staticAppealStages');
+var earliestDate = require('../lib/staticExclusionDates').getEarliestStartDateAllowed;
 
 var FirstPageController = function FirstPageController() {
   this.dateKey = 'start-date';
@@ -18,6 +19,7 @@ var FirstPageController = function FirstPageController() {
 util.inherits(FirstPageController, DateController);
 
 FirstPageController.prototype.validateField = function validateField(keyToValidate, req) {
+var dateFormat = 'DD-MM-YYYY';
 
   function getAppealInfo(selectedAppealStage) {
     return staticAppealStages.getstaticAppealStages().filter(function (obj) {
@@ -31,6 +33,16 @@ FirstPageController.prototype.validateField = function validateField(keyToValida
             stage.country.indexOf(country) !== -1 );
   }
 
+  if (keyToValidate === this.dateKey) {
+    if (moment(req.form.values[keyToValidate], dateFormat).isBefore(moment(earliestDate, dateFormat))) {
+        return new ErrorController(this.dateKey, {
+            key: 'start-date',
+            type: 'startDateTooEarlyError',
+            redirect: undefined
+        });
+    };
+  };
+
   if (keyToValidate === this.countryAppealStageKey) {
     var countryValue = req.form.values[keyToValidate];
     var appealStageValue = req.form.values['appeal-stage'];
@@ -43,6 +55,7 @@ FirstPageController.prototype.validateField = function validateField(keyToValida
                     redirect: undefined
                   });
     };
+
   };
 
   return DateController.prototype.validateField.apply(this, arguments);
