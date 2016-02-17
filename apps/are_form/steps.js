@@ -5,20 +5,25 @@ module.exports = {
     controller: require('../common/controllers/start'),
     next: '/first-page'
   },
-  '/policy': {
+  '/guidance': {
     controller: require('./controllers/referencelist'),
-    template: 'policy',
-    backLink: 'first-page'
+    template: 'guidance',
+    prereqs: ['/first-page', '/confirm'],
+    backLinks: ['first-page', 'confirm']
   },
   '/appealstages': {
     controller: require('./controllers/referencelist'),
     template: 'appealstages',
-    backLink: 'first-page'
+//    backLink: undefined
+    prereqs: ['/first-page', '/confirm', '/exclusiondates'],
+    backLinks: ['first-page', 'confirm', 'exclusiondates']
   },
   '/exclusiondates': {
     controller: require('./controllers/referencelist'),
     template: 'exclusiondates',
-    backLink: 'first-page'
+//    backLink: undefined
+    prereqs: ['/first-page', '/confirm', '/policy'],
+    backLinks: ['first-page', 'confirm', 'policy']
   },
   '/first-page': {
     controller: require('./controllers/first-page'),

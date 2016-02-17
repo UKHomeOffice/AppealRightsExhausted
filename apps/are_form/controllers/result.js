@@ -51,8 +51,8 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     json['number-of-exclusion-dates-applied'] = result.excludedDates.length;
     json['exclusion-date-range']  = result.excludedDateRange;
     json['excludedDates']        = [].concat(result.excludedDates);
+    json['base-before-earliest-exclusion-date'] = result.baseBeforeEarliestExclusionDate;
 
-console.log('**',json['excludedDates'])
     callback(null, json);
 
 };

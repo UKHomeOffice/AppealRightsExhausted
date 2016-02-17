@@ -1,2 +1,2 @@
 # AppealRightsExhausted
-An online calculator to determine Appeal Rights Exhausted
+A calculator to determine Appeal Rights Exhausted

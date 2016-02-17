@@ -13,11 +13,12 @@ module.exports.Calculator = class {
         this.excludedDates = [];
         this.isBaseWeekend      = this.isWeekend(this.baseDate);
         this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);
-        this.startDate          = this.setStartDate(this.getExclusionDates());
-        this.appealInfo = this.getAppealInfo(this.appealStage);
-        this.areDate = moment(this.calculateAREDate(this.appealInfo),dateformat).format(dateformat);
-        this.excludedDateRange = moment(staticExclusionDates.getFirstExclusionDate()).format(dateformat) +
-                      ' to '  + moment(staticExclusionDates.getLastExclusionDate()).format(dateformat);
+        this.startDate          = moment(this.setStartDate(this.getExclusionDates()),dateformat).format(dateformat);
+        this.appealInfo         = this.getAppealInfo(this.appealStage);
+        this.areDate            = moment(this.calculateAREDate(this.appealInfo),dateformat).format(dateformat);
+        this.excludedDateRange = moment(staticExclusionDates.getFirstExclusionDate(),"YYYY-MM-DD").format(dateformat) +
+                      ' to '  + moment(staticExclusionDates.getLastExclusionDate(),"YYYY-MM-DD").format(dateformat);
+        this.baseBeforeEarliestExclusionDate = this.isBaseBeforeEarliestExclusion();
 
     };
 
@@ -69,7 +70,7 @@ module.exports.Calculator = class {
         }
 
         myDate = this.rollForward(myDate,selectedExclusionDates);
-  
+
     		return moment(myDate, dateformat);
     };
 
@@ -90,6 +91,10 @@ module.exports.Calculator = class {
 
     getResult() {
          return this;
+    };
+
+    isBaseBeforeEarliestExclusion() {
+      return ( moment(staticExclusionDates.getFirstExclusionDate(), "YYYY-MM-DD").isAfter(moment(this.baseDate, dateformat)) );
     };
 
     isWeekend(date) {

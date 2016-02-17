@@ -1,15 +1,31 @@
 {{<layout}}
 
 {{$header}}
-  Number of exclusion dates: {{values.reference-exclusiondate-list-count}}
+  {{#t}}pages.reference-links.exclusion-dates{{/t}}
 {{/header}}
 
 {{$content}}
+
+<p>
+  Exclusion dates are days when the Tribunal is closed for business and is
+  unable  to process appeals. Exclusion dates are skipped when calculating
+  the ARE date.
+</p>
+<p>
+  For example, if the type of decision and appeal stage allows the person
+  14 days to make an appeal but an exclusion date occurs within those 14 days,
+  an extra day will be added.
+</p
+<p>
+  The following <strong>{{values.reference-exclusiondate-list-count}}</strong> exclusion
+  dates have been added to the ARE calculator.
+</p>
+
   <table>
     <th><tr>
       <td>Date</td>
       <td>Description</td>
-      <td>England & Wales</td>
+      <td >England & Wales</td>
       <td>Scotland</td>
       <td>Northern Ireland</td>
     </tr></th>
@@ -17,9 +33,9 @@
     <tr>
    <td>{{exclusionDate}}</td>
    <td>{{description}}</td>
-   <td>{{#England & Wales}}&#9745{{/England & Wales}}</td>
-   <td>{{#Scotland}}&#9745{{/Scotland}}</td>
-   <td>{{#Northern Ireland}}&#9745{{/Northern Ireland}}</td>
+   <td>{{#England & Wales}}<strong>&#10003</strong>{{/England & Wales}}</td>
+   <td>{{#Scotland}}<strong>&#10003</strong>{{/Scotland}}</td>
+   <td>{{#Northern Ireland}}<strong>&#10003</strong>{{/Northern Ireland}}</td>
    </tr>
    {{/values.reference-exclusiondate-list}}
  </table>

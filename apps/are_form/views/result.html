@@ -65,6 +65,11 @@
     </tr>
   </tbody>
 </table>
+
+{{#values.base-before-earliest-exclusion-date}}
+<p><i>{{#t}}pages.result.base-before-earliest-exclusion-date{{/t}}</i>
+{{/values.base-before-earliest-exclusion-date}}
+
 <P><P>{{#input-submit}}start-again{{/input-submit}}
 <h3>  {{#t}}pages.result.description{{/t}}</h3>
 <table id="supporting-info" class="table-details">
@@ -135,10 +140,23 @@
 
     </tbody>
 </table>
+
+
 <p><p><p>
   <h3>{{#t}}pages.result.exclusion-date-range{{/t}}</h3><P>
   {{values.exclusion-date-range}}
 <p><p>
+  <table><div class=related-container>
+  </table>
+  </div>
+  <div id="reference-list" class="header-context">
+     <ol role="reference" class="group">
+       <li><strong>Reference</strong></li>
+       <li><a href="guidance">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+       <li><a href="appealstages">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+       <li><a href="exclusiondates">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+    </ol>
+  </div>
 
 {{/form}}
 

@@ -68,11 +68,14 @@ describe('Using Exclusion Dates as start date Checks', function() {
     var d = new are.Calculator(testDate, 'England & Wales', 'FT_IC');
     it('should treat start date for [' + testDate + '] as an exclusion date for England & Wales', function() {
       assert.equal(d.isBaseExclusionDay, true);
+      assert.notEqual(d.startDate,d.baseDate);
+    });
+    it('should change the supplied date [' + testDate + '] as it\'s an exclusion date for England & Wales', function() {
+      assert.notEqual(d.startDate,d.baseDate);
     });
   });
 
 })
-
 
 describe('Weekend date Checks', function() {
   var format = 'dddd DD MMMM YYYY';
@@ -86,9 +89,18 @@ describe('Weekend date Checks', function() {
     testDates.forEach(function (e, ix, arr) {
       var d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'),e.country, e.appealStage);
 
-      it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function() {
-        assert.equal(d.isWeekend(moment(e.testDate,'DD-MM-YYYY')), e.weekend);
-      });
-    });
+        it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function() {
+          assert.equal(d.isWeekend(moment(e.testDate,'DD-MM-YYYY')), e.weekend);
+        });
 
+        if (e.weekend) {
+          it('should have the startDate changed for the supplied date [' + e.testDate + '] as it\'s a weekend', function() {
+            assert.notEqual(d.startDate,d.baseDate);
+          });
+        } else {
+          it('should set the startDate to the supplied date [' + e.testDate + '] as it\'s NOT a weekend', function() {
+            assert.equal(d.startDate,d.baseDate);
+          });
+        };
+    });
 });
