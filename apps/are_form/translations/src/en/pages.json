@@ -15,7 +15,8 @@
     "header": "Calculated ARE date",
     "description": "The calculation is based on the following information:",
     "exclusion-date-range": "Current range of exclusion dates:",
-    "base-before-earliest-exclusion-date": "** Note: The date supplied is before the earliest known exclusion date",
+    "base-before-earliest-exclusion-date": "This is before the earliest known exclusion date",
+    "are-after-last-exclusion-date": "This is after the last known exclusion date",
     "table": {
       "headers": {
         "base-date": "Base date",

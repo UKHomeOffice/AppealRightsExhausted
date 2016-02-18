@@ -19,6 +19,7 @@ module.exports.Calculator = class {
         this.excludedDateRange = moment(staticExclusionDates.getFirstExclusionDate(),"YYYY-MM-DD").format(dateformat) +
                       ' to '  + moment(staticExclusionDates.getLastExclusionDate(),"YYYY-MM-DD").format(dateformat);
         this.baseBeforeEarliestExclusionDate = this.isBaseBeforeEarliestExclusion();
+        this.areAfterLastExclusionDate = this.isAREAfterLastExclusion();
 
     };
 
@@ -91,6 +92,10 @@ module.exports.Calculator = class {
 
     getResult() {
          return this;
+    };
+
+    isAREAfterLastExclusion() {
+      return ( moment(staticExclusionDates.getLastExclusionDate(), "YYYY-MM-DD").isBefore(moment(this.areDate, dateformat)) );
     };
 
     isBaseBeforeEarliestExclusion() {

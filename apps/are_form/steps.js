@@ -14,16 +14,14 @@ module.exports = {
   '/appealstages': {
     controller: require('./controllers/referencelist'),
     template: 'appealstages.html',
-//    backLink: undefined
     prereqs: ['/','/first-page', '/confirm', '/exclusiondates'],
     backLinks: ['', 'first-page', 'confirm', 'exclusiondates']
   },
   '/exclusiondates': {
     controller: require('./controllers/referencelist'),
     template: 'exclusiondates.html',
-//    backLink: undefined
-    prereqs: ['/', '/first-page', '/confirm', '/policy'],
-    backLinks: ['', 'first-page', 'confirm', 'policy']
+    prereqs: ['/', '/first-page', '/confirm', '/guidance'],
+    backLinks: ['', 'first-page', 'confirm', 'guidance']
   },
   '/first-page': {
     controller: require('./controllers/first-page'),
