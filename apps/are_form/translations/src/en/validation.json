@@ -12,7 +12,7 @@
     "numeric": "Date must only contain numbers",
     "future": "The date is in the future",
     "format": "Enter the start date in the correct format",
-    "startDateTooEarlyError": "Start date can not be before 01 Jan 2015"
+    "startDateTooEarlyError": "Start date can not be before 20 Oct 2014"
   },
   "start-date-day": {
     "numeric": "Day must only contain numbers",

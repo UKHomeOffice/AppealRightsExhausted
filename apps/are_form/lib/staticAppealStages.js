@@ -103,7 +103,7 @@ module.exports = {
 
       { 'value': 'UT_OOC',
         'label': '09. Upper Tribunal IAC PTA - Out of Country',
-        'timeLimit': {'value': 1, 'type': 'calendar months'},
+        'timeLimit': {'value': 1, 'type': 'calendar month'},
         'startDateLabel': 'Promulgation date',
         'rules': 'The Tribunal Procedure (Upper Tribunal) Rules 2008',
         'ruleNumber': '21(3)(b)',

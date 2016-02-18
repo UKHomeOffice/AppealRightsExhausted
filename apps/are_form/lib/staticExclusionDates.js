@@ -14,7 +14,7 @@ var exclusionDays = [
   {'exclusionDate': '2016-03-28', 'description': 'Easter Monday', 'England & Wales': true, 'Scotland': false, 'Northern Ireland': true},
   {'exclusionDate': '2016-05-02', 'description': 'Early May Bank Holiday', 'England & Wales': true, 'Scotland': true, 'Northern Ireland': true},
   {'exclusionDate': '2016-05-30', 'description': 'Spring Bank Holiday', 'England & Wales': true, 'Scotland': true, 'Northern Ireland': true},
-  {'exclusionDate': '2016-07-12', 'description': 'Orangemans Day', 'England & Wales': false, 'Scotland': false, 'Northern Ireland': true},
+  {'exclusionDate': '2016-07-12', 'description': 'Orangemen\'s Day', 'England & Wales': false, 'Scotland': false, 'Northern Ireland': true},
   {'exclusionDate': '2016-08-29', 'description': 'Summer Bank Holiday', 'England & Wales': true, 'Scotland': true, 'Northern Ireland': true},
   {'exclusionDate': '2016-12-26', 'description': 'In lieu of Christmas Day', 'England & Wales': true, 'Scotland': true, 'Northern Ireland': true},
   {'exclusionDate': '2016-12-27', 'description': 'Boxing Day', 'England & Wales': true, 'Scotland': true, 'Northern Ireland': true},
@@ -38,7 +38,7 @@ function mysort(obj, key_name) {
 module.exports = {
 
   getEarliestStartDateAllowed: function() {
-    return '01-01-2015'
+    return '20-10-2014'
   },
 
   getTotalNumberOfExclusionDates: function () {
