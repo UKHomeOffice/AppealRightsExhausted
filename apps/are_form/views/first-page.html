@@ -19,8 +19,9 @@
 {{$form}}
 <h1>Where was the appeal lodged?</h1>
 {{#radio-group}}country-of-hearing{{/radio-group}}
-<h1>What is the appeal stage?</h1>
+
 <div class="are-dropdown">
+  <h1>What is the appeal stage?</h1>
   {{#errors.appeal-stage}}
           <span id="appeal-stage-error" class="error-message">
             {{errors.appeal-stage.message}}
@@ -30,20 +31,17 @@
 </div>
 
 <fieldset id="start-date-group" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
-        <span class="form-label-bold">{{#t}}fields.start-date.legend{{/t}}</span>
-
     {{#errors.start-date}}
             <span id="start-date-error" class="error-message">
               {{errors.start-date.message}}
             </span>
     {{/errors.start-date}}
-    <P>
+
     <h1>Start date</h1>
     <div class="form-group form-date">
         <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
         {{#input-date}}start-date{{/input-date}}
     </div>
-
 </fieldset>
 {{#input-submit}}calculate{{/input-submit}}
 <p>
@@ -53,8 +51,8 @@
 </div>
 
 <div id="reference-list" class="header-context">
-   <ol role="reference" class="group">
-     <li><strong>Reference</strong></li>
+   <ol role="guidance" class="group">
+     <li><strong>Guidance</strong></li>
      <li><a href="guidance">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
      <li><a href="appealstages">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
      <li><a href="exclusiondates">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>

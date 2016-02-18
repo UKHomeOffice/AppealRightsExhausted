@@ -1410,6 +1410,23 @@ h1 {
   height: 30px;
   width: 150%; }
 
+.appeal-stage-header {
+  width: 150%;
+  background: #dee0e2;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px; }
+
+.appeal-stages-table {
+  width: 150%; }
+  .appeal-stages-table tbody td:nth-child(1) {
+    width: 15%; }
+  .appeal-stages-table tbody td:nth-child(2) {
+    width: 85%; }
+  .appeal-stages-table tbody td:nth-child(3) {
+    text-align: right;
+    padding-right: 0; }
+
 .table-details {
   width: 100%; }
   .table-details tbody td:nth-child(1) {

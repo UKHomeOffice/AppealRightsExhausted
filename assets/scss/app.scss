@@ -130,6 +130,29 @@ h1 {
     width: 150%;
 }
 
+.appeal-stage-header {
+  width: 150%;
+  background: #dee0e2;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}
+.appeal-stages-table {
+  width: 150%;
+  tbody {
+    td:nth-child(1) {
+      width: 15%;
+    }
+    td:nth-child(2) {
+      width: 85%;
+    }
+    td:nth-child(3) {
+      text-align: right;
+      padding-right: 0;
+    }
+  }
+}
+
 .table-details {
   width: 100%;
 
@@ -146,11 +169,13 @@ h1 {
     }
   }
 
-  .button {
-    margin: 0;
-    background: #dde0e1;
-    color: #000;
-  }
+.button {
+  margin: 0;
+  background: #dde0e1;
+  color: #000;
+}
+
+
 
 @media print {
     .no-print, .no-print *

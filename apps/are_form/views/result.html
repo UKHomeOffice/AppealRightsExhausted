@@ -42,7 +42,9 @@
     </thead>
     <tbody>
       <tr>
-          <td>{{#t}}pages.result.table.headers.appeal-stage{{/t}}</td>
+          <td>{{#t}}pages.result.table.headers.appeal-stage{{/t}}
+              <br><a href="appealstages#{{values.appeal-stage-label}}">(Details)</a>
+          </td>
           <td>
               {{values.appeal-stage-label}}
           </td>
@@ -153,8 +155,8 @@
   </table>
   </div>
   <div id="reference-list" class="header-context">
-     <ol role="reference" class="group">
-       <li><strong>Reference</strong></li>
+     <ol role="guidance" class="group">
+       <li><strong>Guidance</strong></li>
        <li><a href="guidance">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
        <li><a href="appealstages">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
        <li><a href="exclusiondates">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>

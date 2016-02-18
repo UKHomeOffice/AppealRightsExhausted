@@ -13,18 +13,22 @@
   appeal can be made. These numbers are used to determine the ARE date,
   however exclusion dates may also need to be factored into the calculation.
 </p>
-  <table>
-    {{#values.reference-appeal-list}}
-    <tr>
-   <td>{{label}}</td>
-   <td>{{trigger}}</td>
-   <td>{{rules}}</td>
-   <td>{{ruleNumber}}</td>
-   <td>{{timeLimit.value}} {{timeLimit.type}}</td>
 
-   </tr>
-   {{/values.reference-appeal-list}}
- </table>
+{{#values.reference-appeal-list}}
+<h3 class="appeal-stage-header"><a name='{{label}}'>{{label}}<a></h3>
+  <table id="appeal-stages" class="appeal-stages-table">
+    <tr><td>Trigger</td><td>{{trigger}}</td> </tr>
+    <tr><td>Based on</td><td>{{startDateLabel}}</td> </tr>
+    <tr><td>Rules</td><td>{{rules}}</td> </tr>
+    <tr><td>Rule Number</td><td>{{ruleNumber}}</td> </tr>
+    <tr><td>Time Limit</td><td>{{timeLimit.value}} {{timeLimit.type}}</td> </tr>
+    <tr><td>Admin Allowance</td><td>{{adminAllowance.value}} {{adminAllowance.type}}</td> </tr>
+   </table>
+   <div>
+     <br><a href="confirm">&lt Back</a>
+   <div>
+ <br>
+ {{/values.reference-appeal-list}}
 
 {{/content}}
 
