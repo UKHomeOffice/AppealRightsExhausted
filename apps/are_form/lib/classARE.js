@@ -51,21 +51,21 @@ module.exports.Calculator = class {
    		  var timeLimitType = info.timeLimit.type.replace(/ /g,'');
     		var adminAllowanceType = info.adminAllowance.type.replace(/ /g,'');
 
-    		if (timeLimitType == 'calendardays') {
+    		if (timeLimitType == 'calendardays' || timeLimitType == 'calendarday') {
     				myDate = this.addDays(myDate, info.timeLimit.value);
-    		} else if (timeLimitType == 'calendarmonths') {
+    		} else if (timeLimitType == 'calendarmonths' || timeLimitType == 'calendarmonth') {
             myDate = this.addMonths(myDate, info.timeLimit.value);
-    		} else if (timeLimitType == 'workingdays') {
+    		} else if (timeLimitType == 'workingdays' || timeLimitType == 'workingday') {
     				myDate = this.addDaysIgnoringWeekendsAndExclusionDays(myDate, info.timeLimit.value,selectedExclusionDates);
     		}
 
         myDate = this.rollForward(myDate,selectedExclusionDates);
 
-        if (adminAllowanceType == 'calendardays') {
+        if (adminAllowanceType == 'calendardays' || adminAllowanceType == 'calendarday') {
             myDate = this.addDays(myDate, info.adminAllowance.value);
-        } else if (adminAllowanceType == 'calendarmonths') {
+        } else if (adminAllowanceType == 'calendarmonths' || adminAllowanceType == 'calendarmonth') {
             myDate = this.addMonths(myDate,info.adminAllowance.value)
-        } else if (adminAllowanceType == 'workingdays') {
+        } else if (adminAllowanceType == 'workingdays' || adminAllowanceType == 'workingday') {
             myDate = this.addDaysIgnoringWeekendsAndExclusionDays(myDate, info.adminAllowance.value,selectedExclusionDates);
         }
 
