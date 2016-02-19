@@ -23,8 +23,15 @@ ReferenceListController.prototype.getValues = function getValues(req, res, callb
     json['reference-appeal-list-count'] = json['reference-appeal-list'].length
 
   } else if (req.url === '/exclusiondates') {
-    json['reference-exclusiondate-list'] = [].concat(staticExclusionDates.getExclusionDays());
-    json['reference-exclusiondate-list-count'] = json['reference-exclusiondate-list'].length
+    json['reference-exclusiondate-list-england-and-wales'] = [].concat(staticExclusionDates.getExclusionDays("England & Wales"));
+    json['reference-exclusiondate-list-count-england-and-wales'] = json['reference-exclusiondate-list-england-and-wales'].length
+
+    json['reference-exclusiondate-list-scotland'] = [].concat(staticExclusionDates.getExclusionDays("Scotland"));
+    json['reference-exclusiondate-list-count-scotland'] = json['reference-exclusiondate-list-scotland'].length
+
+    json['reference-exclusiondate-list-northern-ireland'] = [].concat(staticExclusionDates.getExclusionDays("Northern Ireland"));
+    json['reference-exclusiondate-list-count-northern-ireland'] = json['reference-exclusiondate-list-northern-ireland'].length
+
   }
 
   callback(null, json);

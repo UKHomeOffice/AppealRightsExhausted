@@ -1,4 +1,7 @@
 {{<layout}}
+{{$propositionHeader}}
+{{> partials-navigation}}
+{{/propositionHeader}}
 
 {{$header}}
   {{#t}}pages.reference-links.appeal-stages{{/t}}
@@ -25,8 +28,13 @@
     <tr><td>Admin Allowance</td><td>{{adminAllowance.value}} {{adminAllowance.type}}</td> </tr>
    </table>
    <div>
-     <br><a href="confirm">&lt Back</a>
+     <br>
+     {{#backLink}}
+       <a href="{{#url}}{{backLink}}{{/url}}">&lt Back</a>
+     {{/backLink}}
    <div>
+
+
  <br>
  {{/values.reference-appeal-list}}
 

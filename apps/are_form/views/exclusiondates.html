@@ -5,40 +5,78 @@
 {{/header}}
 
 {{$content}}
-
 <p>
-  Exclusion dates are days when the Tribunal is closed for business and is
-  unable  to process appeals. Exclusion dates are skipped when calculating
-  the ARE date.
+    Exclusion dates are days when the Tribunal is closed for business and
+    is unable to process appeals. An ARE date can’t fall on a weekend or
+    an exclusion date
 </p>
 <p>
-  For example, if the type of decision and appeal stage allows the person
-  14 days to make an appeal but an exclusion date occurs within those 14 days,
-  an extra day will be added.
+  For example, if the type of decision and appeal stage permits the person
+  14 days to make an appeal, but that date is a bank holiday Monday, the
+  ARE date will be the following suitable date. In most cases, this would
+  be the Tuesday (as long as the Tuesday isn’t also an Exclusion date).
 </p
 <p>
-  The following <strong>{{values.reference-exclusiondate-list-count}}</strong> exclusion
-  dates have been added to the ARE calculator.
+  The calculator factors exclusion dates into its calculations. The following
+  exclusion dates have been added to the ARE calculator for each
+  of the following countries:
 </p>
 
-  <table>
-    <th><tr>
-      <td>Date</td>
-      <td>Description</td>
-      <td >England & Wales</td>
-      <td>Scotland</td>
-      <td>Northern Ireland</td>
-    </tr></th>
-    {{#values.reference-exclusiondate-list}}
-    <tr>
-   <td>{{exclusionDate}}</td>
-   <td>{{description}}</td>
-   <td>{{#England & Wales}}<strong>&#10003</strong>{{/England & Wales}}</td>
-   <td>{{#Scotland}}<strong>&#10003</strong>{{/Scotland}}</td>
-   <td>{{#Northern Ireland}}<strong>&#10003</strong>{{/Northern Ireland}}</td>
-   </tr>
-   {{/values.reference-exclusiondate-list}}
- </table>
+<div>
+    <summary id="which-england-and-wales">
+      <h3 class="exclusion-day-header">
+        <a>{{#t}}pages.reference-links.which-england-and-wales-dates{{/t}}
+        ({{values.reference-exclusiondate-list-count-england-and-wales}})</a>
+      <h3>
+    </summary>
+    <table id="england-and-wales-dates" class="panel-indent hidden">
+        {{#values.reference-exclusiondate-list-england-and-wales}}
+        <tr>
+          <td><td>
+          <td>{{formattedDate}}</td>
+          <td>{{description}}</td>
+        {{/values.reference-exclusiondate-list-england-and-wales}}
+      </tr>
+    </table>
+</div>
+
+<div>
+    <summary id="which-scotland">
+      <h3 class="exclusion-day-header">
+        <a>{{#t}}pages.reference-links.which-scotland-dates{{/t}}</a>
+        ({{values.reference-exclusiondate-list-count-scotland}})
+      </h3>
+    </summary>
+    <table id="scotland-dates" class="panel-indent hidden">
+        {{#values.reference-exclusiondate-list-scotland}}
+        <tr>
+          <td><td>
+          <td>{{formattedDate}}</td>
+          <td>{{description}}</td>
+        {{/values.reference-exclusiondate-list-scotland}}
+      </tr>
+    </table>
+</div>
+
+<div>
+    <summary id="which-northern-ireland">
+      <h3 class="exclusion-day-header">
+        <a>{{#t}}pages.reference-links.which-northern-ireland-dates{{/t}}
+        ({{values.reference-exclusiondate-list-count-northern-ireland}})</a>
+      </h3>
+    </summary>
+    <table id="northern-ireland-dates" class="panel-indent hidden">
+        {{#values.reference-exclusiondate-list-northern-ireland}}
+        <tr>
+          <td></td>
+          <td>{{formattedDate}}</td>
+          <td>{{description}}</td>
+        {{/values.reference-exclusiondate-list-northern-ireland}}
+      </tr>
+    </table>
+</div>
+
+
 {{/content}}
 
 {{/layout}}
