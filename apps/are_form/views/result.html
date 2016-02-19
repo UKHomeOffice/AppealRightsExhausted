@@ -76,9 +76,7 @@
 </table>
 
 <P><P>{{#input-submit}}start-again{{/input-submit}}
-<h3>  {{#t}}pages.result.description{{/t}}</h3>
-<table id="supporting-info" class="table-details">
-    <tbody>
+<h3>  {{#t}}pages.result.description{{/are-form/
     <tr>
         <td>{{#t}}Based on{{/t}}</td>
         <td>
@@ -102,8 +100,6 @@
     <tr>
         <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
         <td>
-            {{values.ruleNumber}}
-        </td>
         <td></td>
     </tr>
     <tr>
@@ -114,7 +110,8 @@
         <td></td>
     </tr>
     <tr>
-        <td>{{#t}}pages.result.table.headers.trigger{{/t}}</td>
+    <tr>
+        <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
         <td>
             {{values.trigger}}
         </td>
@@ -125,8 +122,9 @@
         <td>
             {{values.number-of-exclusion-dates-applied}}
         </td>
-        <td></td>
-    </tr>
+    <tr>
+        <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
+        <td>
     <tr>
         <td>{{#t}}pages.result.table.headers.excluded-dates{{/t}}</td>
         <td>
@@ -157,9 +155,9 @@
   <div id="reference-list" class="header-context">
      <ol role="guidance" class="group">
        <li><strong>Guidance</strong></li>
-       <li><a href="/are-form/guidance">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-       <li><a href="/are-form/appealstages">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
-       <li><a href="/are-form/exclusiondates">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+       <li><a href="guidance">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+       <li><a href="appealstages">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+       <li><a href="exclusiondates">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
     </ol>
   </div>
 
