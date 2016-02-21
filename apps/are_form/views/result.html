@@ -76,75 +76,75 @@
 </table>
 
 <P><P>{{#input-submit}}start-again{{/input-submit}}
-<h3>  {{#t}}pages.result.description{{/t}}</h3>
-<table id="supporting-info" class="table-details">
-    <tbody>
-    <tr>
-        <td>{{#t}}Based on{{/t}}</td>
-        <td>
-            {{values.start-date-label}}
-        </td>
-        <td></td>
-    </tr>    <tr>
-        <td>{{#t}}pages.result.table.headers.time-limit{{/t}}</td>
-        <td>
-            {{values.time-limit-value}} {{values.time-limit-type}}
-        </td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.rules{{/t}}</td>
-        <td>
-            {{values.rules}}
-        </td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
-        <td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.admin-allowance{{/t}}</td>
-        <td>
-            {{values.admin-allowance-value}} {{values.admin-allowance-type}}
-        </td>
-        <td></td>
-    </tr>
-    <tr>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
-        <td>
-            {{values.trigger}}
-        </td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.number-of-exclusion-dates-applied{{/t}}</td>
-        <td>
-            {{values.number-of-exclusion-dates-applied}}
-        </td>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
-        <td>
-    <tr>
-        <td>{{#t}}pages.result.table.headers.excluded-dates{{/t}}</td>
-        <td>
+  <h3>  {{#t}}pages.result.description{{/t}}</h3>
+  <table id="supporting-info" class="table-details">
+      <tbody>
+      <tr>
+          <td>{{#t}}Based on{{/t}}</td>
+          <td>
+              {{values.start-date-label}}
+          </td>
+          <td></td>
+      </tr>    <tr>
+          <td>{{#t}}pages.result.table.headers.time-limit{{/t}}</td>
+          <td>
+              {{values.time-limit-value}} {{values.time-limit-type}}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{#t}}pages.result.table.headers.rules{{/t}}</td>
+          <td>
+              {{values.rules}}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{#t}}pages.result.table.headers.ruleNumber{{/t}}</td>
+          <td>
+              {{values.ruleNumber}}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{#t}}pages.result.table.headers.admin-allowance{{/t}}</td>
+          <td>
+              {{values.admin-allowance-value}} {{values.admin-allowance-type}}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{#t}}pages.result.table.headers.trigger{{/t}}</td>
+          <td>
+              {{values.trigger}}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{#t}}pages.result.table.headers.number-of-exclusion-dates-applied{{/t}}</td>
+          <td>
+              {{values.number-of-exclusion-dates-applied}}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{#t}}pages.result.table.headers.excluded-dates{{/t}}</td>
+          <td>
 
-          {{#values.excludedDates}}
-          <p>{{.}}</p>
-          {{/values.excludedDates}}
+            {{#values.excludedDates}}
+            <p>{{.}}</p>
+            {{/values.excludedDates}}
 
-          {{^values.excludedDates}}
-          <p>None</p>
-          {{/values.excludedDates}}
+            {{^values.excludedDates}}
+            <p>None</p>
+            {{/values.excludedDates}}
 
-        </td>
-        <td></td>
-   </tr>
+          </td>
+          <td></td>
+     </tr>
 
-    </tbody>
-</table>
+      </tbody>
+  </table>
 
 
 <p><p><p>
