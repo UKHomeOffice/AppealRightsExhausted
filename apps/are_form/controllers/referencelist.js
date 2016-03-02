@@ -6,7 +6,8 @@ var controllers = require('hof').controllers;
 var BaseController = controllers.base;
 var staticExclusionDates = require('../lib/staticExclusionDates');
 var staticAppealStages   = require('../lib/staticAppealStages');
-
+var moment = require('moment');
+var dateformat = 'dddd DD MMMM YYYY';
 
 var ReferenceListController = function ReferenceListController() {
   BaseController.apply(this, arguments);
@@ -24,13 +25,13 @@ ReferenceListController.prototype.getValues = function getValues(req, res, callb
 
   } else if (req.url === '/exclusiondates') {
     json['reference-exclusiondate-list-england-and-wales'] = [].concat(staticExclusionDates.getExclusionDays("England & Wales"));
-    json['reference-exclusiondate-list-count-england-and-wales'] = json['reference-exclusiondate-list-england-and-wales'].length
 
     json['reference-exclusiondate-list-scotland'] = [].concat(staticExclusionDates.getExclusionDays("Scotland"));
-    json['reference-exclusiondate-list-count-scotland'] = json['reference-exclusiondate-list-scotland'].length
 
     json['reference-exclusiondate-list-northern-ireland'] = [].concat(staticExclusionDates.getExclusionDays("Northern Ireland"));
-    json['reference-exclusiondate-list-count-northern-ireland'] = json['reference-exclusiondate-list-northern-ireland'].length
+
+    json['exclusion-date-range'] = moment(staticExclusionDates.getFirstExclusionDate(),"YYYY-MM-DD").format(dateformat) +
+                  ' to '  + moment(staticExclusionDates.getLastExclusionDate(),"YYYY-MM-DD").format(dateformat);
 
   }
 

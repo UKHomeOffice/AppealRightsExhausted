@@ -1,9 +1,10 @@
 {{<layout}}
 
+
 {{$header}}
+
   {{#t}}pages.reference-links.exclusion-dates{{/t}}
 {{/header}}
-
 {{$content}}
 <p>
     Exclusion dates are days when the Tribunal is closed for business and
@@ -21,12 +22,14 @@
   exclusion dates have been added to the ARE calculator for each
   of the following countries:
 </p>
-
+<p>
+  <h3>{{#t}}pages.result.exclusion-date-range{{/t}}</h3><P>
+  {{values.exclusion-date-range}}
+<p>
 <div>
     <summary id="which-england-and-wales">
       <h3 class="exclusion-day-header">
-        <a>{{#t}}pages.reference-links.which-england-and-wales-dates{{/t}}
-        ({{values.reference-exclusiondate-list-count-england-and-wales}})</a>
+        <a>{{#t}}pages.reference-links.which-england-and-wales-dates{{/t}}</a>
       <h3>
     </summary>
     <table id="england-and-wales-dates" class="panel-indent hidden">
@@ -44,7 +47,6 @@
     <summary id="which-scotland">
       <h3 class="exclusion-day-header">
         <a>{{#t}}pages.reference-links.which-scotland-dates{{/t}}</a>
-        ({{values.reference-exclusiondate-list-count-scotland}})
       </h3>
     </summary>
     <table id="scotland-dates" class="panel-indent hidden">
@@ -61,8 +63,7 @@
 <div>
     <summary id="which-northern-ireland">
       <h3 class="exclusion-day-header">
-        <a>{{#t}}pages.reference-links.which-northern-ireland-dates{{/t}}
-        ({{values.reference-exclusiondate-list-count-northern-ireland}})</a>
+        <a>{{#t}}pages.reference-links.which-northern-ireland-dates{{/t}}</a>
       </h3>
     </summary>
     <table id="northern-ireland-dates" class="panel-indent hidden">
@@ -75,7 +76,19 @@
       </tr>
     </table>
 </div>
+<table><div class=related-container>
+</table>
+</div>
 
+<div id="reference-list" class="header-context">
+   <ol role="guidance" class="group">
+     <li><strong>Guidance</strong></li>
+     <li><a href="{{#url}}guidance{{/url}}">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+     <li><a href="{{#url}}appealstages{{/url}}">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+     <li>&nbsp;</li>
+     <li><a href="javascript:history.back()">Previous Page</a></li>
+  </ol>
+</div>
 
 {{/content}}
 

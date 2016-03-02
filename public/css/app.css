@@ -1418,18 +1418,18 @@ h1 {
   padding-left: 10px; }
 
 .appeal-stage-header {
-  width: 150%;
+  width: 100%;
   background: #dee0e2;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px; }
 
 .appeal-stages-table {
-  width: 150%; }
+  width: 100%; }
   .appeal-stages-table tbody td:nth-child(1) {
     width: 15%; }
   .appeal-stages-table tbody td:nth-child(2) {
-    width: 85%; }
+    width: 65%; }
   .appeal-stages-table tbody td:nth-child(3) {
     text-align: right;
     padding-right: 0; }
