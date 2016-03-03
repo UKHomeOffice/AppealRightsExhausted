@@ -18,8 +18,13 @@
 </p>
 
 {{#values.reference-appeal-list}}
-<h3 class="appeal-stage-header"><a name='{{label}}'>{{label}}<a></h3>
-  <table id="appeal-stages" class="appeal-stages-table">
+<div>
+  <summary id="appeal-summary" title="{{value}}" class="appeal-summary-class">
+    <h3 class="appeal-stage-header">
+      <a name='{{label}}'>{{label}}<a>
+    </h3>
+  </summary>
+  <table id="{{value}}" class="appeal-stages-table hidden">
     <tr><td>Trigger</td><td>{{trigger}}</td> </tr>
     <tr><td>Based on</td><td>{{startDateLabel}}</td> </tr>
     <tr><td>Rules</td><td>{{rules}}</td> </tr>
@@ -27,10 +32,9 @@
     <tr><td>Time Limit</td><td>{{timeLimit.value}} {{timeLimit.type}}</td> </tr>
     <tr><td>Admin Allowance</td><td>{{adminAllowance.value}} {{adminAllowance.type}}</td> </tr>
    </table>
-   <div>
-     <br> <a href="javascript:history.back()">&lt Back</a>
-   <div>
- {{/values.reference-appeal-list}}
+</div>
+{{/values.reference-appeal-list}}
+
 
 <table><div class=related-container>
 </table>
