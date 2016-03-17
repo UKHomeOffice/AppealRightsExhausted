@@ -8,11 +8,11 @@
     "regex": "You must select an appeal stage from the list"
   },
   "start-date": {
-    "required": "Enter the start date for the calculation",
+    "required": "Enter the promulgation date for the calculation",
     "numeric": "Date must only contain numbers",
     "future": "The date is in the future",
-    "format": "Enter the start date in the correct format",
-    "startDateTooEarlyError": "Start date can not be before 20 Oct 2014"
+    "format": "Enter the promulgation date in the correct format",
+    "startDateTooEarlyError": "Promulgation date can not be before 20 Oct 2014"
   },
   "start-date-day": {
     "numeric": "Day must only contain numbers",

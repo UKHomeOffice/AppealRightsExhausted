@@ -8,8 +8,6 @@ end
 Then(/^I can see the questions for the first page of the form$/) do
   expect(page).to have_content /where was the appeal lodged/i
   expect(page).to have_content /what is the appeal stage/i
-  expect(page).to have_content /start date/i
-
 end
 
 When(/^I just click calculate without selecting a country$/) do

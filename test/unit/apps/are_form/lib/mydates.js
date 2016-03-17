@@ -20,16 +20,16 @@ describe('ARE Calculations Test Cases', function() {
   });
 
   var testDates = [
-    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '06-04-2015'},
+    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '08-04-2015'},
     {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '28-04-2015'},
     {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '11-05-2015'},
     {testDate: '01-06-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '02-07-2015'},
-    {testDate: '14-08-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '31-08-2015'},
+    {testDate: '14-08-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '01-09-2015'},
     {testDate: '28-08-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '29-09-2015'},
     {testDate: '25-11-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '10-12-2015'},
     {testDate: '01-12-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '05-01-2016'},
     {testDate: '20-12-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '22-01-2016'},
-    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '06-04-2015'},
+    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '07-04-2015'},
     {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'Scotland', expected: '28-04-2015'},
     {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '11-05-2015'},
     {testDate: '01-06-2015', appealStage: 'UT_OOC', country: 'Scotland', expected: '02-07-2015'},

@@ -1,7 +1,7 @@
 {
   "start-date": {
-    "label": "Date",
-    "legend": "Start date for calculation",
+    "label": "Promulgation date",
+    "legend": "Promulgation date for calculation",
     "hint": "For example, 11  6  2015"
   },
   "start-date-day": {
