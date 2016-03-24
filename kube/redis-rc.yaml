@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    name: redis
+  template:
+    metadata:
+      labels:
+        name: redis
+    spec:
+      containers:
+      - name: redis
+        image: quay.io/ukhomeofficedigital/redis:v0.0.1
+        ports:
+        - containerPort: 6379
+        command:
+        - "/usr/bin/bash"
+        - "-c"
+        - "/run.sh ${REDIS_SENTINEL_SERVICE_HOST} ${REDIS_SENTINEL_SERVICE_PORT}"
+        resources:
+          limits:
+            cpu: "0.1"
+        volumeMounts:
+        - mountPath: /var/lib/redis
+          name: data
+      volumes:
+        - name: data
+          emptyDir: {}
