@@ -18,5 +18,7 @@ spec:
         env:
         - name: REDIS_HOST
           value: redis.are-dev.svc.cluster.local
+        - name: REDIS_PORT
+          value: "6379"
         ports:
         - containerPort: 8080

@@ -11,5 +11,9 @@ spec:
      port: 8080
      targetPort: 8080
      nodePort: 30301 
+   - name: https
+     port: 8080
+     targetPort: 8080
+     nodePort: 30302
  selector:
    name: are
