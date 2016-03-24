@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: are
+spec:
+  replicas: 3
+  selector:
+    name: are
+  template:
+    metadata:
+      labels:
+        name: are
+    spec:
+      containers:
+      - name: app
+        image: quay.io/ukhomeofficedigital/are-app:v0.0.1
+        imagePullPolicy: Always
+        env:
+        - name: REDIS_HOST
+          value: redis.are-dev.svc.cluster.local
+        ports:
+        - containerPort: 8080

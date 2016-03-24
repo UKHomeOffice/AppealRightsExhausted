@@ -47,6 +47,7 @@
     "nodemailer": "^1.4.0",
     "nodemailer-smtp-transport": "^1.0.3",
     "nodemailer-stub-transport": "^1.0.0",
+    "nodemon": "*",
     "redis": "^0.12.1",
     "serve-static": "^1.10.2",
     "typeahead.js-browserify": "^1.0.5",
