@@ -9,7 +9,7 @@
     "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "scripts": {
-    "start": "node .",
+    "start": "npm run sass && npm run browserify && npm run hof-transpile && node .",
     "dev": "parallelshell 'NODE_ENV=development nodemon .' 'npm run watch:scss' 'npm run watch:js' 'npm run watch:translations'",
     "watch:scss": "nodemon -e scss -x 'npm run sass'",
     "watch:js": "nodemon --watch assets/js -x 'npm run browserify'",
