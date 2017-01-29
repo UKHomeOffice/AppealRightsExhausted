@@ -14,7 +14,6 @@ spec:
       containers:
       - name: app
         image: quay.io/ukhomeofficedigital/are-app:v0.0.1
-        imagePullPolicy: Always
         env:
         - name: REDIS_HOST
           value: redis.${NAMESPACE}.svc.cluster.local
