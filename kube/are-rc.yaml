@@ -24,3 +24,5 @@ spec:
           value: "6379"
         ports:
         - containerPort: 8080
+        securityContext:
+          readOnlyRootFilesystem: true
