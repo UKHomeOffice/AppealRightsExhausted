@@ -1,0 +1,7 @@
+FROM ruby:2.2
+
+COPY acceptance_tests /code
+WORKDIR /code
+RUN bundle install --deployment
+
+ENTRYPOINT "cucumber"
