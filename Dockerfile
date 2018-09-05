@@ -10,7 +10,6 @@ RUN yum clean -q all && \
 RUN mkdir /public
 
 COPY package.json /app/package.json
-COPY package-lock.json /app/package-lock.json
 RUN npm --loglevel warn install --production --no-optional
 COPY . /app
 RUN npm --loglevel warn run postinstall
