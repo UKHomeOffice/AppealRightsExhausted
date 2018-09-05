@@ -6,6 +6,7 @@ RUN yum clean -q all && \
     yum clean -q all && \
     rpm --rebuilddb --quiet
 
+
 RUN mkdir /public
 
 COPY package.json /app/package.json
