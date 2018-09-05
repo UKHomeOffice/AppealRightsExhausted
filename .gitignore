@@ -30,8 +30,5 @@ node_modules
 # IntelliJ files
 .idea/
 
-# Gemfile lock
-Gemfile.lock
-
 # Compile translations
 apps/**/translations/en
