@@ -27,7 +27,7 @@ router.use(mixins(fields, {
 //  res.render('appealstages');
 //});
 
-router.use('/are-form/', wizard(require('./steps'), fields, {
+router.use('/', wizard(require('./steps'), fields, {
   controller: BaseController,
   templatePath: path.resolve(__dirname, 'views'),
   translate: i18n.translate.bind(i18n),
