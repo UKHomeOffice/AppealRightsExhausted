@@ -25,12 +25,14 @@
     "sass": "node-sass ./assets/scss/app.scss ./public/css/app.css --include-path ./node_modules",
     "create:public": "mkdir -p ./public/js ./public/css ./public/images",
     "hof-transpile": "./node_modules/hof-transpiler/bin/hof-transpiler ./apps/**/translations/src -w --shared ./apps/common/translations/src",
-    "postinstall": "npm run hof-transpile"
+    "postinstall": "npm run hof-transpile",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "HomeOffice",
   "dependencies": {
     "body-parser": "^1.13.0",
-    "browserify": "^12.0.1",
+    "browserify": "^12.0.2",
     "churchill": "0.0.5",
     "connect-redis-crypto": "^3.3.4",
     "cookie-parser": "^1.3.5",
@@ -50,9 +52,10 @@
     "nodemailer-stub-transport": "^1.0.0",
     "redis": "^0.12.1",
     "serve-static": "^1.10.2",
-    "typeahead.js-browserify": "^1.0.5",
+    "typeahead.js-browserify": "^1.0.7",
     "underscore": "^1.8.3",
-    "winston": "^1.0.1"
+    "winston": "^1.0.1",
+    "snyk": "^1.116.2"
   },
   "devDependencies": {
     "chai": "^3.0.0",
@@ -77,5 +80,6 @@
     "lint",
     "style",
     "test"
-  ]
+  ],
+  "snyk": true
 }
