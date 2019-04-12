@@ -41,7 +41,7 @@
     "hof-transpiler": "0.0.4",
     "hogan-express-strict": "^0.5.4",
     "hogan.js": "^3.0.2",
-    "jquery": "^2.1.4",
+    "jquery": "^3.4.0",
     "moment": "^2.10.3",
     "moment-business": "^2.0.0",
     "node-sass": "^4.9.3",
