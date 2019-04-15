@@ -44,7 +44,7 @@
     "jquery": "^2.1.4",
     "moment": "^2.10.3",
     "moment-business": "^2.0.0",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.11.0",
     "nodemailer": "^1.4.0",
     "nodemailer-smtp-transport": "^1.0.3",
     "nodemailer-stub-transport": "^1.0.0",
