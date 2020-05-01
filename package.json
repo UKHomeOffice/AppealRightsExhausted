@@ -25,7 +25,9 @@
     "sass": "node-sass ./assets/scss/app.scss ./public/css/app.css --include-path ./node_modules",
     "create:public": "mkdir -p ./public/js ./public/css ./public/images",
     "hof-transpile": "./node_modules/hof-transpiler/bin/hof-transpiler ./apps/**/translations/src -w --shared ./apps/common/translations/src",
-    "postinstall": "npm run hof-transpile"
+    "postinstall": "npm run hof-transpile",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "HomeOffice",
   "dependencies": {
@@ -41,7 +43,7 @@
     "hof-transpiler": "0.0.4",
     "hogan-express-strict": "^0.5.4",
     "hogan.js": "^3.0.2",
-    "jquery": "^2.1.4",
+    "jquery": "^3.5.0",
     "moment": "^2.10.3",
     "moment-business": "^2.0.0",
     "node-sass": "^4.11.0",
@@ -52,7 +54,8 @@
     "serve-static": "^1.10.2",
     "typeahead.js-browserify": "^1.0.5",
     "underscore": "^1.8.3",
-    "winston": "^1.0.1"
+    "winston": "^1.0.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "chai": "^3.0.0",
@@ -77,5 +80,6 @@
     "lint",
     "style",
     "test"
-  ]
+  ],
+  "snyk": true
 }
