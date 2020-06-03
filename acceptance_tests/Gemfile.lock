@@ -1,13 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     builder (3.2.2)
-    capybara (2.5.0)
-      mime-types (>= 1.16)
+    capybara (2.18.0)
+      addressable
+      mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      xpath (~> 2.0)
+      xpath (>= 2.0, < 4.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cliver (0.3.2)
@@ -21,25 +24,23 @@ GEM
     ffi (1.9.10)
     gherkin (2.12.2)
       multi_json (~> 1.3)
-    mime-types (3.0)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2015.1120)
-    mini_portile2 (2.0.0)
-    multi_json (1.11.2)
+    mini_mime (1.0.2)
+    mini_portile2 (2.4.0)
+    multi_json (1.14.1)
     multi_test (0.1.2)
-    nokogiri (1.6.7.1)
-      mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.10.9)
+      mini_portile2 (~> 2.4.0)
     phantomjs (1.9.8.0)
     phantomjs-binaries (2.1.1.0)
       sys-uname (= 0.9.0)
-    poltergeist (1.8.1)
-      capybara (~> 2.1)
+    poltergeist (1.18.1)
+      capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
-      multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
-    rack (1.6.4)
-    rack-test (0.6.3)
-      rack (>= 1.0)
+    public_suffix (4.0.5)
+    rack (2.2.2)
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -64,11 +65,11 @@ GEM
     sys-uname (0.9.0)
       ffi (>= 1.0.0)
     websocket (1.2.2)
-    websocket-driver (0.6.3)
+    websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.2)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
+    websocket-extensions (0.1.5)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     yard (0.8.7.6)
     yard-cucumber (2.3.2)
       cucumber (~> 1.3)
@@ -83,11 +84,11 @@ DEPENDENCIES
   cucumber
   phantomjs
   phantomjs-binaries
-  poltergeist
+  poltergeist (>= 1.8.1)
   rspec
   selenium-webdriver (= 2.45.0)
   show_me_the_cookies
   yard-cucumber
 
 BUNDLED WITH
-   1.11.2
+   1.17.3
