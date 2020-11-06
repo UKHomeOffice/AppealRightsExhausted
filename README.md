@@ -1,2 +1,2 @@
 # AppealRightsExhausted
-A calculator to determine Appeal Rights Exhausted.
+A calculator to determine Appeal Rights Exhausted
