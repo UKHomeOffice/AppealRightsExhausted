@@ -29,6 +29,6 @@ module.exports = function errorHandler(err, req, res, next) {
     error: err,
     content: content,
     showStack: config.env === 'development',
-    startLink: req.path.replace(/^\/([^\/]*).*$/, '$1')
+    startLink: '/'
   });
 };
