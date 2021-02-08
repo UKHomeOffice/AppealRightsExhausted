@@ -30,7 +30,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: master
+    branch: [ master, feature/* ]
     event: push
 
 - name: build_acceptance
@@ -59,7 +59,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: master
+    branch: [ master, feature/* ]
     event: push
 
 - name: test_acceptance
@@ -94,7 +94,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: master
+    branch: [ master, feature/* ]
     event: push
 
 - name: image_to_quay
@@ -123,7 +123,7 @@ steps:
       - UKHomeOffice/kube-are@deploy_to_dev
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-dev
   when:
-    branch: master
+    branch: [ master, feature/* ]
     event: push
 
 
@@ -131,7 +131,7 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
   settings:
-    branch: master
+    branch: [ master, feature/* ]
     deploy_to: preprod
     drone_server: https://drone.acp.homeoffice.gov.uk
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-preprod
@@ -147,7 +147,7 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
   settings:
-    branch: master
+    branch: [ master, feature/* ]
     deploy_to: prod
     drone_server: https://drone.acp.homeoffice.gov.uk
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are
