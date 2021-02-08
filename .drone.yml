@@ -22,7 +22,7 @@ steps:
   pull: if-not-exists
   image: docker:dind
   commands:
-  - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+  - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
   - docker build -t app-$${DRONE_COMMIT_SHA} .
   environment:
     IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
@@ -143,17 +143,6 @@ steps:
 services:
   - name: docker
     image: docker:dind
-    volumes:
-      - name: dockersock
-        path: /var/run
-
-  - name: anchore-submission-server
-    image: docker.digital.homeoffice.gov.uk/acp-anchore-submission:latest
-    commands:
-      - /anchore-submission server
-    environment:
-      ANCHORE_URL: "acp-anchore.acp.homeoffice.gov.uk"
-      REGISTRY_URL: "acp-ephemeral-registry.acp.homeoffice.gov.uk"
     volumes:
       - name: dockersock
         path: /var/run
