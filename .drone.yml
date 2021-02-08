@@ -26,6 +26,9 @@ steps:
   - docker build -t app-$${DRONE_COMMIT_SHA} .
   environment:
     IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
+  volumes:
+    - name: dockersock
+      path: /var/run
   when:
     branch: master
     event: push
@@ -34,9 +37,13 @@ steps:
   pull: if-not-exists
   image: docker:dind
   commands:
+  - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
   - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
   environment:
     IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
+  volumes:
+    - name: dockersock
+      path: /var/run
   when:
     event: pull_request
 
@@ -44,9 +51,13 @@ steps:
   pull: if-not-exists
   image: docker:dind
   commands:
+  - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
   - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
   environment:
     IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
+  volumes:
+    - name: dockersock
+      path: /var/run
   when:
     branch: master
     event: push
