@@ -6,82 +6,84 @@ type: kubernetes
 steps:
 - name: build_are
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
+  - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
   - docker build -t app-$${DRONE_COMMIT_SHA} .
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   when:
     event: pull_request
 
 - name: build_are_1
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
+  - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
   - docker build -t app-$${DRONE_COMMIT_SHA} .
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   when:
     branch: master
     event: push
 
 - name: build_acceptance
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
   - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   when:
     event: pull_request
 
 - name: build_acceptance_3
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
   - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   when:
     branch: master
     event: push
 
 - name: test_acceptance
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
   - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
   - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
   - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
   - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   when:
     event: pull_request
 
 - name: test_acceptance_5
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
   - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
   - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
   - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
   - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   when:
     branch: master
     event: push
 
 - name: image_to_quay
   pull: if-not-exists
-  image: docker:18.03.1-ce
+  image: docker:dind
   commands:
   - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
   - docker tag app-$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
   - docker push quay.io/ukhomeofficedigital/are-app:$${DRONE_COMMIT_SHA}
   environment:
-    DOCKER_HOST: tcp://172.17.0.1:2375
+    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
     DOCKER_PASSWORD:
       from_secret: DOCKER_PASSWORD
   when:
