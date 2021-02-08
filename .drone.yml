@@ -120,8 +120,7 @@ steps:
     deploy_to: dev
     token: ${DRONE_TOKEN}
     fork: true
-    repositories:
-      - UKHomeOffice/kube-are@deploy_to_dev
+    repo: UKHomeOffice/kube-are
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-dev
   environment:
     DRONE_TOKEN:
