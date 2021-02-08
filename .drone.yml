@@ -94,17 +94,16 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
   settings:
-    branch: master
-    deploy_to: dev
-    drone_server: https://drone.acp.homeoffice.gov.uk
+    server: https://drone.acp.homeoffice.gov.uk
+    token: ${DRONE_TOKEN}
+    fork: true
+    repositories:
+      - UKHomeOffice/kube-are@deploy_to_dev
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-dev
-    repo: UKHomeOffice/kube-are
-  environment:
-    DRONE_TOKEN:
-      from_secret: DRONE_TOKEN
   when:
     branch: master
     event: push
+
 
 - name: trigger_deploy_to_are_preprod
   pull: if-not-exists
