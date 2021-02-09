@@ -118,7 +118,7 @@ steps:
   settings:
     drone_server: https://drone-gh.acp.homeoffice.gov.uk
     deploy_to: deploy_to_dev
-    deploy: deploy_to_dev
+    deploy: dev
     token: ${DRONE_TOKEN}
     repo: UKHomeOffice/kube-are
     params:
