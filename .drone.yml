@@ -114,7 +114,7 @@ steps:
 
 - name: trigger_deploy_to_are_dev
   pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
+  image: plugins/downstream
   settings:
     drone_server: https://drone-gh.acp.homeoffice.gov.uk
     deploy_to: dev
@@ -132,7 +132,7 @@ steps:
 
 - name: trigger_deploy_to_are_preprod
   pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
+  image: plugins/downstream
   settings:
     branch: [ master, feature/* ]
     deploy_to: preprod
@@ -148,7 +148,7 @@ steps:
 
 - name: trigger_deploy_to_are_prod
   pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
+  image: plugins/downstream
   settings:
     branch: [ master, feature/* ]
     deploy_to: prod
@@ -156,6 +156,7 @@ steps:
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are
     repo: UKHomeOffice/kube-are
   environment:
+    KUBE_NAMESPACE: are
     DRONE_TOKEN:
       from_secret: DRONE_TOKEN
   when:
