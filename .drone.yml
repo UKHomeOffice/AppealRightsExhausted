@@ -116,18 +116,15 @@ steps:
   pull: if-not-exists
   image: plugins/downstream
   settings:
-    drone_server: https://drone-gh.acp.homeoffice.gov.uk
-    deploy_to: dev
-    token: ${DRONE_TOKEN}
-    repo: UKHomeOffice/kube-are
-    fork: false
+    server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: dev
+    token:
+      from_secret: DRONE_TOKEN
+    repositories: UKHomeOffice/kube-are
+    fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
       - KUBE_NAMESPACE=are-dev
-  environment:
-    KUBE_NAMESPACE: are-dev
-    DRONE_TOKEN:
-      from_secret: DRONE_TOKEN
   when:
     branch: [ master, feature/* ]
     event: push
