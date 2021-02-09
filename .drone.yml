@@ -116,7 +116,7 @@ steps:
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
   settings:
-    drone_server: https://drone.acp.homeoffice.gov.uk
+    drone_server: https://drone-gh.acp.homeoffice.gov.uk/
     deploy_to: dev
     token: ${DRONE_TOKEN}
     fork: true
@@ -136,7 +136,7 @@ steps:
   settings:
     branch: [ master, feature/* ]
     deploy_to: preprod
-    drone_server: https://drone.acp.homeoffice.gov.uk
+    drone_server: https://drone-gh.acp.homeoffice.gov.uk/
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-preprod
     repo: UKHomeOffice/kube-are
   environment:
@@ -152,7 +152,7 @@ steps:
   settings:
     branch: [ master, feature/* ]
     deploy_to: prod
-    drone_server: https://drone.acp.homeoffice.gov.uk
+    drone_server: https://drone-gh.acp.homeoffice.gov.uk/
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are
     repo: UKHomeOffice/kube-are
   environment:
