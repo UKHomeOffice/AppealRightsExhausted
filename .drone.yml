@@ -117,6 +117,8 @@ steps:
   image: plugins/downstream
   settings:
     server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: dev
+    last_successful: true
     token:
       from_secret: DRONE_TOKEN
     repositories: UKHomeOffice/kube-are@feature/SD-122-update-drone-to-version-1
