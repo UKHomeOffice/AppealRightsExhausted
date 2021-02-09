@@ -120,7 +120,7 @@ steps:
     deploy: dev
     token:
       from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are
+    repositories: UKHomeOffice/kube-are@feature
     fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
