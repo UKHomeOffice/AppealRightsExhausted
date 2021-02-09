@@ -30,7 +30,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: [ master, feature/* ]
+    branch: master
     event: push
 
 - name: build_acceptance
@@ -59,7 +59,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: [ master, feature/* ]
+    branch: master
     event: push
 
 - name: test_acceptance
@@ -94,7 +94,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: [ master, feature/* ]
+    branch: master
     event: push
 
 - name: image_to_quay
@@ -111,7 +111,7 @@ steps:
     - name: dockersock
       path: /var/run
   when:
-    branch: [ master, feature/* ]
+    branch: master
     event: push
 
 - name: trigger_deploy_to_are_dev
@@ -123,27 +123,29 @@ steps:
     last_successful: true
     token:
       from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are@feature/SD-122-update-drone-to-version-1
+    repositories: UKHomeOffice/kube-are@master
     fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
       - KUBE_NAMESPACE=are-dev
   when:
-    branch: [ master, feature/* ]
+    branch: master
     event: push
 
 - name: trigger_deploy_to_are_preprod
   pull: if-not-exists
   image: plugins/downstream
   settings:
-    branch: [ master, feature/* ]
-    deploy_to: preprod
-    drone_server: https://drone-gh.acp.homeoffice.gov.uk
-    params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-preprod
-    repo: UKHomeOffice/kube-are
-  environment:
-    DRONE_TOKEN:
+    server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: preprod
+    last_successful: true
+    token:
       from_secret: DRONE_TOKEN
+    repositories: UKHomeOffice/kube-are@master
+    fork: true
+    params:
+      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
+      - KUBE_NAMESPACE=are-preprod
   when:
     event: promote
     target: preprod
@@ -152,15 +154,16 @@ steps:
   pull: if-not-exists
   image: plugins/downstream
   settings:
-    branch: [ master, feature/* ]
-    deploy_to: prod
-    drone_server: https://drone-gh.acp.homeoffice.gov.uk
-    params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are
-    repo: UKHomeOffice/kube-are
-  environment:
-    KUBE_NAMESPACE: are
-    DRONE_TOKEN:
+    server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: prod
+    last_successful: true
+    token:
       from_secret: DRONE_TOKEN
+    repositories: UKHomeOffice/kube-are@master
+    fork: true
+    params:
+      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
+      - KUBE_NAMESPACE=are
   when:
     event: promote
     target: prod
