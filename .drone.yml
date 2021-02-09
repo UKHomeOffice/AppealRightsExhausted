@@ -119,7 +119,7 @@ steps:
     server: https://drone-gh.acp.homeoffice.gov.uk
     token:
       from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are@master
+    repositories: UKHomeOffice/kube-are@feature/SD-122-update-drone-to-version-1
     fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
