@@ -119,7 +119,7 @@ steps:
     drone_server: https://drone-gh.acp.homeoffice.gov.uk
     deploy_to: dev
     token: ${DRONE_TOKEN}
-    fork: true
+    fork: false
     repo: UKHomeOffice/kube-are
     params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-dev
   environment:
