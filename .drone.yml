@@ -72,7 +72,7 @@ steps:
     last_successful: false
     token:
       from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are
+    repositories: UKHomeOffice/kube-are@master
     fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
