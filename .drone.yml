@@ -69,10 +69,10 @@ steps:
   settings:
     server: https://drone-gh.acp.homeoffice.gov.uk
     deploy: dev
-    last_successful: true
+    last_successful: false
     token:
       from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are@master
+    repositories: UKHomeOffice/kube-are
     fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
