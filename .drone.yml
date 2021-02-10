@@ -73,7 +73,7 @@ steps:
     token:
       from_secret: DRONE_TOKEN
     repositories: UKHomeOffice/kube-are@master
-    fork: false
+    fork: true
     params:
       - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
       - KUBE_NAMESPACE=are-dev
