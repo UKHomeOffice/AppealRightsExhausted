@@ -69,7 +69,6 @@ steps:
   settings:
     server: https://drone-gh.acp.homeoffice.gov.uk
     deploy: dev
-    last_successful: true
     wait: true
     token:
       from_secret: DRONE_TOKEN
