@@ -10,8 +10,6 @@ steps:
   commands:
   - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
   - docker build -t app-$${DRONE_COMMIT_SHA} .
-  environment:
-    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   volumes:
     - name: dockersock
       path: /var/run
@@ -28,8 +26,6 @@ steps:
   - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
   - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
   - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
-  environment:
-    IMAGE_NAME: app-$${DRONE_COMMIT_SHA}
   volumes:
     - name: dockersock
       path: /var/run
