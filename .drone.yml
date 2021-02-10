@@ -1,116 +1,118 @@
-pipeline:
-  build_are:
-    image: docker:18.03.1-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker build -t app-$${DRONE_COMMIT_SHA} .
-    when:
-      event: pull_request
+---
+kind: pipeline
+name: default
+type: kubernetes
 
-  build_are:
-    image: docker:18.03.1-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker build -t app-$${DRONE_COMMIT_SHA} .
-    when:
-      branch: master
-      event: push
+steps:
+- name: build_are
+  pull: if-not-exists
+  image: docker:dind
+  commands:
+  - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
+  - docker build -t app-$${DRONE_COMMIT_SHA} .
+  volumes:
+    - name: dockersock
+      path: /var/run
+  when:
+    branch: [ master, features/* ]
+    event: push
 
-  build_acceptance:
-    image: docker:18.03.1-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
-    when:
-      event: pull_request
+- name: test_acceptance
+  pull: if-not-exists
+  image: docker:dind
+  commands:
+  - n=0; while [ "$n" -lt 60 ] && [ ! -e /var/run/docker.sock ]; do n=$(( n + 1 )); sleep 1; done
+  - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
+  - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
+  - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
+  - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
+  volumes:
+    - name: dockersock
+      path: /var/run
+  when:
+    branch: [ master, features/* ]
+    event: push
 
-  build_acceptance:
-    image: docker:18.03.1-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
-    when:
-      branch: master
-      event: push
-
-  test_acceptance:
-    image: docker:18.03.1-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
-      - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
-      - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
-      - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
-    when:
-      event: pull_request
-
-  test_acceptance:
-    image: docker:18.03.1-ce
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
-      - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
-      - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
-      - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
-    when:
-      branch: master
-      event: push
-
-  image_to_quay:
-    image: docker:18.03.1-ce
-    secrets:
-      - DOCKER_PASSWORD
-    environment:
-      - DOCKER_HOST=tcp://172.17.0.1:2375
-    commands:
-      - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag app-$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
-      - docker push quay.io/ukhomeofficedigital/are-app:$${DRONE_COMMIT_SHA}
-    when:
-      branch: master
-      event: push
-
-  trigger_deploy_to_are_dev:
-    image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
-    secrets:
-      - DRONE_TOKEN
-    drone_server: https://drone.acp.homeoffice.gov.uk
-    repo: UKHomeOffice/kube-are
+- name: image_to_quay
+  pull: if-not-exists
+  image: docker:dind
+  environment:
+    DOCKER_PASSWORD:
+      from_secret: DOCKER_PASSWORD
+  commands:
+  - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
+  - docker tag app-$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
+  - docker push quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
+  volumes:
+    - name: dockersock
+      path: /var/run
+  when:
     branch: master
-    deploy_to: dev
-    params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-dev
-    when:
-      branch: master
-      event: push
+    event: push
 
-  trigger_deploy_to_are_preprod:
-    image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
-    secrets:
-      - DRONE_TOKEN
-    drone_server: https://drone.acp.homeoffice.gov.uk
-    repo: UKHomeOffice/kube-are
+- name: trigger_deploy_to_are_dev
+  pull: if-not-exists
+  image: plugins/downstream
+  settings:
+    server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: dev
+    last_successful: true
+    token:
+      from_secret: DRONE_TOKEN
+    repositories: UKHomeOffice/kube-are@master
+    fork: true
+    params:
+      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
+      - KUBE_NAMESPACE=are-dev
+  when:
     branch: master
-    deploy_to: preprod
-    params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are-preprod
-    when:
-      event: deployment
-      environment: preprod
+    event: push
 
-  trigger_deploy_to_are_prod:
-    image: quay.io/ukhomeofficedigital/drone-trigger:v0.3.0
-    secrets:
-      - DRONE_TOKEN
-    drone_server: https://drone.acp.homeoffice.gov.uk
-    repo: UKHomeOffice/kube-are
-    branch: master
-    deploy_to: prod
-    params: APP_IMAGE_TAG=${DRONE_COMMIT_SHA},KUBE_NAMESPACE=are
-    when:
-      event: deployment
-      environment: prod
+- name: trigger_deploy_to_are_preprod
+  pull: if-not-exists
+  image: plugins/downstream
+  settings:
+    server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: preprod
+    last_successful: true
+    token:
+      from_secret: DRONE_TOKEN
+    repositories: UKHomeOffice/kube-are@master
+    fork: true
+    params:
+      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
+      - KUBE_NAMESPACE=are-preprod
+  when:
+    event: promote
+    target: preprod
+
+- name: trigger_deploy_to_are_prod
+  pull: if-not-exists
+  image: plugins/downstream
+  settings:
+    server: https://drone-gh.acp.homeoffice.gov.uk
+    deploy: prod
+    last_successful: true
+    token:
+      from_secret: DRONE_TOKEN
+    repositories: UKHomeOffice/kube-are@master
+    fork: true
+    params:
+      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
+      - KUBE_NAMESPACE=are
+  when:
+    event: promote
+    target: prod
+
+services:
+  - name: docker
+    image: docker:dind
+    volumes:
+      - name: dockersock
+        path: /var/run
+
+volumes:
+  - name: dockersock
+    temp: {}
+
+...
