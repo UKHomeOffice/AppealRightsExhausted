@@ -23,12 +23,10 @@ steps:
   environment:
     DRONE_GIT_USERNAME:
       from_secret: DRONE_GIT_USERNAME
-    DRONE_GIT_PASSWORD:
-      from_secret: DRONE_GIT_PASSWORD
-    ssh_key:
-      from_secret: ssh_key
+    DRONE_GIT_TOKEN:
+      from_secret: DRONE_GIT_TOKEN
   commands:
-    - git clone https://github.com/UKHomeOffice/kube-are.git
+    - git clone https://${DRONE_GIT_USERNAME}:${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
   when:
     branch: [ master, features/* ]
     event: push
