@@ -25,6 +25,8 @@ steps:
       from_secret: DRONE_GIT_USERNAME
     DRONE_GIT_PASSWORD:
       from_secret: DRONE_GIT_PASSWORD
+    ssh_key:
+      from_secret: ssh_key
   commands:
     - git clone https://github.com/UKHomeOffice/kube-are.git
   when:
