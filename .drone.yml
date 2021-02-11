@@ -21,10 +21,12 @@ steps:
   pull: if-not-exists
   image: docker:git
   environment:
-    Username:
-      from_secret: Username
+    DRONE_GIT_USERNAME:
+      from_secret: DRONE_GIT_USERNAME
+    DRONE_GIT_PASSWORD:
+      from_secret: DRONE_GIT_PASSWORD
   commands:
-    - git clone https://github.com/UKHomeOffice/kube-are.git
+    - git clone git@github.com:UKHomeOffice/kube-are.git
   when:
     branch: [ master, features/* ]
     event: push
