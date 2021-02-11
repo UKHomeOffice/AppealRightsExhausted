@@ -21,8 +21,8 @@ steps:
   pull: if-not-exists
   image: docker:git
   environment:
-    USERNAME:
-      from_secret: USERNAME
+    Username:
+      from_secret: Username
   commands:
     - git clone https://github.com/UKHomeOffice/kube-are.git
   when:
