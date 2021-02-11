@@ -17,6 +17,15 @@ steps:
     branch: [ master, features/* ]
     event: push
 
+- name: clone_repo
+  pull: if-not-exists
+  image: docker:git
+  commands:
+    - git clone https://github.com/UKHomeOffice/kube-are.git
+  when:
+    branch: [ master, features/* ]
+    event: push
+
 - name: build_acceptance
   pull: if-not-exists
   image: docker:dind
