@@ -74,7 +74,7 @@ steps:
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
   when:
-    branch: [ master, features/* ]
+    branch: master
     event: push
 
 - name: deploy_to_dev
