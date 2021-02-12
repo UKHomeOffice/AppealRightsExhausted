@@ -17,22 +17,6 @@ steps:
     branch: [ master, features/* ]
     event: push
 
-- name: clone_repo
-  pull: if-not-exists
-  image: docker:git
-  environment:
-    DRONE_GIT_USERNAME:
-      from_secret: DRONE_GIT_USERNAME
-    DRONE_GIT_TOKEN:
-      from_secret: DRONE_GIT_TOKEN
-  commands:
-    - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
-    - cd kube-are
-    - ls -la
-  when:
-    branch: [ master, features/* ]
-    event: push
-
 - name: build_acceptance
   pull: if-not-exists
   image: docker:dind
@@ -79,56 +63,61 @@ steps:
     branch: master
     event: push
 
-- name: trigger_deploy_to_are_dev
+- name: clone_repo
   pull: if-not-exists
-  image: plugins/downstream
-  settings:
-    server: https://drone-gh.acp.homeoffice.gov.uk
-    deploy: dev
-    last_successful: true
-    token:
-      from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are@master
-    fork: true
-    params:
-      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
-      - KUBE_NAMESPACE=are-dev
+  image: docker:git
+  environment:
+    DRONE_GIT_USERNAME:
+      from_secret: DRONE_GIT_USERNAME
+    DRONE_GIT_TOKEN:
+      from_secret: DRONE_GIT_TOKEN
+  commands:
+    - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
+    - cd kube-are
+    - ls -la
   when:
-    branch: master
+    branch: [ master, features/* ]
     event: push
 
-- name: trigger_deploy_to_are_preprod
+- name: deploy_to_dev
   pull: if-not-exists
-  image: plugins/downstream
-  settings:
-    server: https://drone-gh.acp.homeoffice.gov.uk
-    deploy: preprod
-    last_successful: true
-    token:
-      from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are@master
-    fork: true
-    params:
-      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
-      - KUBE_NAMESPACE=are-preprod
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+    - cd kube-are
+    - bin/deploy.sh
+  environment:
+    KUBE_SERVER_DEV:
+      from_secret: kube_server_dev
+    KUBE_TOKEN_DEV:
+      from_secret: kube_token_dev
+  when:
+    event: promote
+    target: dev
+
+- name: deploy_to_preprod
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+    - bin/deploy.sh
+  environment:
+    KUBE_SERVER_DEV:
+      from_secret: kube_server_dev
+    KUBE_TOKEN_DEV:
+      from_secret: kube_token_dev
   when:
     event: promote
     target: preprod
 
-- name: trigger_deploy_to_are_prod
+- name: deploy_to_prod
   pull: if-not-exists
-  image: plugins/downstream
-  settings:
-    server: https://drone-gh.acp.homeoffice.gov.uk
-    deploy: prod
-    last_successful: true
-    token:
-      from_secret: DRONE_TOKEN
-    repositories: UKHomeOffice/kube-are@master
-    fork: true
-    params:
-      - APP_IMAGE_TAG=${DRONE_COMMIT_SHA}
-      - KUBE_NAMESPACE=are
+  image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  commands:
+    - bin/deploy.sh
+  environment:
+    KUBE_SERVER_PROD:
+      from_secret: kube_server_prod
+    KUBE_TOKEN_PROD:
+      from_secret: kube_token_prod
   when:
     event: promote
     target: prod
