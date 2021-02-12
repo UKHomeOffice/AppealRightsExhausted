@@ -53,9 +53,9 @@ steps:
     DOCKER_PASSWORD:
       from_secret: DOCKER_PASSWORD
   commands:
-  - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
-  - docker tag app-$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
-  - docker push quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
+    - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
+    - docker tag app-$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
+    - docker push quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
   volumes:
     - name: dockersock
       path: /var/run
@@ -73,8 +73,6 @@ steps:
       from_secret: DRONE_GIT_TOKEN
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
-    - cd kube-are
-    - ls -la
   when:
     branch: [ master, features/* ]
     event: push
@@ -82,19 +80,21 @@ steps:
 - name: deploy_to_dev
   pull: if-not-exists
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
-  commands:
-    - cd kube-are
-    - ls -la
-    - bin/deploy.sh
   environment:
     KUBE_SERVER_DEV:
       from_secret: kube_server_dev
     KUBE_TOKEN_DEV:
       from_secret: kube_token_dev
+    KUBE_NAMESPACE: are-dev
+    APP_IMAGE_TAG: ${DRONE_COMMIT_SHA}
+  commands:
+    - export KUBE_TOKEN=$${KUBE_TOKEN_DEV}
+    - cd kube-are
+    - ls -la
+    - bin/deploy.sh
   when:
     branch: master
     event: push
-    target: dev
 
 - name: deploy_to_preprod
   pull: if-not-exists
@@ -107,7 +107,6 @@ steps:
     KUBE_TOKEN_DEV:
       from_secret: kube_token_dev
   when:
-    branch: master
     event: promote
     target: preprod
 
@@ -122,7 +121,6 @@ steps:
     KUBE_TOKEN_PROD:
       from_secret: kube_token_prod
   when:
-    branch: master
     event: promote
     target: prod
 
