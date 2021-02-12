@@ -27,6 +27,8 @@ steps:
       from_secret: DRONE_GIT_TOKEN
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
+    - cd kube-are
+    - ls -la
   when:
     branch: [ master, features/* ]
     event: push
