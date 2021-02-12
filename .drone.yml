@@ -84,6 +84,7 @@ steps:
   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   commands:
     - cd kube-are
+    - ls -la
     - bin/deploy.sh
   environment:
     KUBE_SERVER_DEV:
