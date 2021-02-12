@@ -93,7 +93,7 @@ steps:
       from_secret: kube_token_dev
   when:
     branch: master
-    event: promote
+    event: push
     target: dev
 
 - name: deploy_to_preprod
