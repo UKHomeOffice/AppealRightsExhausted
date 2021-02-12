@@ -91,6 +91,7 @@ steps:
     KUBE_TOKEN_DEV:
       from_secret: kube_token_dev
   when:
+    branch: master
     event: promote
     target: dev
 
@@ -105,6 +106,7 @@ steps:
     KUBE_TOKEN_DEV:
       from_secret: kube_token_dev
   when:
+    branch: master
     event: promote
     target: preprod
 
@@ -119,6 +121,7 @@ steps:
     KUBE_TOKEN_PROD:
       from_secret: kube_token_prod
   when:
+    branch: master
     event: promote
     target: prod
 
