@@ -76,7 +76,7 @@ steps:
     - cd kube-are
     - git tag
     - git tag dev-${DRONE_COMMIT_SHA}
-    - git show ${DRONE_COMMIT_SHA}
+    - git show dev-${DRONE_COMMIT_SHA}
     - git push origin --tags
   when:
     branch: master
