@@ -74,9 +74,7 @@ steps:
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
     - cd kube-are
-    - git tag
     - git tag dev-${DRONE_COMMIT_SHA}
-    - git show dev-${DRONE_COMMIT_SHA}
     - git push origin --tags
   when:
     branch: master
@@ -93,9 +91,8 @@ steps:
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
     - cd kube-are
-    - git tag
-    - git tag prod-$${DRONE_COMMIT_SHA}
-    - git show $${DRONE_COMMIT_SHA}
+    - echo ${promote}
+    - git tag ${promote}-${DRONE_COMMIT_SHA}
     - git push origin --tags
   when:
     event: promote
