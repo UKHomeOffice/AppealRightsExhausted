@@ -87,6 +87,9 @@ steps:
       from_secret: DRONE_GIT_TOKEN
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
+    - cd kube-are
+    - git tag {DRONE_COMMIT_SHA}
+    - git push origin --tags
   when:
     event: promote
     target: [ preprod, prod ]
