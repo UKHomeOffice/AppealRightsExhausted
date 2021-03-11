@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "node .",
-    "dev": "parallelshell 'NODE_ENV=development nodemon .' 'npm run watch:scss' 'npm run watch:js' 'npm run watch:translations'",
+    "dev": "NODE_ENV=development npm-run-all watch:app watch:scss watch:js watch:translations",
+    "watch:app": "nodemon .",
     "watch:scss": "nodemon -e scss -x 'npm run sass'",
     "watch:js": "nodemon --watch assets/js -x 'npm run browserify'",
     "watch:translations": "nodemon --watch apps/are_form/translations/src -x 'npm run hof-transpile'",
@@ -65,6 +66,8 @@
     "mocha": "^2.2.5",
     "mocha-junit-reporter": "^1.4.0",
     "mocha-multi": "^0.7.1",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
     "parallelshell": "^1.1.1",
     "plato": "^1.5.0",
     "pre-commit": "^1.0.10",
