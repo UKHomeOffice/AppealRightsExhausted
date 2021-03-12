@@ -40,9 +40,9 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '24-12-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '08-01-2016'},
     {testDate: '29-04-2016', appealStage: 'FT_IC_FAST' , country: 'England & Wales', expected: '05-05-2016'},
     {testDate: '23-12-2016', appealStage: 'FT_IC_FAST' , country: 'England & Wales', expected: '05-01-2017'},
-    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '22-08-2016'},
-    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '23-08-2016'},
-    {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '04-01-2017'},
+    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '25-07-2016'},
+    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '26-07-2016'},
+    {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '05-01-2017'},
     {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'}
 
   ]

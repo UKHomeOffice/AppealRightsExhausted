@@ -127,7 +127,7 @@ module.exports = {
 
       { 'value': 'UT_IAC_IC',
         'label': '11. Upper Tribunal IAC - In Country PTA to review UT determination',
-        'timeLimit': {'value': 12, 'type': 'calendar days'},
+        'timeLimit': {'value': 10, 'type': 'calendar days'},
         'startDateLabel': 'Date when appellant was sent notice of decision',
         'rules': 'The Tribunal Procedure (Upper Tribunal) Rules 2008',
         'ruleNumber': '44(3B)(a)(i)',
@@ -139,7 +139,7 @@ module.exports = {
 
       { 'value': 'UT_IAC_OOC',
         'label': '12. Upper Tribunal IAC - Out of Country PTA to review UT determination',
-        'timeLimit': {'value': 38, 'type': 'calendar days'},
+        'timeLimit': {'value': 10, 'type': 'calendar days'},
         'startDateLabel': 'Date when appellant was sent notice of decision',
         'rules': 'The Tribunal Procedure (Upper Tribunal) Rules 2008',
         'ruleNumber': '44(3B)(b)',
@@ -151,7 +151,7 @@ module.exports = {
 
       { 'value': 'COA_IAC',
         'label': '13. Court of Appeal via IAC',
-        'timeLimit': {'value': 21+2, 'type': 'calendar days'},
+        'timeLimit': {'value': 28+2, 'type': 'calendar days'},
         'startDateLabel': 'Date when appellant was sent notice of decision',
         'rules': 'Civil Procedure Rules',
         'ruleNumber': '52.4',
