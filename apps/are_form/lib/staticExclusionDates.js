@@ -107,7 +107,7 @@ function mysort(obj, key_name) {
     }
 
     return obj.sort(sortByNamedKey);
-};
+}
 
 function addFormattedDate() {
   exclusionDays.forEach(function (element, idx, arr){
@@ -150,7 +150,7 @@ module.exports = {
                      xd.exclusionDate >= startDate &&
                      xd.exclusionDate <= endDate);
           });
-      };
+      }
   }
 
 }

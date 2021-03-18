@@ -34,7 +34,7 @@ describe('Bulk Test: checking ARE is not weekend nor exclusion day', function() 
            assert(d.isExclusionDay(d.areDate) == false);
         });
 
-      };  // over i loop
+      }  // over i loop
     });   // over country loop
   });     /// over stage loop
 

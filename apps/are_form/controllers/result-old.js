@@ -59,7 +59,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     if (calculatedDate.isWeekend() || calculatedDate.isExclusionDay(selectedExclusionDates) ) {
       calculatedDate = calculatedDate.addDaysIgnoringWeekendsAndExclusionDays(1, selectedExclusionDates);
       json['revised-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
-  	} else {
+    } else {
       json['revised-start-date'] = 'n/a'
     }
 

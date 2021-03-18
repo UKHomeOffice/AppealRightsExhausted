@@ -2,12 +2,8 @@
 
 var moment = require('moment');
 
-	Date.prototype.AREDate = function (country,
-																		 timeLimitValue,
-																		 timeLimitType,
-																	 	 adminAllowanceValue,
-																	   adminAllowanceType,
-																	   exclusionDays) {
+	Date.prototype.AREDate = function (
+		country, timeLimitValue, timeLimitType, adminAllowanceValue, adminAllowanceType, exclusionDays) {
 
 		var myDate = new Date(this.valueOf());
 		timeLimitType = timeLimitType.replace(/ /g,'');
@@ -35,9 +31,8 @@ var moment = require('moment');
 	};
 
 	Date.prototype.isExclusionDay = function(exclusionDays) {
-
-	  var formattedDate = moment(this).format('YYYY-MM-DD')
-	  for (var index in exclusionDays) {
+		var formattedDate = moment(this).format('YYYY-MM-DD')
+		for (var index in exclusionDays) {
 			if (exclusionDays[index].exclusionDate == formattedDate) {
 				return true
 			}
@@ -51,38 +46,32 @@ var moment = require('moment');
 	};
 
 	Date.prototype.addDays = function(daysToAdd) {
-
-	    var myDate = new Date(this.valueOf());
-	    myDate.setDate(myDate.getDate() + daysToAdd);
-	    return myDate;
+		var myDate = new Date(this.valueOf());
+		myDate.setDate(myDate.getDate() + daysToAdd);
+		return myDate;
 	};
 
 	Date.prototype.addDaysIgnoringWeekendsAndExclusionDays = function(daysToAdd, exclusionDays) {
-
-	    var count = 0 ;
-	    var myDate = new Date(this.valueOf());
-	    while (count < daysToAdd ) {
-				myDate.setDate(myDate.getDate() + 1);
-
-				if (myDate.isWeekend() == false && myDate.isExclusionDay(exclusionDays) == false) {
-		   		count++
-				}
-	    }
-	    return myDate;
+		var count = 0;
+		var myDate = new Date(this.valueOf());
+		while (count < daysToAdd ) {
+			myDate.setDate(myDate.getDate() + 1);
+			if (myDate.isWeekend() == false && myDate.isExclusionDay(exclusionDays) == false) {
+				count++
+			}
+		}
+		return myDate;
 	};
 
 	Date.prototype.addDaysIgnoringWeekends = function(daysToAdd) {
 
-	    var count = 0 ;
-	    var myDate = new Date(this.valueOf());
-	    while (count < daysToAdd ) {
-				myDate.setDate(myDate.getDate() + 1);
-
-				if (myDate.isWeekend()  == false) {
-		   		count++
-				}
-	    }
-	    return myDate;
+		var count = 0;
+		var myDate = new Date(this.valueOf());
+		while (count < daysToAdd ) {
+			myDate.setDate(myDate.getDate() + 1);
+			if (myDate.isWeekend()  == false) { count++ }
+		}
+		return myDate;
 	};
 
 

@@ -25,7 +25,7 @@ var dateFormat = 'DD-MM-YYYY';
     return staticAppealStages.getstaticAppealStages().filter(function (obj) {
         return obj.value === selectedAppealStage;
     })[0];
-  };
+  }
 
   function isAppealStageUsedinCountry(appealStage, country) {
     var stage = getAppealInfo(appealStage);
@@ -40,8 +40,8 @@ var dateFormat = 'DD-MM-YYYY';
             type: 'startDateTooEarlyError',
             redirect: undefined
         });
-    };
-  };
+    }
+  }
 
   if (keyToValidate === this.countryAppealStageKey) {
     var countryValue = req.form.values[keyToValidate];
@@ -54,9 +54,9 @@ var dateFormat = 'DD-MM-YYYY';
                     type: 'countryAppealStageError',
                     redirect: undefined
                   });
-    };
+    }
 
-  };
+  }
 
   return DateController.prototype.validateField.apply(this, arguments);
 
