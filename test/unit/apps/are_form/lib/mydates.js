@@ -43,8 +43,27 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '22-08-2016'},
     {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '23-08-2016'},
     {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '04-01-2017'},
-    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'}
-
+    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'},
+    {testDate: '17-03-2021', appealStage: 'FT_IC' , country: 'Northern Ireland', expected: '06-04-2021'},
+    {testDate: '05-03-2021', appealStage: 'FT_OOC_1' , country: 'Scotland', expected: '05-04-2021'},
+    {testDate: '30-04-2021', appealStage: 'FT_OOC_2' , country: 'England & Wales', expected: '01-06-2021'},
+    {testDate: '09-07-2021', appealStage: 'FT_IC_FAST' , country: 'Northern Ireland', expected: '15-07-2021'},
+    {testDate: '09-07-2021', appealStage: 'FT_IC_FAST' , country: 'England & Wales', expected: '14-07-2021'},
+    {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'Scotland', expected: '14-09-2021'},
+    {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'England & Wales', expected: '15-09-2021'},
+    {testDate: '13-11-2021', appealStage: 'UT_IC' , country: 'Scotland', expected: '01-12-2021'},
+    {testDate: '15-12-2021', appealStage: 'UT_OOC' , country: 'England & Wales', expected: '18-01-2022'},
+    {testDate: '01-01-2021', appealStage: 'UT_IAC_JR' , country: 'England & Wales', expected: '01-04-2021'},
+    {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'England & Wales', expected: '18-01-2022'},
+    {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'Scotland', expected: '18-01-2022'},
+    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '01-07-2022'},
+    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'Scotland', expected: '01-07-2022'},
+    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '01-07-2022'},
+    {testDate: '03-06-2023', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '29-06-2023'},
+    {testDate: '03-07-2023', appealStage: 'COS_IAC' , country: 'Scotland', expected: '16-08-2023'},
+    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'England & Wales', expected: '15-07-2024'},
+    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Scotland', expected: '15-07-2024'},
+    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Northern Ireland', expected: '16-07-2024'}
   ]
 
   testDates.forEach(function (e, ix, arr) {
