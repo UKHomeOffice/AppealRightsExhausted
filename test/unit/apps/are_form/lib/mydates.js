@@ -53,7 +53,6 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'England & Wales', expected: '15-09-2021'},
     {testDate: '13-11-2021', appealStage: 'UT_IC' , country: 'Scotland', expected: '01-12-2021'},
     {testDate: '15-12-2021', appealStage: 'UT_OOC' , country: 'England & Wales', expected: '18-01-2022'},
-    {testDate: '01-01-2021', appealStage: 'UT_IAC_JR' , country: 'England & Wales', expected: '01-04-2021'},
     {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'England & Wales', expected: '18-01-2022'},
     {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'Scotland', expected: '18-01-2022'},
     {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '01-07-2022'},
