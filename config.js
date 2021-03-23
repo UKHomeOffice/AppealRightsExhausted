@@ -1,9 +1,8 @@
+/* eslint no-process-env: 0 */
+/* eslint no-inline-comments: 0 */
+/* eslint camelcase: 0 */
+
 'use strict';
-
-/*eslint no-process-env: 0*/
-/*eslint no-inline-comments: 0*/
-/*eslint camelcase: 0*/
-
 process.title = 'are';
 
 module.exports = {

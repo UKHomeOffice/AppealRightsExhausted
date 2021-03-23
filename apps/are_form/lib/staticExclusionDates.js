@@ -1,3 +1,6 @@
+/* eslint max-len: 0 */
+/* eslint no-else-return: 0 */
+
 'use strict';
 var moment = require('moment');
 var dateformat = 'dddd DD MMMM YYYY';
@@ -99,10 +102,12 @@ var exclusionDays = [
 
 ];
 
-function mysort(obj, key_name) {
+function mySort(obj, keyName) {
     function sortByNamedKey(a, b) {
-        var x = a[key_name];
-        var y = b[key_name];
+        var x = a[keyName];
+        var y = b[keyName];
+
+        /* eslint-disable-next-line */
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     }
 
@@ -110,9 +115,9 @@ function mysort(obj, key_name) {
 }
 
 function addFormattedDate() {
-  exclusionDays.forEach(function (element, idx, arr){
-    exclusionDays[idx].formattedDate =  moment(element.exclusionDate,'YYYY-MM-DD').format(dateformat)
-  })
+    exclusionDays.forEach(function(element, idx, arr) {
+        exclusionDays[idx].formattedDate = moment(element.exclusionDate, 'YYYY-MM-DD').format(dateformat);
+    });
 }
 
 module.exports = {
@@ -121,31 +126,32 @@ module.exports = {
     return '20-10-2014';
   },
 
-  getTotalNumberOfExclusionDates: function () {
+  getTotalNumberOfExclusionDates: function() {
        return exclusionDays.length;
    },
 
- getFirstExclusionDate: function () {
-      return mysort(exclusionDays,'exclusionDate')[0].exclusionDate || '-';
+ getFirstExclusionDate: function() {
+      return mySort(exclusionDays, 'exclusionDate')[0].exclusionDate || '-';
   },
 
-  getLastExclusionDate: function () {
-      return mysort(exclusionDays,'exclusionDate')[exclusionDays.length - 1].exclusionDate || '-';
+  getLastExclusionDate: function() {
+      return mySort(exclusionDays, 'exclusionDate')[exclusionDays.length - 1].exclusionDate || '-';
   },
 
-  getExclusionDays: function (country, startDate, endDate) {
+  getExclusionDays: function(country, startDate, endDate) {
 
       country = country || 'All';
-      startDate = startDate ||  '0000-00-00';
+      startDate = startDate || '0000-00-00';
       endDate = endDate || '9999-99-99';
 
       addFormattedDate();
 
+
       if (country === 'All') {
-          return exclusionDays
+          return exclusionDays;
       } else {
-          return exclusionDays.filter( function (xd, idx, arr) {
-              return ( arr[idx].hasOwnProperty(country) &&
+          return exclusionDays.filter(function(xd, idx, arr) {
+              return (arr[idx].hasOwnProperty(country) &&
                      xd[country] == true &&
                      xd.exclusionDate >= startDate &&
                      xd.exclusionDate <= endDate);
@@ -153,4 +159,4 @@ module.exports = {
       }
   }
 
-}
+};

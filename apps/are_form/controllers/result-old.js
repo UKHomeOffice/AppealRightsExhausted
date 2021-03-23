@@ -1,3 +1,5 @@
+/* eslint no-multi-spaces: 0 */
+/* eslint dot-notation: 0 */
 'use strict';
 
 var util = require('util');
@@ -7,7 +9,7 @@ var BaseController = controllers.base;
 var moment = require('moment');
 var ARECalculator = require('../lib/mydates');
 var staticExclusionDates = require('../lib/staticExclusionDates');
-var staticAppealStages   = require('../lib/staticAppealStages');
+var staticAppealStages = require('../lib/staticAppealStages');
 
 
 var ConfirmController = function ConfirmController() {
@@ -37,7 +39,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     json['display-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
 
     var selectedAppealStage = {};
-    selectedAppealStage = staticAppealStages.getstaticAppealStages().filter(function (obj) {
+    selectedAppealStage = staticAppealStages.getstaticAppealStages().filter(function(obj) {
         return obj.value == json['appeal-stage'];
     });
 
@@ -51,16 +53,16 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     json['admin-allowance-type']  = selectedAppealStage[0].adminAllowance.type;
     json['trigger']               = selectedAppealStage[0].trigger;
 
-    var selectedExclusionDates = {}
+    var selectedExclusionDates = {};
 
     selectedExclusionDates = staticExclusionDates.getExclusionDays(json['country-of-hearing'],
                                    moment(json['start-date'], 'DD-MM-YYYY').format('YYYY-MM-DD'));
 
-    if (calculatedDate.isWeekend() || calculatedDate.isExclusionDay(selectedExclusionDates) ) {
-      calculatedDate = calculatedDate.addDaysIgnoringWeekendsAndExclusionDays(1, selectedExclusionDates);
-      json['revised-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
+    if (calculatedDate.isWeekend() || calculatedDate.isExclusionDay(selectedExclusionDates)) {
+        calculatedDate = calculatedDate.addDaysIgnoringWeekendsAndExclusionDays(1, selectedExclusionDates);
+        json['revised-start-date'] = moment(calculatedDate).format('dddd, DD MMMM YYYY');
     } else {
-      json['revised-start-date'] = 'n/a'
+        json['revised-start-date'] = 'n/a';
     }
 
     var result = calculatedDate.AREDate(json['country-of-hearing'],
@@ -73,7 +75,7 @@ ConfirmController.prototype.getValues = function getValues(req, res, callback) {
     json['are-date'] = moment(result).format('dddd, DD MMMM YYYY');
     json['total-number-of-exclusion-dates'] = staticExclusionDates.getTotalNumberOfExclusionDates();
     json['exclusion-date-range'] = moment(staticExclusionDates.getFirstExclusionDate()).format('dddd, DD-MMM-YYYY') +
-                  " to " + moment(staticExclusionDates.getLastExclusionDate()).format('dddd, DD-MMM-YYYY')
+        ' to ' + moment(staticExclusionDates.getLastExclusionDate()).format('dddd, DD-MMM-YYYY');
    callback(null, json);
 
 };

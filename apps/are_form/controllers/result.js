@@ -1,3 +1,5 @@
+/* eslint no-multi-spaces: 0 */
+/* eslint dot-notation: 0 */
 'use strict';
 
 var util = require('util');
@@ -5,9 +7,9 @@ var _ = require('underscore');
 var controllers = require('hof').controllers;
 var BaseController = controllers.base;
 var moment = require('moment');
-//var ARECalculator = require('../lib/mydates');
-//var staticExclusionDates = require('../lib/staticExclusionDates');
-//var staticAppealStages   = require('../lib/staticAppealStages');
+// var ARECalculator = require('../lib/mydates');
+// var staticExclusionDates = require('../lib/staticExclusionDates');
+// var staticAppealStages   = require('../lib/staticAppealStages');
 var are = require('../lib/classARE');
 
 var ConfirmController = function ConfirmController() {
