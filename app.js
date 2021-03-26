@@ -17,7 +17,7 @@ if (config.env !== 'ci') {
   app.use(churchill(logger));
 }
 
-if (config.env === 'development' || config.env === 'so-ci' ) {
+if (config.env === 'development' || config.env === 'so-ci') {
   app.use('/public', express.static(path.resolve(__dirname, './public')));
 }
 
@@ -43,9 +43,9 @@ app.use(function setBaseUrl(req, res, next) {
   next();
 });
 
-/*************************************/
-/******* Redis session storage *******/
-/*************************************/
+/** ********************************* **/
+/** ***** Redis session storage ***** **/
+/** ********************************* **/
 var client = redis.createClient(config.redis.port, config.redis.host);
 
 client.on('error', function clientErrorHandler(e) {
@@ -101,7 +101,7 @@ app.get('/terms-and-conditions', function renderTerms(req, res) {
 app.use(require('./errors/'));
 
 
-/*eslint camelcase: 0*/
+/* eslint camelcase: 0*/
 app.listen(config.port, config.listen_host);
-/*eslint camelcase: 1*/
+/* eslint camelcase: 1*/
 logger.info('App listening on port', config.port);

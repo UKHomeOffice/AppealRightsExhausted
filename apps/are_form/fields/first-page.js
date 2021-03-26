@@ -1,5 +1,5 @@
 'use strict';
-var staticAppealStages   = require('../lib/staticAppealStages');
+var staticAppealStages = require('../lib/staticAppealStages');
 
 module.exports = {
   'country-of-hearing': {
@@ -17,7 +17,7 @@ module.exports = {
     }]
   },
   'appeal-stage': {
-    validate: ['required' ],
+    validate: ['required'],
     className: ['typeahead', 'js-hidden'],
     options: [' '].concat(staticAppealStages.getstaticAppealStages())
   },
@@ -35,6 +35,6 @@ module.exports = {
     validate: ['required', 'numeric']
   },
   'start-date-year': {
-    validate: ['required', 'numeric', { type: 'minlength', arguments: [2] } ]
+    validate: ['required', 'numeric', { type: 'minlength', arguments: [2] }]
   }
 };

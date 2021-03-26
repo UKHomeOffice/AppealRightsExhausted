@@ -1,0 +1,21 @@
+{
+  "extends": "homeoffice/config/default",
+  "rules": {
+    "no-unused-vars": "off",
+    "strict": "off",
+    "eqeqeq": "off",
+    "func-names": "off",
+    "no-extend-native": "off",
+    "filenames/match-regex": "off"
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions":{
+    "ecmaVersion": 2017
+  }
+}
+

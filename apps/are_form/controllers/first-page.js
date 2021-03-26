@@ -1,13 +1,13 @@
 'use strict';
 
 var util = require('util');
-//var controllers = require('hof').controllers;
+// var controllers = require('hof').controllers;
 var DateController = require('hof').controllers.date;
 var ErrorController = require('../../../lib/base-error');
 var moment = require('moment');
 var _ = require('underscore');
 
-var staticAppealStages   = require('../lib/staticAppealStages');
+var staticAppealStages = require('../lib/staticAppealStages');
 var earliestDate = require('../lib/staticExclusionDates').getEarliestStartDateAllowed;
 
 var FirstPageController = function FirstPageController() {
@@ -22,15 +22,15 @@ FirstPageController.prototype.validateField = function validateField(keyToValida
 var dateFormat = 'DD-MM-YYYY';
 
   function getAppealInfo(selectedAppealStage) {
-    return staticAppealStages.getstaticAppealStages().filter(function (obj) {
-        return obj.value === selectedAppealStage;
-    })[0];
-  };
+      return staticAppealStages.getstaticAppealStages().filter(function(obj) {
+          return obj.value === selectedAppealStage;
+      })[0];
+  }
 
   function isAppealStageUsedinCountry(appealStage, country) {
-    var stage = getAppealInfo(appealStage);
-    return (stage.country.indexOf('All') !== -1 ||
-            stage.country.indexOf(country) !== -1 );
+      var stage = getAppealInfo(appealStage);
+      return (stage.country.indexOf('All') !== -1 ||
+          stage.country.indexOf(country) !== -1);
   }
 
   if (keyToValidate === this.dateKey) {
@@ -40,27 +40,24 @@ var dateFormat = 'DD-MM-YYYY';
             type: 'startDateTooEarlyError',
             redirect: undefined
         });
-    };
-  };
+    }
+  }
 
   if (keyToValidate === this.countryAppealStageKey) {
-    var countryValue = req.form.values[keyToValidate];
-    var appealStageValue = req.form.values['appeal-stage'];
-    if (countryValue !== '' &&
-        appealStageValue !== '' &&
-       isAppealStageUsedinCountry(appealStageValue,countryValue) == false) {
-       return new ErrorController(this.countryAppealStageKey, {
-                    key: 'country-of-hearing',
-                    type: 'countryAppealStageError',
-                    redirect: undefined
-                  });
-    };
-
-  };
+      var countryValue = req.form.values[keyToValidate];
+      var appealStageValue = req.form.values['appeal-stage'];
+      if (countryValue !== '' && appealStageValue !== '' &&
+          isAppealStageUsedinCountry(appealStageValue, countryValue) == false) {
+          return new ErrorController(this.countryAppealStageKey, {
+              key: 'country-of-hearing',
+              type: 'countryAppealStageError',
+              redirect: undefined
+          });
+      }
+  }
 
   return DateController.prototype.validateField.apply(this, arguments);
-
-  //return DateController.prototype.validateField.call(this, keyToValidate, req, false);
+  // return DateController.prototype.validateField.call(this, keyToValidate, req, false);
 };
 
 module.exports = FirstPageController;
