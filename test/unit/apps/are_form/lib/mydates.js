@@ -46,7 +46,6 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '23-08-2016'},
     {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '04-01-2017'},
     {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'},
-    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'},
     {testDate: '17-03-2021', appealStage: 'FT_IC' , country: 'Northern Ireland', expected: '06-04-2021'},
     {testDate: '05-03-2021', appealStage: 'FT_OOC_1' , country: 'Scotland', expected: '05-04-2021'},
     {testDate: '30-04-2021', appealStage: 'FT_OOC_2' , country: 'England & Wales', expected: '01-06-2021'},
