@@ -45,11 +45,7 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '22-08-2016'},
     {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '23-08-2016'},
     {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '04-01-2017'},
-<<<<<<< HEAD
-    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'}
-
-  ];
-=======
+    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'},
     {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'},
     {testDate: '17-03-2021', appealStage: 'FT_IC' , country: 'Northern Ireland', expected: '06-04-2021'},
     {testDate: '05-03-2021', appealStage: 'FT_OOC_1' , country: 'Scotland', expected: '05-04-2021'},
@@ -70,8 +66,7 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'England & Wales', expected: '15-07-2024'},
     {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Scotland', expected: '15-07-2024'},
     {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Northern Ireland', expected: '16-07-2024'}
-  ]
->>>>>>> updated tests
+  ];
 
   testDates.forEach(function(e, ix, arr) {
     it('should return [' + e.expected + '] in response to [' +
