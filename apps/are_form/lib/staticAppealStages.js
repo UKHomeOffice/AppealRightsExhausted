@@ -3,9 +3,7 @@
 'use strict';
 
 module.exports = {
-
   getstaticAppealStages: function() {
-
    return [
       { 'value': 'FT_IC',
         'label': '01. First Tier IAC Appeal - In Country Appeals',
@@ -186,7 +184,6 @@ module.exports = {
         'trigger': 'IA157 PTA to the CoA refused',
         'sortCode': 150
       }
-
     ];
   }
 };

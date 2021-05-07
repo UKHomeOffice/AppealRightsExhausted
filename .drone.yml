@@ -11,7 +11,7 @@ steps:
     - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
     - docker build -t app-$${DRONE_COMMIT_SHA} .
   when:
-    branch: [ master, features/* ]
+    branch: [ master, feature/* ]
     event: push
 
 - name: build_acceptance
@@ -21,7 +21,7 @@ steps:
     - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
     - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
   when:
-    branch: [ master, features/* ]
+    branch: [ master, feature/* ]
     event: push
 
 - name: test_acceptance
@@ -34,7 +34,7 @@ steps:
   - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
   - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
   when:
-    branch: [ master, features/* ]
+    branch: [ master, feature/* ]
     event: push
 
 - name: image_to_quay

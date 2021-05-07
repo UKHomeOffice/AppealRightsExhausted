@@ -1,8 +1,8 @@
 'use strict';
 
 process.env.NODE_ENV = 'test';
-var assert = require('assert');
-var _ = require('../../../../../apps/are_form/lib/staticAppealStages.js');
+const assert = require('assert');
+const _ = require('../../../../../apps/are_form/lib/staticAppealStages.js');
 
 describe('Appeal Stages', function() {
 

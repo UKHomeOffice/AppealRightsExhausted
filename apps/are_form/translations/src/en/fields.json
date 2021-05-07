@@ -14,9 +14,11 @@
     "label": "Year"
   },
   "appeal-stage": {
-    "label": "Choose an appeal stage from the drop down menu"
+    "label": "Choose an appeal stage from the drop down menu",
+    "options": {
+      "null": "Select..."
+    }
   },
-
   "country-of-hearing": {
     "legend": " ",
     "options": {

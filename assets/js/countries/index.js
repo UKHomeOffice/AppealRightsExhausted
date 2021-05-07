@@ -1,8 +1,8 @@
 'use strict';
 
-var _ = require('underscore');
+const _ = require('underscore');
 
-var countries = [{
+const countries = [{
   value: 'Afghanistan',
   name: 'AFG'
 },
@@ -887,7 +887,7 @@ var countries = [{
   name: 'ZWE'
 }];
 
-var euCountries = [
+const euCountries = [
   {
     value: 'Austria'
   },
