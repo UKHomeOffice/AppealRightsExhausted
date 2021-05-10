@@ -151,7 +151,7 @@ module.exports = {
 
       { 'value': 'COA_IAC',
         'label': '13. Court of Appeal via IAC',
-        'timeLimit': {'value': 21 + 2, 'type': 'calendar days'},
+        'timeLimit': {'value': 28 + 2, 'type': 'calendar days'},
         'startDateLabel': 'Date when appellant was sent notice of decision',
         'rules': 'Civil Procedure Rules',
         'ruleNumber': '52.4',

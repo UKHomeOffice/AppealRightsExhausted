@@ -63,7 +63,7 @@ steps:
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
     - cd kube-are
-    - git tag dev-${DRONE_COMMIT_SHA}
+    - if ! [ $(git tag -l dev-${DRONE_COMMIT_SHA}) ]; then git tag dev-${DRONE_COMMIT_SHA} && git push origin --tags; fi
     - git push origin --tags
   when:
     branch: master
@@ -80,7 +80,7 @@ steps:
   commands:
     - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
     - cd kube-are
-    - git tag ${DRONE_DEPLOY_TO}-${DRONE_COMMIT_SHA}
+    - if ! [ $(git tag -l ${DRONE_DEPLOY_TO}-${DRONE_COMMIT_SHA}) ]; then git tag ${DRONE_DEPLOY_TO}-${DRONE_COMMIT_SHA} && git push origin --tags; fi
     - git push origin --tags
   when:
     event: promote
