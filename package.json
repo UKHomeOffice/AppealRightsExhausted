@@ -1,7 +1,7 @@
 {
   "name": "are_calculator",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "description": "This calculates the date when an appellants appeal rights are exhausted",
   "license": "GPLv2",
   "repository": {
