@@ -1,5 +1,6 @@
-$testAppealStage = '05. First Tier IAC PTA to the UT - In Country'
-$testCountry =  'England & Wales'
+$AllCountryAppealStage = '05. First Tier IAC PTA to the UT - In Country'
+$ScotlandNIAppealStage = '14. Court of Sessions via IAC'
+$EnglandWalesCountry =  'England & Wales'
 
 Given(/^I am on the start page for the form$/) do
   visit config['aretool_app_host']
@@ -15,13 +16,43 @@ When(/^I just click calculate without selecting a country$/) do
 end
 
 Then(/^I am presented with validation errors for the first page$/) do
-#  expect(page).to have_content /select where the appeal hearing is to be held/i
   expect(page).to have_content 'Please fix the following error'
+  find_link('Select where the appeal hearing is to be held').visible?
+  find_link('Select an appeal stage').visible?
+  find_link('Enter the promulgation date for the calculation').visible?
+end
+
+When(/^I type in a date before the 20th October 2014$/) do
+    choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
+    select($AllCountryAppealStage, :from => 'appeal-stage')
+    fill_in "start-date-day", :with => '19'
+    fill_in "start-date-month", :with => '10'
+    fill_in "start-date-year", :with => '2014'
+    click_button("Calculate")
+end
+
+Then(/^I am presented with date validation errors on the first page$/) do
+    expect(page).to have_content 'Please fix the following error'
+    find_link('Promulgation date can not be before 20 Oct 2014').visible?
+end
+
+When(/^I select the wrong country for the required appeal stage$/) do
+    choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
+    select($ScotlandNIAppealStage, :from => 'appeal-stage')
+    fill_in "start-date-day", :with => '10'
+    fill_in "start-date-month", :with => '10'
+    fill_in "start-date-year", :with => '2015'
+    click_button("Calculate")
+end
+
+Then(/^I am presented with appeal stage validation errors on the first page$/) do
+    expect(page).to have_content 'Please fix the following error'
+    find_link('Country not valid for selected appeal stage').visible?
 end
 
 When(/^I complete the first page of the form correctly$/) do
-  find_by_id("country-of-hearing-" + $testCountry).click
-  select($testAppealStage, :from => 'appeal-stage')
+  choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
+  select($AllCountryAppealStage, :from => 'appeal-stage')
   fill_in "start-date-day", :with => '10'
   fill_in "start-date-month", :with => '10'
   fill_in "start-date-year", :with => '2015'
@@ -30,8 +61,7 @@ end
 
 Then(/^I am taken to the result page$/) do
   expect(page).to have_content /calculate are date/i
-  expect(page).to have_content $testAppealStage
-  expect(page).to have_content $testCountry
+  expect(page).to have_content $AllCountryAppealStage
+  expect(page).to have_content $EnglandWalesCountry
   expect(page).to have_content 'Saturday 10 October 2015'
-#  expect(page).to have_no_content 'This is a hidden field, toggled by the above radio buttons'
 end
