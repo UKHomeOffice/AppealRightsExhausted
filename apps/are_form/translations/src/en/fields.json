@@ -1,7 +1,7 @@
 {
   "start-date": {
     "label": "Promulgation date",
-    "legend": "Promulgation date for calculation",
+    "legend": "What is the promulgation date?",
     "hint": "For example, 11  6  2015"
   },
   "start-date-day": {
@@ -14,13 +14,14 @@
     "label": "Year"
   },
   "appeal-stage": {
+    "legend": "What is the appeal stage?",
     "label": "Choose an appeal stage from the drop down menu",
     "options": {
       "null": "Select..."
     }
   },
   "country-of-hearing": {
-    "legend": " ",
+    "legend": "What country was the appeal lodged?",
     "options": {
       "England & Wales": {
         "label": "England & Wales"

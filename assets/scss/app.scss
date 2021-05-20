@@ -89,22 +89,22 @@ h1 {
 }
 
 #country-of-hearing {
-  margin-bottom: 0px;
-}
-
-#country-of-hearing-group {
   margin-top: 25px;
-  margin-bottom:  10px; //35px;
+  margin-bottom:  0px;
   width: 110%;
 }
 
-#start-date-group {
+#start-date {
   margin-top: 0px;
-  margin-bottom: 15px;
+  margin-bottom: 6px;
 }
 
-#appeal-stage-group {
-  margin-bottom: 5px;
+#appeal-stage {
+  margin-bottom: 0px;
+}
+
+.govuk-fieldset__heading {
+  margin-top: 12px;
 }
 
 // GOVUK Elements `.form-date` overrides
@@ -124,7 +124,7 @@ h1 {
     }
   }
   .form-hint {
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 4px;
   }
 }
@@ -173,6 +173,14 @@ h1 {
   background: white;
   font-size: 19px;
   width: 150%;
+}
+
+.are-dropdown h1 {
+  margin-top: 10px;
+}
+
+#appeal-stage-group {
+  margin-bottom: 15px;
 }
 
 .exclusion-day-header {

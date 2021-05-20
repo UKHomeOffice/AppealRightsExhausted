@@ -19,30 +19,49 @@
     {{$form}}
         <h1>Where was the appeal lodged?</h1>
             <fieldset id="country-of-hearing" class="{{#errors.country-of-hearing}}validation-error{{/errors.country-of-hearing}} form-group">
+                {{#legend}}
+                <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>{{legend}}</span>
+                {{/legend}}
                 {{#radio-group}}country-of-hearing{{/radio-group}}
             </fieldset>
 
 
         <div class="are-dropdown">
-          <h1>What is the appeal stage?</h1>
-            <fieldset id="appeal-stage">
-            {{#errors.appeal-stage}}
-              <span id="appeal-stage-error" class="error-message">
-                {{errors.appeal-stage.message}}
-              </span>
-            {{/errors.appeal-stage}}
-            {{#select}}appeal-stage{{/select}}
+            <h1>What is the appeal stage?</h1>
+            <fieldset id="appeal-stage" class="{{#errors.appeal-stage}}validation-error{{/errors.appeal-stage}} form-group">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                    <span class="visuallyhidden">{{#t}}fields.appeal-stage.legend{{/t}}</span>
+                </legend>
+                {{#legend}}
+                    <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>
+                        {{#t}}fields.appeal-stage.legend{{/t}}
+                    </span>
+                {{/legend}}
+                {{#errors.appeal-stage}}
+                <span id="appeal-stage-error" class="error-message">
+                    {{errors.appeal-stage.message}}
+                </span>
+                {{/errors.appeal-stage}}
+                {{#select}}appeal-stage{{/select}}
             </fieldset>
         </div>
 
+
+        <h1>{{#t}}fields.start-date.label{{/t}}</h1>
         <fieldset id="start-date" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <span class="visuallyhidden">{{#t}}fields.start-date.legend{{/t}}</span>
+            </legend>
+            {{#legend}}
+                <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>
+                {{#t}}fields.start-date.legend{{/t}}
+                </span>
+            {{/legend}}
             {{#errors.start-date}}
                 <span id="start-date-error" class="error-message">
                   {{errors.start-date.message}}
                 </span>
             {{/errors.start-date}}
-
-            <h1>{{#t}}fields.start-date.label{{/t}}</h1>
             <div class="form-group form-date">
                 <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
                 {{#input-date}}start-date{{/input-date}}

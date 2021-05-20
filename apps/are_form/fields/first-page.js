@@ -7,6 +7,9 @@ module.exports = {
   'country-of-hearing': {
     mixin: 'radio-group',
     validate: ['required'],
+    legend: {
+      className: 'visuallyhidden'
+    },
     className: ['inline', 'form-group'],
     options: [{
       value: 'England & Wales',
@@ -22,6 +25,9 @@ module.exports = {
   'appeal-stage': {
     mixin: 'select',
     validate: 'required',
+    legend: {
+      className: 'visuallyhidden'
+    },
     options: [{
       value: '',
       label: 'fields.appeal-stage.options.null'
@@ -30,7 +36,9 @@ module.exports = {
   'start-date': dateComponent('start-date', {
     labelClassName: 'visuallyhidden',
     validate: ['required', 'date'],
-    legend: 'fields.start-date.legend',
+    legend: {
+      className: 'visuallyhidden'
+    },
     hint: 'fields.start-date.hint'
   }),
   'start-date-day': {
