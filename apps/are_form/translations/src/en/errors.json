@@ -5,6 +5,6 @@
   },
   "session": {
     "title": "Sorry, you'll have to start again",
-    "message": "You haven't entered any details for 20 minutes, so we have cleared your information to keep it secure."
+    "message": "You haven't entered any details for 30 minutes, so we have cleared your information to keep it secure."
   }
 }
