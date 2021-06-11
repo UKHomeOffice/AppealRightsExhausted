@@ -1,13 +1,13 @@
 'use strict';
 
-const firstPage = require('./behaviours/first-page');
+const checkCountryAppealStage = require('./behaviours/check-country-appeal-stage');
 const result = require('./behaviours/result');
 const reset = require('./behaviours/reset');
 const referenceList = require('./behaviours/referencelist');
 
 module.exports = {
     '/first-page': {
-        behaviours: firstPage,
+        behaviours: checkCountryAppealStage,
         template: 'first-page.html',
         fields: [
             'country-of-hearing',

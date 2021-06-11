@@ -11,8 +11,7 @@ module.exports = superclass => class ReferenceList extends superclass {
 
             let json = req.sessionModel.toJSON();
             let result = new are.Calculator(moment(json['start-date'], 'YYYY-MM-DD'),
-                                    json['country-of-hearing'],
-                                    json['appeal-stage']);
+                json['country-of-hearing'], json['appeal-stage']);
 
             json['are-date'] = result.areDate;
             json['start-date'] = result.startDate;

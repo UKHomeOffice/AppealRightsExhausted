@@ -19,26 +19,13 @@ function isAppealStageUsedinCountry(appealStage, country) {
         stage.country.indexOf(country) !== -1);
 }
 
-module.exports = superclass => class FirstPage extends superclass {
+module.exports = superclass => class CheckCountryAppealStage extends superclass {
     validate(req, res, next) {
-
-        /* Checks date is after 20 Oct 2014 */
-        const dateToCheck = moment(req.form.values[startDate]).format(dateFormat);
-        if (dateToCheck) {
-            if (moment(dateToCheck, dateFormat).isBefore(moment(earliestDate, dateFormat))) {
-                return next({
-                    'start-date': new this.ValidationError(startDate, {
-                        key: startDate,
-                        type: 'startDateTooEarlyError'
-                    })
-                });
-            }
-        }
 
         /* Checks country is valid for selected appeal stage */
         const countryValue = req.form.values[countryOfHearing];
         const appealStageValue = req.form.values['appeal-stage'];
-        if (countryValue !== '' && appealStageValue !== '' &&
+        if (countryValue && appealStageValue &&
             isAppealStageUsedinCountry(appealStageValue, countryValue) == false) {
             return next({
                 'country-of-hearing': new this.ValidationError(countryOfHearing, {
