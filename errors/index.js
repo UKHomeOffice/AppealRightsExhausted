@@ -1,20 +1,27 @@
 'use strict';
-var path = require('path');
-var hof = require('hof');
-var i18n = hof.i18n({
+
+const path = require('path');
+const hof = require('hof');
+const i18n = hof.i18n({
   path: path.resolve(__dirname, '../apps/common/translations/__lng__/__ns__.json')
 });
-var config = require('../config');
-var logger = require('../lib/logger');
+const config = require('../config');
+const logger = require('../lib/logger');
 
-/* eslint-disable-next-line */
+// eslint-disable-next-line no-unused-vars
 module.exports = function errorHandler(err, req, res, next) {
 
-  var content = {};
+  let content = {};
 
   if (err.code === 'SESSION_TIMEOUT') {
     content.title = i18n.translate('errors.session.title');
     content.message = i18n.translate('errors.session.message');
+  }
+
+  if (err.code === 'NO_COOKIES') {
+    err.status = 403;
+    content.title = i18n.translate('errors.cookies-required.title');
+    content.message = i18n.translate('errors.cookies-required.message');
   }
 
   err.template = 'error';

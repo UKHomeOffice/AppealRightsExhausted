@@ -3,9 +3,7 @@
 'use strict';
 
 module.exports = {
-
   getstaticAppealStages: function() {
-
    return [
       { 'value': 'FT_IC',
         'label': '01. First Tier IAC Appeal - In Country Appeals',
@@ -153,7 +151,7 @@ module.exports = {
 
       { 'value': 'COA_IAC',
         'label': '13. Court of Appeal via IAC',
-        'timeLimit': {'value': 21 + 2, 'type': 'calendar days'},
+        'timeLimit': {'value': 28 + 2, 'type': 'calendar days'},
         'startDateLabel': 'Date when appellant was sent notice of decision',
         'rules': 'Civil Procedure Rules',
         'ruleNumber': '52.4',
@@ -186,7 +184,6 @@ module.exports = {
         'trigger': 'IA157 PTA to the CoA refused',
         'sortCode': 150
       }
-
     ];
   }
 };

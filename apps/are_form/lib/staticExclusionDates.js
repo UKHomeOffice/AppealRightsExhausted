@@ -2,10 +2,10 @@
 /* eslint no-else-return: 0 */
 
 'use strict';
-var moment = require('moment');
-var dateformat = 'dddd DD MMMM YYYY';
+const moment = require('moment');
+const dateformat = 'dddd DD MMMM YYYY';
 
-var exclusionDays = [
+const exclusionDays = [
 
   {'exclusionDate': '2014-12-01', 'description': 'St Andrew\’s Day', 'England & Wales': false, 'Scotland': true, 'Northern Ireland': false },
   {'exclusionDate': '2014-12-25', 'description': 'Christmas Day', 'England & Wales': true, 'Scotland': true, 'Northern Ireland': false },
@@ -184,8 +184,8 @@ var exclusionDays = [
 
 function mySort(obj, keyName) {
     function sortByNamedKey(a, b) {
-        var x = a[keyName];
-        var y = b[keyName];
+        let x = a[keyName];
+        let y = b[keyName];
 
         /* eslint-disable-next-line */
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));

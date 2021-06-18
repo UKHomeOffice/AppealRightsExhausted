@@ -1,67 +1,90 @@
 {{<layout}}
-{{$journeyHeader}}
-{{#t}}journey.header{{/t}}
-{{/journeyHeader}}
 
-{{$validationSummary}}
-{{> partials-validation-summary}}
-{{/validationSummary}}
+    {{$journeyHeader}}
+        {{#t}}journey.header{{/t}}
+    {{/journeyHeader}}
 
-{{$propositionHeader}}
-{{> partials-navigation}}
-{{/propositionHeader}}
+    {{$validationSummary}}
+        {{> partials-validation-summary}}
+    {{/validationSummary}}
+
+    {{$propositionHeader}}
+        {{> partials-navigation}}
+    {{/propositionHeader}}
 
 {{$header}}{{#t}}pages.first-page.header{{/t}}{{/header}}
 
 {{$content}}
-{{<partials-form}}
+    {{<partials-form}}
+    {{$form}}
+        <h1>Where was the appeal lodged?</h1>
+            <fieldset id="country-of-hearing" class="{{#errors.country-of-hearing}}validation-error{{/errors.country-of-hearing}} form-group">
+                {{#legend}}
+                <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>{{legend}}</span>
+                {{/legend}}
+                {{#radio-group}}country-of-hearing{{/radio-group}}
+            </fieldset>
 
-{{$form}}
-<h1>Where was the appeal lodged?</h1>
-{{#radio-group}}country-of-hearing{{/radio-group}}
 
-<div class="are-dropdown">
-  <h1>What is the appeal stage?</h1>
-  {{#errors.appeal-stage}}
-          <span id="appeal-stage-error" class="error-message">
-            {{errors.appeal-stage.message}}
-          </span>
-  {{/errors.appeal-stage}}
-{{#select}}appeal-stage{{/select}}
-</div>
+        <div class="are-dropdown">
+            <h1>What is the appeal stage?</h1>
+            <fieldset id="appeal-stage" class="{{#errors.appeal-stage}}validation-error{{/errors.appeal-stage}} form-group">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                    <span class="visuallyhidden">{{#t}}fields.appeal-stage.legend{{/t}}</span>
+                </legend>
+                {{#legend}}
+                    <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>
+                        {{#t}}fields.appeal-stage.legend{{/t}}
+                    </span>
+                {{/legend}}
+                {{#errors.appeal-stage}}
+                <span id="appeal-stage-error" class="error-message">
+                    {{errors.appeal-stage.message}}
+                </span>
+                {{/errors.appeal-stage}}
+                {{#select}}appeal-stage{{/select}}
+            </fieldset>
+        </div>
 
-<fieldset id="start-date-group" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
-    {{#errors.start-date}}
-            <span id="start-date-error" class="error-message">
-              {{errors.start-date.message}}
-            </span>
-    {{/errors.start-date}}
 
-    <h1>{{#t}}fields.start-date.label{{/t}}</h1>
-    <div class="form-group form-date">
-        <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
-        {{#input-date}}start-date{{/input-date}}
-    </div>
-</fieldset>
-{{#input-submit}}calculate{{/input-submit}}
-<p>
+        <h1>{{#t}}fields.start-date.label{{/t}}</h1>
+        <fieldset id="start-date" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <span class="visuallyhidden">{{#t}}fields.start-date.legend{{/t}}</span>
+            </legend>
+            {{#legend}}
+                <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>
+                {{#t}}fields.start-date.legend{{/t}}
+                </span>
+            {{/legend}}
+            {{#errors.start-date}}
+                <span id="start-date-error" class="error-message">
+                  {{errors.start-date.message}}
+                </span>
+            {{/errors.start-date}}
+            <div class="form-group form-date">
+                <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
+                {{#input-date}}start-date{{/input-date}}
+            </div>
+        </fieldset>
 
-<table><div class=related-container>
-</table>
-</div>
+        {{#input-submit}}calculate{{/input-submit}}
+        <p>
 
-<div id="reference-list" class="header-context">
-   <ol role="guidance" class="group">
-     <li><strong>Guidance</strong></li>
-     <li><a href="{{#url}}/guidance{{/url}}">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-     <li><a href="{{#url}}/appealstages{{/url}}">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
-     <li><a href="{{#url}}/exclusiondates{{/url}}">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
-  </ol>
-</div>
-{{/form}}
+        <table>
+            <div class=related-container>
+        </table>
+        </div>
 
-{{/partials-form}}
-
+        <div id="reference-list" class="header-context">
+           <ol role="guidance" class="group">
+             <li><strong>Guidance</strong></li>
+             <li><a href="{{#url}}/guidance{{/url}}">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+             <li><a href="{{#url}}/appealstages{{/url}}">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+             <li><a href="{{#url}}/exclusiondates{{/url}}">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+          </ol>
+        </div>
+        {{/form}}
+    {{/partials-form}}
 {{/content}}
-
 {{/layout}}

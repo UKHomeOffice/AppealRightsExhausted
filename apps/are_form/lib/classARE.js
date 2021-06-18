@@ -1,9 +1,9 @@
 'use strict';
 
-var moment = require('moment');
-var dateformat = 'dddd DD MMMM YYYY';
-var staticExclusionDates = require('../lib/staticExclusionDates');
-var staticAppealStages = require('../lib/staticAppealStages');
+const moment = require('moment');
+const dateformat = 'dddd DD MMMM YYYY';
+const staticExclusionDates = require('../lib/staticExclusionDates');
+const staticAppealStages = require('../lib/staticAppealStages');
 
 module.exports.Calculator = class {
 
@@ -32,8 +32,8 @@ module.exports.Calculator = class {
     }
 
     addDaysIgnoringWeekendsAndExclusionDays(toDate, daysToAdd, exclusionDays) {
-        var count = 0;
-        var tempDate = moment(toDate, dateformat);
+        let count = 0;
+        let tempDate = moment(toDate, dateformat);
         while (count < daysToAdd) {
             tempDate = this.addDays(tempDate, 1);
             if (this.isWeekend(tempDate) === false &&
@@ -46,10 +46,10 @@ module.exports.Calculator = class {
 
     /* eslint complexity: 1 */
     calculateAREDate(info) {
-        var myDate = moment(this.startDate, dateformat);
-        var selectedExclusionDates = this.getExclusionDates();
-        var timeLimitType = info.timeLimit.type.replace(/ /g, '');
-        var adminAllowanceType = info.adminAllowance.type.replace(/ /g, '');
+        let myDate = moment(this.startDate, dateformat);
+        let selectedExclusionDates = this.getExclusionDates();
+        let timeLimitType = info.timeLimit.type.replace(/ /g, '');
+        let adminAllowanceType = info.adminAllowance.type.replace(/ /g, '');
 
         if (timeLimitType == 'calendardays' || timeLimitType == 'calendarday') {
             myDate = this.addDays(myDate, info.timeLimit.value);
@@ -109,13 +109,13 @@ module.exports.Calculator = class {
     }
 
     isExclusionDay(date) {
-        var exclusionDays = this.getExclusionDates();
-        var formattedDate = moment(date, dateformat).format('YYYY-MM-DD');
+        let exclusionDays = this.getExclusionDates();
+        let formattedDate = moment(date, dateformat).format('YYYY-MM-DD');
 
-        for (var index in exclusionDays) {
+        for (let index in exclusionDays) {
             if (exclusionDays[index].exclusionDate == formattedDate) {
                 // only add date to exclusion date list if it has not already been added
-                var dateToAdd = moment(date, dateformat).format(dateformat) +
+                let dateToAdd = moment(date, dateformat).format(dateformat) +
                     ' (' + exclusionDays[index].description + ')';
                 if (this.excludedDates.indexOf(dateToAdd) == -1) {
                     this.excludedDates.push(dateToAdd);

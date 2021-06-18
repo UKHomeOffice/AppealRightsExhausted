@@ -36,3 +36,14 @@
   border-left: none;
   padding-left: 0;
 }
+
+.validation-summary {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#country-of-hearing-group.validation-error {
+  margin-top: 0px;
+  margin-bottom: 35px;
+  width: 110%;
+}

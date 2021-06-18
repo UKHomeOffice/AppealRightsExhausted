@@ -1,14 +1,8 @@
 'use strict';
 
-var toolkit = require('hof').toolkit;
-var helpers = toolkit.helpers;
-var progressiveReveal = toolkit.progressiveReveal;
-var formFocus = toolkit.formFocus;
+require('hof-theme-govuk');
 
-var $ = require('jquery');
-
-helpers.documentReady(progressiveReveal);
-helpers.documentReady(formFocus);
+const $ = require('jquery');
 
 if ($('.appeal-summary-class').length) {
   $('.appeal-summary-class').click(function() {
