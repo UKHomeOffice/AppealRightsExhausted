@@ -31,10 +31,10 @@ const app = hof(settings);
 
 app.use((req, res, next) => addGenericLocals(req, res, next));
 
-app.use('/cookies', (req, res) => {
+app.use('/cookies', (req, res, next) => {
   res.locals = Object.assign({}, res.locals, req.translate('cookies'));
   res.locals['session-cookies-table'] = sessionCookiesTable['session-cookies-table'];
-  res.render('cookies');
+  next();
 });
 
 app.use('/terms-and-conditions', (req, res, next) => {
