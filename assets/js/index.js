@@ -2,29 +2,69 @@
 
 require('hof-theme-govuk');
 
-const $ = require('jquery');
+var $ = require('jquery');
+var typeahead = require('typeahead-aria');
+var Bloodhound = require('typeahead-aria').Bloodhound;
 
-if ($('.appeal-summary-class').length) {
-  $('.appeal-summary-class').click(function() {
-    $('#' + this.title).toggleClass('hidden');
+typeahead.loadjQueryPlugin();
+
+$('.typeahead').each(function applyTypeahead() {
+  var $el = $(this);
+  var $parent = $el.parent();
+  var attributes = $el.prop('attributes');
+  var $input = $('<input/>');
+  var selectedValue = $el.val();
+  var typeaheadList = $el.find('option').map(function mapOptions() {
+    if (this.value === '') {
+      return undefined;
+    }
+    return this.value;
+  }).get();
+
+  // remove the selectbox
+  $el.remove();
+
+  $.each(attributes, function applyAttributes() {
+    $input.attr(this.name, this.value);
   });
-}
 
+  $input.removeClass('js-hidden');
+  $input.addClass('form-control');
+  $input.val(selectedValue);
 
-if ($('#which-england-and-wales').length) {
-  $('#which-england-and-wales').click(function() {
-    $('#england-and-wales-dates').toggleClass('hidden');
+  $parent.append($input);
+
+  $input.typeahead({
+    hint: false
+  }, {
+    source: new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      local: typeaheadList,
+      sorter: function sorter(a, b) {
+        var input = $input.val();
+        var startsWithInput = function startsWithInput(x) {
+          return x.toLowerCase().substr(0, input.length) === input.toLowerCase() ? -1 : 1;
+        };
+
+        var compareAlpha = function compareAlpha(x, y) {
+          var less = x < y ? -1 : 1;
+          return x === y ? 0 : less;
+        };
+
+        var compareStartsWithInput = function compareStartsWithInput(x, y) {
+          var startsWithFirst = startsWithInput(x);
+          var startsWithSecond = startsWithInput(y);
+
+          return startsWithFirst === startsWithSecond ? 0 : startsWithFirst;
+        };
+
+        var first = compareStartsWithInput(a, b);
+
+        return first === 0 ? compareAlpha(a, b) : first;
+      }
+    }),
+    limit: 100
   });
-}
+});
 
-if ($('#which-scotland').length) {
-  $('#which-scotland').click(function() {
-    $('#scotland-dates').toggleClass('hidden');
-  });
-}
-
-if ($('#which-northern-ireland').length) {
-  $('#which-northern-ireland').click(function() {
-    $('#northern-ireland-dates').toggleClass('hidden');
-  });
-}

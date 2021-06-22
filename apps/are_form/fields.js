@@ -1,6 +1,6 @@
 'use strict';
 
-const staticAppealStages = require('../lib/staticAppealStages');
+const staticAppealStages = require('./lib/staticAppealStages');
 const dateComponent = require('hof-component-date');
 
 module.exports = {
