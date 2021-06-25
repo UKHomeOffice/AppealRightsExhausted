@@ -108,3 +108,53 @@ Then(/^I am taken to the result page$/) do
   expect(page).to have_content $EnglandWalesCountry
   expect(page).to have_content 'Saturday 10 October 2015'
 end
+
+When(/^I click the "country-of-hearing-change" button$/) do
+  find_by_id('country-of-hearing-change').click
+end
+
+Then(/^I am taken to the first page$/) do
+  expect(page).to have_content /where was the appeal lodged/i
+  expect(page).to have_content /what is the appeal stage/i
+  click_button("Calculate")
+end
+
+When(/^I click the second "appeal-stage-change" button$/) do
+  find_by_id('appeal-stage-change').click
+end
+
+Then(/^I am taken to the first page second time$/) do
+  expect(page).to have_content /where was the appeal lodged/i
+  expect(page).to have_content /what is the appeal stage/i
+  click_button("Calculate")
+end
+
+When(/^I click the third "start-date-day-change" button$/) do
+  find_by_id('start-date-day-change').click
+end
+
+Then(/^I am taken to the first page third time$/) do
+  expect(page).to have_content /where was the appeal lodged/i
+  expect(page).to have_content /what is the appeal stage/i
+  click_button("Calculate")
+end
+
+When(/^I click the "Start Again" button$/) do
+  click_button("Start again")
+end
+
+Then(/^I am taken to the first page fourth time$/) do
+  expect(page).to have_content /where was the appeal lodged/i
+  expect(page).to have_content /what is the appeal stage/i
+end
+
+When(/^I click calculate with empty fields$/) do
+  click_button("Calculate")
+end
+
+Then(/^I am presented with multiple validation errors for the first page$/) do
+  expect(page).to have_content 'Please fix the following error'
+  find_link('Select where the appeal hearing is to be held').visible?
+  find_link('Select an appeal stage').visible?
+  find_link('Enter the promulgation date for the calculation').visible?
+end
