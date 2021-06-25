@@ -7,7 +7,13 @@ Feature: I am able to navigate through the ARE calculation form with the validat
     Then I am presented with validation errors for the first page
     When I type in a date before the 20th October 2014
     Then I am presented with date validation errors on the first page
+    When I type in an invalid date
+    Then I am presented with invalid date validation errors on the first page
     When I select the wrong country for the required appeal stage
     Then I am presented with appeal stage validation errors on the first page
+    When I type in the wrong start day for the date
+    Then I am presented with wrong start day validation errors on the first page
+    When I type in the wrong start month for the date
+    Then I am presented with wrong start month validation errors on the first page
     When I complete the first page of the form correctly
     Then I am taken to the result page

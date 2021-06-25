@@ -7,7 +7,7 @@ const referenceList = require('./behaviours/referencelist');
 
 module.exports = {
   name: 'are_form',
-  params: '/:action?/:id?/:edit?',
+  params: '/:action?',
   pages: {
     '/cookies': 'cookies',
     '/terms-and-conditions': 'terms'

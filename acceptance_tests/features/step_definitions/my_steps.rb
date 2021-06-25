@@ -33,8 +33,23 @@ end
 
 Then(/^I am presented with date validation errors on the first page$/) do
     expect(page).to have_content 'Please fix the following error'
-    find_link('Promulgation date can not be before 20 Oct 2014').visible?
+    find_link('Promulgation date can not be on or before 20 Oct 2014').visible?
 end
+
+When(/^I type in an invalid date$/) do
+    choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
+    select($AllCountryAppealStage, :from => 'appeal-stage')
+    fill_in "start-date-day", :with => 'aa'
+    fill_in "start-date-month", :with => 'bb'
+    fill_in "start-date-year", :with => 'cccc'
+    click_button("Calculate")
+end
+
+Then(/^I am presented with invalid date validation errors on the first page$/) do
+    expect(page).to have_content 'Please fix the following error'
+    find_link('Enter a valid date').visible?
+end
+
 
 When(/^I select the wrong country for the required appeal stage$/) do
     choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
@@ -48,6 +63,34 @@ end
 Then(/^I am presented with appeal stage validation errors on the first page$/) do
     expect(page).to have_content 'Please fix the following error'
     find_link('Country not valid for selected appeal stage').visible?
+end
+
+When(/^I type in the wrong start day for the date$/) do
+    choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
+    select($AllCountryAppealStage, :from => 'appeal-stage')
+    fill_in "start-date-day", :with => '41'
+    fill_in "start-date-month", :with => '10'
+    fill_in "start-date-year", :with => '2015'
+    click_button("Calculate")
+end
+
+Then(/^I am presented with wrong start day validation errors on the first page$/) do
+    expect(page).to have_content 'Please fix the following error'
+    find_link('Enter a valid date').visible?
+end
+
+When(/^I type in the wrong start month for the date$/) do
+    choose('country-of-hearing-' + $EnglandWalesCountry, visible: false)
+    select($AllCountryAppealStage, :from => 'appeal-stage')
+    fill_in "start-date-day", :with => '10'
+    fill_in "start-date-month", :with => '13'
+    fill_in "start-date-year", :with => '2015'
+    click_button("Calculate")
+end
+
+Then(/^I am presented with wrong start month validation errors on the first page$/) do
+    expect(page).to have_content 'Please fix the following error'
+    find_link('Enter a valid date').visible?
 end
 
 When(/^I complete the first page of the form correctly$/) do
