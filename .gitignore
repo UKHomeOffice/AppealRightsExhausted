@@ -4,3 +4,4 @@ apps/*/translations/*
 !apps/*/translations/src
 .env
 .idea/
+.DS_Store

@@ -8,7 +8,6 @@ const sessionCookiesTable = require('./apps/are_form/translations/src/en/cookies
 
 const settings = {
   views: path.resolve(__dirname, './apps/are_form/views'),
-  fields: path.resolve(__dirname, './apps/are_form/fields'),
   routes: [
     require('./apps/are_form')
   ],
