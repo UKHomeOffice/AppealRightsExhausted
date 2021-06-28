@@ -1,5 +1,3 @@
-/* eslint implicit-dependencies/no-implicit:0 */
-
 'use strict';
 
 global.chai = require('chai').use(require('sinon-chai'));
