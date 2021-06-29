@@ -10,7 +10,6 @@ if ($('.appeal-summary-class').length) {
     });
 }
 
-
 if ($('#which-england-and-wales').length) {
     $('#which-england-and-wales').click(function() {
         $('#england-and-wales-dates').toggleClass('hidden');
