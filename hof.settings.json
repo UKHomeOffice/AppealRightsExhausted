@@ -1,0 +1,17 @@
+{
+  "appName": "Appeals Rights Exhausted",
+  "theme": "govUK",
+  "routes": [
+    "./apps/are_form"
+  ],
+  "behaviours": [
+    "hof/components/clear-session"
+  ],
+  "translations": "./app/common/translations",
+  "session": {
+    "name": "are.hof.sid"
+  },
+  "start": false,
+  "getTerms": false,
+  "getCookies": false
+}
