@@ -9,11 +9,12 @@
     "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "engines": {
-    "node": "14.16.1"
+    "node": "^14.0.0"
   },
   "scripts": {
     "start": "node .",
     "dev": "NODE_ENV=development hof-build watch",
+    "debug": "node --inspect .",
     "test": "npm run lint && npm run test:unit",
     "test:unit": "mocha",
     "test:acceptance": "cd acceptance_tests/; bundle install && cucumber",
@@ -26,7 +27,7 @@
   "author": "HomeOffice",
   "dependencies": {
     "debug": "^3.1.0",
-    "hof": "^18.2.0",
+    "hof": "^19.5.3",
     "hof-behaviour-summary-page": "^3.3.0",
     "hof-build": "^2.0.0",
     "hof-component-date": "^1.1.0",
@@ -41,7 +42,7 @@
     "hof-util-reqres": "^1.0.1",
     "hogan.js": "^3.0.2",
     "i18n-future": "^1.1.0",
-    "jquery": "^3.4.0",
+    "jquery": "3.5.1",
     "lodash": "^4.17.21",
     "moment": "^2.17.1",
     "moment-business": "^2.0.0",
@@ -71,6 +72,9 @@
     "proxyquire": "^1.8.0",
     "sinon": "^2.4.1",
     "sinon-chai": "^2.12.0"
+  },
+  "resolutions": {
+    "underscore": "^1.12.1"
   },
   "pre-commit": [
     "lint",

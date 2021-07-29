@@ -4,17 +4,17 @@ const path = require('path');
 const hof = require('hof');
 const config = require('./config');
 
+let settings = require('./hof.settings');
+
 const sessionCookiesTable = require('./apps/are_form/translations/src/en/cookies.json');
 
-const settings = {
+settings = Object.assign({}, settings, {
+  root: __dirname,
+  behaviours: settings.behaviours.map(require),
+  routes: settings.routes.map(require),
   views: path.resolve(__dirname, './apps/are_form/views'),
-  routes: [
-    require('./apps/are_form')
-  ],
-  getCookies: false,
-  getTerms: false,
   redis: config.redis
-};
+});
 
 const addGenericLocals = (req, res, next) => {
   res.locals.htmlLang = 'en';
