@@ -1,7 +1,7 @@
 'use strict';
 
 const staticAppealStages = require('./lib/staticAppealStages');
-const dateComponent = require('hof-component-date');
+const dateComponent = require('hof').components.date;
 
 module.exports = {
   'country-of-hearing': {
