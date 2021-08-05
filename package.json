@@ -14,12 +14,8 @@
   "scripts": {
     "start": "node .",
     "dev": "NODE_ENV=development hof-build watch",
-<<<<<<< HEAD
     "debug": "node --inspect .",
-    "test": "npm run lint && npm run test:unit",
-=======
     "test": "npm run test:lint && npm run test:unit",
->>>>>>> SD-993: Upgrade linter to use eslint-config-hof@1.0.4
     "test:unit": "mocha",
     "test:acceptance": "cd acceptance_tests/; bundle install && cucumber",
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
