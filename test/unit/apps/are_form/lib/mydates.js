@@ -2,26 +2,25 @@
 
 'use strict';
 
-var moment = require('moment');
+const moment = require('moment');
 
 process.env.NODE_ENV = 'test';
-var assert = require('assert');
+const assert = require('assert');
 // var mystages = require('../../../../../apps/are_form/lib/staticAppealStages.js');
-var are = require('../../../../../apps/are_form/lib/classARE.js');
+const are = require('../../../../../apps/are_form/lib/classARE.js');
 
-describe('ARE Calculations Test Cases', function() {
-
+describe('ARE Calculations Test Cases', function () {
   // Before all tests
-  before(function() {
+  before(function () {
 
   });
 
   // Before each test
-  beforeEach(function(done) {
-      done();
+  beforeEach(function (done) {
+    done();
   });
 
-  var testDates = [
+  const testDates = [
     {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '08-04-2015'},
     {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '28-04-2015'},
     {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '11-05-2015'},
@@ -67,61 +66,59 @@ describe('ARE Calculations Test Cases', function() {
     {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Northern Ireland', expected: '16-07-2024'}
   ];
 
-  testDates.forEach(function(e, ix, arr) {
+  testDates.forEach(function (e) {
     it('should return [' + e.expected + '] in response to [' +
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
-          e.country + ']', function() {
-        var d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'), e.country, e.appealStage);
-        var result = d.areDate;
+          e.country + ']', function () {
+      const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'), e.country, e.appealStage);
+      const result = d.areDate;
 
-        assert.equal(result, moment(e.expected,'DD-MM-YYYY').format('dddd DD MMMM YYYY'));
+      assert.equal(result, moment(e.expected,'DD-MM-YYYY').format('dddd DD MMMM YYYY'));
     });
   });
 });
 
-describe('Using Exclusion Dates as start date Checks', function() {
-  var exclusionDays = require('../../../../../apps/are_form/lib/staticExclusionDates');
-  var EnglandAndWales = exclusionDays.getExclusionDays('England & Wales');
+describe('Using Exclusion Dates as start date Checks', function () {
+  const exclusionDays = require('../../../../../apps/are_form/lib/staticExclusionDates');
+  const EnglandAndWales = exclusionDays.getExclusionDays('England & Wales');
 
-  EnglandAndWales.forEach(function(e, ix, arr) {
-    var testDate = moment(e.exclusionDate,'YYYY-MM-DD').format('dddd DD MMMM YYYY');
-    var d = new are.Calculator(testDate, 'England & Wales', 'FT_IC');
-    it('should treat start date for [' + testDate + '] as an exclusion date for England & Wales', function() {
+  EnglandAndWales.forEach(function (e) {
+    const testDate = moment(e.exclusionDate,'YYYY-MM-DD').format('dddd DD MMMM YYYY');
+    const d = new are.Calculator(testDate, 'England & Wales', 'FT_IC');
+    it('should treat start date for [' + testDate + '] as an exclusion date for England & Wales', function () {
       assert.equal(d.isBaseExclusionDay, true);
       assert.notEqual(d.startDate,d.baseDate);
     });
-    it('should change the supplied date [' + testDate + '] as it\'s an exclusion date for England & Wales', function() {
+    it('should change date [' + testDate + '] as it\'s an exclusion date for England & Wales', function () {
       assert.notEqual(d.startDate,d.baseDate);
     });
   });
 });
 
-describe('Weekend date Checks', function() {
-  var format = 'dddd DD MMMM YYYY';
-
-  var testDates = [
+describe('Weekend date Checks', function () {
+  const testDates = [
     {testDate: '22-01-2016', appealStage: 'FT_IC', country: 'England & Wales', expected: '06-04-2015', weekend: false},
     {testDate: '23-01-2016', appealStage: 'FT_IC', country: 'England & Wales', expected: '06-04-2015', weekend: true},
     {testDate: '24-01-2016', appealStage: 'FT_IC', country: 'England & Wales', expected: '06-04-2015', weekend: true}
   ];
 
-    testDates.forEach(function(e, ix, arr) {
-      var d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'),e.country, e.appealStage);
+  testDates.forEach(function (e) {
+    const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'),e.country, e.appealStage);
 
-        it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function() {
-          assert.equal(d.isWeekend(moment(e.testDate,'DD-MM-YYYY')), e.weekend);
-        });
-
-        if (e.weekend) {
-          it('should have the startDate changed for the supplied date [' +
-              e.testDate + '] as it\'s a weekend', function() {
-            assert.notEqual(d.startDate,d.baseDate);
-          });
-        } else {
-          it('should set the startDate to the supplied date [' +
-              e.testDate + '] as it\'s NOT a weekend', function() {
-            assert.equal(d.startDate,d.baseDate);
-          });
-        }
+    it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function () {
+      assert.equal(d.isWeekend(moment(e.testDate,'DD-MM-YYYY')), e.weekend);
     });
+
+    if (e.weekend) {
+      it('should have the startDate changed for the supplied date [' +
+              e.testDate + '] as it\'s a weekend', function () {
+        assert.notEqual(d.startDate,d.baseDate);
+      });
+    } else {
+      it('should set the startDate to the supplied date [' +
+              e.testDate + '] as it\'s NOT a weekend', function () {
+        assert.equal(d.startDate,d.baseDate);
+      });
+    }
+  });
 });
