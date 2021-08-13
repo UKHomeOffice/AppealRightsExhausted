@@ -343,7 +343,7 @@ steps:
       - kd --delete --insecure-skip-tls-verify -f kube/configmap.yaml -f kube/ingress-internal.yaml -f kube/networkpolicy-internal.yaml -f kube/service.yaml
       - kd --delete --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/deployment.yaml
       - $${kubectl} delete secret $${APP_NAME}-internal-$${DRONE_SOURCE_BRANCH} --ignore-not-found=true
-      - echo "Torn Down UAT Branch - $${APP_NAME}-$${DRONE_SOURCE_BRANCH}.branch.internal.sas-notprod.homeoffice.gov.uk"
+      - echo "Torn Down UAT Branch - are-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
     when:
       branch: master
       event: push
