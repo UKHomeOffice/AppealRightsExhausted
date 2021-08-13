@@ -1,0 +1,35 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: redis-permit-access-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
+  name: redis-permit-access
+  {{ end }}
+spec:
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+          name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+          {{ else }}
+          name: {{ .APP_NAME }}
+          {{ end }}
+    - podSelector:
+        matchLabels:
+          {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+          name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+          {{ else }}
+          name: {{ .APP_NAME }}
+          {{ end }}
+    ports:
+    - port: 6379
+      protocol: TCP
+  podSelector:
+    matchLabels:
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+      name: redis-{{ .DRONE_SOURCE_BRANCH }}
+      {{ else }}
+      name: redis
+      {{ end }}

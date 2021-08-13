@@ -1,0 +1,36 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .APP_NAME }}-external
+{{ file .INGRESS_EXTERNAL_ANNOTATIONS | indent 2 }}
+spec:
+  tls:
+    - hosts:
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+        - {{ .DRONE_BUILD_NUMBER }}.are-branch.homeoffice.gov.uk
+        - are-{{ .DRONE_SOURCE_BRANCH }}.are-branch.homeoffice.gov.uk
+      {{ else if eq .KUBE_NAMESPACE .UAT_ENV }}
+        - dev.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+      {{ else if eq .KUBE_NAMESPACE .STG_ENV }}
+        - preprod.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+      {{ else }}
+        - {{ .PRODUCTION_URL }}
+      {{ end }}
+      secretName: {{ .APP_NAME }}-external
+  rules:
+    {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+    - host: {{ .DRONE_BUILD_NUMBER }}.are-branch.homeoffice.gov.uk
+    {{ else if eq .KUBE_NAMESPACE .UAT_ENV }}
+    - host: dev.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+    {{ else if eq .KUBE_NAMESPACE .STG_ENV }}
+    - host: preprod.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+    {{ else }}
+    - host: {{ .PRODUCTION_URL }}
+    {{ end }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .APP_NAME }}
+              servicePort: 10443

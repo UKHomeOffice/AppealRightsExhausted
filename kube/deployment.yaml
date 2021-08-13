@@ -1,0 +1,117 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  {{ if eq .KUBE_NAMESPACE .PROD_ENV }}
+  name: {{ .APP_NAME }}
+  {{ else if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  annotations:
+    downscaler/uptime: {{ .NON_PROD_AVAILABILITY }}
+  name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
+  annotations:
+    downscaler/uptime: {{ .NON_PROD_AVAILABILITY }}
+  name: {{ .APP_NAME }}
+  {{ end }}
+spec:
+  {{ if or (eq .KUBE_NAMESPACE .STG_ENV) (eq .KUBE_NAMESPACE .PROD_ENV) }}
+  replicas: 2
+  {{ else }}
+  replicas: 1
+  {{ end }}
+  selector:
+    matchLabels:
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+      name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+      {{ else }}
+      name: {{ .APP_NAME }}
+      {{ end }}
+  template:
+    metadata:
+      labels:
+        {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+        name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+        app: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+        service: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+        {{ else }}
+        name: {{ .APP_NAME }}
+        app: {{ .APP_NAME }}
+        service: {{ .APP_NAME }}
+        {{ end }}
+    spec:
+      containers:
+        - name: {{ .APP_NAME }}
+          image: {{ .IMAGE_URL }}/{{ .IMAGE_REPO }}:{{.DRONE_COMMIT_SHA}}
+          imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+                name: {{ .APP_NAME }}-configmap-{{ .DRONE_SOURCE_BRANCH }}
+                {{ else }}
+                name: {{ .APP_NAME }}-configmap
+                {{ end }}
+          env:
+            - name: TZ
+              value: Europe/London
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_HOST
+              {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+              value: redis-{{ .DRONE_SOURCE_BRANCH }}
+              {{ else }}
+              value: redis
+              {{ end }}
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: session-secret
+                  key: token
+          {{ if not (eq .KUBE_NAMESPACE .BRANCH_ENV) }}
+          livenessProbe:
+            httpGet:
+              path: /healthz/ping
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz/readiness
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 5
+          {{ end }}
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "100Mi"
+            limits:
+              cpu: "100m"
+              memory: "200Mi"
+          volumeMounts:
+            - mountPath: /public
+              name: public
+        - name: nginx-proxy
+          image: quay.io/ukhomeofficedigital/nginx-proxy-govuk:v3
+          resources:
+            requests:
+              memory: 10Mi
+              cpu: 10m
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          env:
+{{ file .NGINX_SETTINGS | indent 12 }}
+          ports:
+            - containerPort: 10443
+          volumeMounts:
+            - mountPath: /public
+              name: public
+          securityContext:
+            runAsNonRoot: true
+      volumes:
+        - name: public
+          emptyDir: {}

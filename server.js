@@ -18,7 +18,7 @@ settings = Object.assign({}, settings, {
 
 const addGenericLocals = (req, res, next) => {
   res.locals.htmlLang = 'en';
-  res.locals.serviceName = 'Appeal Rights Exhausted Date Calculator';
+  res.locals.appName = 'Appeal Rights Exhausted Date Calculator';
   res.locals.footerSupportLinks = [
     { path: '/cookies', property: 'base.cookies' },
     { path: '/terms-and-conditions', property: 'base.terms' }

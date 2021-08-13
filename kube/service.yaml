@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
+  name: {{ .APP_NAME }}
+  {{ end }}
+spec:
+  selector:
+    {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+    name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+    {{ else }}
+    name: {{ .APP_NAME }}
+    {{ end }}
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 10080
+  - name: https
+    port: 10443
