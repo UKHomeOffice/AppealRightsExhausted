@@ -2,11 +2,19 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: ingress-network-policy-external-{{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
   name: ingress-network-policy-external-{{ .APP_NAME }}
+  {{ end }}
 spec:
   podSelector:
     matchLabels:
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+      name: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+      {{ else }}
       name: {{ .APP_NAME }}
+      {{ end }}
   ingress:
     - from:
         - namespaceSelector:

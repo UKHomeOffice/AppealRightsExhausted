@@ -2,7 +2,11 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: {{ .APP_NAME }}-external-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
   name: {{ .APP_NAME }}-external
+  {{ end }}
 {{ file .INGRESS_EXTERNAL_ANNOTATIONS | indent 2 }}
 spec:
   tls:
@@ -17,7 +21,11 @@ spec:
       {{ else }}
         - {{ .PRODUCTION_URL }}
       {{ end }}
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+      secretName: branch-tls-external
+      {{ else }}
       secretName: {{ .APP_NAME }}-external
+      {{ end }}
   rules:
     {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
     - host: are-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
@@ -32,5 +40,9 @@ spec:
         paths:
           - path: /
             backend:
+              {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+              serviceName: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+              {{ else }}
               serviceName: {{ .APP_NAME }}
+              {{ end }}
               servicePort: 10443

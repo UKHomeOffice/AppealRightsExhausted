@@ -31,7 +31,8 @@ spec:
     spec:
       containers:
         - name: redis
-          image: quay.io/ukhomeofficedigital/redis:v5.0.6-1
+          # redis:v5.0.6-1
+          image: quay.io/ukhomeofficedigital/redis@sha256:4499ea7306de776dab2ba8befd723a419fd311519d6f91f7821ed1a7c589da3b
           ports:
             - containerPort: 6379
           volumeMounts:

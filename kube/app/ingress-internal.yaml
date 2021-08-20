@@ -22,7 +22,7 @@ spec:
         - stg.internal.{{ .APP_NAME }}.sas.homeoffice.gov.uk
       {{ end }}
       {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
-      secretName: {{ .APP_NAME }}-internal-{{ .DRONE_SOURCE_BRANCH }}
+      secretName: branch-tls-internal
       {{ else }}
       secretName: {{ .APP_NAME }}-internal
       {{ end }}
