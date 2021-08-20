@@ -150,7 +150,7 @@ steps:
       - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps -f kube/certs
       - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app
       - sleep $${READY_FOR_TEST_DELAY}
-      - echo "UAT Branch - $${APP_NAME}-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
+      - echo "UAT Branch - are-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
     when:
       branch: master
       event: pull_request
@@ -338,7 +338,7 @@ steps:
       - export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt)
       - kd --delete --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps/configmap.yml
       - kd --delete --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app
-      - echo "Torn Down UAT Branch - $${APP_NAME}-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
+      - echo "Torn Down UAT Branch - are-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
     when:
       branch: master
       event: push
