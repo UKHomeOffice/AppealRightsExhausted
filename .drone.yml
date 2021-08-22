@@ -142,16 +142,7 @@ steps:
       KUBE_TOKEN:
         from_secret: kube_token_sas_dev
     commands:
-      - export KUBE_NAMESPACE=$${BRANCH_ENV}
-      - export INGRESS_INTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-internal-annotations.yaml
-      - export INGRESS_EXTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-external-annotations.yaml
-      - export CONFIGMAP_VALUES=$${HOF_CONFIG}/configmap-values.yaml
-      - export NGINX_SETTINGS=$${HOF_CONFIG}/nginx-settings.yaml
-      - export DRONE_SOURCE_BRANCH=$(echo $${DRONE_SOURCE_BRANCH} | tr '[:upper:]' '[:lower:]' | tr '/' '-')
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps -f kube/certs
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app
-      - sleep $${READY_FOR_TEST_DELAY}
-      - echo "UAT Branch - are-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
+      - bin/deploy.sh $${BRANCH_ENV}
     when:
       branch: master
       event: pull_request
@@ -265,14 +256,7 @@ steps:
       KUBE_TOKEN:
         from_secret: kube_token_dev
     commands:
-      - export KUBE_NAMESPACE=$${UAT_ENV}
-      - export INGRESS_EXTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-external-annotations.yaml
-      - export CONFIGMAP_VALUES=$${HOF_CONFIG}/configmap-values.yaml
-      - export NGINX_SETTINGS=$${HOF_CONFIG}/nginx-settings.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps/configmap.yml -f kube/app/service.yml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/app/networkpolicy-external.yml -f kube/app/ingress-external.yml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app/deployment.yml
-      - sleep $${READY_FOR_TEST_DELAY}
+      - bin/deploy.sh $${UAT_ENV}
     when:
       branch: master
       event: push
@@ -331,15 +315,7 @@ steps:
       - name: dockersock
         path: /root/.dockersock
     commands:
-      - export KUBE_NAMESPACE=$${BRANCH_ENV}
-      - export INGRESS_EXTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-external-annotations.yaml
-      - export INGRESS_INTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-internal-annotations.yaml
-      - export CONFIGMAP_VALUES=$${HOF_CONFIG}/configmap-values.yaml
-      - export NGINX_SETTINGS=$${HOF_CONFIG}/nginx-settings.yaml
-      - export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt)
-      - kd --delete --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps/configmap.yml
-      - kd --delete --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app
-      - echo "Torn Down UAT Branch - are-$${DRONE_SOURCE_BRANCH}.internal.$${BRANCH_ENV}.homeoffice.gov.uk"
+      - bin/deploy.sh tear_down
     when:
       branch: master
       event: push
@@ -354,14 +330,7 @@ steps:
   #     KUBE_TOKEN:
   #       from_secret: kube_token_stg
   #   commands:
-  #     - export KUBE_NAMESPACE=$${STG_ENV}
-  #     - export INGRESS_EXTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-external-annotations.yaml
-  #     - export CONFIGMAP_VALUES=$${HOF_CONFIG}/configmap-values.yaml
-  #     - export NGINX_SETTINGS=$${HOF_CONFIG}/nginx-settings.yaml
-  #     - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps/configmap.yml -f kube/app/service.yml
-  #     - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/app/networkpolicy-external.yml -f kube/app/ingress-external.yml
-  #     - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app/deployment.yml
-  #     - sleep $${READY_FOR_TEST_DELAY}
+  #     - bin/deploy.sh $${STG_ENV}
   #   when:
   #     branch: master
   #     event: push
@@ -376,11 +345,7 @@ steps:
       DRONE_TOKEN:
         from_secret: drone_token
     commands:
-      - export STATUS=$(drone build info $GIT_REPO $DRONE_BUILD_PARENT --format {{.Status}})
-      - export BRANCH=$(drone build info $GIT_REPO $DRONE_BUILD_PARENT --format {{.Target}})
-      - export EVENT=$(drone build info $GIT_REPO $DRONE_BUILD_PARENT --format {{.Event}})
-      - export REFS=$(drone build info $GIT_REPO $DRONE_BUILD_PARENT --format {{.Ref}})
-      - if [[ "$STATUS" != "success" || "$BRANCH" != "master" || "$EVENT" != "push" || "$REFS" != "refs/heads/master" ]] ; then return 1; else return 0 ; fi
+      - bin/sanity_check_build.sh
     when:
       target: PROD
       event: promote
@@ -408,14 +373,7 @@ steps:
       KUBE_TOKEN:
         from_secret: kube_token_prod
     commands:
-      - export KUBE_NAMESPACE=$${PROD_ENV}
-      - export INGRESS_EXTERNAL_ANNOTATIONS=$${HOF_CONFIG}/ingress-external-annotations.yaml
-      - export CONFIGMAP_VALUES=$${HOF_CONFIG}/configmap-values.yaml
-      - export NGINX_SETTINGS=$${HOF_CONFIG}/nginx-settings.yaml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/configmaps/configmap.yml -f kube/app/service.yml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/app/networkpolicy-external.yml -f kube/app/ingress-external.yml
-      - kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s -f kube/redis -f kube/app/deployment.yml
-      - sleep $${READY_FOR_TEST_DELAY}
+      - bin/deploy.sh $${PROD_ENV}
     when:
       target: PROD
       event: promote
@@ -430,9 +388,7 @@ steps:
       KUBE_TOKEN:
         from_secret: kube_token_dev
     commands:
-      - export KUBE_TOKEN=$${KUBE_TOKEN}
-      - export KUBE_NAMESPACE=$${BRANCH_ENV}
-      - bin/clean_up.sh
+      - bin/clean_up.sh $${BRANCH_ENV}
     when:
       cron: tear_down_pr_envs
       event: cron
