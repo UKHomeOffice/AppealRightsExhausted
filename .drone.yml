@@ -432,7 +432,7 @@ steps:
     commands:
       - export KUBE_TOKEN=$${KUBE_TOKEN}
       - export KUBE_NAMESPACE=$${BRANCH_ENV}
-      - ./clean_up.sh
+      - bin/clean_up.sh
     when:
       cron: tear_down_pr_envs
       event: cron
