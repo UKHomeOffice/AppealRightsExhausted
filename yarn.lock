@@ -3520,10 +3520,10 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hof@^19.6.1:
-  version "19.6.1"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-19.6.1.tgz#c67aac62feefdc78ba2af80836ddd81036ca4666"
-  integrity sha512-xr1jDhTFhUF1F96ogBA7c13xWQnKeCY/dMH/B+6RFu6faFENUKAnn8d9UegkKWUOH5ymb42PGiEE3u8HcFC58A==
+hof@^19.7.1:
+  version "19.7.1"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-19.7.1.tgz#a1682b86b40bb522897ab89ba5b6141039763f62"
+  integrity sha512-IFYTfVsADKS2Ov5PjAfaZuOMooCz55xKIKQODa4RK/TrCpSiXMxX8NDkxV88BbX/CvLsuqkSuwibQ3pXJeiZSA==
   dependencies:
     aliasify "^2.1.0"
     bluebird "^3.7.2"
@@ -3554,6 +3554,7 @@ hof@^19.6.1:
     homeoffice-countries "^0.1.0"
     i18n-future "^2.0.0"
     i18n-lookup "^0.1.0"
+    is-pdf "^1.0.0"
     libphonenumber-js "^1.9.22"
     lodash "^4.17.21"
     minimatch "^3.0.3"
@@ -3976,6 +3977,11 @@ is-path-inside@^3.0.2:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-3.0.3.tgz#d231362e53a07ff2b0e0ea7fed049161ffd16283"
   integrity sha512-Fd4gABb+ycGAmKou8eMftCupSir5lRxqf4aD/vd0cD2qc4HL07OjCeuHMr8Ro4CoMaeCKDB0/ECBOVWjTwUvPQ==
+
+is-pdf@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/is-pdf/-/is-pdf-1.0.0.tgz#b456f30ae048aa83d02cc2b15c1f428ca689241c"
+  integrity sha1-tFbzCuBIqoPQLMKxXB9CjKaJJBw=
 
 is-plain-obj@^2.1.0:
   version "2.1.0"
