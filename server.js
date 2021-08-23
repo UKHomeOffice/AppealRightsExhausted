@@ -6,8 +6,6 @@ const config = require('./config');
 
 let settings = require('./hof.settings');
 
-const sessionCookiesTable = require('./apps/are_form/translations/src/en/cookies.json');
-
 settings = Object.assign({}, settings, {
   root: __dirname,
   behaviours: settings.behaviours.map(require),
@@ -34,7 +32,6 @@ app.use('/cookies', (req, res, next) => {
   res.locals = Object.assign({
     cookieName: settings.session.name
   }, res.locals, req.translate('cookies'));
-  res.locals['session-cookies-table'] = sessionCookiesTable['session-cookies-table'];
   next();
 });
 
