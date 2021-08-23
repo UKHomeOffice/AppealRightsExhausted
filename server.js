@@ -14,29 +14,10 @@ settings = Object.assign({}, settings, {
   redis: config.redis
 });
 
-const addGenericLocals = (req, res, next) => {
-  res.locals.htmlLang = 'en';
-  res.locals.appName = 'Appeal Rights Exhausted Date Calculator';
-  res.locals.footerSupportLinks = [
-    { path: '/cookies', property: 'base.cookies' },
-    { path: '/terms-and-conditions', property: 'base.terms' }
-  ];
-  return next();
-};
-
 const app = hof(settings);
 
-app.use((req, res, next) => addGenericLocals(req, res, next));
-
-app.use('/cookies', (req, res, next) => {
-  res.locals = Object.assign({
-    cookieName: settings.session.name
-  }, res.locals, req.translate('cookies'));
-  next();
-});
-
-app.use('/terms-and-conditions', (req, res, next) => {
-  res.locals = Object.assign({}, res.locals, req.translate('terms'));
+app.use((req, res, next) => {
+  res.locals.htmlLang = 'en';
   next();
 });
 
