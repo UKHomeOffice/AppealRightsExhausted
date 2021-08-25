@@ -1,5 +1,5 @@
 {
-  "appName": "Appeals Rights Exhausted",
+  "appName": "Appeals Rights Exhausted Date Calculator",
   "theme": "govUK",
   "routes": [
     "./apps/are_form"
@@ -10,7 +10,5 @@
   "translations": "./app/common/translations",
   "session": {
     "name": "are.hof.sid"
-  },
-  "getTerms": false,
-  "getCookies": false
+  }
 }

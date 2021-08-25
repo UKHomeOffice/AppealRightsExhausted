@@ -3,143 +3,502 @@ kind: pipeline
 name: default
 type: kubernetes
 
-steps:
-- name: build_are
-  pull: if-not-exists
-  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-  commands:
-    - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
-    - docker build -t app-$${DRONE_COMMIT_SHA} .
-  when:
-    branch: [ master, feature/* ]
-    event: push
+environment:
+  APP_NAME: appeal-rights-exhausted
+  PROD_ENV: are
+  STG_ENV: are-preprod
+  UAT_ENV: are-dev
+  BRANCH_ENV: are-branch
+  PRODUCTION_URL: www.appeal-rights-exhausted.homeoffice.gov.uk
+  IMAGE_URL: quay.io/ukhomeofficedigital
+  IMAGE_REPO: are-app
+  GIT_REPO: UKHomeOffice/AppealRightsExhausted
+  HOF_CONFIG: hof-services-config/Appeal_Rights_Exhausted
+  NON_PROD_AVAILABILITY: Mon-Fri 08:00-23:00 Europe/London
+  READY_FOR_TEST_DELAY: 20s
+  NOTIFY_STUB: stub
 
-- name: build_acceptance
-  pull: if-not-exists
-  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-  commands:
-    - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
-    - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
-  when:
-    branch: [ master, feature/* ]
-    event: push
+trigger:
+  branch:
+    - feature/*
+    - master
 
-- name: test_acceptance
+linting: &linting
   pull: if-not-exists
-  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-  commands:
-  - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
-  - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
-  - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} app-$${DRONE_COMMIT_SHA}
-  - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
-  - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
-  when:
-    branch: [ master, feature/* ]
-    event: push
-
-- name: image_to_quay
-  pull: if-not-exists
-  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+  image: node:14
   environment:
-    DOCKER_PASSWORD:
-      from_secret: DOCKER_PASSWORD
+    NOTIFY_KEY: USE_MOCK
   commands:
+    - yarn run test:lint
+
+unit_tests: &unit_tests
+  pull: if-not-exists
+  image: node:14
+  environment:
+    NOTIFY_KEY: USE_MOCK
+  commands:
+    - yarn run test:unit
+
+sonar_scanner: &sonar_scanner
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/sonar-scanner-node:549b75f593f28da1c4a0a6f79877ec69d3b21037
+  commands:
+    - sonar-scanner -Dproject.settings=./sonar-project.properties
+
+acceptance_tests: &acceptance_tests
+  pull: if-not-exists
+  image: mcr.microsoft.com/playwright:v1.12.3-focal
+
+steps:
+  - name: clone_repos
+    image: alpine/git
+    environment:
+      DRONE_GIT_USERNAME:
+        from_secret: drone_git_username
+      DRONE_GIT_TOKEN:
+        from_secret: drone_git_token
+    commands:
+      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+    when:
+      branch:
+        include:
+        - master
+        - feature/*
+      event: [push, pull_request]
+
+  - name: setup_deploy
+    pull: if-not-exists
+    image: node:14
+    environment:
+      NOTIFY_KEY: USE_MOCK
+    commands:
+      - yarn install --frozen-lockfile
+      - yarn run postinstall
+    when:
+      branch:
+        include:
+        - master
+      event: push
+
+  - name: linting_deploy
+    <<: *linting
+    when:
+      branch:
+        include:
+          - master
+      event: push
+
+  - name: unit_tests_deploy
+    <<: *unit_tests
+    when:
+      branch:
+        include:
+          - master
+      event: push
+
+  - name: sonar_scanner_deploy
+    <<: *sonar_scanner
+    when:
+      branch:
+        include:
+          - master
+      event: push
+
+  - name: build_image
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
+    volumes:
+      - name: dockersock
+        path: /var/run
+    when:
+      branch: master
+      event: [push, pull_request]
+
+  - name: image_to_quay
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    environment:
+      DOCKER_PASSWORD:
+        from_secret: DOCKER_PASSWORD
+    commands:
     - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
     - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
-    - docker tag app-$${DRONE_COMMIT_SHA} quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
-    - docker push quay.io/ukhomeofficedigital/are-app:${DRONE_COMMIT_SHA}
-  when:
-    branch: master
-    event: push
+    - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+    - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+    when:
+      branch: master
+      event: [push, pull_request]
 
-- name: clone_repo_build
-  pull: if-not-exists
-  image: docker:git
-  environment:
-    DRONE_GIT_USERNAME:
-      from_secret: DRONE_GIT_USERNAME
-    DRONE_GIT_TOKEN:
-      from_secret: DRONE_GIT_TOKEN
-  commands:
-    - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
-    - cd kube-are
-    - if ! [ $(git tag -l dev-${DRONE_COMMIT_SHA}) ]; then git tag dev-${DRONE_COMMIT_SHA} && git push origin --tags; fi
-    - git push origin --tags
-  when:
-    branch: master
-    event: push
+  # Deploy to pull request UAT environment
+  - name: deploy_to_branch
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      # NOTIFY_STUB: stub
+      KUBE_SERVER:
+        from_secret: kube_server_dev
+      KUBE_TOKEN:
+        from_secret: kube_token_sas_dev
+    commands:
+      - bin/deploy.sh $${BRANCH_ENV}
+    when:
+      branch: master
+      event: pull_request
 
-- name: clone_repo_promote
-  pull: if-not-exists
-  image: docker:git
-  environment:
-    DRONE_GIT_USERNAME:
-      from_secret: DRONE_GIT_USERNAME
-    DRONE_GIT_TOKEN:
-      from_secret: DRONE_GIT_TOKEN
-  commands:
-    - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOffice/kube-are.git
-    - cd kube-are
-    - if ! [ $(git tag -l ${DRONE_DEPLOY_TO}-${DRONE_COMMIT_SHA}) ]; then git tag ${DRONE_DEPLOY_TO}-${DRONE_COMMIT_SHA} && git push origin --tags; fi
-    - git push origin --tags
-  when:
-    event: promote
-    target: [ preprod, prod ]
+  - name: setup_branch
+    pull: if-not-exists
+    image: node:14
+    environment:
+      NOTIFY_KEY: USE_MOCK
+    commands:
+      - yarn install --frozen-lockfile
+      - yarn run postinstall
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
 
-- name: deploy_to_dev
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/kd:v1.14.0
-  commands:
-    - cd kube-are
-    - bin/deploy.sh
-  environment:
-    KUBE_SERVER_DEV:
-      from_secret: kube_server_dev
-    KUBE_TOKEN_DEV:
-      from_secret: kube_token_dev
-    KUBE_NAMESPACE: are-dev
-    APP_IMAGE_TAG: ${DRONE_COMMIT_SHA}
-  when:
-    branch: master
-    event: push
+  - name: linting_branch
+    <<: *linting
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
 
-- name: deploy_to_preprod
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/kd:v1.14.0
-  commands:
-    - cd kube-are
-    - bin/deploy.sh
-  environment:
-    KUBE_SERVER_DEV:
-      from_secret: kube_server_dev
-    KUBE_TOKEN_DEV:
-      from_secret: kube_token_dev
-    KUBE_NAMESPACE: are-preprod
-    APP_IMAGE_TAG: ${DRONE_COMMIT_SHA}
-  when:
-    event: promote
-    target: preprod
+  - name: unit_tests_branch
+    <<: *unit_tests
+    when:
+      branch:
+        include:
+        - master
+        - feature/*
+      event: pull_request
 
-- name: deploy_to_prod
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/kd:v1.14.0
-  commands:
-    - cd kube-are
-    - bin/deploy.sh
-  environment:
-    KUBE_SERVER_PROD:
-      from_secret: kube_server_prod
-    KUBE_TOKEN_PROD:
-      from_secret: kube_token_prod
-    KUBE_NAMESPACE: are
-    APP_IMAGE_TAG: ${DRONE_COMMIT_SHA}
-  when:
-    event: promote
-    target: prod
+  - name: sonar_scanner_branch
+    <<: *sonar_scanner
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
+  - name: build_acceptance_branch
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
+  - name: test_acceptance_branch
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+    - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+    - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
+    - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} $${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+    - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
+    - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
+  # Snyk & Anchore security scans which run after branch deployment to prevent blocking of PR UAT tests
+  - name: snyk_scan
+    pull: if-not-exists
+    image: node:14
+    environment:
+      SNYK_TOKEN:
+        from_secret: snyk_token
+    commands:
+      - yarn run test:snyk
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
+  - name: anchore_scan
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+      LOCAL_IMAGE: true
+      TOLERATE: medium
+      WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+    when:
+      branch: master
+      event: pull_request
+
+  # Deploy to Master UAT environment
+  - name: deploy_to_uat
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_dev
+      KUBE_TOKEN:
+        from_secret: kube_token_dev
+    commands:
+      - bin/deploy.sh $${UAT_ENV}
+    when:
+      branch: master
+      event: push
+
+  - name: build_acceptance_deploy
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      - docker build -f Dockerfile-acceptance -t acceptance-$${DRONE_COMMIT_SHA} .
+    when:
+      branch: master
+      event: push
+
+  - name: test_acceptance_deploy
+    pull: if-not-exists
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+    - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+    - docker run -d --name=redis-$${DRONE_COMMIT_SHA} redis
+    - docker run -d -e NODE_ENV=ci -e DISABLE_CSP=true --name=app-$${DRONE_COMMIT_SHA} --net=container:redis-$${DRONE_COMMIT_SHA} $${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+    - docker run --rm --net=container:app-$${DRONE_COMMIT_SHA} acceptance-$${DRONE_COMMIT_SHA}
+    - docker rm -vf "app-$${DRONE_COMMIT_SHA}" "redis-$${DRONE_COMMIT_SHA}"
+    when:
+      branch: master
+      event: push
+
+  # Get pull request branch so correct PR UAT environment is torn down in the tear_down_branch step that follows
+  - name: get_pr_branch
+    pull: if-not-exists
+    image: drone/cli:alpine@sha256:14409f7f7247befb9dd2effdb2f61ac40d1f5fbfb1a80566cf6f2f8d21f3be11
+    environment:
+      DRONE_SERVER:
+        from_secret: drone_server
+      DRONE_TOKEN:
+        from_secret: drone_token
+    volumes:
+      - name: dockersock
+        path: /root/.dockersock
+    commands:
+      - drone build info $GIT_REPO $DRONE_BUILD_NUMBER --format {{.Message}} | grep -o '[^ ]\+$' -m1 | sed 's|UKHomeOffice/||g' | tr '[:upper:]' '[:lower:]' | tr '/' '-' > /root/.dockersock/branch_name.txt
+    when:
+      branch: master
+      event: push
+
+  # Tear down pull request UAT environment
+  - name: tear_down_branch
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_dev
+      KUBE_TOKEN:
+        from_secret: kube_token_sas_dev
+    volumes:
+      - name: dockersock
+        path: /root/.dockersock
+    commands:
+      - bin/deploy.sh tear_down
+    when:
+      branch: master
+      event: push
+
+  #   # Deploy to Staging environment
+  # - name: deploy_to_stg
+  #   pull: if-not-exists
+  #   image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  #   environment:
+  #     KUBE_SERVER:
+  #       from_secret: kube_server_stg
+  #     KUBE_TOKEN:
+  #       from_secret: kube_token_stg
+  #   commands:
+  #     - bin/deploy.sh $${STG_ENV}
+  #   when:
+  #     branch: master
+  #     event: push
+
+  # Checks a build being promoted has passed, is on master which effectively means a healthy build on Staging
+  - name: sanity_check_build_prod
+    pull: if-not-exists
+    image: drone/cli:alpine@sha256:14409f7f7247befb9dd2effdb2f61ac40d1f5fbfb1a80566cf6f2f8d21f3be11
+    environment:
+      DRONE_SERVER:
+        from_secret: drone_server
+      DRONE_TOKEN:
+        from_secret: drone_token
+    commands:
+      - bin/sanity_check_build.sh
+    when:
+      target: PROD
+      event: promote
+
+  - name: clone_repos_prod
+    image: alpine/git
+    environment:
+      DRONE_GIT_USERNAME:
+        from_secret: drone_git_username
+      DRONE_GIT_TOKEN:
+        from_secret: drone_git_token
+    commands:
+      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+    when:
+      target: PROD
+      event: promote
+
+    # Deploy to Production environment
+  - name: deploy_to_prod
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_prod
+      KUBE_TOKEN:
+        from_secret: kube_token_prod
+    commands:
+      - bin/deploy.sh $${PROD_ENV}
+    when:
+      target: PROD
+      event: promote
+
+# CRON job step that tears down our pull request UAT environments
+  - name: cron_tear_down
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_dev
+      KUBE_TOKEN:
+        from_secret: kube_token_dev
+    commands:
+      - bin/clean_up.sh $${BRANCH_ENV}
+    when:
+      cron: tear_down_pr_envs
+      event: cron
+
+  # CRON job steps that runs security scans using Snyk & Anchore
+  - name: cron_clone_repos
+    image: alpine/git
+    environment:
+      DRONE_GIT_USERNAME:
+        from_secret: drone_git_username
+      DRONE_GIT_TOKEN:
+        from_secret: drone_git_token
+    commands:
+      - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+    when:
+      cron: security_scans
+      event: cron
+
+  - name: cron_build_image
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+    commands:
+      - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
+    volumes:
+      - name: dockersock
+        path: /var/run
+    when:
+      cron: security_scans
+      event: cron
+
+  - name: cron_snyk_scan
+    pull: if-not-exists
+    image: node:14
+    environment:
+      SNYK_TOKEN:
+        from_secret: snyk_token
+    commands:
+      - yarn install --frozen-lockfile
+      - yarn run postinstall
+      - yarn run test:snyk
+    when:
+      cron: security_scans
+      event: cron
+
+  - name: cron_anchore_scan
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+      LOCAL_IMAGE: true
+      TOLERATE: medium
+      WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+    when:
+      cron: security_scans
+      event: cron
+
+  # Slack notification upon a CRON job fail
+  - name: cron_notify_slack_tear_down_pr_envs
+    pull: if-not-exists
+    image: plugins/slack
+    settings:
+      channel: sas-build
+      failure: ignore
+      icon_url: http://readme.drone.io/0.5/logo_dark.svg
+      icon.url: http://readme.drone.io/0.5/logo_dark.svg
+      template: "CRON Job {{build.deployTo}} of Appeal Rights Exhausted has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+      username: Drone
+      webhook:
+        from_secret: slack_webhook
+    when:
+      cron: tear_down_pr_envs
+      event: cron
+      status: failure
+
+  - name: cron_notify_slack_security_scans
+    pull: if-not-exists
+    image: plugins/slack
+    settings:
+      channel: sas-build
+      failure: ignore
+      icon_url: http://readme.drone.io/0.5/logo_dark.svg
+      icon.url: http://readme.drone.io/0.5/logo_dark.svg
+      template: "CRON Job {{build.deployTo}} of Appeal Rights Exhausted has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
+      username: Drone
+      webhook:
+        from_secret: slack_webhook
+    when:
+      cron: security_scans
+      event: cron
+      status: failure
 
 services:
   - name: docker
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
 
-...
+  # Anchore scanning needs background service to run
+  - name: anchore-submission-server
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    commands:
+      - /run.sh server
 
+  # Redis session setup in background so integration tests can run
+  - name: session
+    image: redis
+    volumes:
+      - name: dockersock
+        path: /var/run
+
+volumes:
+  - name: dockersock
+    temp: {}
+
+...

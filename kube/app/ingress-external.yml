@@ -1,0 +1,48 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: {{ .APP_NAME }}-external-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
+  name: {{ .APP_NAME }}-external
+  {{ end }}
+{{ file .INGRESS_EXTERNAL_ANNOTATIONS | indent 2 }}
+spec:
+  tls:
+    - hosts:
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+        - {{ .DRONE_BUILD_NUMBER }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
+        - are-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
+      {{ else if eq .KUBE_NAMESPACE .UAT_ENV }}
+        - dev.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+      {{ else if eq .KUBE_NAMESPACE .STG_ENV }}
+        - preprod.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+      {{ else }}
+        - {{ .PRODUCTION_URL }}
+      {{ end }}
+      {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+      secretName: branch-tls-external
+      {{ else }}
+      secretName: {{ .APP_NAME }}-external
+      {{ end }}
+  rules:
+    {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+    - host: are-{{ .DRONE_SOURCE_BRANCH }}.{{ .BRANCH_ENV }}.homeoffice.gov.uk
+    {{ else if eq .KUBE_NAMESPACE .UAT_ENV }}
+    - host: dev.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+    {{ else if eq .KUBE_NAMESPACE .STG_ENV }}
+    - host: preprod.notprod.{{ .APP_NAME }}.homeoffice.gov.uk
+    {{ else }}
+    - host: {{ .PRODUCTION_URL }}
+    {{ end }}
+      http:
+        paths:
+          - path: /
+            backend:
+              {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+              serviceName: {{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
+              {{ else }}
+              serviceName: {{ .APP_NAME }}
+              {{ end }}
+              servicePort: 10443

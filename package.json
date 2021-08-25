@@ -9,40 +9,45 @@
     "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "engines": {
-    "node": "^14.0.0"
+    "node": "^14.15.0"
   },
   "scripts": {
-    "start": "node .",
-    "dev": "NODE_ENV=development hof-build watch",
+    "start": "node server.js",
+    "start:dev": "NODE_ENV=development hof-build watch",
     "debug": "node --inspect .",
     "test": "npm run test:lint && npm run test:unit",
-    "test:unit": "mocha",
+    "test:unit": "nyc _mocha \"test/_unit/**/*.spec.js\"",
     "test:acceptance": "cd acceptance_tests/; bundle install && cucumber",
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
+    "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
     "build": "hof-build",
     "postinstall": "npm run build"
   },
   "author": "HomeOffice",
   "dependencies": {
-    "hof": "^19.5.3",
-    "jquery": "3.5.1",
+    "hof": "^19.8.0",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
-    "moment": "^2.17.1"
+    "moment": "^2.29.1"
   },
   "devDependencies": {
-    "chai": "^3.0.0",
+    "chai": "^4.3.4",
     "eslint": "^7.29.0",
-    "eslint-config-hof": "^1.0.4",
-    "mocha": "^3.4.2",
-    "pre-commit": "^1.0.10",
-    "proxyquire": "^1.8.0",
-    "sinon": "^2.4.1",
-    "sinon-chai": "^2.12.0"
+    "eslint-config-hof": "^1.2.1",
+    "mocha": "^9.0.3",
+    "nyc": "^15.1.0",
+    "proxyquire": "^2.1.3",
+    "sinon": "^11.1.2",
+    "sinon-chai": "^3.7.0",
+    "snyk": "^1.680.0"
   },
   "resolutions": {
     "underscore": "^1.12.1"
   },
-  "pre-commit": [
-    "test"
-  ]
+  "mocha": {
+    "reporter": "spec",
+    "require": "test/setup.js",
+    "recursive": "true",
+    "timeout": "6000"
+  }
 }
