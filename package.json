@@ -25,7 +25,7 @@
   },
   "author": "HomeOffice",
   "dependencies": {
-    "hof": "^19.8.0",
+    "hof": "^19.9.18",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1"
