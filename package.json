@@ -25,7 +25,7 @@
   },
   "author": "HomeOffice",
   "dependencies": {
-    "hof": "^19.8.0",
+    "hof": "^19.9.18",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1"
@@ -39,7 +39,7 @@
     "proxyquire": "^2.1.3",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
-    "snyk": "^1.680.0"
+    "snyk": "^1.675.0"
   },
   "resolutions": {
     "underscore": "^1.12.1"
