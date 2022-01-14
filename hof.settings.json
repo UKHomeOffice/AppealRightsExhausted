@@ -10,5 +10,6 @@
   "translations": "./app/common/translations",
   "session": {
     "name": "are.hof.sid"
-  }
+  },
+  "getAccessibility": true
 }
