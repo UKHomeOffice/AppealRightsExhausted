@@ -46,6 +46,6 @@ Any of the following commands will start the app, accessible at `localhost:8080`
 
 ```bash
 yarn start
-yarn run dev
+yarn start:dev
 yarn run debug
 ```
