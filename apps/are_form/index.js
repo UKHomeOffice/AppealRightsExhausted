@@ -13,6 +13,9 @@ module.exports = {
     '/terms-and-conditions': 'terms'
   },
   steps: {
+    '/govuk-test': {
+      next: '/first-page'
+    },
     '/first-page': {
       behaviours: checkCountryAppealStage,
       template: 'first-page.html',

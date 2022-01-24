@@ -1,6 +1,7 @@
 $path: "../img/";
 
 @import "hof/frontend/themes/gov-uk/styles/govuk";
+@import "node_modules/govuk-frontend/govuk/all";
 
 @import "./alert.scss";
 @import "./icons.scss";
