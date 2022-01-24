@@ -21,7 +21,7 @@
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
     "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
     "build": "hof-build",
-    "copy-fonts": "mkdir public/fonts && cp -r assets/fonts public/fonts",
+    "copy-assets": "mkdir -p public/fonts && cp -r assets/fonts public/fonts",
     "postinstall": "npm run build"
   },
   "author": "HomeOffice",

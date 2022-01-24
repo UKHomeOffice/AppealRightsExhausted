@@ -1,6 +1,7 @@
 'use strict';
 
 require('hof/frontend/themes/gov-uk/client-js');
+require('hof/frontend/themes/gov-uk/govuk');
 
 const $ = require('jquery');
 
