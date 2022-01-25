@@ -11,6 +11,13 @@ rm -rf   public/fonts
 # cp -r    assets/js \
 #          public/assets
 
+# Copy GOV.UK Frontend JavaScript
+# (See https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/installing-with-npm.md#option-1-include-javascript)
+mkdir -p public/js/govuk-frontend/govuk
+
+cp       node_modules/govuk-frontend/govuk/all.js \
+         public/js/govuk-frontend/govuk/all.js
+
 # Copy GOV.UK Frontend images
 # (See https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/installing-with-npm.md#importing-assets)
 cp -r    node_modules/govuk-frontend/govuk/assets/images \

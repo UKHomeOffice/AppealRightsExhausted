@@ -5,6 +5,9 @@ require('hof/frontend/themes/gov-uk/govuk');
 
 const $ = require('jquery');
 
+document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+window.GOVUKFrontend.initAll()
+
 if ($('.appeal-summary-class').length) {
   $('.appeal-summary-class').click(function () {
     $('#' + this.title).toggleClass('hidden');
