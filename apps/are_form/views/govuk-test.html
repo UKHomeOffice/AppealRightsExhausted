@@ -1,4 +1,3 @@
-<script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 {{<layout}}
 
     {{$journeyHeader}}
@@ -72,8 +71,5 @@
 {{/content}}
 {{/layout}}
 <script src="{{assetPath}}/js/govuk-frontend/govuk/all.js"></script>
-<script>
-  window.GOVUKFrontend.initAll()
-</script>
-
+<script src="{{assetPath}}/js/govuk-frontend/govuk/init-govuk.js"></script>
 
