@@ -27,7 +27,7 @@
   "author": "HomeOffice",
   "dependencies": {
     "govuk-frontend": "^4.0.0",
-    "hof": "^19.12.0",
+    "hof": "^19.12.2",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1"
