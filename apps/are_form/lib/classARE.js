@@ -4,7 +4,7 @@ const moment = require('moment');
 const config = require('../../../config');
 const dateFormat = config.dateFormat;
 const staticExclusionDates = require('../lib/staticExclusionDates');
-const staticAppealStages = require('../lib/staticAppealStages');
+const appealStages = require('../../../data/Appeal_Stages');
 
 module.exports.Calculator = class {
   constructor(date, country, appealstage) {
@@ -75,13 +75,9 @@ module.exports.Calculator = class {
   }
 
   getAppealInfo(selectedAppealStage) {
-    return staticAppealStages.getstaticAppealStages().filter(function (obj) {
+    return appealStages.filter(function (obj) {
       return obj.value === selectedAppealStage;
     })[0];
-  }
-
-  getAppealStages() {
-    return staticExclusionDates.getstaticAppealStages;
   }
 
   getExclusionDates() {

@@ -1,7 +1,7 @@
 'use strict';
 
 const staticExclusionDates = require('../lib/staticExclusionDates');
-const staticAppealStages = require('../lib/staticAppealStages');
+const appealStages = require('../../../data/Appeal_Stages');
 const moment = require('moment');
 const config = require('../../../config');
 const dateFormat = config.dateFormat;
@@ -12,7 +12,7 @@ module.exports = superclass => class ReferenceList extends superclass {
       const json = req.sessionModel.toJSON();
 
       if (req.url === '/appealstages') {
-        json['reference-appeal-list'] = [].concat(staticAppealStages.getstaticAppealStages());
+        json['reference-appeal-list'] = [].concat(appealStages);
         json['reference-appeal-list-count'] = json['reference-appeal-list'].length;
       } else if (req.url === '/exclusiondates') {
         json['reference-exclusiondate-list-england-and-wales'] =

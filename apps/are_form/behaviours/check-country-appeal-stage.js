@@ -1,10 +1,10 @@
 'use strict';
 
-const staticAppealStages = require('../lib/staticAppealStages');
+const appealStages = require('../../../data/Appeal_Stages');
 const countryOfHearing = 'country-of-hearing';
 
 function getAppealInfo(selectedAppealStage) {
-  return staticAppealStages.getstaticAppealStages().filter(function (obj) {
+  return appealStages.filter(function (obj) {
     return obj.value === selectedAppealStage;
   })[0];
 }

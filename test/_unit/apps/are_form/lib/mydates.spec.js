@@ -8,7 +8,6 @@ const dateFormat = config.dateFormat;
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
-// var mystages = require('../../../../../apps/are_form/lib/staticAppealStages.js');
 const are = require('../../../../../apps/are_form/lib/classARE.js');
 
 describe('ARE Calculations Test Cases', function () {

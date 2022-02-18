@@ -8,7 +8,7 @@ const moment = require('moment');
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
-const myStages = require('../../../../../apps/are_form/lib/staticAppealStages.js').getstaticAppealStages();
+const myStages = require('../../../../../data/Appeal_Stages');
 const are = require('../../../../../apps/are_form/lib/classARE.js');
 
 // ------

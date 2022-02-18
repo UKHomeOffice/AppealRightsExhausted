@@ -1,6 +1,6 @@
 'use strict';
 
-const staticAppealStages = require('./lib/staticAppealStages');
+const appealStages = require('../../data/Appeal_Stages');
 const dateComponent = require('hof').components.date;
 
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
     options: [{
       value: '',
       label: 'fields.appeal-stage.options.null'
-    }].concat(staticAppealStages.getstaticAppealStages())
+    }].concat(appealStages)
   },
   'start-date': dateComponent('start-date', {
     labelClassName: 'visuallyhidden',
