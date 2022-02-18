@@ -33,4 +33,9 @@ module.exports = superclass => class ReferenceList extends superclass {
       return callback(err, json);
     });
   }
+
+  successHandler(req, res, next) {
+    req.sessionModel.reset();
+    return super.successHandler(req, res, next);
+  }
 };

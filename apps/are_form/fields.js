@@ -40,14 +40,5 @@ module.exports = {
       className: 'visuallyhidden'
     },
     hint: 'fields.start-date.hint'
-  }),
-  'start-date-day': {
-    validate: ['required', 'numeric']
-  },
-  'start-date-month': {
-    validate: ['required', 'numeric']
-  },
-  'start-date-year': {
-    validate: ['required', 'numeric', { type: 'minlength', arguments: [2] }]
-  }
+  })
 };
