@@ -10,6 +10,7 @@ module.exports = {
   siteroot: process.env.SITEROOT || '',
   port: process.env.PORT || 8080,
   listen_host: process.env.LISTEN_HOST || '0.0.0.0',
+  dateFormat: 'dddd DD MMMM YYYY',
   session: {
     secret: process.env.SESSION_SECRET || 'howdoesyourgardengrow',
     ttl: process.env.SESSION_TTL || 1200 /* 20 mins */

@@ -3,7 +3,8 @@
 const staticExclusionDates = require('../lib/staticExclusionDates');
 const staticAppealStages = require('../lib/staticAppealStages');
 const moment = require('moment');
-const dateFormat = 'dddd DD MMMM YYYY';
+const config = require('../../../config');
+const dateFormat = config.dateFormat;
 
 module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {

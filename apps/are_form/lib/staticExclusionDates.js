@@ -3,7 +3,8 @@
 
 'use strict';
 const moment = require('moment');
-const dateformat = 'dddd DD MMMM YYYY';
+const config = require('../../../config');
+const dateFormat = config.dateFormat;
 
 const exclusionDays = [
 
@@ -196,7 +197,7 @@ function mySort(obj, keyName) {
 
 function addFormattedDate() {
   exclusionDays.forEach(function (element, idx) {
-    exclusionDays[idx].formattedDate = moment(element.exclusionDate, 'YYYY-MM-DD').format(dateformat);
+    exclusionDays[idx].formattedDate = moment(element.exclusionDate, 'YYYY-MM-DD').format(dateFormat);
   });
 }
 

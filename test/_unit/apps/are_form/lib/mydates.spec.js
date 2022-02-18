@@ -3,6 +3,8 @@
 'use strict';
 
 const moment = require('moment');
+const config = require('../../../../../config');
+const dateFormat = config.dateFormat;
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
@@ -73,7 +75,7 @@ describe('ARE Calculations Test Cases', function () {
       const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'), e.country, e.appealStage);
       const result = d.areDate;
 
-      assert.equal(result, moment(e.expected,'DD-MM-YYYY').format('dddd DD MMMM YYYY'));
+      assert.equal(result, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
     });
   });
 });
@@ -83,7 +85,7 @@ describe('Using Exclusion Dates as start date Checks', function () {
   const EnglandAndWales = exclusionDays.getExclusionDays('England & Wales');
 
   EnglandAndWales.forEach(function (e) {
-    const testDate = moment(e.exclusionDate,'YYYY-MM-DD').format('dddd DD MMMM YYYY');
+    const testDate = moment(e.exclusionDate,'YYYY-MM-DD').format(dateFormat);
     const d = new are.Calculator(testDate, 'England & Wales', 'FT_IC');
     it('should treat start date for [' + testDate + '] as an exclusion date for England & Wales', function () {
       assert.equal(d.isBaseExclusionDay, true);

@@ -1,38 +1,39 @@
 'use strict';
 
 const moment = require('moment');
-const dateformat = 'dddd DD MMMM YYYY';
+const config = require('../../../config');
+const dateFormat = config.dateFormat;
 const staticExclusionDates = require('../lib/staticExclusionDates');
 const staticAppealStages = require('../lib/staticAppealStages');
 
 module.exports.Calculator = class {
   constructor(date, country, appealstage) {
-    this.baseDate = moment(date, dateformat).format(dateformat);
+    this.baseDate = moment(date, dateFormat).format(dateFormat);
     this.country = country;
     this.appealStage = appealstage;
     this.excludedDates = [];
     this.isBaseWeekend = this.isWeekend(this.baseDate);
     this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);
-    this.startDate = moment(this.setStartDate(this.getExclusionDates()), dateformat).format(dateformat);
+    this.startDate = moment(this.setStartDate(this.getExclusionDates()), dateFormat).format(dateFormat);
     this.appealInfo = this.getAppealInfo(this.appealStage);
-    this.areDate = moment(this.calculateAREDate(this.appealInfo), dateformat).format(dateformat);
-    this.excludedDateRange = moment(staticExclusionDates.getFirstExclusionDate(), 'YYYY-MM-DD').format(dateformat) +
-                      ' to ' + moment(staticExclusionDates.getLastExclusionDate(), 'YYYY-MM-DD').format(dateformat);
+    this.areDate = moment(this.calculateAREDate(this.appealInfo), dateFormat).format(dateFormat);
+    this.excludedDateRange = moment(staticExclusionDates.getFirstExclusionDate(), 'YYYY-MM-DD').format(dateFormat) +
+                      ' to ' + moment(staticExclusionDates.getLastExclusionDate(), 'YYYY-MM-DD').format(dateFormat);
     this.baseBeforeEarliestExclusionDate = this.isBaseBeforeEarliestExclusion();
     this.areAfterLastExclusionDate = this.isAREAfterLastExclusion();
   }
 
   addDays(toDate, daysToAdd) {
-    return moment(toDate, dateformat).add(daysToAdd, 'days');
+    return moment(toDate, dateFormat).add(daysToAdd, 'days');
   }
 
   addMonths(toDate, monthsToAdd) {
-    return moment(toDate, dateformat).add(monthsToAdd, 'months');
+    return moment(toDate, dateFormat).add(monthsToAdd, 'months');
   }
 
   addDaysIgnoringWeekendsAndExclusionDays(toDate, daysToAdd) {
     let count = 0;
-    let tempDate = moment(toDate, dateformat);
+    let tempDate = moment(toDate, dateFormat);
     while (count < daysToAdd) {
       tempDate = this.addDays(tempDate, 1);
       if (this.isWeekend(tempDate) === false &&
@@ -45,7 +46,7 @@ module.exports.Calculator = class {
 
   /* eslint complexity: 1 */
   calculateAREDate(info) {
-    let myDate = moment(this.startDate, dateformat);
+    let myDate = moment(this.startDate, dateFormat);
     const selectedExclusionDates = this.getExclusionDates();
     const timeLimitType = info.timeLimit.type.replace(/ /g, '');
     const adminAllowanceType = info.adminAllowance.type.replace(/ /g, '');
@@ -70,7 +71,7 @@ module.exports.Calculator = class {
     }
 
     myDate = this.rollForward(myDate, selectedExclusionDates);
-    return moment(myDate, dateformat);
+    return moment(myDate, dateFormat);
   }
 
   getAppealInfo(selectedAppealStage) {
@@ -85,7 +86,7 @@ module.exports.Calculator = class {
 
   getExclusionDates() {
     return staticExclusionDates.getExclusionDays(this.country,
-      moment(this.baseDate, dateformat).format('YYYY-MM-DD'));
+      moment(this.baseDate, dateFormat).format('YYYY-MM-DD'));
   }
 
   getResult() {
@@ -94,27 +95,27 @@ module.exports.Calculator = class {
 
   isAREAfterLastExclusion() {
     return (moment(staticExclusionDates.getLastExclusionDate(),
-      'YYYY-MM-DD').isBefore(moment(this.areDate, dateformat)));
+      'YYYY-MM-DD').isBefore(moment(this.areDate, dateFormat)));
   }
 
   isBaseBeforeEarliestExclusion() {
     return (moment(staticExclusionDates.getFirstExclusionDate(),
-      'YYYY-MM-DD').isAfter(moment(this.baseDate, dateformat)));
+      'YYYY-MM-DD').isAfter(moment(this.baseDate, dateFormat)));
   }
 
   isWeekend(date) {
-    return (moment(date, dateformat).isoWeekday() === 6 ||
-           moment(date, dateformat).isoWeekday() === 7);
+    return (moment(date, dateFormat).isoWeekday() === 6 ||
+           moment(date, dateFormat).isoWeekday() === 7);
   }
 
   isExclusionDay(date) {
     const exclusionDays = this.getExclusionDates();
-    const formattedDate = moment(date, dateformat).format('YYYY-MM-DD');
+    const formattedDate = moment(date, dateFormat).format('YYYY-MM-DD');
 
     for (const index in exclusionDays) {
       if (exclusionDays[index].exclusionDate === formattedDate) {
         // only add date to exclusion date list if it has not already been added
-        const dateToAdd = moment(date, dateformat).format(dateformat) +
+        const dateToAdd = moment(date, dateFormat).format(dateFormat) +
                     ' (' + exclusionDays[index].description + ')';
         if (this.excludedDates.indexOf(dateToAdd) === -1) {
           this.excludedDates.push(dateToAdd);
