@@ -7,7 +7,7 @@ environment:
   APP_NAME: appeal-rights-exhausted
   PROD_ENV: are
   STG_ENV: are-preprod
-  UAT_ENV: are-dev
+  UAT_ENV: are-uat
   BRANCH_ENV: are-branch
   PRODUCTION_URL: www.appeal-rights-exhausted.homeoffice.gov.uk
   IMAGE_URL: quay.io/ukhomeofficedigital
@@ -242,6 +242,21 @@ steps:
       LOCAL_IMAGE: true
       TOLERATE: medium
       WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+    when:
+      branch: master
+      event: pull_request
+
+  # TEST Deploy to Master UAT environment
+  - name: TEST_deploy_to_uat
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_dev
+      KUBE_TOKEN:
+        from_secret: kube_token_sas_dev
+    commands:
+      - bin/deploy.sh $${UAT_ENV}
     when:
       branch: master
       event: pull_request
