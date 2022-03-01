@@ -261,6 +261,21 @@ steps:
       branch: master
       event: pull_request
 
+  # TEST Deploy to Master STG environment
+  - name: TEST_deploy_to_stg
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_stg
+      KUBE_TOKEN:
+        from_secret: kube_token_stg
+    commands:
+      - bin/deploy.sh $${UAT_ENV}
+    when:
+      branch: master
+      event: pull_request
+
   # Deploy to Master UAT environment
   - name: deploy_to_uat
     pull: if-not-exists
