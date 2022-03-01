@@ -271,7 +271,7 @@ steps:
       KUBE_TOKEN:
         from_secret: kube_token_stg
     commands:
-      - bin/deploy.sh $${UAT_ENV}
+      - bin/deploy.sh $${STG_ENV}
     when:
       branch: master
       event: pull_request
