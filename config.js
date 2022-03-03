@@ -9,6 +9,7 @@ module.exports = {
   env: process.env.NODE_ENV,
   siteroot: process.env.SITEROOT || '',
   port: process.env.PORT || 8080,
+  bankHolidaysApi: 'https://www.gov.uk/bank-holidays.json',
   listen_host: process.env.LISTEN_HOST || '0.0.0.0',
   dateFormat: 'dddd DD MMMM YYYY',
   session: {

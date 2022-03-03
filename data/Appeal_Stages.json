@@ -230,7 +230,7 @@
       "type": "working days"
     },
     "country": [
-      "England & Wales"
+      "england-and-wales"
     ],
     "trigger": "IA157 PTA to the CoA refused",
     "sortCode": 130
@@ -250,8 +250,8 @@
       "type": "working days"
     },
     "country": [
-      "Scotland",
-      "Northern Ireland"
+      "scotland",
+      "northern-ireland"
     ],
     "trigger": "IA157 PTA to the CoA refused",
     "sortCode": 140

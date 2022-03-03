@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const moment = require('moment');
 const config = require('../../../config');
 const dateFormat = config.dateFormat;
@@ -11,16 +12,25 @@ module.exports.Calculator = class {
     this.baseDate = moment(date, dateFormat).format(dateFormat);
     this.country = country;
     this.appealStage = appealstage;
+    this.allExcludedDates = [];
+    this.allExcludedDatesFromStartDate = [];
     this.excludedDates = [];
-    this.isBaseWeekend = this.isWeekend(this.baseDate);
-    this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);
-    this.startDate = moment(this.setStartDate(this.getExclusionDates()), dateFormat).format(dateFormat);
-    this.appealInfo = this.getAppealInfo(this.appealStage);
-    this.areDate = moment(this.calculateAREDate(this.appealInfo), dateFormat).format(dateFormat);
-    this.excludedDateRange = moment(staticExclusionDates.getFirstExclusionDate(), 'YYYY-MM-DD').format(dateFormat) +
-                      ' to ' + moment(staticExclusionDates.getLastExclusionDate(), 'YYYY-MM-DD').format(dateFormat);
-    this.baseBeforeEarliestExclusionDate = this.isBaseBeforeEarliestExclusion();
-    this.areAfterLastExclusionDate = this.isAREAfterLastExclusion();
+    this.isBaseWeekend = null;
+    this.isBaseExclusionDay = null;
+    this.startDate = null;
+    this.appealInfo = null;
+    this.areDate = null;
+    this.excludedDateRange = null;
+    this.baseBeforeEarliestExclusionDate = null;
+    this.areAfterLastExclusionDate = null;
+  }
+
+  getFirstExclusionDate() {
+    return this.allExcludedDates[0].date;
+  }
+
+  getLastExclusionDate() {
+    return this.allExcludedDates[this.allExcludedDates.length - 1].date;
   }
 
   addDays(toDate, daysToAdd) {
@@ -47,7 +57,7 @@ module.exports.Calculator = class {
   /* eslint complexity: 1 */
   calculateAREDate(info) {
     let myDate = moment(this.startDate, dateFormat);
-    const selectedExclusionDates = this.getExclusionDates();
+    const selectedExclusionDates = this.allExcludedDatesFromStartDate;
     const timeLimitType = info.timeLimit.type.replace(/ /g, '');
     const adminAllowanceType = info.adminAllowance.type.replace(/ /g, '');
 
@@ -80,22 +90,38 @@ module.exports.Calculator = class {
     })[0];
   }
 
-  getExclusionDates() {
-    return staticExclusionDates.getExclusionDays(this.country,
-      moment(this.baseDate, dateFormat).format('YYYY-MM-DD'));
+  datesByCountry(dates) {
+    var allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[this.country].events);
+    return _.sortBy(allDatesByCountry, 'date');
   }
 
-  getResult() {
-    return this;
+  datesFromStartDate(dates) {
+    const startDate = moment(this.baseDate, dateFormat).format('YYYY-MM-DD');
+    return _.filter(dates, obj => obj.date >= startDate);
+  }
+
+  async setupExclusionDates() {
+    const dates = await staticExclusionDates.getExclusionDays();
+    this.allExcludedDates = this.datesByCountry(dates);
+    this.allExcludedDatesFromStartDate = this.datesFromStartDate(this.allExcludedDates);
+    this.isBaseWeekend = this.isWeekend(this.baseDate);
+    this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);
+    this.startDate = moment(this.setStartDate(this.allExcludedDatesFromStartDate), dateFormat).format(dateFormat);
+    this.appealInfo = this.getAppealInfo(this.appealStage);
+    this.areDate = moment(this.calculateAREDate(this.appealInfo), dateFormat).format(dateFormat);
+    this.excludedDateRange = moment(this.getFirstExclusionDate(), 'YYYY-MM-DD').format(dateFormat) +
+                      ' to ' + moment(this.getLastExclusionDate(), 'YYYY-MM-DD').format(dateFormat);
+    this.baseBeforeEarliestExclusionDate = this.isBaseBeforeEarliestExclusion();
+    this.areAfterLastExclusionDate = this.isAREAfterLastExclusion();
   }
 
   isAREAfterLastExclusion() {
-    return (moment(staticExclusionDates.getLastExclusionDate(),
+    return (moment(this.getLastExclusionDate(),
       'YYYY-MM-DD').isBefore(moment(this.areDate, dateFormat)));
   }
 
   isBaseBeforeEarliestExclusion() {
-    return (moment(staticExclusionDates.getFirstExclusionDate(),
+    return (moment(this.getFirstExclusionDate(),
       'YYYY-MM-DD').isAfter(moment(this.baseDate, dateFormat)));
   }
 
@@ -105,14 +131,14 @@ module.exports.Calculator = class {
   }
 
   isExclusionDay(date) {
-    const exclusionDays = this.getExclusionDates();
+    const exclusionDays = this.allExcludedDatesFromStartDate;
     const formattedDate = moment(date, dateFormat).format('YYYY-MM-DD');
 
     for (const index in exclusionDays) {
-      if (exclusionDays[index].exclusionDate === formattedDate) {
+      if (exclusionDays[index].date === formattedDate) {
         // only add date to exclusion date list if it has not already been added
         const dateToAdd = moment(date, dateFormat).format(dateFormat) +
-                    ' (' + exclusionDays[index].description + ')';
+                    ' (' + exclusionDays[index].title + ')';
         if (this.excludedDates.indexOf(dateToAdd) === -1) {
           this.excludedDates.push(dateToAdd);
         }

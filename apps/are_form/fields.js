@@ -12,13 +12,13 @@ module.exports = {
     },
     className: ['inline', 'form-group'],
     options: [{
-      value: 'England & Wales',
+      value: 'england-and-wales',
       label: 'England & Wales'
     }, {
-      value: 'Scotland',
+      value: 'scotland',
       label: 'Scotland'
     }, {
-      value: 'Northern Ireland',
+      value: 'northern-ireland',
       label: 'Northern Ireland'
     }]
   },
