@@ -2,6 +2,7 @@
 
 'use strict';
 
+const _ = require('lodash');
 const moment = require('moment');
 const config = require('../../../../../config');
 const dateFormat = config.dateFormat;
@@ -10,7 +11,7 @@ process.env.NODE_ENV = 'test';
 const assert = require('assert');
 const are = require('../../../../../apps/are_form/lib/classARE.js');
 
-describe('ARE Calculations Test Cases', function () {
+describe.only('ARE Calculations Test Cases', function () {
   // Before all tests
   before(function () {
 
@@ -22,85 +23,93 @@ describe('ARE Calculations Test Cases', function () {
   });
 
   const testDates = [
-    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '08-04-2015'},
-    {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '28-04-2015'},
-    {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '11-05-2015'},
-    {testDate: '01-06-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '02-07-2015'},
-    {testDate: '14-08-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '01-09-2015'},
-    {testDate: '28-08-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '29-09-2015'},
-    {testDate: '25-11-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '10-12-2015'},
-    {testDate: '01-12-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '05-01-2016'},
-    {testDate: '20-12-2015', appealStage: 'UT_OOC', country: 'England & Wales', expected: '22-01-2016'},
-    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '07-04-2015'},
-    {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'Scotland', expected: '28-04-2015'},
-    {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '11-05-2015'},
-    {testDate: '01-06-2015', appealStage: 'UT_OOC', country: 'Scotland', expected: '02-07-2015'},
-    {testDate: '14-08-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '31-08-2015'},
-    {testDate: '28-08-2015', appealStage: 'UT_OOC', country: 'Scotland', expected: '29-09-2015'},
-    {testDate: '25-11-2015', appealStage: 'FT_IC' , country: 'Scotland', expected: '10-12-2015'},
-    {testDate: '01-12-2015', appealStage: 'UT_OOC', country: 'Scotland', expected: '06-01-2016'},
-    {testDate: '24-12-2015', appealStage: 'FT_IC' , country: 'England & Wales', expected: '08-01-2016'},
-    {testDate: '29-04-2016', appealStage: 'FT_IC_FAST' , country: 'England & Wales', expected: '05-05-2016'},
-    {testDate: '23-12-2016', appealStage: 'FT_IC_FAST' , country: 'England & Wales', expected: '05-01-2017'},
-    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '22-08-2016'},
-    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '23-08-2016'},
-    {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '05-01-2017'},
-    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'Scotland', expected: '17-01-2017'},
-    {testDate: '17-03-2021', appealStage: 'FT_IC' , country: 'Northern Ireland', expected: '06-04-2021'},
-    {testDate: '05-03-2021', appealStage: 'FT_OOC_1' , country: 'Scotland', expected: '05-04-2021'},
-    {testDate: '30-04-2021', appealStage: 'FT_OOC_2' , country: 'England & Wales', expected: '01-06-2021'},
-    {testDate: '09-07-2021', appealStage: 'FT_IC_FAST' , country: 'Northern Ireland', expected: '15-07-2021'},
-    {testDate: '09-07-2021', appealStage: 'FT_IC_FAST' , country: 'England & Wales', expected: '14-07-2021'},
-    {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'Scotland', expected: '14-09-2021'},
-    {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'England & Wales', expected: '15-09-2021'},
-    {testDate: '13-11-2021', appealStage: 'UT_IC' , country: 'Scotland', expected: '01-12-2021'},
-    {testDate: '15-12-2021', appealStage: 'UT_OOC' , country: 'England & Wales', expected: '18-01-2022'},
-    {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'England & Wales', expected: '18-01-2022'},
-    {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'Scotland', expected: '18-01-2022'},
-    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'England & Wales', expected: '01-07-2022'},
-    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'Scotland', expected: '01-07-2022'},
-    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'Northern Ireland', expected: '01-07-2022'},
-    {testDate: '03-06-2023', appealStage: 'COA_IAC' , country: 'England & Wales', expected: '06-07-2023'},
-    {testDate: '03-07-2023', appealStage: 'COS_IAC' , country: 'Scotland', expected: '16-08-2023'},
-    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'England & Wales', expected: '15-07-2024'},
-    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Scotland', expected: '15-07-2024'},
-    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'Northern Ireland', expected: '16-07-2024'}
+    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'england-and-wales', expected: '08-04-2015'},
+    {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'england-and-wales', expected: '28-04-2015'},
+    {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'england-and-wales', expected: '11-05-2015'},
+    {testDate: '01-06-2015', appealStage: 'UT_OOC', country: 'england-and-wales', expected: '02-07-2015'},
+    {testDate: '14-08-2015', appealStage: 'FT_IC' , country: 'england-and-wales', expected: '01-09-2015'},
+    {testDate: '28-08-2015', appealStage: 'UT_OOC', country: 'england-and-wales', expected: '29-09-2015'},
+    {testDate: '25-11-2015', appealStage: 'FT_IC' , country: 'england-and-wales', expected: '10-12-2015'},
+    {testDate: '01-12-2015', appealStage: 'UT_OOC', country: 'england-and-wales', expected: '05-01-2016'},
+    {testDate: '20-12-2015', appealStage: 'UT_OOC', country: 'england-and-wales', expected: '22-01-2016'},
+    {testDate: '20-03-2015', appealStage: 'FT_IC' , country: 'scotland', expected: '07-04-2015'},
+    {testDate: '27-03-2015', appealStage: 'UT_OOC', country: 'scotland', expected: '28-04-2015'},
+    {testDate: '24-04-2015', appealStage: 'FT_IC' , country: 'scotland', expected: '11-05-2015'},
+    {testDate: '01-06-2015', appealStage: 'UT_OOC', country: 'scotland', expected: '02-07-2015'},
+    {testDate: '14-08-2015', appealStage: 'FT_IC' , country: 'scotland', expected: '31-08-2015'},
+    {testDate: '28-08-2015', appealStage: 'UT_OOC', country: 'scotland', expected: '29-09-2015'},
+    {testDate: '25-11-2015', appealStage: 'FT_IC' , country: 'scotland', expected: '10-12-2015'},
+    {testDate: '01-12-2015', appealStage: 'UT_OOC', country: 'scotland', expected: '06-01-2016'},
+    {testDate: '24-12-2015', appealStage: 'FT_IC' , country: 'england-and-wales', expected: '08-01-2016'},
+    {testDate: '29-04-2016', appealStage: 'FT_IC_FAST' , country: 'england-and-wales', expected: '05-05-2016'},
+    {testDate: '23-12-2016', appealStage: 'FT_IC_FAST' , country: 'england-and-wales', expected: '05-01-2017'},
+    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'england-and-wales', expected: '22-08-2016'},
+    {testDate: '12-07-2016', appealStage: 'UT_IAC_OOC' , country: 'northern-ireland', expected: '23-08-2016'},
+    {testDate: '05-12-2016', appealStage: 'COA_IAC' , country: 'england-and-wales', expected: '05-01-2017'},
+    {testDate: '02-12-2016', appealStage: 'COS_IAC' , country: 'scotland', expected: '17-01-2017'},
+    {testDate: '17-03-2021', appealStage: 'FT_IC' , country: 'northern-ireland', expected: '06-04-2021'},
+    {testDate: '05-03-2021', appealStage: 'FT_OOC_1' , country: 'scotland', expected: '05-04-2021'},
+    {testDate: '30-04-2021', appealStage: 'FT_OOC_2' , country: 'england-and-wales', expected: '01-06-2021'},
+    {testDate: '09-07-2021', appealStage: 'FT_IC_FAST' , country: 'northern-ireland', expected: '15-07-2021'},
+    {testDate: '09-07-2021', appealStage: 'FT_IC_FAST' , country: 'england-and-wales', expected: '14-07-2021'},
+    {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'scotland', expected: '14-09-2021'},
+    {testDate: '30-08-2021', appealStage: 'FT_UT_IC' , country: 'england-and-wales', expected: '15-09-2021'},
+    {testDate: '13-11-2021', appealStage: 'UT_IC' , country: 'scotland', expected: '01-12-2021'},
+    {testDate: '15-12-2021', appealStage: 'UT_OOC' , country: 'england-and-wales', expected: '18-01-2022'},
+    {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'england-and-wales', expected: '18-01-2022'},
+    {testDate: '03-01-2022', appealStage: 'UT_IAC_IC' , country: 'scotland', expected: '18-01-2022'},
+    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'england-and-wales', expected: '01-07-2022'},
+    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'scotland', expected: '01-07-2022'},
+    {testDate: '23-05-2022', appealStage: 'UT_IAC_OOC' , country: 'northern-ireland', expected: '01-07-2022'},
+    {testDate: '03-06-2023', appealStage: 'COA_IAC' , country: 'england-and-wales', expected: '06-07-2023'},
+    {testDate: '03-07-2023', appealStage: 'COS_IAC' , country: 'scotland', expected: '16-08-2023'},
+    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'england-and-wales', expected: '15-07-2024'},
+    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'scotland', expected: '15-07-2024'},
+    {testDate: '03-07-2024', appealStage: 'COA_DIRECT' , country: 'northern-ireland', expected: '16-07-2024'}
   ];
 
   testDates.forEach(function (e) {
     it('should return [' + e.expected + '] in response to [' +
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
-          e.country + ']', function () {
+          e.country + ']', async function () {
       const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'), e.country, e.appealStage);
-      const result = d.areDate;
+      await d.setupExclusionDates();
 
-      assert.equal(result, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
+      assert.equal(d.areDate, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
     });
   });
 });
 
 describe('Using Exclusion Dates as start date Checks', function () {
-  const exclusionDays = require('../../../../../apps/are_form/lib/staticExclusionDates');
-  const EnglandAndWales = exclusionDays.getExclusionDays('England & Wales');
+  it('should treat start days as exclusion dates for England & Wales', async function () {
+    const exclusionDays = require('../../../../../apps/are_form/lib/staticExclusionDates');
+    const data = await exclusionDays.getExclusionDays();
+    const EnglandAndWales = data['england-and-wales'].events;
 
-  EnglandAndWales.forEach(function (e) {
-    const testDate = moment(e.exclusionDate,'YYYY-MM-DD').format(dateFormat);
-    const d = new are.Calculator(testDate, 'England & Wales', 'FT_IC');
-    it('should treat start date for [' + testDate + '] as an exclusion date for England & Wales', function () {
-      assert.equal(d.isBaseExclusionDay, true);
-      assert.notEqual(d.startDate,d.baseDate);
+    const tests = _.map(EnglandAndWales, e => {
+      return new Promise((resolve, reject) => {
+        const testDate = moment(e.date,'YYYY-MM-DD').format(dateFormat);
+        const d = new are.Calculator(testDate, 'england-and-wales', 'FT_IC');
+
+        return d.setupExclusionDates()
+          .then(() => {
+            assert.equal(d.isBaseExclusionDay, true);
+            assert.notEqual(d.startDate,d.baseDate);
+            resolve();
+          })
+          .catch(reject);
+      });
     });
-    it('should change date [' + testDate + '] as it\'s an exclusion date for England & Wales', function () {
-      assert.notEqual(d.startDate,d.baseDate);
-    });
+
+    return Promise.all(tests);
   });
 });
 
 describe('Weekend date Checks', function () {
   const testDates = [
-    {testDate: '22-01-2016', appealStage: 'FT_IC', country: 'England & Wales', expected: '06-04-2015', weekend: false},
-    {testDate: '23-01-2016', appealStage: 'FT_IC', country: 'England & Wales', expected: '06-04-2015', weekend: true},
-    {testDate: '24-01-2016', appealStage: 'FT_IC', country: 'England & Wales', expected: '06-04-2015', weekend: true}
+    {testDate: '22-01-2016', appealStage: 'FT_IC', country: 'england-and-wales', expected: '06-04-2015', weekend: false},
+    {testDate: '23-01-2016', appealStage: 'FT_IC', country: 'england-and-wales', expected: '06-04-2015', weekend: true},
+    {testDate: '24-01-2016', appealStage: 'FT_IC', country: 'england-and-wales', expected: '06-04-2015', weekend: true}
   ];
 
   testDates.forEach(function (e) {
