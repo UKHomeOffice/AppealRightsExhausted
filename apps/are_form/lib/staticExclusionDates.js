@@ -10,12 +10,12 @@ const config = require('../../../config');
 const dateFormat = config.dateFormat;
 const bankHolidaysApi = config.bankHolidaysApi;
 
-var isWeekend = date => {
+const isWeekend = date => {
   const day = new Date(date).getDay();
   return (day === 6) || (day === 0);
 };
 
-var isSubstituteBankHoliday = (dates, day) => {
+const isSubstituteBankHoliday = (dates, day) => {
   return _.map(dates, obj => obj.date).includes(day);
 };
 
@@ -31,7 +31,7 @@ function addFormattedDates(data) {
 }
 
 function christmasExclusionDates(dates) {
-  const christmasClosureDays = ['12-27','12-28','12-29','12-30','12-31'];
+  const christmasClosureDays = ['12-27', '12-28', '12-29', '12-30', '12-31'];
   const uniqueYears = _.uniq(_.map(dates, obj => new Date(obj.date).getFullYear()));
   const closureDaysByYear = _.flatten(_.map(uniqueYears, year => _.map(christmasClosureDays, day => `${year}-${day}`)));
   const exclusionDays = _.filter(closureDaysByYear, day => !isSubstituteBankHoliday(dates, day) && !isWeekend(day));

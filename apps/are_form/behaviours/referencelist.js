@@ -8,9 +8,8 @@ const config = require('../../../config');
 const dateFormat = config.dateFormat;
 
 module.exports = superclass => class ReferenceList extends superclass {
-
   datesByCountry(dates, country) {
-    var allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
+    let allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
 
     allDatesByCountry = _.map(allDatesByCountry, obj => {
       obj.formattedDate = this.formatDate(obj.date);

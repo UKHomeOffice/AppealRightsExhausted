@@ -91,7 +91,7 @@ module.exports.Calculator = class {
   }
 
   datesByCountry(dates) {
-    var allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[this.country].events);
+    const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[this.country].events);
     return _.sortBy(allDatesByCountry, 'date');
   }
 
