@@ -1,8 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const staticExclusionDates = require('../lib/staticExclusionDates');
-const appealStages = require('../../../data/Appeal_Stages');
+const appealStages = require('../../../data/appeal_stages');
 const moment = require('moment');
 const config = require('../../../config');
 const dateFormat = config.dateFormat;
@@ -23,8 +22,8 @@ module.exports = superclass => class ReferenceList extends superclass {
     return moment(date, 'YYYY-MM-DD').format(dateFormat);
   }
 
-  async getValues(req, res, callback) {
-    const exclusionDates = await staticExclusionDates.getNewExclusionDays();
+  getValues(req, res, callback) {
+    const exclusionDates = require('../../../data/exclusion_days');
     const firstExclusionDate = exclusionDates['england-and-wales'].events[0].date;
     const lastExclusionDate = exclusionDates['england-and-wales'].events.reverse()[0].date;
 

@@ -1,24 +1,36 @@
+/* eslint-disable no-undef */
+
 'use strict';
 
-const path = require('path');
+global.__basedir = __dirname;
+
 const hof = require('hof');
 const config = require('./config');
-
 let settings = require('./hof.settings');
+const bankHolidaysApi = require('./apps/are_form/model/bank_holidays');
 
 settings = Object.assign({}, settings, {
   root: __dirname,
   behaviours: settings.behaviours.map(require),
   routes: settings.routes.map(require),
-  views: path.resolve(__dirname, './apps/are_form/views'),
+  views: `${__basedir}/apps/are_form/views`,
   redis: config.redis
 });
 
-const app = hof(settings);
+// overwrite exclusion_days.json once a day
+setInterval(() => {
+  bankHolidaysApi();
+}, 1000 * 60 * 60 * 24);
 
-app.use((req, res, next) => {
-  res.locals.htmlLang = 'en';
-  next();
-});
+// overwrite exclusion_days.json with latest API data and start the application
+bankHolidaysApi()
+  .then(() => {
+    const app = hof(settings);
 
-module.exports = app;
+    app.use((req, res, next) => {
+      res.locals.htmlLang = 'en';
+      next();
+    });
+
+    module.exports = app;
+  });

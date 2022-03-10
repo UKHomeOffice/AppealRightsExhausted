@@ -7,6 +7,11 @@
   "behaviours": [
     "hof/components/clear-session"
   ],
+  "build": {
+    "watch": {
+      "ignore": ["data"]
+    }
+  },
   "translations": "./app/common/translations",
   "session": {
     "name": "are.hof.sid"

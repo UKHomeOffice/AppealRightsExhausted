@@ -7,12 +7,12 @@ const are = require('../lib/classARE');
 
 module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {
-    super.getValues(req, res, async err => {
+    super.getValues(req, res, err => {
       const json = req.sessionModel.toJSON();
       const calculator = new are.Calculator(moment(json['start-date'], 'YYYY-MM-DD'),
         json['country-of-hearing'], json['appeal-stage']);
 
-      await calculator.setupExclusionDates();
+      calculator.setupExclusionDates();
 
       json['are-date'] = calculator.areDate;
       json['start-date'] = calculator.startDate;

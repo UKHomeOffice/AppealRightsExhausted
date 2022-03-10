@@ -1,8 +1,7 @@
-/* eslint comma-spacing:0 */
+/* eslint-disable max-len, comma-spacing */
 
 'use strict';
 
-const _ = require('lodash');
 const moment = require('moment');
 const config = require('../../../../../config');
 const dateFormat = config.dateFormat;
@@ -71,9 +70,9 @@ describe('ARE Calculations Test Cases', function () {
   testDates.forEach(function (e) {
     it('should return [' + e.expected + '] in response to [' +
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
-          e.country + ']', async function () {
+          e.country + ']', function () {
       const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'), e.country, e.appealStage);
-      await d.setupExclusionDates();
+      d.setupExclusionDates();
 
       assert.equal(d.areDate, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
     });
@@ -81,27 +80,20 @@ describe('ARE Calculations Test Cases', function () {
 });
 
 describe('Using Exclusion Dates as start date Checks', function () {
-  it('should treat start days as exclusion dates for England & Wales', async function () {
-    const exclusionDays = require('../../../../../apps/are_form/lib/staticExclusionDates');
-    const data = await exclusionDays.getExclusionDays();
+  it('should treat start days as exclusion dates for England & Wales', function () {
+    const data = require('../../../../../data/exclusion_days');
+
     const EnglandAndWales = data['england-and-wales'].events;
 
-    const tests = _.map(EnglandAndWales, e => {
-      return new Promise((resolve, reject) => {
-        const testDate = moment(e.date,'YYYY-MM-DD').format(dateFormat);
-        const d = new are.Calculator(testDate, 'england-and-wales', 'FT_IC');
+    EnglandAndWales.forEach(e => {
+      const testDate = moment(e.date,'YYYY-MM-DD').format(dateFormat);
+      const d = new are.Calculator(testDate, 'england-and-wales', 'FT_IC');
 
-        return d.setupExclusionDates()
-          .then(() => {
-            assert.equal(d.isBaseExclusionDay, true);
-            assert.notEqual(d.startDate,d.baseDate);
-            resolve();
-          })
-          .catch(reject);
-      });
+      d.setupExclusionDates();
+
+      assert.equal(d.isBaseExclusionDay, true);
+      assert.notEqual(d.startDate,d.baseDate);
     });
-
-    return Promise.all(tests);
   });
 });
 
@@ -117,9 +109,7 @@ describe('Weekend date Checks', function () {
   testDates.forEach(function (e) {
     const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'),e.country, e.appealStage);
 
-    before(async () => {
-      await d.setupExclusionDates();
-    });
+    d.setupExclusionDates();
 
     if (!e.bankHoliday) {
       it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function () {

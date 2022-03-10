@@ -4,8 +4,7 @@ const _ = require('lodash');
 const moment = require('moment');
 const config = require('../../../config');
 const dateFormat = config.dateFormat;
-const staticExclusionDates = require('../lib/staticExclusionDates');
-const appealStages = require('../../../data/Appeal_Stages');
+const appealStages = require('../../../data/appeal_stages');
 
 module.exports.Calculator = class {
   constructor(date, country, appealstage) {
@@ -100,9 +99,10 @@ module.exports.Calculator = class {
     return _.filter(dates, obj => obj.date >= startDate);
   }
 
-  async setupExclusionDates() {
-    const dates = await staticExclusionDates.getExclusionDays();
-    this.allExcludedDates = this.datesByCountry(dates);
+  setupExclusionDates() {
+    const exclusionDates = require('../../../data/exclusion_days');
+    
+    this.allExcludedDates = this.datesByCountry(exclusionDates);
     this.allExcludedDatesFromStartDate = this.datesFromStartDate(this.allExcludedDates);
     this.isBaseWeekend = this.isWeekend(this.baseDate);
     this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);

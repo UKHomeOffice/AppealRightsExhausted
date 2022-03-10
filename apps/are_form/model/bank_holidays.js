@@ -1,10 +1,10 @@
-/* eslint max-len: 0 */
-/* eslint no-else-return: 0 */
+/* eslint-disable no-undef */
 
 'use strict';
 
-const axios = require('axios');
 const _ = require('lodash');
+const axios = require('axios');
+const fs = require('fs');
 const moment = require('moment');
 const config = require('../../../config');
 const dateFormat = config.dateFormat;
@@ -50,9 +50,11 @@ async function getExclusionDays() {
   // only additional exclusion days are between Christmas and New Years Day across all of the UK
   data.additionalExclusionDates = christmasExclusionDates(data['england-and-wales'].events);
 
-  return data;
+  fs.writeFileSync(`${__basedir}/data/exclusion_days.json`, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
+    if (err) {
+      console.log(err);
+    }
+  });
 }
 
-module.exports = {
-  getExclusionDays
-};
+module.exports = getExclusionDays;

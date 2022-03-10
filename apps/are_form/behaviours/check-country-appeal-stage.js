@@ -1,6 +1,6 @@
 'use strict';
 
-const appealStages = require('../../../data/Appeal_Stages');
+const appealStages = require('../../../data/appeal_stages');
 const countryOfHearing = 'country-of-hearing';
 
 function getAppealInfo(selectedAppealStage) {
