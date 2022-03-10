@@ -42,19 +42,24 @@ function christmasExclusionDates(dates) {
 }
 
 async function getExclusionDays() {
-  const response = await axios.get(bankHolidaysApi);
-  const data = response.data;
+  try {
+    const response = await axios.get(bankHolidaysApi);
+    const data = response.data;
 
-  addFormattedDates(data);
+    addFormattedDates(data);
 
-  // only additional exclusion days are between Christmas and New Years Day across all of the UK
-  data.additionalExclusionDates = christmasExclusionDates(data['england-and-wales'].events);
+    // only additional exclusion days are between Christmas and New Years Day across all of the UK
+    data.additionalExclusionDates = christmasExclusionDates(data['england-and-wales'].events);
 
-  fs.writeFileSync(`${__basedir}/data/exclusion_days.json`, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
-    if (err) {
-      console.log(err);
-    }
-  });
+    await fs.writeFile(`${__basedir}/data/exclusion_days.json`, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  } catch (e) {
+    console.log(`Bank Holidays API Failure: ${e.message}`);
+    return e;
+  }
 }
 
 module.exports = getExclusionDays;
