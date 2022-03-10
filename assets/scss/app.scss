@@ -1,12 +1,15 @@
 $path: "../img/";
 
 @import "hof/frontend/themes/gov-uk/styles/govuk";
-@import "node_modules/govuk-frontend/govuk/all";
+@import "hof/node_modules/govuk-frontend/govuk/all";
 
 @import "./alert.scss";
 @import "./icons.scss";
 @import "./validation.scss";
 
+html {
+  font-size: 100%; 
+}
 
 .phase-banner {
   @include phase-banner(beta);

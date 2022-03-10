@@ -10,7 +10,7 @@ module.exports = {
     legend: {
       className: 'visuallyhidden'
     },
-    className: ['inline', 'form-group'],
+    heading: true,
     options: [{
       value: 'England & Wales',
       label: 'England & Wales'
@@ -49,5 +49,68 @@ module.exports = {
   },
   'start-date-year': {
     validate: ['required', 'numeric', { type: 'minlength', arguments: [2] }]
+  },
+  'types-of-exploitation-forced-to-work': {
+    mixin: 'checkbox',
+    validation: 'at-least-one-option-selected',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-wages-taken': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-forced-to-commit-fraud': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-prostitution': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-child-exploitation': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-taken-somewhere': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-forced-to-commit-crime': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-organs-removed': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-unpaid-household-work': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    }
+  },
+  'types-of-exploitation-other': {
+    mixin: 'checkbox',
+    legend: {
+      className: 'visuallyhidden'
+    },
+    toggle: 'other-exploitation-fieldset',
+    child: 'partials/other-exploitation-fieldset'
   }
 };
