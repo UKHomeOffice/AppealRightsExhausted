@@ -4,7 +4,8 @@ const _ = require('lodash');
 const appealStages = require('../../../data/appeal_stages');
 const moment = require('moment');
 const config = require('../../../config');
-const dateFormat = config.dateFormat;
+const inputDateFormat = config.inputDateFormat;
+const displayDateFormat = config.displayDateFormat;
 
 module.exports = superclass => class ReferenceList extends superclass {
   datesByCountry(dates, country) {
@@ -19,14 +20,14 @@ module.exports = superclass => class ReferenceList extends superclass {
   }
 
   formatDate(date) {
-    return moment(date, 'YYYY-MM-DD').format(dateFormat);
+    return moment(date, inputDateFormat).format(displayDateFormat);
   }
 
   getValues(req, res, callback) {
     const exclusionDates = require('../../../data/exclusion_days');
     const firstExclusionDate = exclusionDates['england-and-wales'].events[0].date;
     const lastExclusionDate = exclusionDates['england-and-wales'].events.reverse()[0].date;
-
+    // use ARE Calculator here
     super.getValues(req, res, err => {
       const json = req.sessionModel.toJSON();
 

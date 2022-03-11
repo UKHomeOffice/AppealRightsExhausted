@@ -11,7 +11,8 @@ module.exports = {
   port: process.env.PORT || 8080,
   bankHolidaysApi: 'https://www.gov.uk/bank-holidays.json',
   listen_host: process.env.LISTEN_HOST || '0.0.0.0',
-  dateFormat: 'dddd DD MMMM YYYY',
+  inputDateFormat: 'YYYY-MM-DD',
+  displayDateFormat: 'dddd DD MMMM YYYY',
   session: {
     secret: process.env.SESSION_SECRET || 'howdoesyourgardengrow',
     ttl: process.env.SESSION_TTL || 1200 /* 20 mins */

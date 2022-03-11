@@ -2,21 +2,20 @@
 /* eslint dot-notation: 0 */
 'use strict';
 
-const moment = require('moment');
 const are = require('../lib/classARE');
+const config = require('../../../config');
+const displayDateFormat = config.displayDateFormat;
 
 module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {
     super.getValues(req, res, err => {
       const json = req.sessionModel.toJSON();
-      const calculator = new are.Calculator(moment(json['start-date'], 'YYYY-MM-DD'),
+      const calculator = new are.Calculator(json['start-date'],
         json['country-of-hearing'], json['appeal-stage']);
 
-      calculator.setupExclusionDates();
-
-      json['are-date'] = calculator.areDate;
-      json['start-date'] = calculator.startDate;
-      json['base-date']             = calculator.baseDate;
+      json['are-date'] = calculator.areDate.format(displayDateFormat);
+      json['start-date'] = calculator.startDate.format(displayDateFormat);
+      json['base-date']             = calculator.baseDate.format(displayDateFormat);
       json['start-date-label']      = calculator.appealInfo.startDateLabel;
       json['appeal-stage-label']    = calculator.appealInfo.label;
       json['time-limit-value']      = calculator.appealInfo.timeLimit.value;

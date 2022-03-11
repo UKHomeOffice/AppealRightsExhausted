@@ -4,7 +4,7 @@
 
 const moment = require('moment');
 const config = require('../../../../../config');
-const dateFormat = config.dateFormat;
+const displayDateFormat = config.displayDateFormat;
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
@@ -71,10 +71,9 @@ describe('ARE Calculations Test Cases', function () {
     it('should return [' + e.expected + '] in response to [' +
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
           e.country + ']', function () {
-      const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'), e.country, e.appealStage);
-      d.setupExclusionDates();
+      const d = new are.Calculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage);
 
-      assert.equal(d.areDate, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
+      assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
     });
   });
 });
@@ -86,13 +85,10 @@ describe('Using Exclusion Dates as start date Checks', function () {
     const EnglandAndWales = data['england-and-wales'].events;
 
     EnglandAndWales.forEach(e => {
-      const testDate = moment(e.date,'YYYY-MM-DD').format(dateFormat);
-      const d = new are.Calculator(testDate, 'england-and-wales', 'FT_IC');
-
-      d.setupExclusionDates();
+      const d = new are.Calculator(e.date, 'england-and-wales', 'FT_IC');
 
       assert.equal(d.isBaseExclusionDay, true);
-      assert.notEqual(d.startDate,d.baseDate);
+      assert.notEqual(d.startDate, d.baseDate);
     });
   });
 });
@@ -107,33 +103,31 @@ describe('Weekend date Checks', function () {
   ];
 
   testDates.forEach(function (e) {
-    const d = new are.Calculator(moment(e.testDate,'DD-MM-YYYY'),e.country, e.appealStage);
-
-    d.setupExclusionDates();
+    const d = new are.Calculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage);
 
     if (!e.bankHoliday) {
       it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function () {
-        assert.equal(d.isWeekend(moment(e.testDate,'DD-MM-YYYY')), e.weekend);
+        assert.equal(d.isWeekend(moment(e.testDate, 'DD-MM-YYYY')), e.weekend);
       });
     }
 
     if (e.weekend) {
       it('should have the startDate changed for the supplied date [' +
               e.testDate + '] as it\'s a weekend', function () {
-        assert.notEqual(d.startDate,d.baseDate);
-        assert.equal(d.areDate, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
+        assert.notEqual(d.startDate, d.baseDate);
+        assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
       });
     } else if (e.bankHoliday) {
       it('should have the startDate changed for the supplied date [' +
               e.testDate + '] as it\'s a bank holiday', function () {
-        assert.notEqual(d.startDate,d.baseDate);
-        assert.equal(d.areDate, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
+        assert.notEqual(d.startDate, d.baseDate);
+        assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
       });
     } else {
       it('should set the startDate to the supplied date [' +
               e.testDate + '] as it\'s NOT a weekend', function () {
-        assert.equal(d.startDate,d.baseDate);
-        assert.equal(d.areDate, moment(e.expected,'DD-MM-YYYY').format(dateFormat));
+        assert.equal(d.startDate, d.baseDate);
+        assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
       });
     }
   });

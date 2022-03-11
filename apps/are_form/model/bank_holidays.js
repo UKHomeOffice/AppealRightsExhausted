@@ -7,7 +7,8 @@ const axios = require('axios');
 const fs = require('fs');
 const moment = require('moment');
 const config = require('../../../config');
-const dateFormat = config.dateFormat;
+const inputDateFormat = config.inputDateFormat;
+const displayDateFormat = config.displayDateFormat;
 const bankHolidaysApi = config.bankHolidaysApi;
 
 const isWeekend = date => {
@@ -20,7 +21,7 @@ const isSubstituteBankHoliday = (dates, day) => {
 };
 
 function formattedDate(date) {
-  return moment(date, 'YYYY-MM-DD').format(dateFormat);
+  return moment(date, inputDateFormat).format(displayDateFormat);
 }
 
 function addFormattedDates(data) {
@@ -51,7 +52,9 @@ async function getExclusionDays() {
     // only additional exclusion days are between Christmas and New Years Day across all of the UK
     data.additionalExclusionDates = christmasExclusionDates(data['england-and-wales'].events);
 
-    await fs.writeFile(`${__basedir}/data/exclusion_days.json`, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
+    const fileName = `${__basedir}/data/exclusion_days.json`;
+
+    return await fs.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
       if (err) {
         console.log(err);
       }
