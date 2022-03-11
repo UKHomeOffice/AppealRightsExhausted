@@ -19,8 +19,6 @@ module.exports.Calculator = class {
     this.allExcludedDates = this.excludedDatesByCountry(country);
     this.allExcludedDatesFromStartDate = this.excludedDatesFromStartDate(this.allExcludedDates);
     this.excludedDates = [];
-    this.isBaseWeekend = this.isWeekend(this.baseDate);
-    this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);
     this.startDate = this.setStartDate();
     this.areDate = this.calculateAREDate(this.appealInfo);
     this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
@@ -139,7 +137,7 @@ module.exports.Calculator = class {
   setStartDate() {
     const startDate = this.baseDate.clone();
 
-    if (this.isBaseWeekend || this.isBaseExclusionDay) {
+    if (this.isWeekend(startDate) || this.isExclusionDay(startDate)) {
       this.addDaysIgnoringWeekendsAndExclusionDays(startDate, 1);
     }
     return startDate;

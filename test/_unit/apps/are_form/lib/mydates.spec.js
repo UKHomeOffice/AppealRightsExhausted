@@ -79,7 +79,7 @@ describe('ARE Calculations Test Cases', function () {
 });
 
 describe('Using Exclusion Dates as start date Checks', function () {
-  it('should treat start days as exclusion dates for England & Wales', function () {
+  it('should ensure start days are different from the supplied date if they are an exclusion day', function () {
     const data = require('../../../../../data/exclusion_days');
 
     const EnglandAndWales = data['england-and-wales'].events;
@@ -87,7 +87,6 @@ describe('Using Exclusion Dates as start date Checks', function () {
     EnglandAndWales.forEach(e => {
       const d = new are.Calculator(e.date, 'england-and-wales', 'FT_IC');
 
-      assert.equal(d.isBaseExclusionDay, true);
       assert.notEqual(d.startDate.format(displayDateFormat), d.baseDate.format(displayDateFormat));
     });
   });
