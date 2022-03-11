@@ -41,7 +41,8 @@ module.exports.Calculator = class {
   }
 
   addTime(toDate, num, amount) {
-    return moment(toDate, displayDateFormat).add(num, amount);
+    const adjustedDate = toDate.clone();
+    return adjustedDate.add(num, amount);
   }
 
   addDaysIgnoringWeekendsAndExclusionDays(toDate, daysToAdd) {
