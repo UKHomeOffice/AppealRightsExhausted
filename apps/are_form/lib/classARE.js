@@ -7,6 +7,11 @@ const inputDateFormat = config.inputDateFormat;
 const displayDateFormat = config.displayDateFormat;
 const appealStages = require('../../../data/appeal_stages');
 
+const TIME_QUANTITIES = {
+  days: ['calendar day', 'calendar days'],
+  months: ['calendar month', 'calendar months']
+};
+
 module.exports.Calculator = class {
   constructor(date, country, appealStage) {
     this.baseDate = moment(date, inputDateFormat);
@@ -16,7 +21,7 @@ module.exports.Calculator = class {
     this.excludedDates = [];
     this.isBaseWeekend = this.isWeekend(this.baseDate);
     this.isBaseExclusionDay = this.isExclusionDay(this.baseDate);
-    this.startDate = this.setStartDate(this.allExcludedDatesFromStartDate);
+    this.startDate = this.setStartDate();
     this.areDate = this.calculateAREDate(this.appealInfo);
     this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
                       ' to ' + this.getLastExclusionDate().format(displayDateFormat);
@@ -40,53 +45,49 @@ module.exports.Calculator = class {
     return moment(lastDate, inputDateFormat);
   }
 
-  addTime(toDate, num, amount) {
-    const adjustedDate = toDate.clone();
-    return adjustedDate.add(num, amount);
-  }
-
-  addDaysIgnoringWeekendsAndExclusionDays(toDate, daysToAdd) {
+  addDaysIgnoringWeekendsAndExclusionDays(date, daysToAdd) {
     let count = 0;
-    let tempDate = toDate;
     while (count < daysToAdd) {
-      tempDate = this.addTime(tempDate, 1, 'days');
-      if (this.isWeekend(tempDate) === false &&
-                this.isExclusionDay(tempDate) === false) {
+      date.add(1, 'days');
+      if (this.isWeekend(date) === false &&
+                this.isExclusionDay(date) === false) {
         count++;
       }
     }
-    return tempDate;
+    return date;
+  }
+
+  getTimeQuantity(field) {
+    return _.findKey(TIME_QUANTITIES, arr => arr.includes(field));
   }
 
   /* eslint complexity: 1 */
   calculateAREDate(info) {
-    let myDate = this.startDate;
-    const selectedExclusionDates = this.allExcludedDatesFromStartDate;
-    const timeLimitType = info.timeLimit.type.replace(/ /g, '');
-    const adminAllowanceType = info.adminAllowance.type.replace(/ /g, '');
+    const areDate = this.startDate.clone();
 
-    if (timeLimitType === 'calendardays' || timeLimitType === 'calendarday') {
-      myDate = this.addTime(myDate, info.timeLimit.value, 'days');
-    } else if (timeLimitType === 'calendarmonths' || timeLimitType === 'calendarmonth') {
-      myDate = this.addTime(myDate, info.timeLimit.value, 'months');
-    } else if (timeLimitType === 'workingdays' || timeLimitType === 'workingday') {
-      myDate = this.addDaysIgnoringWeekendsAndExclusionDays(myDate, info.timeLimit.value, selectedExclusionDates);
+    const timeLimitType = info.timeLimit.type;
+    const timeLimit = info.timeLimit.value;
+    const adminAllowanceType = info.adminAllowance.type;
+    const adminAllowance = info.adminAllowance.value;
+
+    const timeLimitQuantity = this.getTimeQuantity(timeLimitType);
+    const adminAllowanceQuantity = this.getTimeQuantity(adminAllowanceType);
+
+    if (timeLimitQuantity) {
+      areDate.add(timeLimit, timeLimitQuantity);
+    } else {
+      this.addDaysIgnoringWeekendsAndExclusionDays(areDate, timeLimit);
     }
 
-    myDate = this.rollForward(myDate, selectedExclusionDates);
+    this.rollForward(areDate);
 
-    if (adminAllowanceType === 'calendardays' || adminAllowanceType === 'calendarday') {
-      myDate = this.addTime(myDate, info.adminAllowance.value, 'days');
-    } else if (adminAllowanceType === 'calendarmonths' || adminAllowanceType === 'calendarmonth') {
-      myDate = this.addTime(myDate, info.adminAllowance.value, 'months');
-    } else if (adminAllowanceType === 'workingdays' || adminAllowanceType === 'workingday') {
-      myDate = this.addDaysIgnoringWeekendsAndExclusionDays(
-        myDate, info.adminAllowance.value, selectedExclusionDates);
+    if (adminAllowanceQuantity) {
+      areDate.add(timeLimit, adminAllowanceQuantity);
+    } else {
+      this.addDaysIgnoringWeekendsAndExclusionDays(areDate, adminAllowance);
     }
 
-    myDate = this.rollForward(myDate, selectedExclusionDates);
-
-    return myDate;
+    return this.rollForward(areDate);
   }
 
   excludedDatesFromStartDate(dates) {
@@ -126,20 +127,21 @@ module.exports.Calculator = class {
   }
 
   /* eslint no-else-return: 0 */
-  rollForward(myDate, selectedExclusionDates) {
-    if (this.isWeekend(myDate) || this.isExclusionDay(myDate, selectedExclusionDates)) {
-      return this.addDaysIgnoringWeekendsAndExclusionDays(myDate, 1, selectedExclusionDates);
+  rollForward(date) {
+    if (this.isWeekend(date) || this.isExclusionDay(date)) {
+      return this.addDaysIgnoringWeekendsAndExclusionDays(date, 1);
     } else {
-      return myDate;
+      return date;
     }
   }
 
   /* eslint no-else-return: 0 */
-  setStartDate(selectedExclusionDates) {
+  setStartDate() {
+    const startDate = this.baseDate.clone();
+
     if (this.isBaseWeekend || this.isBaseExclusionDay) {
-      return this.addDaysIgnoringWeekendsAndExclusionDays(this.baseDate, 1, selectedExclusionDates);
-    } else {
-      return this.baseDate;
+      this.addDaysIgnoringWeekendsAndExclusionDays(startDate, 1);
     }
+    return startDate;
   }
 };
