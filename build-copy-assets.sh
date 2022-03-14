@@ -25,13 +25,13 @@ cp       assets/js/init-govuk.js \
 # Copy GOV.UK Frontend images
 # (See https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/installing-with-npm.md#importing-assets)
 # mkdir -p public/images
-cp -r    node_modules/govuk-frontend/govuk/assets/images \
-         public
+# cp -r    node_modules/govuk-frontend/govuk/assets/images \
+#          public
 
 
 # Copy GOV.UK Frontend fonts
 # (See https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/installing-with-npm.md#importing-assets)
 # mkdir -p public/fonts
 
-cp -r    node_modules/govuk-frontend/govuk/assets/fonts \
-         public
+# cp -r    node_modules/govuk-frontend/govuk/assets/fonts \
+#          public
