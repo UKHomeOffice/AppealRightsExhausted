@@ -1,8 +1,7 @@
 'use strict';
 
-// require('hof/frontend/themes/gov-uk/client-js');
-// require('hof/frontend/themes/gov-uk/govuk');
-
+const GOVUKFrontend = require('hof/node_modules/govuk-frontend')
+GOVUKFrontend.initAll()
 
 const $ = require('jquery');
 
