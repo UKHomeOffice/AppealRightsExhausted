@@ -9,7 +9,7 @@
     "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "engines": {
-    "node": "^14.15.0"
+    "node": ">=14.15.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -21,6 +21,7 @@
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
     "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
     "build": "hof-build",
+    "copy-assets": "mkdir -p public/fonts && cp -r assets/fonts public/fonts",
     "postinstall": "npm run build"
   },
   "author": "HomeOffice",

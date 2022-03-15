@@ -13,6 +13,21 @@ module.exports = {
     '/terms-and-conditions': 'terms'
   },
   steps: {
+    '/govuk-test': {
+      next: '/radios'
+    },
+    '/radios': {
+      fields: [
+        'country-of-hearing'
+      ],
+      next: '/checkbox'
+    },
+    '/checkbox': {
+      fields: [
+        'country-of-hearing'
+      ],
+      next: '/first-page'
+    },
     '/first-page': {
       behaviours: checkCountryAppealStage,
       template: 'first-page.html',
