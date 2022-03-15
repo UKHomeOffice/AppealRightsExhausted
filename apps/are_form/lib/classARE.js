@@ -17,14 +17,13 @@ module.exports.Calculator = class {
     this.baseDate = moment(date, inputDateFormat);
     this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
     this.allExcludedDates = this.excludedDatesByCountry(country);
-    this.allExcludedDatesFromStartDate = this.excludedDatesFromStartDate(this.allExcludedDates);
     this.excludedDates = [];
     this.startDate = this.setStartDate();
     this.areDate = this.calculateAREDate(this.appealInfo);
     this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
                       ' to ' + this.getLastExclusionDate().format(displayDateFormat);
-    this.baseBeforeEarliestExclusionDate = this.isBaseBeforeEarliestExclusion();
-    this.areAfterLastExclusionDate = this.isAREAfterLastExclusion();
+    this.baseBeforeEarliestExclusionDate = this.getFirstExclusionDate().isAfter(this.baseDate);
+    this.areAfterLastExclusionDate = this.getLastExclusionDate().isBefore(this.areDate);
   }
 
   excludedDatesByCountry(country) {
@@ -47,8 +46,7 @@ module.exports.Calculator = class {
     let count = 0;
     while (count < daysToAdd) {
       date.add(1, 'days');
-      if (this.isWeekend(date) === false &&
-                this.isExclusionDay(date) === false) {
+      if (!this.isWeekend(date) && !this.isExclusionDay(date)) {
         count++;
       }
     }
@@ -93,21 +91,13 @@ module.exports.Calculator = class {
     return _.filter(dates, obj => obj.date >= startDate);
   }
 
-  isAREAfterLastExclusion() {
-    return (this.getLastExclusionDate().isBefore(this.areDate));
-  }
-
-  isBaseBeforeEarliestExclusion() {
-    return (this.getFirstExclusionDate().isAfter(this.baseDate));
-  }
-
   isWeekend(date) {
     const dayOfWeekInteger = date.isoWeekday();
     return (dayOfWeekInteger === 6 || dayOfWeekInteger === 7);
   }
 
   isExclusionDay(date) {
-    const exclusionDays = this.allExcludedDatesFromStartDate;
+    const exclusionDays = this.allExcludedDates;
     const formattedDate = date.format(inputDateFormat);
 
     for (const index in exclusionDays) {
