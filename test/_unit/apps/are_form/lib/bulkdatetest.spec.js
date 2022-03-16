@@ -23,20 +23,23 @@ const displayDateFormat = config.displayDateFormat;
 const maxDatesToTest = 56;
 
 describe('Bulk Test: checking ARE is not weekend nor exclusion day', function () {
-  let i = 0;
-  let d = null;
   const startDate = exclusionDays['england-and-wales'].events[0].date;
   const testDate = moment(startDate, inputDateFormat);
 
   it('tests that a single date is not an exclusion day', () => {
     const calc = new are.Calculator(moment('2017-03-17', inputDateFormat), 'scotland', 'COA_DIRECT');
+
+    calc.calculateAREDate();
+
     const areDate = moment(calc.areDate, inputDateFormat);
     assert(!calc.isExclusionDay(areDate));
   });
 
   function runTest(date, stage, country) {
-    return function() {
+    return function () {
       const calc = new are.Calculator(date, country, stage.value);
+
+      calc.calculateAREDate();
 
       const areDate = moment(calc.areDate, inputDateFormat);
       const prettyDate = calc.areDate.format(displayDateFormat);
@@ -48,7 +51,7 @@ describe('Bulk Test: checking ARE is not weekend nor exclusion day', function ()
       it(`[${prettyDate}] should not be an exclusion day: ${country} - ${stage.label}`, function () {
         assert(!calc.isExclusionDay(areDate));
       });
-    }
+    };
   }
 
   myStages.forEach(function (stage) {

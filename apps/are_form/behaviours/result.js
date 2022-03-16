@@ -13,6 +13,8 @@ module.exports = superclass => class ReferenceList extends superclass {
       const calculator = new are.Calculator(json['start-date'],
         json['country-of-hearing'], json['appeal-stage']);
 
+      calculator.calculateAREDate();
+
       json['are-date'] = calculator.areDate.format(displayDateFormat);
       json['start-date'] = calculator.startDate.format(displayDateFormat);
       json['input-date']             = calculator.inputDate.format(displayDateFormat);
@@ -26,10 +28,10 @@ module.exports = superclass => class ReferenceList extends superclass {
       json['admin-allowance-type']  = calculator.appealInfo.adminAllowance.type;
       json['trigger']               = calculator.appealInfo.trigger;
       json['number-of-exclusion-dates-applied'] = calculator.excludedDatesInPeriod.length;
-      json['exclusion-date-range']  = calculator.excludedDateRange;
+      json['exclusion-date-range']  = calculator.getExcludedDateRange();
       json['excluded-dates-InPeriod']        = calculator.excludedDatesInPeriod;
-      json['input-date-before-exclusion-range'] = calculator.inputDateBeforeExclusionRange;
-      json['are-date-after-exclusion-range'] = calculator.areDateAfterExclusionRange;
+      json['input-date-before-exclusion-range'] = calculator.isSubmittedDateBeforeAvailableExclusionDates();
+      json['are-date-after-exclusion-range'] = calculator.isAREDateAfterAvailableExclusionDates();
 
       return callback(err, json);
     });

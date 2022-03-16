@@ -22,17 +22,12 @@ module.exports.Calculator = class {
     // start date for application has to be on a working day. If input date is
     // not a working day then it is moved forward to one to begin the ARE calculation.
     this.startDate = this.goToNextWorkingDay(this.inputDate.clone());
-    this.areDate = this.calculateAREDate(this.appealInfo);
-    // the following attributes are used to drive informatory content on the confirm page
-    // for the user, in case the exclusion days become out of date or a user submits a very old date
-    this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
-                      ' to ' + this.getLastExclusionDate().format(displayDateFormat);
-    this.inputDateBeforeExclusionRange = this.getFirstExclusionDate().isAfter(this.inputDate);
-    this.areDateAfterExclusionRange = this.getLastExclusionDate().isBefore(this.areDate);
+    this.areDate = this.startDate.clone();
   }
 
-  calculateAREDate(appealInfo) {
-    const areDate = this.startDate.clone();
+  calculateAREDate() {
+    const areDate = this.areDate;
+    const appealInfo = this.appealInfo;
 
     const timeLimitType = appealInfo.timeLimit.type;
     const timeLimit = appealInfo.timeLimit.value;
@@ -88,6 +83,11 @@ module.exports.Calculator = class {
     return _.sortBy(allDatesByCountry, 'date');
   }
 
+  getExcludedDateRange() {
+    return this.getFirstExclusionDate().format(displayDateFormat) +
+      ' to ' + this.getLastExclusionDate().format(displayDateFormat);
+  }
+
   goToNextWorkingDay(date) {
     // if current date is either the weekend or exclusion day then move it to the next working day
     if (!this.isWorkingDay(date)) {
@@ -106,10 +106,18 @@ module.exports.Calculator = class {
     return moment(lastDate, inputDateFormat);
   }
 
+  isAREDateAfterAvailableExclusionDates() {
+    return this.getLastExclusionDate().isBefore(this.areDate);
+  }
+
   isExclusionDay(day) {
     const date = day.format(inputDateFormat);
     // returns undefined (falsy) if a date is found to not be an exclusion date
     return _.find(this.excludedDatesByCountry, { date });
+  }
+
+  isSubmittedDateBeforeAvailableExclusionDates() {
+    return this.getFirstExclusionDate().isAfter(this.inputDate);
   }
 
   isWeekend(date) {

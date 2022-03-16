@@ -72,7 +72,7 @@ describe('ARE Calculations Test Cases', function () {
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
           e.country + ']', function () {
       const d = new are.Calculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage);
-
+      d.calculateAREDate();
       assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
     });
   });
@@ -86,7 +86,7 @@ describe('Using Exclusion Dates as start date Checks', function () {
 
     EnglandAndWales.forEach(e => {
       const d = new are.Calculator(e.date, 'england-and-wales', 'FT_IC');
-
+      d.calculateAREDate();
       assert.notEqual(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
     });
   });
@@ -103,7 +103,7 @@ describe('Weekend date Checks', function () {
 
   testDates.forEach(function (e) {
     const d = new are.Calculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage);
-
+    d.calculateAREDate();
     if (!e.bankHoliday) {
       it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function () {
         assert.equal(d.isWeekend(moment(e.testDate, 'DD-MM-YYYY')), e.weekend);
