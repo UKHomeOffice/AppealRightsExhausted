@@ -14,46 +14,62 @@ const TIME_QUANTITIES = {
 
 module.exports.Calculator = class {
   constructor(date, country, appealStage) {
-    this.allExcludedDates = this.excludedDatesByCountry(country);
-    this.excludedDatesInPeriod = [];
+    // convert input date into a moment object and extract appeal stage and exclusion date info
     this.inputDate = moment(date, inputDateFormat);
-    this.startDate = this.rollForward(this.inputDate.clone());
     this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
+    this.excludedDatesByCountry = this.excludedDatesByCountry(country);
+    this.excludedDatesInPeriod = [];
+    // start date for application has to be on a working day. If input date is
+    // not a working day then it is moved forward to one to begin the ARE calculation.
+    this.startDate = this.goToNextWorkingDay(this.inputDate.clone());
     this.areDate = this.calculateAREDate(this.appealInfo);
+    // the following attributes are used to drive informatory content on the confirm page
+    // for the user, in case the exclusion days become out of date or a user submits a very old date
     this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
                       ' to ' + this.getLastExclusionDate().format(displayDateFormat);
     this.inputDateBeforeExclusionRange = this.getFirstExclusionDate().isAfter(this.inputDate);
     this.areDateAfterExclusionRange = this.getLastExclusionDate().isBefore(this.areDate);
   }
 
-  excludedDatesByCountry(country) {
-    const dates = require('../../../data/exclusion_days');
-    const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
-    return _.sortBy(allDatesByCountry, 'date');
+  calculateAREDate(appealInfo) {
+    const areDate = this.startDate.clone();
+
+    const timeLimitType = appealInfo.timeLimit.type;
+    const timeLimit = appealInfo.timeLimit.value;
+    const adminAllowanceType = appealInfo.adminAllowance.type;
+    const adminAllowance = appealInfo.adminAllowance.value;
+    // time to process the application is added to the start
+    this.addTimeToProcess(areDate, timeLimit, timeLimitType);
+    this.goToNextWorkingDay(areDate);
+    this.addTimeToProcess(areDate, adminAllowance, adminAllowanceType);
+    return this.goToNextWorkingDay(areDate);
   }
 
-  getFirstExclusionDate() {
-    const firstDate = this.allExcludedDates[0].date;
-    return moment(firstDate, inputDateFormat);
+  addTimeToProcess(date, time, timeType) {
+    const quantity = _.findKey(TIME_QUANTITIES, arr => arr.includes(timeType));
+    // If a standard time quantity (days/months) is given in the appeal stage info
+    // then add them to the ARE date. Otherwise it is assumed working days are used to
+    // add to it and move it forward but not including weekends and exclusion days.
+    if (quantity) {
+      date.add(time, quantity);
+    } else {
+      this.addWorkingDays(date, time);
+    }
+    return date;
   }
 
-  getLastExclusionDate() {
-    const lastDate = this.allExcludedDates[this.allExcludedDates.length - 1].date;
-    return moment(lastDate, inputDateFormat);
-  }
-
-  addExclusionDayInPeriod(date) {
-    const dateToAdd = `${date.format(displayDateFormat)} (${this.isExclusionDay(date).title})`;
-    this.excludedDatesInPeriod.push(dateToAdd);
-  }
-
-  addDaysIgnoringWeekendsAndExclusionDays(date, daysToAdd) {
+  addWorkingDays(date, daysToAdd) {
     let count = 0;
     while (count < daysToAdd) {
-      if (this.isExclusionDay(date)) {
-        this.addExclusionDayInPeriod(date);
+      const exclusionDay = this.isExclusionDay(date);
+
+      if (exclusionDay) {
+        const dateToAdd = `${exclusionDay.formattedDate} (${exclusionDay.title})`;
+        this.excludedDatesInPeriod.push(dateToAdd);
       }
+
       date.add(1, 'days');
+
       if (this.isWorkingDay(date)) {
         count++;
       }
@@ -61,37 +77,36 @@ module.exports.Calculator = class {
     return date;
   }
 
-  getTimeQuantity(field) {
-    return _.findKey(TIME_QUANTITIES, arr => arr.includes(field));
+  excludedDatesByCountry(country) {
+    // exclusion days are required here to ensure a fresh read of the file each time. This is due
+    // to the fact the running service actively updates it through periodic automated API calls.
+    const dates = require('../../../data/exclusion_days');
+    const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
+    return _.sortBy(allDatesByCountry, 'date');
   }
 
-  /* eslint complexity: 1 */
-  calculateAREDate(info) {
-    const areDate = this.startDate.clone();
-
-    const timeLimitType = info.timeLimit.type;
-    const timeLimit = info.timeLimit.value;
-    const adminAllowanceType = info.adminAllowance.type;
-    const adminAllowance = info.adminAllowance.value;
-
-    const timeLimitQuantity = this.getTimeQuantity(timeLimitType);
-    const adminAllowanceQuantity = this.getTimeQuantity(adminAllowanceType);
-
-    if (timeLimitQuantity) {
-      areDate.add(timeLimit, timeLimitQuantity);
-    } else {
-      this.addDaysIgnoringWeekendsAndExclusionDays(areDate, timeLimit);
+  goToNextWorkingDay(date) {
+    // if current date is either the weekend or exclusion day then move it to the next working day
+    if (!this.isWorkingDay(date)) {
+      this.addWorkingDays(date, 1);
     }
+    return date;
+  }
 
-    this.rollForward(areDate);
+  getFirstExclusionDate() {
+    const firstDate = this.excludedDatesByCountry[0].date;
+    return moment(firstDate, inputDateFormat);
+  }
 
-    if (adminAllowanceQuantity) {
-      areDate.add(timeLimit, adminAllowanceQuantity);
-    } else {
-      this.addDaysIgnoringWeekendsAndExclusionDays(areDate, adminAllowance);
-    }
+  getLastExclusionDate() {
+    const lastDate = this.excludedDatesByCountry[this.excludedDatesByCountry.length - 1].date;
+    return moment(lastDate, inputDateFormat);
+  }
 
-    return this.rollForward(areDate);
+  isExclusionDay(day) {
+    const date = day.format(inputDateFormat);
+    // returns undefined (falsy) if a date is found to not be an exclusion date
+    return _.find(this.excludedDatesByCountry, { date });
   }
 
   isWeekend(date) {
@@ -99,20 +114,7 @@ module.exports.Calculator = class {
     return (dayOfWeekInteger === 6 || dayOfWeekInteger === 7);
   }
 
-  isExclusionDay(day) {
-    const date = day.format(inputDateFormat);
-    return _.find(this.allExcludedDates, { date });
-  }
-
   isWorkingDay(date) {
     return !this.isWeekend(date) && !this.isExclusionDay(date);
-  }
-
-  /* eslint no-else-return: 0 */
-  rollForward(date) {
-    if (!this.isWorkingDay(date)) {
-      this.addDaysIgnoringWeekendsAndExclusionDays(date, 1);
-    }
-    return date;
   }
 };
