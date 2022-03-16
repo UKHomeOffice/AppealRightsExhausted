@@ -34,26 +34,30 @@ describe('Bulk Test: checking ARE is not weekend nor exclusion day', function ()
     assert(!calc.isExclusionDay(areDate));
   });
 
+  function runTest(date, stage, country) {
+    return function() {
+      const calc = new are.Calculator(date, country, stage.value);
+
+      const areDate = moment(calc.areDate, inputDateFormat);
+      const prettyDate = calc.areDate.format(displayDateFormat);
+
+      it(`[${prettyDate}] should not be a weekend: ${country} - ${stage.label}`, function () {
+        assert(!calc.isWeekend(areDate));
+      });
+
+      it(`[${prettyDate}] should not be an exclusion day: ${country} - ${stage.label}`, function () {
+        assert(!calc.isExclusionDay(areDate));
+      });
+    }
+  }
+
   myStages.forEach(function (stage) {
     ['england-and-wales', 'scotland', 'northern-ireland'].forEach(function (country) {
       for (let i = 0; i < maxDatesToTest; i++) {
         testDate.add(1, 'days');
-
-        d = new are.Calculator(testDate.clone(), country, stage.value);
-
-        const areDate = moment(d.areDate, inputDateFormat);
-        const prettyDate = d.areDate.format(displayDateFormat);
-
-        it(`[${prettyDate}] should not be a weekend: ${country} - ${stage.label}`, function () {
-          const calc = new are.Calculator(testDate.clone(), country, stage.value);
-          assert(!calc.isWeekend(moment(calc.areDate, inputDateFormat)));
-        });
-
-        it(`[${prettyDate}] should not be an exclusion day: ${country} - ${stage.label}`, function () {
-          const calc = new are.Calculator(testDate.clone(), country, stage.value);
-          assert(!calc.isExclusionDay(moment(calc.areDate, inputDateFormat)));
-        });
-      }  // over i loop
-    });  // over country loop
-  });    // over stage loop
+        // run anonymous function to ensure tests don't run just on final for-loop values
+        runTest(testDate.clone(), stage, country)();
+      }
+    });
+  });
 });
