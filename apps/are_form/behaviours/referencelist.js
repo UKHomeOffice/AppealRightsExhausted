@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const appealStages = require('../../../data/appeal_stages');
 const moment = require('moment');
+const are = require('../lib/classARE');
 const config = require('../../../config');
 const inputDateFormat = config.inputDateFormat;
 const displayDateFormat = config.displayDateFormat;
@@ -24,25 +25,22 @@ module.exports = superclass => class ReferenceList extends superclass {
   }
 
   getValues(req, res, callback) {
-    const exclusionDates = require('../../../data/exclusion_days');
-    const firstExclusionDate = exclusionDates['england-and-wales'].events[0].date;
-    const lastExclusionDate = exclusionDates['england-and-wales'].events.reverse()[0].date;
-    // use ARE Calculator here
     super.getValues(req, res, err => {
       const json = req.sessionModel.toJSON();
+      const calculator = new are.Calculator('2017-01-01', 'england-and-wales', 'FT_IC');
+
+      const engWalExcludedDates = calculator.getExcludedDatesByCountry('england-and-wales');
+      const scotlandExcludedDates = calculator.getExcludedDatesByCountry('scotland');
+      const niExcludedDates = calculator.getExcludedDatesByCountry('northern-ireland');
 
       if (req.url === '/appealstages') {
-        json['reference-appeal-list'] = [].concat(appealStages);
-        json['reference-appeal-list-count'] = json['reference-appeal-list'].length;
+        json['reference-appeal-list'] = appealStages;
+        json['reference-appeal-list-count'] = appealStages.length;
       } else if (req.url === '/exclusiondates') {
-        json['reference-exclusiondate-list-england-and-wales'] =
-          this.datesByCountry(exclusionDates, 'england-and-wales');
-        json['reference-exclusiondate-list-scotland'] =
-          this.datesByCountry(exclusionDates, 'scotland');
-        json['reference-exclusiondate-list-northern-ireland'] =
-          this.datesByCountry(exclusionDates, 'northern-ireland');
-        json['exclusion-date-range'] =
-          `${this.formatDate(firstExclusionDate)} to ${this.formatDate(lastExclusionDate)}`;
+        json['reference-exclusiondate-list-england-and-wales'] = engWalExcludedDates;
+        json['reference-exclusiondate-list-scotland'] = scotlandExcludedDates;
+        json['reference-exclusiondate-list-northern-ireland'] = niExcludedDates;
+        json['exclusion-date-range'] = calculator.getExcludedDateRange();
       }
       return callback(err, json);
     });

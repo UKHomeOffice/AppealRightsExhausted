@@ -17,7 +17,7 @@ module.exports.Calculator = class {
     // convert input date into a moment object and extract appeal stage and exclusion date info
     this.inputDate = moment(date, inputDateFormat);
     this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
-    this.excludedDatesByCountry = this.excludedDatesByCountry(country);
+    this.allExcludedDates = this.getExcludedDatesByCountry(country);
     this.excludedDatesInPeriod = [];
     // start date for application has to be on a working day. If input date is
     // not a working day then it is moved forward to one to begin the ARE calculation.
@@ -75,17 +75,17 @@ module.exports.Calculator = class {
     return date;
   }
 
-  excludedDatesByCountry(country) {
+  getExcludedDateRange() {
+    return this.getFirstExclusionDate().format(displayDateFormat) +
+      ' to ' + this.getLastExclusionDate().format(displayDateFormat);
+  }
+
+  getExcludedDatesByCountry(country) {
     // exclusion days are required here to ensure a fresh read of the file each time. This is due
     // to the fact the running service actively updates it through periodic automated API calls.
     const dates = require('../../../data/exclusion_days');
     const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
     return _.sortBy(allDatesByCountry, 'date');
-  }
-
-  getExcludedDateRange() {
-    return this.getFirstExclusionDate().format(displayDateFormat) +
-      ' to ' + this.getLastExclusionDate().format(displayDateFormat);
   }
 
   goToNextWorkingDay(date) {
@@ -97,12 +97,12 @@ module.exports.Calculator = class {
   }
 
   getFirstExclusionDate() {
-    const firstDate = this.excludedDatesByCountry[0].date;
+    const firstDate = this.allExcludedDates[0].date;
     return moment(firstDate, inputDateFormat);
   }
 
   getLastExclusionDate() {
-    const lastDate = this.excludedDatesByCountry[this.excludedDatesByCountry.length - 1].date;
+    const lastDate = this.allExcludedDates[this.allExcludedDates.length - 1].date;
     return moment(lastDate, inputDateFormat);
   }
 
@@ -113,7 +113,7 @@ module.exports.Calculator = class {
   isExclusionDay(day) {
     const date = day.format(inputDateFormat);
     // returns undefined (falsy) if a date is found to not be an exclusion date
-    return _.find(this.excludedDatesByCountry, { date });
+    return _.find(this.allExcludedDates, { date });
   }
 
   isSubmittedDateBeforeAvailableExclusionDates() {
