@@ -14,11 +14,11 @@ const TIME_QUANTITIES = {
 
 module.exports.Calculator = class {
   constructor(date, country, appealStage) {
-    this.baseDate = moment(date, inputDateFormat);
-    this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
     this.allExcludedDates = this.excludedDatesByCountry(country);
-    this.excludedDates = [];
-    this.startDate = this.setStartDate();
+    this.excludedDatesInPeriod = [];
+    this.baseDate = moment(date, inputDateFormat);
+    this.startDate = this.rollForward(this.baseDate.clone());
+    this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
     this.areDate = this.calculateAREDate(this.appealInfo);
     this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
                       ' to ' + this.getLastExclusionDate().format(displayDateFormat);
@@ -42,11 +42,19 @@ module.exports.Calculator = class {
     return moment(lastDate, inputDateFormat);
   }
 
+  addExclusionDayInPeriod(date) {
+    const dateToAdd = `${date.format(displayDateFormat)} (${this.isExclusionDay(date).title})`;
+    this.excludedDatesInPeriod.push(dateToAdd);
+  }
+
   addDaysIgnoringWeekendsAndExclusionDays(date, daysToAdd) {
     let count = 0;
     while (count < daysToAdd) {
+      if (this.isExclusionDay(date)) {
+        this.addExclusionDayInPeriod(date);
+      }
       date.add(1, 'days');
-      if (!this.isWeekend(date) && !this.isExclusionDay(date)) {
+      if (this.isWorkingDay(date)) {
         count++;
       }
     }
@@ -86,50 +94,25 @@ module.exports.Calculator = class {
     return this.rollForward(areDate);
   }
 
-  excludedDatesFromStartDate(dates) {
-    const startDate = this.baseDate.format(inputDateFormat);
-    return _.filter(dates, obj => obj.date >= startDate);
-  }
-
   isWeekend(date) {
     const dayOfWeekInteger = date.isoWeekday();
     return (dayOfWeekInteger === 6 || dayOfWeekInteger === 7);
   }
 
-  isExclusionDay(date) {
-    const exclusionDays = this.allExcludedDates;
-    const formattedDate = date.format(inputDateFormat);
+  isExclusionDay(day) {
+    const date = day.format(inputDateFormat);
+    return _.find(this.allExcludedDates, { date });
+  }
 
-    for (const index in exclusionDays) {
-      if (exclusionDays[index].date === formattedDate) {
-        // only add date to exclusion date list if it has not already been added
-        const dateToAdd = date.format(displayDateFormat) +
-                    ' (' + exclusionDays[index].title + ')';
-        if (this.excludedDates.indexOf(dateToAdd) === -1) {
-          this.excludedDates.push(dateToAdd);
-        }
-        return true;
-      }
-    }
-    return false;
+  isWorkingDay(date) {
+    return !this.isWeekend(date) && !this.isExclusionDay(date);
   }
 
   /* eslint no-else-return: 0 */
   rollForward(date) {
-    if (this.isWeekend(date) || this.isExclusionDay(date)) {
-      return this.addDaysIgnoringWeekendsAndExclusionDays(date, 1);
-    } else {
-      return date;
+    if (!this.isWorkingDay(date)) {
+      this.addDaysIgnoringWeekendsAndExclusionDays(date, 1);
     }
-  }
-
-  /* eslint no-else-return: 0 */
-  setStartDate() {
-    const startDate = this.baseDate.clone();
-
-    if (this.isWeekend(startDate) || this.isExclusionDay(startDate)) {
-      this.addDaysIgnoringWeekendsAndExclusionDays(startDate, 1);
-    }
-    return startDate;
+    return date;
   }
 };

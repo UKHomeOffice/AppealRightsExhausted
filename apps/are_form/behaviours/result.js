@@ -25,9 +25,9 @@ module.exports = superclass => class ReferenceList extends superclass {
       json['admin-allowance-value'] = calculator.appealInfo.adminAllowance.value;
       json['admin-allowance-type']  = calculator.appealInfo.adminAllowance.type;
       json['trigger']               = calculator.appealInfo.trigger;
-      json['number-of-exclusion-dates-applied'] = calculator.excludedDates.length;
+      json['number-of-exclusion-dates-applied'] = calculator.excludedDatesInPeriod.length;
       json['exclusion-date-range']  = calculator.excludedDateRange;
-      json['excludedDates']        = calculator.excludedDates;
+      json['excludedDatesInPeriod']        = calculator.excludedDatesInPeriod;
       json['base-before-earliest-exclusion-date'] = calculator.baseBeforeEarliestExclusionDate;
       json['are-after-last-exclusion-date'] = calculator.areAfterLastExclusionDate;
 
