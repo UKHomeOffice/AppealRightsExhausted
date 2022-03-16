@@ -7,7 +7,7 @@ global.__basedir = __dirname;
 const hof = require('hof');
 const config = require('./config');
 let settings = require('./hof.settings');
-const bankHolidaysApi = require('./apps/are_form/model/bank_holidays');
+const ExclusionDates = require('./apps/are_form/models/exclusion_dates');
 
 settings = Object.assign({}, settings, {
   root: __dirname,
@@ -19,11 +19,14 @@ settings = Object.assign({}, settings, {
 
 // overwrite exclusion_days.json once a day
 setInterval(() => {
-  bankHolidaysApi();
+  const exclusionDates = new ExclusionDates();
+  exclusionDates.saveExclusionDays();
 }, 1000 * 60 * 60 * 24);
 
 // overwrite exclusion_days.json with latest API data and start the application
-bankHolidaysApi()
+const exclusionDates = new ExclusionDates();
+
+exclusionDates.saveExclusionDays()
   .then(() => {
     const app = hof(settings);
 

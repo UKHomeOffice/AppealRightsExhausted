@@ -10,7 +10,8 @@ process.env.NODE_ENV = 'test';
 const assert = require('assert');
 const exclusionDays = require('../../../../../data/exclusion_days');
 const myStages = require('../../../../../data/appeal_stages');
-const are = require('../../../../../apps/are_form/lib/classARE.js');
+const ARECalculator = require('../../../../../apps/are_form/models/appeal_rights_calculator.js');
+const ExclusionDates = require('../../../../../apps/are_form/models/exclusion_dates');
 const config = require('../../../../../config');
 const inputDateFormat = config.inputDateFormat;
 const displayDateFormat = config.displayDateFormat;
@@ -27,17 +28,22 @@ describe('Bulk Test: checking ARE is not weekend nor exclusion day', function ()
   const testDate = moment(startDate, inputDateFormat);
 
   it('tests that a single date is not an exclusion day', () => {
-    const calc = new are.Calculator(moment('2017-03-17', inputDateFormat), 'scotland', 'COA_DIRECT');
+    const calc = new ARECalculator(
+      moment('2017-03-17', inputDateFormat),
+      'scotland',
+      'COA_DIRECT',
+      ExclusionDates
+    );
 
     calc.calculateAREDate();
 
     const areDate = moment(calc.areDate, inputDateFormat);
-    assert(!calc.isExclusionDay(areDate));
+    assert(!calc.exclusionDays.isExclusionDay(areDate));
   });
 
   function runTest(date, stage, country) {
     return function () {
-      const calc = new are.Calculator(date, country, stage.value);
+      const calc = new ARECalculator(date, country, stage.value, ExclusionDates);
 
       calc.calculateAREDate();
 
@@ -45,11 +51,11 @@ describe('Bulk Test: checking ARE is not weekend nor exclusion day', function ()
       const prettyDate = calc.areDate.format(displayDateFormat);
 
       it(`[${prettyDate}] should not be a weekend: ${country} - ${stage.label}`, function () {
-        assert(!calc.isWeekend(areDate));
+        assert(!calc.exclusionDays.isWeekend(areDate));
       });
 
       it(`[${prettyDate}] should not be an exclusion day: ${country} - ${stage.label}`, function () {
-        assert(!calc.isExclusionDay(areDate));
+        assert(!calc.exclusionDays.isExclusionDay(areDate));
       });
     };
   }

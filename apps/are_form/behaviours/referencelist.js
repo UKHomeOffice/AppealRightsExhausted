@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const appealStages = require('../../../data/appeal_stages');
 const moment = require('moment');
-const are = require('../lib/classARE');
+const ExclusionDates = require('../models/exclusion_dates');
 const config = require('../../../config');
 const inputDateFormat = config.inputDateFormat;
 const displayDateFormat = config.displayDateFormat;
@@ -27,11 +27,10 @@ module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {
     super.getValues(req, res, err => {
       const json = req.sessionModel.toJSON();
-      const calculator = new are.Calculator('2017-01-01', 'england-and-wales', 'FT_IC');
 
-      const engWalExcludedDates = calculator.getExcludedDatesByCountry('england-and-wales');
-      const scotlandExcludedDates = calculator.getExcludedDatesByCountry('scotland');
-      const niExcludedDates = calculator.getExcludedDatesByCountry('northern-ireland');
+      const engWalExcludedDates = new ExclusionDates('england-and-wales').excludedDates;
+      const scotlandExcludedDates = new ExclusionDates('scotland').excludedDates;
+      const niExcludedDates = new ExclusionDates('northern-ireland').excludedDates;
 
       if (req.url === '/appealstages') {
         json['reference-appeal-list'] = appealStages;
@@ -40,7 +39,7 @@ module.exports = superclass => class ReferenceList extends superclass {
         json['reference-exclusiondate-list-england-and-wales'] = engWalExcludedDates;
         json['reference-exclusiondate-list-scotland'] = scotlandExcludedDates;
         json['reference-exclusiondate-list-northern-ireland'] = niExcludedDates;
-        json['exclusion-date-range'] = calculator.getExcludedDateRange();
+        json['exclusion-date-range'] = new ExclusionDates().getExcludedDateRange();
       }
       return callback(err, json);
     });

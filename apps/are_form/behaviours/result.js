@@ -2,7 +2,8 @@
 /* eslint dot-notation: 0 */
 'use strict';
 
-const are = require('../lib/classARE');
+const ARECalculator = require('../models/appeal_rights_calculator');
+const ExclusionDates = require('../models/exclusion_dates');
 const config = require('../../../config');
 const displayDateFormat = config.displayDateFormat;
 
@@ -10,8 +11,13 @@ module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {
     super.getValues(req, res, err => {
       const json = req.sessionModel.toJSON();
-      const calculator = new are.Calculator(json['start-date'],
-        json['country-of-hearing'], json['appeal-stage']);
+      const exclusionDates = new ExclusionDates();
+      const calculator = new ARECalculator(
+        json['start-date'],
+        json['country-of-hearing'],
+        json['appeal-stage'],
+        ExclusionDates
+      );
 
       calculator.calculateAREDate();
 
@@ -28,10 +34,10 @@ module.exports = superclass => class ReferenceList extends superclass {
       json['admin-allowance-type']  = calculator.appealInfo.adminAllowance.type;
       json['trigger']               = calculator.appealInfo.trigger;
       json['number-of-exclusion-dates-applied'] = calculator.excludedDatesInPeriod.length;
-      json['exclusion-date-range']  = calculator.getExcludedDateRange();
+      json['exclusion-date-range']  = exclusionDates.getExcludedDateRange();
       json['excluded-dates-in-period']        = calculator.excludedDatesInPeriod;
-      json['input-date-before-exclusion-range'] = calculator.isSubmittedDateBeforeAvailableExclusionDates();
-      json['are-date-after-exclusion-range'] = calculator.isAREDateAfterAvailableExclusionDates();
+      json['input-date-before-exclusion-range'] = exclusionDates.isBeforeExclusionDates(calculator.inputDate);
+      json['are-date-after-exclusion-range'] = exclusionDates.isAfterExclusionDates(calculator.areDate);
 
       return callback(err, json);
     });

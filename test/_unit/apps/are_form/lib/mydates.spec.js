@@ -8,7 +8,8 @@ const displayDateFormat = config.displayDateFormat;
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
-const are = require('../../../../../apps/are_form/lib/classARE.js');
+const ARECalculator = require('../../../../../apps/are_form/models/appeal_rights_calculator.js');
+const ExclusionDates = require('../../../../../apps/are_form/models/exclusion_dates');
 
 describe('ARE Calculations Test Cases', function () {
   // Before all tests
@@ -71,8 +72,15 @@ describe('ARE Calculations Test Cases', function () {
     it('should return [' + e.expected + '] in response to [' +
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
           e.country + ']', function () {
-      const d = new are.Calculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage);
+      const d = new ARECalculator(
+        e.testDate.split('-').reverse().join('-'),
+        e.country,
+        e.appealStage,
+        ExclusionDates
+      );
+
       d.calculateAREDate();
+
       assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
     });
   });
@@ -85,7 +93,7 @@ describe('Using Exclusion Dates as start date Checks', function () {
     const EnglandAndWales = data['england-and-wales'].events;
 
     EnglandAndWales.forEach(e => {
-      const d = new are.Calculator(e.date, 'england-and-wales', 'FT_IC');
+      const d = new ARECalculator(e.date, 'england-and-wales', 'FT_IC', ExclusionDates);
       d.calculateAREDate();
       assert.notEqual(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
     });
@@ -102,11 +110,11 @@ describe('Weekend date Checks', function () {
   ];
 
   testDates.forEach(function (e) {
-    const d = new are.Calculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage);
+    const d = new ARECalculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage, ExclusionDates);
     d.calculateAREDate();
     if (!e.bankHoliday) {
       it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function () {
-        assert.equal(d.isWeekend(moment(e.testDate, 'DD-MM-YYYY')), e.weekend);
+        assert.equal(d.exclusionDays.isWeekend(moment(e.testDate, 'DD-MM-YYYY')), e.weekend);
       });
     }
 
