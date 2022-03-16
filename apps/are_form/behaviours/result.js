@@ -29,7 +29,7 @@ module.exports = superclass => class ReferenceList extends superclass {
       json['trigger']               = calculator.appealInfo.trigger;
       json['number-of-exclusion-dates-applied'] = calculator.excludedDatesInPeriod.length;
       json['exclusion-date-range']  = calculator.getExcludedDateRange();
-      json['excluded-dates-InPeriod']        = calculator.excludedDatesInPeriod;
+      json['excluded-dates-in-period']        = calculator.excludedDatesInPeriod;
       json['input-date-before-exclusion-range'] = calculator.isSubmittedDateBeforeAvailableExclusionDates();
       json['are-date-after-exclusion-range'] = calculator.isAREDateAfterAvailableExclusionDates();
 
