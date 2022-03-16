@@ -16,14 +16,14 @@ module.exports.Calculator = class {
   constructor(date, country, appealStage) {
     this.allExcludedDates = this.excludedDatesByCountry(country);
     this.excludedDatesInPeriod = [];
-    this.baseDate = moment(date, inputDateFormat);
-    this.startDate = this.rollForward(this.baseDate.clone());
+    this.inputDate = moment(date, inputDateFormat);
+    this.startDate = this.rollForward(this.inputDate.clone());
     this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
     this.areDate = this.calculateAREDate(this.appealInfo);
     this.excludedDateRange = this.getFirstExclusionDate().format(displayDateFormat) +
                       ' to ' + this.getLastExclusionDate().format(displayDateFormat);
-    this.baseBeforeEarliestExclusionDate = this.getFirstExclusionDate().isAfter(this.baseDate);
-    this.areAfterLastExclusionDate = this.getLastExclusionDate().isBefore(this.areDate);
+    this.inputDateBeforeExclusionRange = this.getFirstExclusionDate().isAfter(this.inputDate);
+    this.areDateAfterExclusionRange = this.getLastExclusionDate().isBefore(this.areDate);
   }
 
   excludedDatesByCountry(country) {

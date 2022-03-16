@@ -87,7 +87,7 @@ describe('Using Exclusion Dates as start date Checks', function () {
     EnglandAndWales.forEach(e => {
       const d = new are.Calculator(e.date, 'england-and-wales', 'FT_IC');
 
-      assert.notEqual(d.startDate.format(displayDateFormat), d.baseDate.format(displayDateFormat));
+      assert.notEqual(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
     });
   });
 });
@@ -113,19 +113,19 @@ describe('Weekend date Checks', function () {
     if (e.weekend) {
       it('should have the startDate changed for the supplied date [' +
               e.testDate + '] as it\'s a weekend', function () {
-        assert.notEqual(d.startDate.format(displayDateFormat), d.baseDate.format(displayDateFormat));
+        assert.notEqual(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
         assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
       });
     } else if (e.bankHoliday) {
       it('should have the startDate changed for the supplied date [' +
               e.testDate + '] as it\'s a bank holiday', function () {
-        assert.notEqual(d.startDate.format(displayDateFormat), d.baseDate.format(displayDateFormat));
+        assert.notEqual(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
         assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
       });
     } else {
       it('should set the startDate to the supplied date [' +
               e.testDate + '] as it\'s NOT a weekend', function () {
-        assert.equal(d.startDate.format(displayDateFormat), d.baseDate.format(displayDateFormat));
+        assert.equal(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
         assert.equal(d.areDate.format(displayDateFormat), moment(e.expected, 'DD-MM-YYYY').format(displayDateFormat));
       });
     }

@@ -15,7 +15,7 @@ module.exports = superclass => class ReferenceList extends superclass {
 
       json['are-date'] = calculator.areDate.format(displayDateFormat);
       json['start-date'] = calculator.startDate.format(displayDateFormat);
-      json['base-date']             = calculator.baseDate.format(displayDateFormat);
+      json['input-date']             = calculator.inputDate.format(displayDateFormat);
       json['start-date-label']      = calculator.appealInfo.startDateLabel;
       json['appeal-stage-label']    = calculator.appealInfo.label;
       json['time-limit-value']      = calculator.appealInfo.timeLimit.value;
@@ -28,8 +28,8 @@ module.exports = superclass => class ReferenceList extends superclass {
       json['number-of-exclusion-dates-applied'] = calculator.excludedDatesInPeriod.length;
       json['exclusion-date-range']  = calculator.excludedDateRange;
       json['excludedDatesInPeriod']        = calculator.excludedDatesInPeriod;
-      json['base-before-earliest-exclusion-date'] = calculator.baseBeforeEarliestExclusionDate;
-      json['are-after-last-exclusion-date'] = calculator.areAfterLastExclusionDate;
+      json['input-date-before-exclusion-range'] = calculator.inputDateBeforeExclusionRange;
+      json['are-date-after-exclusion-range'] = calculator.areDateAfterExclusionRange;
 
       return callback(err, json);
     });
