@@ -38,10 +38,13 @@ module.exports.Calculator = class {
     const timeLimit = appealInfo.timeLimit.value;
     const adminAllowanceType = appealInfo.adminAllowance.type;
     const adminAllowance = appealInfo.adminAllowance.value;
-    // time to process the application is added to the start
+    // add time to process the application to the start date
     this.addTimeToProcess(areDate, timeLimit, timeLimitType);
+    // after that, move to the next working day if the date is currently not one
     this.goToNextWorkingDay(areDate);
+    // add time to process the admin of the completed application
     this.addTimeToProcess(areDate, adminAllowance, adminAllowanceType);
+    // after that, move to the next working day if the date is currently not one
     return this.goToNextWorkingDay(areDate);
   }
 
