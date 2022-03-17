@@ -2,19 +2,14 @@
 
 'use strict';
 
-global.__basedir = __dirname;
-
 const hof = require('hof');
 const config = require('./config');
 let settings = require('./hof.settings');
 const ExclusionDates = require('./apps/are_form/models/exclusion_dates');
 
 settings = Object.assign({}, settings, {
-  root: __dirname,
   behaviours: settings.behaviours.map(require),
-  routes: settings.routes.map(require),
-  views: `${__basedir}/apps/are_form/views`,
-  redis: config.redis
+  routes: settings.routes.map(require)
 });
 
 // overwrite exclusion_days.json once a day

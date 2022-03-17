@@ -2484,10 +2484,10 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hof@^19.12.0:
-  version "19.12.0"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-19.12.0.tgz#3404cf91e093653d65d0c1c9aa0a299d6b750ae4"
-  integrity sha512-oBPaQgOmmMfOZOim9Q9HXNneGSvnk08vOWK/OKQyU/hwgAFnXcIEEz6sccXi5KLieWHm+1cNDe8fKUfEXpjPSQ==
+hof@19.13.4:
+  version "19.13.4"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-19.13.4.tgz#c372ad3d633bfd578d998fdc2f2a3e5c221a0cb1"
+  integrity sha512-lE0sPstSyF4InjHMMxBkEm4yB+OqsM9YDJCQnlVAEp3usyDB2v5ODDw1wwmXR4UGnwFBCiL8EnwOJuEhv9icVg==
   dependencies:
     aliasify "^2.1.0"
     bluebird "^3.7.2"
@@ -2541,7 +2541,7 @@ hof@^19.12.0:
     serve-static "^1.14.1"
     uglify-js "^3.14.3"
     underscore "^1.12.1"
-    urijs "^1.19.7"
+    urijs "^1.19.10"
     winston "^3.3.3"
 
 hogan-express-strict@^0.5.4:
@@ -4954,10 +4954,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-urijs@^1.19.7:
-  version "1.19.7"
-  resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.19.7.tgz#4f594e59113928fea63c00ce688fb395b1168ab9"
-  integrity sha512-Id+IKjdU0Hx+7Zx717jwLPsPeUqz7rAtuVBRLLs+qn+J2nf9NGITWVCxcijgYxBqe83C7sqsQPs6H1pyz3x9gA==
+urijs@^1.19.10:
+  version "1.19.10"
+  resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.19.10.tgz#8e2fe70a8192845c180f75074884278f1eea26cb"
+  integrity sha512-EzauQlgKuJgsXOqoMrCiePBf4At5jVqRhXykF3Wfb8ZsOBMxPcfiVBcsHXug4Aepb/ICm2PIgqAUGMelgdrWEg==
 
 url@0.10.3:
   version "0.10.3"
