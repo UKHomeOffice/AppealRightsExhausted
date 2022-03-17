@@ -1,0 +1,8 @@
+node_modules
+public
+apps/**/translations/**/default.json
+LICENSE.md
+README.md
+CONTRIBUTING.md
+coverage
+npm-debug.log
