@@ -91,11 +91,11 @@ module.exports = class ExclusionDates {
   }
 
   isAfterExclusionDates(date) {
-    return this.getLastExclusionDate().isBefore(date);
+    return date.isAfter(this.getLastExclusionDate());
   }
 
   isBeforeExclusionDates(date) {
-    return this.getFirstExclusionDate().isAfter(date);
+    return date.isBefore(this.getFirstExclusionDate());
   }
 
   isChristmasExclusionDay(dates, day) {
