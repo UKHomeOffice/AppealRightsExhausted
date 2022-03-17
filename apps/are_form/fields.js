@@ -1,6 +1,6 @@
 'use strict';
 
-const appealStages = require('../../data/appeal_stages');
+const appealStages = require('./data/appeal_stages');
 const dateComponent = require('hof').components.date;
 
 module.exports = {

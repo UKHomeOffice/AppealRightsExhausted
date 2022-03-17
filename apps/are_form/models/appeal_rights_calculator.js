@@ -4,7 +4,7 @@ const _ = require('lodash');
 const moment = require('moment');
 const config = require('../../../config');
 const inputDateFormat = config.inputDateFormat;
-const appealStages = require('../../../data/appeal_stages');
+const appealStages = require('../data/appeal_stages');
 
 const TIME_QUANTITIES = {
   days: ['calendar day', 'calendar days'],

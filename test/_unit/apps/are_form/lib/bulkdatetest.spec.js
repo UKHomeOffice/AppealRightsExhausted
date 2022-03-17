@@ -8,8 +8,8 @@ const moment = require('moment');
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
-const exclusionDays = require('../../../../../data/exclusion_days');
-const myStages = require('../../../../../data/appeal_stages');
+const exclusionDays = require('../../../../../apps/are_form/data/exclusion_days');
+const myStages = require('../../../../../apps/are_form/data/appeal_stages');
 const ARECalculator = require('../../../../../apps/are_form/models/appeal_rights_calculator.js');
 const ExclusionDates = require('../../../../../apps/are_form/models/exclusion_dates');
 const config = require('../../../../../config');

@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 const assert = require('assert');
-const appealStages = require('../../../../../data/appeal_stages');
+const appealStages = require('../../../../../apps/are_form/data/appeal_stages');
 
 describe('Appeal Stages', function () {
   it('should have a number of appeal stages', function () {

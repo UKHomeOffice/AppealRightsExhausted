@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const appealStages = require('../../../data/appeal_stages');
+const appealStages = require('../data/appeal_stages');
 const countryOfHearing = 'country-of-hearing';
 
 function isAppealStageUsedinCountry(appealStage, country) {

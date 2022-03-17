@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const appealStages = require('../../../data/appeal_stages');
+const appealStages = require('../data/appeal_stages');
 const moment = require('moment');
 const ExclusionDates = require('../models/exclusion_dates');
 const config = require('../../../config');

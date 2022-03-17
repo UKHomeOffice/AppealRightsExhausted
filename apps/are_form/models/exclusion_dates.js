@@ -52,7 +52,7 @@ module.exports = class ExclusionDates {
   getExcludedDates(country) {
     // exclusion days are required here to ensure a fresh read of the file each time. This is due
     // to the fact the running service actively updates it through periodic automated API calls.
-    const dates = require('../../../data/exclusion_days');
+    const dates = require('../data/exclusion_days');
     const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
     return _.sortBy(allDatesByCountry, 'date');
   }
@@ -77,7 +77,7 @@ module.exports = class ExclusionDates {
       // only additional exclusion days are between Christmas and New Years Day across all of the UK
       data.additionalExclusionDates = this.christmasExclusionDates(data['england-and-wales'].events);
 
-      const fileName = `${__dirname}/../../../data/exclusion_days.json`;
+      const fileName = `${__dirname}/../data/exclusion_days.json`;
 
       return await fs.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
         if (err) {

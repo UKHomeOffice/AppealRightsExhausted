@@ -88,7 +88,7 @@ describe('ARE Calculations Test Cases', function () {
 
 describe('Using Exclusion Dates as start date Checks', function () {
   it('should ensure start days are different from the supplied date if they are an exclusion day', function () {
-    const data = require('../../../../../data/exclusion_days');
+    const data = require('../../../../../apps/are_form/data/exclusion_days');
 
     const EnglandAndWales = data['england-and-wales'].events;
 
