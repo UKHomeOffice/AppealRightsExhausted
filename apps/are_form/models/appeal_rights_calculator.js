@@ -44,9 +44,9 @@ module.exports = class ARECalculator {
 
   addTimeToProcess(date, time, timeType) {
     const quantity = _.findKey(TIME_QUANTITIES, arr => arr.includes(timeType));
-    // If a standard time quantity (days/months) is given in the appeal stage info
-    // then add them to the ARE date. Otherwise it is assumed working days are used to
-    // add to it and move it forward but not including weekends and exclusion days.
+    // If a standard time quantity (days/months) is given in the appeal stage info, then
+    // this is simply added to the ARE date. Otherwise weekends & exclusion days are skipped
+    // and only working days are counted. These are then added in total to the ARE date.
     if (quantity) {
       date.add(time, quantity);
     } else {
