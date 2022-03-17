@@ -3,7 +3,6 @@
 'use strict';
 
 const hof = require('hof');
-const config = require('./config');
 let settings = require('./hof.settings');
 const ExclusionDates = require('./apps/are_form/models/exclusion_dates');
 
