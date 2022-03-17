@@ -53,11 +53,6 @@ module.exports = class ExclusionDates {
     // exclusion days are required here to ensure a fresh read of the file each time. This is due
     // to the fact the running service actively updates it through periodic automated API calls.
     const dates = require('../../../data/exclusion_days');
-    
-    if (!dates[country]) {
-      return;
-    }
-
     const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
     return _.sortBy(allDatesByCountry, 'date');
   }
