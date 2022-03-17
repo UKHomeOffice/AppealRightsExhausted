@@ -7,11 +7,6 @@
   "behaviours": [
     "hof/components/clear-session"
   ],
-  "build": {
-    "watch": {
-      "ignore": ["data"]
-    }
-  },
   "session": {
     "name": "are.hof.sid"
   },
