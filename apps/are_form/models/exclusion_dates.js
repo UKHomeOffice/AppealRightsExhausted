@@ -14,9 +14,9 @@ const bankHolidaysApi = config.bankHolidaysApi;
 const CHRISTMAS_CLOSURE_DAYS = ['12-27', '12-28', '12-29', '12-30', '12-31'];
 
 module.exports = class ExclusionDates {
-  constructor(ctry) {
-    const country = ctry || 'england-and-wales';
-    this.excludedDates = this.getExcludedDates(country);
+  constructor(country) {
+    this.country = country || 'england-and-wales';
+    this.excludedDates = this.getExcludedDates(this.country);
   }
 
   addFormattedDates(data) {
@@ -75,7 +75,7 @@ module.exports = class ExclusionDates {
       this.addFormattedDates(data);
 
       // only additional exclusion days are between Christmas and New Years Day across all of the UK
-      data.additionalExclusionDates = this.christmasExclusionDates(data['england-and-wales'].events);
+      data.additionalExclusionDates = this.christmasExclusionDates(data[this.country].events);
 
       const fileName = `${__dirname}/../data/exclusion_days.json`;
 
