@@ -25,9 +25,6 @@ module.exports = {
   'appeal-stage': {
     mixin: 'select',
     validate: 'required',
-    legend: {
-      className: 'visuallyhidden'
-    },
     options: [{
       value: '',
       label: 'fields.appeal-stage.options.null'

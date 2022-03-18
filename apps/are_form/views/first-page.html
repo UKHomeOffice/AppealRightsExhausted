@@ -26,10 +26,26 @@
         </div>
 
         <h1>{{#t}}fields.start-date.label{{/t}}</h1>
-        <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
-        <div id="start-date-hint" class="form-group form-date">
-          {{#input-date}}start-date{{/input-date}}
-        </div>
+
+        <fieldset id="start-date" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                <span class="visuallyhidden">{{#t}}fields.start-date.legend{{/t}}</span>
+            </legend>
+            {{#legend}}
+                <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>
+                {{#t}}fields.start-date.legend{{/t}}
+                </span>
+            {{/legend}}
+            {{#errors.start-date}}
+                <span id="start-date-error" class="error-message">
+                  {{errors.start-date.message}}
+                </span>
+            {{/errors.start-date}}
+            <div class="form-group form-date">
+                <p class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
+                {{#input-date}}start-date{{/input-date}}
+            </div>
+        </fieldset>
 
         {{#input-submit}}calculate{{/input-submit}}
         <p>
