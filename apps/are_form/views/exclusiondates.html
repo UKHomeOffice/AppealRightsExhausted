@@ -1,7 +1,9 @@
 {{<layout}}
-    {{$header}}
-        {{#t}}pages.reference-links.exclusion-dates{{/t}}
-    {{/header}}
+
+{{$header}}
+    {{#t}}pages.reference-links.exclusion-dates{{/t}}
+{{/header}}
+
 {{$content}}
 <p>
     Exclusion dates are days when the Tribunal is closed for business and
@@ -20,14 +22,14 @@
   of the following countries:
 </p>
 <p>
-  <h3>{{#t}}pages.result.exclusion-date-range{{/t}}</h3><P>
+  <h2>{{#t}}pages.result.exclusion-date-range{{/t}}</h2><P>
   {{values.exclusion-date-range}}
 <p>
 <div>
     <summary id="which-england-and-wales">
-      <h3 class="exclusion-day-header">
+      <h2 class="exclusion-day-header">
         <a>{{#t}}pages.reference-links.which-england-and-wales-dates{{/t}}</a>
-      <h3>
+      <h2>
     </summary>
     <table id="england-and-wales-dates" class="panel-indent hidden">
         {{#values.reference-exclusiondate-list-england-and-wales}}
@@ -42,9 +44,9 @@
 
 <div>
     <summary id="which-scotland">
-      <h3 class="exclusion-day-header">
+      <h2 class="exclusion-day-header">
         <a>{{#t}}pages.reference-links.which-scotland-dates{{/t}}</a>
-      </h3>
+      </h2>
     </summary>
     <table id="scotland-dates" class="panel-indent hidden">
         {{#values.reference-exclusiondate-list-scotland}}
@@ -59,9 +61,9 @@
 
 <div>
     <summary id="which-northern-ireland">
-      <h3 class="exclusion-day-header">
+      <h2 class="exclusion-day-header">
         <a>{{#t}}pages.reference-links.which-northern-ireland-dates{{/t}}</a>
-      </h3>
+      </h2>
     </summary>
     <table id="northern-ireland-dates" class="panel-indent hidden">
         {{#values.reference-exclusiondate-list-northern-ireland}}
