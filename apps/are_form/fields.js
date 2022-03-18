@@ -34,11 +34,6 @@ module.exports = {
     }].concat(appealStages)
   },
   'start-date': dateComponent('start-date', {
-    labelClassName: 'visuallyhidden',
-    validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}],
-    legend: {
-      className: 'visuallyhidden'
-    },
-    hint: 'fields.start-date.hint'
+    validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}]
   })
 };
