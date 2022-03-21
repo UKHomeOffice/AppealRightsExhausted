@@ -5,7 +5,7 @@
   ],
   "check-coverage": true,
   "statements": 61,
-  "branches": 72,
+  "branches": 59,
   "functions": 32,
   "lines": 61,
   "exclude": [

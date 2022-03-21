@@ -68,15 +68,18 @@ describe('ARE Calculations Test Cases', function () {
     {testDate: '03-07-2023', appealStage: 'COA_DIRECT' , country: 'northern-ireland', expected: '14-07-2023'}
   ];
 
-  testDates.forEach(function (e) {
+  testDates.forEach(async e => {
     it('should return [' + e.expected + '] in response to [' +
           e.testDate + '] Appeal: [' + e.appealStage + '] in Country [' +
-          e.country + ']', function () {
+          e.country + ']', async function () {
+      const exclusionDates = new ExclusionDates(e.country);
+      await exclusionDates.fetchExcludedDates();
+
       const d = new ARECalculator(
         e.testDate.split('-').reverse().join('-'),
         e.country,
         e.appealStage,
-        ExclusionDates
+        exclusionDates
       );
 
       d.calculateAREDate();
@@ -92,8 +95,11 @@ describe('Using Exclusion Dates as start date Checks', function () {
 
     const EnglandAndWales = data['england-and-wales'].events;
 
-    EnglandAndWales.forEach(e => {
-      const d = new ARECalculator(e.date, 'england-and-wales', 'FT_IC', ExclusionDates);
+    EnglandAndWales.forEach(async e => {
+      const exclusionDates = new ExclusionDates('england-and-wales');
+      await exclusionDates.fetchExcludedDates();
+
+      const d = new ARECalculator(e.date, 'england-and-wales', 'FT_IC', exclusionDates);
       d.calculateAREDate();
       assert.notEqual(d.startDate.format(displayDateFormat), d.inputDate.format(displayDateFormat));
     });
@@ -109,8 +115,11 @@ describe('Weekend date Checks', function () {
     {testDate: '29-12-2019', appealStage: 'FT_IC', country: 'england-and-wales', expected: '17-01-2020', bankHoliday: true}
   ];
 
-  testDates.forEach(function (e) {
-    const d = new ARECalculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage, ExclusionDates);
+  testDates.forEach(async e => {
+    const exclusionDates = new ExclusionDates(e.country);
+    await exclusionDates.fetchExcludedDates();
+
+    const d = new ARECalculator(e.testDate.split('-').reverse().join('-'), e.country, e.appealStage, exclusionDates);
     d.calculateAREDate();
     if (!e.bankHoliday) {
       it('should' + (e.weekend ? '' : ' NOT') + ' treat [' + e.testDate + '] as a weekend', function () {

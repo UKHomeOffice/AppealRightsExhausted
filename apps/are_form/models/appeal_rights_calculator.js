@@ -12,11 +12,11 @@ const TIME_QUANTITIES = {
 };
 
 module.exports = class ARECalculator {
-  constructor(date, country, appealStage, ExclusionDays) {
+  constructor(date, country, appealStage, exclusionDays) {
     // convert input date into a moment object and extract appeal stage and exclusion date info
     this.inputDate = moment(date, inputDateFormat);
     this.appealInfo = _.find(appealStages, obj => obj.value === appealStage);
-    this.exclusionDays = new ExclusionDays(country);
+    this.exclusionDays = exclusionDays;
     this.excludedDatesInPeriod = [];
     // start date for application has to be on a working day. If input date is
     // not a working day then it is moved forward to one to begin the ARE calculation.

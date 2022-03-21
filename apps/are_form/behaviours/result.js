@@ -9,14 +9,16 @@ const displayDateFormat = config.displayDateFormat;
 
 module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {
-    super.getValues(req, res, err => {
+    super.getValues(req, res, async err => {
       const json = req.sessionModel.toJSON();
       const exclusionDates = new ExclusionDates();
+      await exclusionDates.fetchExcludedDates();
+
       const calculator = new ARECalculator(
         json['start-date'],
         json['country-of-hearing'],
         json['appeal-stage'],
-        ExclusionDates
+        exclusionDates
       );
 
       calculator.calculateAREDate();

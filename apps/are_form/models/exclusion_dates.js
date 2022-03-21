@@ -4,7 +4,7 @@
 
 const _ = require('lodash');
 const axios = require('axios');
-const fs = require('fs');
+const fs = require('fs').promises;
 const moment = require('moment');
 const config = require('../../../config');
 const inputDateFormat = config.inputDateFormat;
@@ -16,7 +16,6 @@ const CHRISTMAS_CLOSURE_DAYS = ['12-27', '12-28', '12-29', '12-30', '12-31'];
 module.exports = class ExclusionDates {
   constructor(country) {
     this.country = country || 'england-and-wales';
-    this.excludedDates = this.getExcludedDates(this.country);
   }
 
   addFormattedDates(data) {
@@ -49,12 +48,26 @@ module.exports = class ExclusionDates {
       ' to ' + this.getLastExclusionDate().format(displayDateFormat);
   }
 
-  getExcludedDates(country) {
-    // exclusion days are required here to ensure a fresh read of the file each time. This is due
-    // to the fact the running service actively updates it through periodic automated API calls.
-    const dates = require('../data/exclusion_days');
-    const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
-    return _.sortBy(allDatesByCountry, 'date');
+  async fetchExcludedDates() {
+    try {
+      // exclusion days are required here to ensure a fresh read of the file each time. This is due
+      // to the fact the running service actively updates it through periodic automated API calls.
+      const fileName = `${__dirname}/../data/exclusion_days.json`;
+      let dates = await fs.readFile(fileName, { encoding: 'utf8' }, err => {
+        if (err) {
+          console.error(`Bank Holidays ReadFile Error: ${err}`);
+        }
+      });
+
+      dates = JSON.parse(dates);
+
+      const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[this.country].events);
+      this.excludedDates = _.sortBy(allDatesByCountry, 'date');
+
+      return this.excludedDates;
+    } catch (e) {
+      return console.error(`Bank Holidays File Read Failure: ${e.message}`);
+    }
   }
 
   getFirstExclusionDate() {
@@ -72,6 +85,10 @@ module.exports = class ExclusionDates {
       const response = await axios.get(bankHolidaysApi);
       const data = response.data;
 
+      if (!data) {
+        throw new Error('Failed to retrieve data from Bank Holidays API');
+      }
+
       this.addFormattedDates(data);
 
       // only additional exclusion days are between Christmas and New Years Day across all of the UK
@@ -81,11 +98,11 @@ module.exports = class ExclusionDates {
 
       return await fs.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
         if (err) {
-          console.log(err);
+          console.error(`Bank Holidays WriteFile Error: ${err}`);
         }
       });
     } catch (e) {
-      console.log(`Bank Holidays API Failure: ${e.message}`);
+      console.error(`Bank Holidays API Failure: ${e.message}`);
       return e;
     }
   }

@@ -1,6 +1,4 @@
-/* eslint no-inline-comments: 0 */
-/* eslint no-loop-func: 0 */
-/* eslint no-multi-spaces: 0 */
+/* eslint-disable */
 
 'use strict';
 
@@ -26,13 +24,19 @@ const maxDatesToTest = 56;
 describe('Bulk Test: checking ARE is not weekend nor exclusion day', function () {
   const startDate = exclusionDays['england-and-wales'].events[0].date;
   const testDate = moment(startDate, inputDateFormat);
+  const country = 'scotland';
+  const exclusionDates = new ExclusionDates(country);
+
+  before(async () => {
+    await exclusionDates.fetchExcludedDates();
+  });
 
   it('tests that a single date is not an exclusion day', () => {
     const calc = new ARECalculator(
       moment('2017-03-17', inputDateFormat),
-      'scotland',
+      country,
       'COA_DIRECT',
-      ExclusionDates
+      exclusionDates
     );
 
     calc.calculateAREDate();
@@ -41,20 +45,22 @@ describe('Bulk Test: checking ARE is not weekend nor exclusion day', function ()
     assert(!calc.exclusionDays.isExclusionDay(areDate));
   });
 
-  function runTest(date, stage, country) {
-    return function () {
-      const calc = new ARECalculator(date, country, stage.value, ExclusionDates);
+  function runTest(date, stage, country, exclusionDates) {
+    return () => {
+      it(`should not be a weekend or exclusion day:`, async () => {
+        const exclusionDates = new ExclusionDates(country);
+        await exclusionDates.fetchExcludedDates();
 
-      calc.calculateAREDate();
+        const calc = new ARECalculator(date, country, stage.value, exclusionDates);
 
-      const areDate = moment(calc.areDate, inputDateFormat);
-      const prettyDate = calc.areDate.format(displayDateFormat);
+        calc.calculateAREDate();
 
-      it(`[${prettyDate}] should not be a weekend: ${country} - ${stage.label}`, function () {
+        const areDate = moment(calc.areDate, inputDateFormat);
+        const prettyDate = calc.areDate.format(displayDateFormat);
+
+        console.log(`[${prettyDate}]: ${country} - ${stage.label}`);
+
         assert(!calc.exclusionDays.isWeekend(areDate));
-      });
-
-      it(`[${prettyDate}] should not be an exclusion day: ${country} - ${stage.label}`, function () {
         assert(!calc.exclusionDays.isExclusionDay(areDate));
       });
     };
