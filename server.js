@@ -17,9 +17,6 @@ settings = Object.assign({}, settings, {
 
 const app = hof(settings);
 
-// Set up routing so <YOUR-SITE-URL>/assets are served from /node_modules/govuk-frontend/govuk/assets
-app.use('/assets', express.static(path.join(__dirname, '/node_modules/govuk-frontend/govuk/assets')))
-
 app.use((req, res, next) => {
   res.locals.htmlLang = 'en';
   next();
