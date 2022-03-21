@@ -85,7 +85,7 @@ module.exports = class ExclusionDates {
       const response = await axios.get(bankHolidaysApi);
       const data = response.data;
 
-      if (!data) {
+      if (!_.get(data, `[${this.country}].events`)) {
         throw new Error('Failed to retrieve data from Bank Holidays API');
       }
 
