@@ -21,9 +21,9 @@
 <div class="highlighted-result">
   <h1><B>{{values.are-date}}</B></h1>
 
-  {{#values.are-after-last-exclusion-date}}
-  <br><i>{{#t}}pages.result.are-after-last-exclusion-date{{/t}}</i>
-  {{/values.are-after-last-exclusion-date}}
+  {{#values.are-date-after-exclusion-range}}
+  <br><i>{{#t}}pages.result.are-date-after-exclusion-range{{/t}}</i>
+  {{/values.are-date-after-exclusion-range}}
 </div>
 
 <table id="summary" class="table-details">
@@ -33,10 +33,10 @@
     <tr>
         <td>{{#t}}pages.result.table.headers.country-of-hearing{{/t}}</td>
         <td>
-            <B>{{values.country-of-hearing}}</B>
+            <B>{{#t}}pages.result.table.value.{{values.country-of-hearing}}{{/t}}</B>
         </td>
         <td>
-            <a href="first-page/edit#country-of-hearing" class="button no-print"
+            <a href="first-page/edit#country-of-hearing-{{values.country-of-hearing}}" class="link no-print"
               id="country-of-hearing-change">{{#t}}buttons.change{{/t}}</a>
         </td>
     </tr>
@@ -51,19 +51,19 @@
           </td>
           <td>
             <a href="first-page/edit#appeal-stage"
-               class="button no-print" id="appeal-stage-change">{{#t}}buttons.change{{/t}}</a>
+               class="link no-print" id="appeal-stage-change">{{#t}}buttons.change{{/t}}</a>
           </td>
       </tr>
     <tr>
         <td>{{#t}}pages.result.table.headers.display-start-date{{/t}}</td>
         <td>
-            {{values.base-date}}
-            {{#values.base-before-earliest-exclusion-date}}
-            <br><i>{{#t}}pages.result.base-before-earliest-exclusion-date{{/t}}</i>
-            {{/values.base-before-earliest-exclusion-date}}
+            {{values.input-date}}
+            {{#values.input-date-before-exclusion-range}}
+            <br><i>{{#t}}pages.result.input-date-before-exclusion-range{{/t}}</i>
+            {{/values.input-date-before-exclusion-range}}
         </td>
         <td><a href="first-page/edit#start-date-day"
-               class="button no-print" id="start-date-day-change">{{#t}}buttons.change{{/t}}</a>
+               class="link no-print" id="start-date-day-change">{{#t}}buttons.change{{/t}}</a>
         </td>
     </tr>
     <tr>
@@ -132,13 +132,13 @@
           <td>{{#t}}pages.result.table.headers.excluded-dates{{/t}}</td>
           <td>
 
-            {{#values.excludedDates}}
+            {{#values.excluded-dates-in-period}}
             <p>{{.}}</p>
-            {{/values.excludedDates}}
+            {{/values.excluded-dates-in-period}}
 
-            {{^values.excludedDates}}
+            {{^values.excluded-dates-in-period}}
             <p>None</p>
-            {{/values.excludedDates}}
+            {{/values.excluded-dates-in-period}}
 
           </td>
           <td></td>

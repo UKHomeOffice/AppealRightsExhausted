@@ -1,6 +1,6 @@
 'use strict';
 
-const staticAppealStages = require('./lib/staticAppealStages');
+const appealStages = require('./data/appeal_stages');
 const dateComponent = require('hof').components.date;
 
 module.exports = {
@@ -12,42 +12,25 @@ module.exports = {
     },
     className: ['inline', 'form-group'],
     options: [{
-      value: 'England & Wales',
+      value: 'england-and-wales',
       label: 'England & Wales'
     }, {
-      value: 'Scotland',
+      value: 'scotland',
       label: 'Scotland'
     }, {
-      value: 'Northern Ireland',
+      value: 'northern-ireland',
       label: 'Northern Ireland'
     }]
   },
   'appeal-stage': {
     mixin: 'select',
     validate: 'required',
-    legend: {
-      className: 'visuallyhidden'
-    },
     options: [{
       value: '',
       label: 'fields.appeal-stage.options.null'
-    }].concat(staticAppealStages.getstaticAppealStages())
+    }].concat(appealStages)
   },
   'start-date': dateComponent('start-date', {
-    labelClassName: 'visuallyhidden',
-    validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}],
-    legend: {
-      className: 'visuallyhidden'
-    },
-    hint: 'fields.start-date.hint'
-  }),
-  'start-date-day': {
-    validate: ['required', 'numeric']
-  },
-  'start-date-month': {
-    validate: ['required', 'numeric']
-  },
-  'start-date-year': {
-    validate: ['required', 'numeric', { type: 'minlength', arguments: [2] }]
-  }
+    validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}]
+  })
 };

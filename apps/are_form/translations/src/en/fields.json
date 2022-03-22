@@ -4,15 +4,6 @@
     "legend": "What is the promulgation date?",
     "hint": "For example, 11  6  2015"
   },
-  "start-date-day": {
-    "label": "Day"
-  },
-  "start-date-month": {
-    "label": "Month"
-  },
-  "start-date-year": {
-    "label": "Year"
-  },
   "appeal-stage": {
     "legend": "What is the appeal stage?",
     "label": "Choose an appeal stage from the drop down menu",

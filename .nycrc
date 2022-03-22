@@ -4,10 +4,10 @@
     "text-summary"
   ],
   "check-coverage": true,
-  "statements": 92,
-  "branches": 82,
-  "functions": 85,
-  "lines": 92,
+  "statements": 61,
+  "branches": 59,
+  "functions": 32,
+  "lines": 61,
   "exclude": [
     "test/**/*.js",
     "apps/**/sections/**/*.js",

@@ -4,7 +4,6 @@
     "description": "This calculates the date when an applicant's Appeal rights are exhausted. It is dependent upon the following factors:",
     "factors": "<LI>(a) Country where the appeal was received<LI>(b) Stage of the appeal"
   },
-
   "reference-links": {
     "appeal-stages": "What are the appeal stages?",
     "exclusion-dates": "What are the exclusion dates?",
@@ -13,16 +12,15 @@
     "which-scotland-dates": "Scotland",
     "which-northern-ireland-dates": "Northern Ireland"
   },
-
   "result": {
     "header": "Calculated ARE date",
     "description": "The calculation is based on the following information:",
     "exclusion-date-range": "Current range of exclusion dates:",
-    "base-before-earliest-exclusion-date": "This is before the earliest known exclusion date",
-    "are-after-last-exclusion-date": "This is after the last known exclusion date",
+    "input-date-before-exclusion-range": "This is before the earliest known exclusion date",
+    "are-date-after-exclusion-range": "This is after the last known exclusion date",
     "table": {
       "headers": {
-        "base-date": "Base date",
+        "input-date": "Base date",
         "display-start-date": "Supplied date",
         "start-date": "Promulgation date",
         "country-of-hearing": "Country of hearing",
@@ -34,6 +32,11 @@
         "trigger": "Trigger",
         "number-of-exclusion-dates-applied": "Number of exclusion dates applied",
         "excluded-dates": "Excluded dates"
+      },
+      "value": {
+        "england-and-wales": "England & Wales",
+        "scotland": "Scotland",
+        "northern-ireland": "Northern Ireland"
       }
     }
   }

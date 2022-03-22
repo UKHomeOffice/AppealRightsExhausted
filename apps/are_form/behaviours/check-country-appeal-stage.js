@@ -1,16 +1,12 @@
 'use strict';
 
-const staticAppealStages = require('../lib/staticAppealStages');
+const _ = require('lodash');
+const appealStages = require('../data/appeal_stages');
 const countryOfHearing = 'country-of-hearing';
 
-function getAppealInfo(selectedAppealStage) {
-  return staticAppealStages.getstaticAppealStages().filter(function (obj) {
-    return obj.value === selectedAppealStage;
-  })[0];
-}
-
 function isAppealStageUsedinCountry(appealStage, country) {
-  const stage = getAppealInfo(appealStage);
+  const stage = _.find(appealStages, obj => obj.value === appealStage);
+
   return (stage.country.indexOf('All') !== -1 ||
         stage.country.indexOf(country) !== -1);
 }

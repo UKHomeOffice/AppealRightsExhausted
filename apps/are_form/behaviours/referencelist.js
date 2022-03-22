@@ -1,28 +1,50 @@
 'use strict';
 
-const staticExclusionDates = require('../lib/staticExclusionDates');
-const staticAppealStages = require('../lib/staticAppealStages');
+const _ = require('lodash');
+const appealStages = require('../data/appeal_stages');
 const moment = require('moment');
-const dateFormat = 'dddd DD MMMM YYYY';
+const ExclusionDates = require('../models/exclusion_dates');
+const config = require('../../../config');
+const inputDateFormat = config.inputDateFormat;
+const displayDateFormat = config.displayDateFormat;
 
 module.exports = superclass => class ReferenceList extends superclass {
+  datesByCountry(dates, country) {
+    let allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[country].events);
+
+    allDatesByCountry = _.map(allDatesByCountry, obj => {
+      obj.formattedDate = this.formatDate(obj.date);
+      return obj;
+    });
+
+    return _.sortBy(allDatesByCountry, 'date');
+  }
+
+  formatDate(date) {
+    return moment(date, inputDateFormat).format(displayDateFormat);
+  }
+
   getValues(req, res, callback) {
-    super.getValues(req, res, err => {
+    super.getValues(req, res, async err => {
       const json = req.sessionModel.toJSON();
 
+      const engWalExcludedDates = new ExclusionDates('england-and-wales');
+      await engWalExcludedDates.fetchExcludedDates();
+
+      const scotlandExcludedDates = new ExclusionDates('scotland');
+      await scotlandExcludedDates.fetchExcludedDates();
+
+      const niExcludedDates = new ExclusionDates('northern-ireland');
+      await niExcludedDates.fetchExcludedDates();
+
       if (req.url === '/appealstages') {
-        json['reference-appeal-list'] = [].concat(staticAppealStages.getstaticAppealStages());
-        json['reference-appeal-list-count'] = json['reference-appeal-list'].length;
+        json['reference-appeal-list'] = appealStages;
+        json['reference-appeal-list-count'] = appealStages.length;
       } else if (req.url === '/exclusiondates') {
-        json['reference-exclusiondate-list-england-and-wales'] =
-                    [].concat(staticExclusionDates.getExclusionDays('England & Wales'));
-        json['reference-exclusiondate-list-scotland'] =
-                    [].concat(staticExclusionDates.getExclusionDays('Scotland'));
-        json['reference-exclusiondate-list-northern-ireland'] =
-                    [].concat(staticExclusionDates.getExclusionDays('Northern Ireland'));
-        json['exclusion-date-range'] =
-                    moment(staticExclusionDates.getFirstExclusionDate(), 'YYYY-MM-DD').format(dateFormat) +
-                    ' to ' + moment(staticExclusionDates.getLastExclusionDate(), 'YYYY-MM-DD').format(dateFormat);
+        json['reference-exclusiondate-list-england-and-wales'] = engWalExcludedDates.excludedDates;
+        json['reference-exclusiondate-list-scotland'] = scotlandExcludedDates.excludedDates;
+        json['reference-exclusiondate-list-northern-ireland'] = niExcludedDates.excludedDates;
+        json['exclusion-date-range'] = engWalExcludedDates.getExcludedDateRange();
       }
       return callback(err, json);
     });

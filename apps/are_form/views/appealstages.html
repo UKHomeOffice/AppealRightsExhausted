@@ -1,15 +1,10 @@
 {{<layout}}
-{{$propositionHeader}}
-{{> partials-navigation}}
-{{/propositionHeader}}
 
 {{$header}}
   {{#t}}pages.reference-links.appeal-stages{{/t}}
 {{/header}}
 
 {{$content}}
-  <h1>{{values.reference-appeal-list.label}}</h1>
-
 <p>
   This table shows the <strong>{{values.reference-appeal-list-count}}</strong>
   appeal stage types and the set number of succeeding days during which an
@@ -20,11 +15,11 @@
 {{#values.reference-appeal-list}}
 <div>
   <summary id="appeal-summary" title="{{value}}" class="appeal-summary-class">
-    <h3 class="appeal-stage-header">
+    <h2 class="appeal-stage-header">
       <a name='{{label}}'>{{label}}<a>
-    </h3>
+    </h2>
   </summary>
-  <table id="{{value}}" class="appeal-stages-table hidden">
+  <table id="{{value}}" class="appeal-stages-table js-hidden">
     <tr><td>Trigger</td><td>{{trigger}}</td> </tr>
     <tr><td>Based on</td><td>{{startDateLabel}}</td> </tr>
     <tr><td>Rules</td><td>{{rules}}</td> </tr>
