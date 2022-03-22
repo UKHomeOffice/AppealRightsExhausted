@@ -13,7 +13,6 @@
     "date": "Enter a valid date",
     "future": "The date is in the future",
     "format": "Enter the promulgation date in the correct format",
-    "startDateTooEarlyError": "Promulgation date can not be on or before 20 Oct 2014",
     "after": "Promulgation date can not be on or before 20 Oct 2014",
     "before": "You must enter a valid date. The date cannot be in the future"
   },
