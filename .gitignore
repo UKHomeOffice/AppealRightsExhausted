@@ -7,3 +7,4 @@ apps/*/translations/*
 .DS_Store
 .nyc_output
 coverage
+yarn-error.log

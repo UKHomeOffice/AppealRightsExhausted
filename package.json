@@ -14,6 +14,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "NODE_ENV=development hof-build watch",
+    "start:devenv": "NODE_ENV=development GA_TAG=UA--1 SESSION_TIMEOUT=1000 SESSION_TIMEOUT_WARNING=600 FINAL_SESSION_TIMEOUT_WARNING=300 MAX_FILE_COUNT=5 SECRET_KEY=tOsLn SERVICE_ID=621 hof-build watch",
     "debug": "node --inspect .",
     "test": "npm run test:lint && npm run test:unit",
     "test:unit": "nyc _mocha \"test/_unit/**/*.spec.js\"",
@@ -26,7 +27,8 @@
   },
   "author": "HomeOffice",
   "dependencies": {
-    "hof": "^19.12.0",
+    "dotenv": "^16.0.0",
+    "hof": "^19.13.10",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1"
