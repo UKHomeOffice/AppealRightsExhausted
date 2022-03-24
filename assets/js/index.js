@@ -4,16 +4,16 @@ const $ = require('jquery');
 window.jQuery = $;
 // window.dialogPolyfill = dialogPolyfill;
 
-// const GOVUK = require('hof/node_modules/govuk-frontend')
-// const skipToMain = require('./skip-to-main');
+const GOVUK = require('hof/node_modules/govuk-frontend')
+const skipToMain = require('./skip-to-main');
 
-// GOVUK.initAll();
-// window.GOVUK = GOVUK;
-// const govukTemplate = require('./govuk-cookie-functions');
-// const cookieFunctions = require('./govuk-cookie-functions');
-// const cookieBar = require('./govuk-cookie-bar');
-// const core = require('./govuk-core');
-// const cookieSettings = require('hof/frontend/themes/gov-uk/client-js/index');
+GOVUK.initAll();
+window.GOVUK = GOVUK;
+const govukTemplate = require('./govuk-cookie-functions');
+const cookieFunctions = require('./govuk-cookie-functions');
+const cookieBar = require('./govuk-cookie-bar');
+const core = require('./govuk-core');
+const cookieSettings = require('hof/frontend/themes/gov-uk/client-js/index');
 // require = ('./original')
 require('hof/frontend/themes/gov-uk/client-js');
 
