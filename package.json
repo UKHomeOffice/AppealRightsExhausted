@@ -9,11 +9,12 @@
     "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "engines": {
-    "node": "^14.15.0"
+    "node": ">=14.15.0"
   },
   "scripts": {
     "start": "node server.js",
     "start:dev": "NODE_ENV=development hof-build watch",
+    "dev": "NODE_ENV=development hof-build watch --env",
     "debug": "node --inspect .",
     "test": "npm run test:lint && npm run test:unit",
     "test:unit": "nyc _mocha \"test/_unit/**/*.spec.js\"",
