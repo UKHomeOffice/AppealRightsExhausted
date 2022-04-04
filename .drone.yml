@@ -234,47 +234,47 @@ steps:
           - feature/*
       event: pull_request
 
-  # - name: anchore_scan
-  #   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-  #   pull: always
+  - name: anchore_scan
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+      LOCAL_IMAGE: true
+      TOLERATE: medium
+      WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+    when:
+      branch: master
+      event: pull_request
+
+  # # TEST Deploy to Master UAT environment
+  # - name: TEST_deploy_to_uat
+  #   pull: if-not-exists
+  #   image: quay.io/ukhomeofficedigital/kd:v1.14.0
   #   environment:
-  #     IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
-  #     LOCAL_IMAGE: true
-  #     TOLERATE: medium
-  #     WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+  #     KUBE_SERVER:
+  #       from_secret: kube_server_dev
+  #     KUBE_TOKEN:
+  #       from_secret: kube_token_sas_dev
+  #   commands:
+  #     - bin/deploy.sh $${UAT_ENV}
   #   when:
   #     branch: master
   #     event: pull_request
-
-  # TEST Deploy to Master UAT environment
-  - name: TEST_deploy_to_uat
-    pull: if-not-exists
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    environment:
-      KUBE_SERVER:
-        from_secret: kube_server_dev
-      KUBE_TOKEN:
-        from_secret: kube_token_sas_dev
-    commands:
-      - bin/deploy.sh $${UAT_ENV}
-    when:
-      branch: master
-      event: pull_request
-
-  # TEST Deploy to Master STG environment
-  - name: TEST_deploy_to_stg
-    pull: if-not-exists
-    image: quay.io/ukhomeofficedigital/kd:v1.14.0
-    environment:
-      KUBE_SERVER:
-        from_secret: kube_server_stg
-      KUBE_TOKEN:
-        from_secret: kube_token_stg
-    commands:
-      - bin/deploy.sh $${STG_ENV}
-    when:
-      branch: master
-      event: pull_request
+  #
+  # # TEST Deploy to Master STG environment
+  # - name: TEST_deploy_to_stg
+  #   pull: if-not-exists
+  #   image: quay.io/ukhomeofficedigital/kd:v1.14.0
+  #   environment:
+  #     KUBE_SERVER:
+  #       from_secret: kube_server_stg
+  #     KUBE_TOKEN:
+  #       from_secret: kube_token_stg
+  #   commands:
+  #     - bin/deploy.sh $${STG_ENV}
+  #   when:
+  #     branch: master
+  #     event: pull_request
 
   # Deploy to Master UAT environment
   - name: deploy_to_uat
@@ -350,20 +350,20 @@ steps:
       branch: master
       event: push
 
-  #   # Deploy to Staging environment
-  # - name: deploy_to_stg
-  #   pull: if-not-exists
-  #   image: quay.io/ukhomeofficedigital/kd:v1.14.0
-  #   environment:
-  #     KUBE_SERVER:
-  #       from_secret: kube_server_stg
-  #     KUBE_TOKEN:
-  #       from_secret: kube_token_stg
-  #   commands:
-  #     - bin/deploy.sh $${STG_ENV}
-  #   when:
-  #     branch: master
-  #     event: push
+    # Deploy to Staging environment
+  - name: deploy_to_stg
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_stg
+      KUBE_TOKEN:
+        from_secret: kube_token_stg
+    commands:
+      - bin/deploy.sh $${STG_ENV}
+    when:
+      branch: master
+      event: push
 
   # Checks a build being promoted has passed, is on master which effectively means a healthy build on Staging
   - name: sanity_check_build_prod
