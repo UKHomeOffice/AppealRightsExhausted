@@ -234,17 +234,17 @@ steps:
           - feature/*
       event: pull_request
 
-  - name: anchore_scan
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-    pull: always
-    environment:
-      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
-      LOCAL_IMAGE: true
-      TOLERATE: medium
-      WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
-    when:
-      branch: master
-      event: pull_request
+  # - name: anchore_scan
+  #   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+  #   pull: always
+  #   environment:
+  #     IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+  #     LOCAL_IMAGE: true
+  #     TOLERATE: medium
+  #     WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+  #   when:
+  #     branch: master
+  #     event: pull_request
 
   # TEST Deploy to Master UAT environment
   - name: TEST_deploy_to_uat
