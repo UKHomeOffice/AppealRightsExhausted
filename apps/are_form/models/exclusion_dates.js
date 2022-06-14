@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, consistent-return */
 
 'use strict';
 
@@ -138,12 +138,12 @@ module.exports = class ExclusionDates {
   }
 
   getRecentDates() {
-    const recentDates = _.filter(this.excludedDates, date => {if (date.date >= '2021') {return date.date}} )
+    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= '2021') {return date.date;}} );
     return recentDates;
   }
 
   getOldDates() {
-    const oldDates = _.filter(this.excludedDates, date => { if (date.date <= '2021')  {return date.date}} )
+    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date <= '2021')  {return date.date;}} );
     return oldDates;
   }
 };

@@ -52,7 +52,6 @@ module.exports = superclass => class ReferenceList extends superclass {
 
         json['reference-exclusiondate-list-northern-ireland-recent-dates'] = niExcludedDates.getRecentDates();
         json['reference-exclusiondate-list-northern-ireland-older-dates'] = niExcludedDates.getOldDates();
-
       }
       return callback(err, json);
     });

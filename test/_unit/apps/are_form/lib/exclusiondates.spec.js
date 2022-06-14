@@ -6,7 +6,7 @@ const ExclusionDates = require('../../../../../apps/are_form/models/exclusion_da
 const _ = require('lodash');
 const { expect } = require('chai');
 
-describe('Exclusion dates', function() {
+describe('Exclusion dates', function () {
   const country = 'scotland';
   const exclusionDates = new ExclusionDates(country);
 
@@ -15,12 +15,11 @@ describe('Exclusion dates', function() {
   });
 
   it('checks if getRecentDates and oldRecentDates return value is equal to excludedDates return value',() => {
-    const allScottishExcludedDates = exclusionDates.excludedDates
+    const allScottishExcludedDates = exclusionDates.excludedDates;
     const recentScottishExclusionDates = exclusionDates.getRecentDates();
     const oldScottishExclusionDates = exclusionDates.getOldDates();
-    const scottishExclusionDates = _.concat(recentScottishExclusionDates,oldScottishExclusionDates)
-    const sortedScottishExclusionDates = _.sortBy(scottishExclusionDates, 'date')
-    
-    expect(allScottishExcludedDates).to.deep.equal(sortedScottishExclusionDates)
-  })
-})
+    const scottishExclusionDates = _.concat(recentScottishExclusionDates,oldScottishExclusionDates);
+    const sortedScottishExclusionDates = _.sortBy(scottishExclusionDates, 'date');
+    expect(allScottishExcludedDates).to.deep.equal(sortedScottishExclusionDates);
+  });
+});
