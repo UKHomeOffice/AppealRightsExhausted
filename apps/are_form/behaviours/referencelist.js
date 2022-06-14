@@ -41,10 +41,18 @@ module.exports = superclass => class ReferenceList extends superclass {
         json['reference-appeal-list'] = appealStages;
         json['reference-appeal-list-count'] = appealStages.length;
       } else if (req.url === '/exclusiondates') {
-        json['reference-exclusiondate-list-england-and-wales'] = engWalExcludedDates.excludedDates;
-        json['reference-exclusiondate-list-scotland'] = scotlandExcludedDates.excludedDates;
-        json['reference-exclusiondate-list-northern-ireland'] = niExcludedDates.excludedDates;
         json['exclusion-date-range'] = engWalExcludedDates.getExcludedDateRange();
+
+
+        json['reference-exclusiondate-list-england-and-wales-recent-dates'] = engWalExcludedDates.getRecentDates();
+        json['reference-exclusiondate-list-england-and-wales-older-dates'] = engWalExcludedDates.getOldDates();
+
+        json['reference-exclusiondate-list-scotland-recent-dates'] = scotlandExcludedDates.getRecentDates();
+        json['reference-exclusiondate-list-scotland-older-dates'] = scotlandExcludedDates.getOldDates();
+
+        json['reference-exclusiondate-list-northern-ireland-recent-dates'] = niExcludedDates.getRecentDates();
+        json['reference-exclusiondate-list-northern-ireland-older-dates'] = niExcludedDates.getOldDates();
+
       }
       return callback(err, json);
     });

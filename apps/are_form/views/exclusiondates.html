@@ -32,15 +32,35 @@
       </h2>
     </summary>
     <table id="england-and-wales-dates" class="panel-indent js-hidden">
-        {{#values.reference-exclusiondate-list-england-and-wales}}
+        {{#values.reference-exclusiondate-list-england-and-wales-recent-dates}}
         <tr>
           <td><td>
           <td>{{formattedDate}}</td>
           <td>{{title}}</td>
-        {{/values.reference-exclusiondate-list-england-and-wales}}
+        {{/values.reference-exclusiondate-list-england-and-wales-recent-dates}}
       </tr>
     </table>
+    <details class="old-exclusion-dates-england-and-wales-details js-hidden">
+      <summary class="old-exclusion-dates-england-and-wales__summary">
+        <span class="old-exclusion-dates-england-and-wales__summary-text">
+          Old exclusion dates
+        </span>
+      </summary>
+      <div class="old-exclusion-dates-details-england-and-wales__text">
+        Exclusion dates from Monday 2nd January 2017 to Thursday 31st December 2020
+        <table id="england-and-wales-dates" class="panel-indent">
+          {{#values.reference-exclusiondate-list-england-and-wales-older-dates}}
+          <tr>
+            <td><td>
+            <td>{{formattedDate}}</td>
+            <td>{{title}}</td>
+          {{/values.reference-exclusiondate-list-england-and-wales-older-dates}}
+        </tr>
+      </table>
+      </div>
+    </details>
 </div>
+
 
 <div>
     <summary id="which-scotland">
@@ -49,14 +69,33 @@
       </h2>
     </summary>
     <table id="scotland-dates" class="panel-indent js-hidden">
-        {{#values.reference-exclusiondate-list-scotland}}
+        {{#values.reference-exclusiondate-list-scotland-recent-dates}}
         <tr>
           <td><td>
           <td>{{formattedDate}}</td>
           <td>{{title}}</td>
-        {{/values.reference-exclusiondate-list-scotland}}
+        {{/values.reference-exclusiondate-list-scotland-recent-dates}}
       </tr>
     </table>
+    <details class="old-exclusion-dates-scotland-details js-hidden">
+      <summary class="old-exclusion-dates-scotland__summary">
+        <span class="old-exclusion-dates-scotland__summary-text">
+          Old exclusion dates
+        </span>
+      </summary>
+      <div class="old-exclusion-dates-details-scotland__text">
+        Exclusion dates from Monday 2nd January 2017 to Thursday 31st December 2020
+        <table id="scotland-dates" class="panel-indent">
+          {{#values.reference-exclusiondate-list-scotland-older-dates}}
+          <tr>
+            <td><td>
+            <td>{{formattedDate}}</td>
+            <td>{{title}}</td>
+          {{/values.reference-exclusiondate-list-scotland-older-dates}}
+        </tr>
+      </table>
+      </div>
+    </details>
 </div>
 
 <div>
@@ -66,14 +105,33 @@
       </h2>
     </summary>
     <table id="northern-ireland-dates" class="panel-indent js-hidden">
-        {{#values.reference-exclusiondate-list-northern-ireland}}
+        {{#values.reference-exclusiondate-list-northern-ireland-recent-dates}}
         <tr>
           <td></td>
           <td>{{formattedDate}}</td>
           <td>{{title}}</td>
-        {{/values.reference-exclusiondate-list-northern-ireland}}
+        {{/values.reference-exclusiondate-list-northern-ireland-recent-dates}}
       </tr>
     </table>
+    <details class="old-exclusion-dates-northern-ireland-details js-hidden">
+      <summary class="old-exclusion-dates-northern-ireland__summary">
+        <span class="old-exclusion-dates-northern-ireland__summary-text">
+          Old exclusion dates
+        </span>
+      </summary>
+      <div class="old-exclusion-dates-details-northern-ireland__text">
+        Exclusion dates from Monday 2nd January 2017 to Thursday 31st December 2020
+        <table id="northern-ireland-dates" class="panel-indent">
+          {{#values.reference-exclusiondate-list-northern-ireland-older-dates}}
+          <tr>
+            <td><td>
+            <td>{{formattedDate}}</td>
+            <td>{{title}}</td>
+          {{/values.reference-exclusiondate-list-northern-ireland-older-dates}}
+        </tr>
+      </table>
+      </div>
+    </details>
 </div>
 
 <table><div class=related-container>

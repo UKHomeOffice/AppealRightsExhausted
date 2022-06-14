@@ -13,17 +13,20 @@ if ($('.appeal-summary-class').length) {
 if ($('#which-england-and-wales').length) {
   $('#which-england-and-wales').click(function () {
     $('#england-and-wales-dates').toggleClass('js-hidden');
+    $('.old-exclusion-dates-england-and-wales-details').toggleClass('js-hidden');
   });
 }
 
 if ($('#which-scotland').length) {
   $('#which-scotland').click(function () {
     $('#scotland-dates').toggleClass('js-hidden');
+    $('.old-exclusion-dates-scotland-details').toggleClass('js-hidden');
   });
 }
 
 if ($('#which-northern-ireland').length) {
   $('#which-northern-ireland').click(function () {
     $('#northern-ireland-dates').toggleClass('js-hidden');
+    $('.old-exclusion-dates-northern-ireland-details').toggleClass('js-hidden');
   });
 }
