@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, consistent-return */
 
 'use strict';
 
@@ -63,7 +63,6 @@ module.exports = class ExclusionDates {
 
       const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[this.country].events);
       this.excludedDates = _.sortBy(allDatesByCountry, 'date');
-
       return this.excludedDates;
     } catch (e) {
       return console.error(`Bank Holidays File Read Failure: ${e.message}`);
@@ -136,5 +135,15 @@ module.exports = class ExclusionDates {
 
   isWorkingDay(date) {
     return !this.isWeekend(date) && !this.isExclusionDay(date);
+  }
+
+  getRecentDates() {
+    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= '2021') {return date.date;}} );
+    return recentDates;
+  }
+
+  getOldDates() {
+    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date <= '2021')  {return date.date;}} );
+    return oldDates;
   }
 };
