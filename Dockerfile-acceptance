@@ -6,6 +6,7 @@ WORKDIR /code
 ENV BUNDLER_VERSION 2.3.15
 RUN gem update --system \
     && gem install bundler -v $BUNDLER_VERSION \
-    && bundle install --deployment 
+    && bundle config set --local deployment 'true' \
+    && bundle install
 
 ENTRYPOINT "cucumber"
