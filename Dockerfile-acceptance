@@ -8,7 +8,6 @@ RUN gem update --system \
     && gem install bundler -v $BUNDLER_VERSION \
     && bundle lock --add-platform x86_64-linux \
     && bundle config set --local deployment 'true' \
-    && bundle install \
-    && bundle exec cucumber
+    && bundle install
 
 ENTRYPOINT "cucumber"
