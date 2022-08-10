@@ -12,6 +12,15 @@ const displayDateFormat = config.displayDateFormat;
 const bankHolidaysApi = config.bankHolidaysApi;
 
 const CHRISTMAS_CLOSURE_DAYS = ['12-27', '12-28', '12-29', '12-30', '12-31'];
+// Gets current date and time
+const now = moment()
+// Gets current year
+const nowMinusOneYear = now.year()
+// Sets const lastJanuary to January minus 1 year from current year
+const lastJanuary = moment().year(nowMinusOneYear).month(1).day(1)
+const lastJanYear = lastJanuary.year().toString()
+console.log(lastJanYear)
+
 
 module.exports = class ExclusionDates {
   constructor(country) {
@@ -138,12 +147,12 @@ module.exports = class ExclusionDates {
   }
 
   getRecentDates() {
-    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= '2021') {return date.date;}} );
+    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= lastJanYear) {return date.date;}} );
     return recentDates;
   }
 
   getOldDates() {
-    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date <= '2021')  {return date.date;}} );
+    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date <= lastJanYear)  {return date.date;}} );
     return oldDates;
   }
 };
