@@ -1,4 +1,4 @@
-/* eslint-disable no-undef, consistent-return */
+/* eslint-disable no-undef, consistent-return, max-len */
 
 'use strict';
 
@@ -12,10 +12,10 @@ const displayDateFormat = config.displayDateFormat;
 const bankHolidaysApi = config.bankHolidaysApi;
 
 const CHRISTMAS_CLOSURE_DAYS = ['12-27', '12-28', '12-29', '12-30', '12-31'];
-const now = moment()
-const currentYear = now.year()
-const januaryMinusOneYear = moment().year(currentYear -1).month(1).day(1)
-const januaryMinusOneYearToString = januaryMinusOneYear.year().toString()
+const now = moment();
+const currentYear = now.year();
+const januaryMinusOneYear = moment().year(currentYear - 1).month(1).day(1);
+const januaryMinusOneYearToString = januaryMinusOneYear.year().toString();
 
 
 module.exports = class ExclusionDates {
