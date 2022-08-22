@@ -27,6 +27,9 @@ if ENV['IN_BROWSER']
 else
   Capybara.run_server = false
   Capybara.default_driver = :poltergeist
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, {js_errors: false})
+  end
 end
 
 Capybara.default_selector = :css

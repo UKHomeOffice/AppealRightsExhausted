@@ -8,29 +8,29 @@ module.exports = {
     mixin: 'radio-group',
     validate: ['required'],
     legend: {
-      className: 'visuallyhidden'
+      className: 'govuk-fieldset__legend--m '
     },
-    className: ['inline', 'form-group'],
-    options: [{
-      value: 'england-and-wales',
-      label: 'England & Wales'
-    }, {
-      value: 'scotland',
-      label: 'Scotland'
-    }, {
-      value: 'northern-ireland',
-      label: 'Northern Ireland'
-    }]
+    className: ['inline'],
+    options: [
+      'england-and-wales',
+      'scotland',
+      'northern-ireland'
+    ]
   },
   'appeal-stage': {
     mixin: 'select',
     validate: 'required',
+    labelClassName: 'govuk-label--m',
     options: [{
       value: '',
       label: 'fields.appeal-stage.options.null'
     }].concat(appealStages)
   },
   'start-date': dateComponent('start-date', {
-    validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}]
+    mixin: 'input-date',
+    validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}],
+    legend: {
+      className: 'govuk-fieldset__legend--m'
+    }
   })
 };

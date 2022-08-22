@@ -1,4 +1,7 @@
-{{<layout}}result
+{{<layout}}
+{{$pageTitle}}
+{{#t}}pages.result.header{{/t}}
+{{/pageTitle}}
 {{$journeyHeader}}
 {{#t}}journey.header{{/t}}
 {{/journeyHeader}}
@@ -11,15 +14,14 @@
 {{> partials-navigation}}
 {{/propositionHeader}}
 
-{{$header}}{{#t}}pages.result.header{{/t}}{{/header}}
-
 {{$content}}
+<header><h1>{{#t}}pages.result.header{{/t}}</h1></header>
 
 {{<partials-form}}
 
 {{$form}}
-<div class="highlighted-result">
-  <h1><B>{{values.are-date}}</B></h1>
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 class="govuk-panel__title"><B>{{values.are-date}}</B></h1>
 
   {{#values.are-date-after-exclusion-range}}
   <br><i>{{#t}}pages.result.are-date-after-exclusion-range{{/t}}</i>
@@ -36,7 +38,7 @@
             <B>{{#t}}pages.result.table.value.{{values.country-of-hearing}}{{/t}}</B>
         </td>
         <td>
-            <a href="first-page/edit#country-of-hearing-{{values.country-of-hearing}}" class="link no-print"
+            <a href="first-page/edit#country-of-hearing-{{values.country-of-hearing}}" class="govuk-link no-print"
               id="country-of-hearing-change">{{#t}}buttons.change{{/t}}</a>
         </td>
     </tr>
@@ -44,14 +46,14 @@
     <tbody>
       <tr>
           <td>{{#t}}pages.result.table.headers.appeal-stage{{/t}}
-              <br><a href="appealstages#{{values.appeal-stage-label}}">(Details)</a>
+              <br><a href="appealstages#{{values.appeal-stage-label}}" class="govuk-link">(Details)</a>
           </td>
           <td>
               {{values.appeal-stage-label}}
           </td>
           <td>
             <a href="first-page/edit#appeal-stage"
-               class="link no-print" id="appeal-stage-change">{{#t}}buttons.change{{/t}}</a>
+               class="govuk-link no-print" id="appeal-stage-change">{{#t}}buttons.change{{/t}}</a>
           </td>
       </tr>
     <tr>
@@ -63,7 +65,7 @@
             {{/values.input-date-before-exclusion-range}}
         </td>
         <td><a href="first-page/edit#start-date-day"
-               class="link no-print" id="start-date-day-change">{{#t}}buttons.change{{/t}}</a>
+               class="govuk-link no-print" id="start-date-day-change">{{#t}}buttons.change{{/t}}</a>
         </td>
     </tr>
     <tr>
@@ -158,9 +160,9 @@
   <div id="reference-list" class="header-context">
      <ol role="guidance" class="group">
        <li><strong>Guidance</strong></li>
-       <li><a href="guidance">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-       <li><a href="appealstages">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
-       <li><a href="exclusiondates">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+       <li><a href="guidance" class="govuk-link">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+       <li><a href="appealstages" class="govuk-link">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+       <li><a href="exclusiondates" class="govuk-link">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
     </ol>
   </div>
 
