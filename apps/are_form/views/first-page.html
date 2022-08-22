@@ -27,7 +27,7 @@
 
         <h1>{{#t}}fields.start-date.label{{/t}}</h1>
 
-        <fieldset id="start-date" class="{{#errors.start-date}}validation-error{{/errors.start-date}} form-group">
+        <fieldset id="start-date" class="govuk-form-group">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                 <span class="visuallyhidden">{{#t}}fields.start-date.legend{{/t}}</span>
             </legend>
@@ -37,12 +37,12 @@
                 </span>
             {{/legend}}
             {{#errors.start-date}}
-                <span id="start-date-error" class="error-message">
+                <span id="start-date-error" class="govuk-error-message">
                   {{errors.start-date.message}}
                 </span>
             {{/errors.start-date}}
-            <div class="form-group form-date">
-                <p id="start-date-hint" class="form-hint">{{#t}}fields.start-date.hint{{/t}}</p>
+            <div class="govuk-form-group govuk-date-input {{#errors.start-date}}govuk-form-group--error{{/errors.start-date}}">
+                <p id="start-date-hint" class="govuk-hint">{{#t}}fields.start-date.hint{{/t}}</p>
                 {{#input-date}}start-date{{/input-date}}
             </div>
         </fieldset>
@@ -58,9 +58,9 @@
         <div id="reference-list" class="header-context">
            <ol role="guidance" class="group">
              <li><strong>Guidance</strong></li>
-             <li><a href="{{#url}}/guidance{{/url}}">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-             <li><a href="{{#url}}/appealstages{{/url}}">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
-             <li><a href="{{#url}}/exclusiondates{{/url}}">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+             <li><a href="{{#url}}/guidance{{/url}}" class="govuk-link">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+             <li><a href="{{#url}}/appealstages{{/url}}" class="govuk-link">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+             <li><a href="{{#url}}/exclusiondates{{/url}}" class="govuk-link">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
           </ol>
         </div>
         {{/form}}

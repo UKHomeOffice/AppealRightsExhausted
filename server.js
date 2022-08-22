@@ -26,6 +26,8 @@ exclusionDates.saveExclusionDays()
 
     app.use((req, res, next) => {
       res.locals.htmlLang = 'en';
+      // Set feedback link and phase banner
+      res.locals.feedbackUrl = '/feedback';
       next();
     });
 

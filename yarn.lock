@@ -2375,6 +2375,11 @@ govuk-elements-sass@^3.1.3:
   dependencies:
     govuk_frontend_toolkit "^7.1.0"
 
+govuk-frontend@3.14:
+  version "3.14.0"
+  resolved "https://registry.yarnpkg.com/govuk-frontend/-/govuk-frontend-3.14.0.tgz#d3a9c54437c08f5188f87b1f4480ba60e95c8eb6"
+  integrity sha512-y7FTuihCSA8Hty+e9h0uPhCoNanCAN+CLioNFlPmlbeHXpbi09VMyxTcH+XfnMPY4Cp++7096v0rLwwdapTXnA==
+
 govuk_frontend_toolkit@^7.1.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/govuk_frontend_toolkit/-/govuk_frontend_toolkit-7.6.0.tgz#b09a60631afbba4bfac76a8b7c02e72419c29cf5"
@@ -2518,10 +2523,10 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hof@^19.14.13:
-  version "19.14.13"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-19.14.13.tgz#fe68039b89e91b1ec115d8acaf4f74a5eb443c1f"
-  integrity sha512-FO7w8FMY8g6M0FFa3GcIsxNOmP+v0gX5DGf/1jagtPTWdoYiyAcUwlfLxWXQhmgOgkeTsAPfgcv2JOESdIU6UA==
+hof@20.0.0-beta.22:
+  version "20.0.0-beta.22"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-20.0.0-beta.22.tgz#e2705f1dfb6ee7f25ae5b55699591e7d49c77e3a"
+  integrity sha512-IILZJGBUwp0eh3g44L2r3p7gExJwGA/FEwZ9VpPMGAI2V7R61rTxryNisJbnr/dIy3ngRTYxHeHGoTUmzVGKMA==
   dependencies:
     aliasify "^2.1.0"
     bluebird "^3.7.2"
@@ -2545,6 +2550,7 @@ hof@^19.14.13:
     findup "^0.1.5"
     glob "^7.2.0"
     govuk-elements-sass "^3.1.3"
+    govuk-frontend "3.14"
     govuk_template_mustache "^0.26.0"
     helmet "^3.22.0"
     hogan-express-strict "^0.5.4"
@@ -2559,7 +2565,7 @@ hof@^19.14.13:
     minimatch "^3.0.3"
     minimist "^1.2.6"
     mixwith "^0.1.1"
-    moment "^2.29.4"
+    moment "^2.29.2"
     morgan "^1.10.0"
     mustache "^2.3.0"
     nodemailer "^6.6.3"
@@ -3546,7 +3552,7 @@ module-not-found-error@^1.0.1:
   resolved "https://registry.yarnpkg.com/module-not-found-error/-/module-not-found-error-1.0.1.tgz#cf8b4ff4f29640674d6cdd02b0e3bc523c2bbdc0"
   integrity sha1-z4tP9PKWQGdNbN0CsOO8UjwrvcA=
 
-moment@^2.29.4:
+moment@^2.29.2, moment@^2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
