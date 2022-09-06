@@ -5,6 +5,7 @@
 const hof = require('hof');
 let settings = require('./hof.settings');
 const ExclusionDates = require('./apps/are_form/models/exclusion_dates');
+const config = require('./config.js');
 
 settings = Object.assign({}, settings, {
   behaviours: settings.behaviours.map(require),
@@ -27,7 +28,7 @@ exclusionDates.saveExclusionDays()
     app.use((req, res, next) => {
       res.locals.htmlLang = 'en';
       // Set feedback link and phase banner
-      res.locals.feedbackUrl = '/feedback';
+      res.locals.feedbackUrl = config.survey.urls.root;
       next();
     });
 

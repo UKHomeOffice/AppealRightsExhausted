@@ -27,7 +27,7 @@
   "author": "HomeOffice",
   "dependencies": {
     "axios": "^0.26.0",
-    "hof": "20.0.0-beta.26",
+    "hof": "20.0.0-beta.27",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4"
