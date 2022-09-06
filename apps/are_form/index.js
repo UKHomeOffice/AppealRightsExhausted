@@ -9,7 +9,8 @@ module.exports = {
   params: '/:action?',
   pages: {
     '/cookies': 'cookies',
-    '/terms-and-conditions': 'terms'
+    '/terms-and-conditions': 'terms',
+    '/accessibility': 'accessibility'
   },
   steps: {
     '/first-page': {
