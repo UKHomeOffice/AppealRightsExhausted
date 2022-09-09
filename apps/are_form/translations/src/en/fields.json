@@ -1,12 +1,12 @@
 {
   "start-date": {
-    "label": "Promulgation date",
-    "legend": "What is the promulgation date?",
+    "legend": "Promulgation date",
+    "label": "What is the promulgation date?",
     "hint": "For example, 11  6  2015"
   },
   "appeal-stage": {
-    "legend": "What is the appeal stage?",
-    "label": "Choose an appeal stage from the drop down menu",
+    "label": "What is the appeal stage?",
+    "hint": "Choose an appeal stage from the drop down menu",
     "options": {
       "null": "Select..."
     }
@@ -14,14 +14,14 @@
   "country-of-hearing": {
     "legend": "What country was the appeal lodged?",
     "options": {
-      "England & Wales": {
+      "england-and-wales": {
         "label": "England & Wales"
       },
-      "Scotland": {
+      "scotland": {
         "selected": true,
         "label": "Scotland"
       },
-      "Northern Ireland": {
+      "northern-ireland": {
         "label": "Northern Ireland"
       }
     }

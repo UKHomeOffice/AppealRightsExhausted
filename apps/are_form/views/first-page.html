@@ -1,69 +1,21 @@
-{{<layout}}
+{{<partials-page}}
+  {{$page-content}}
+    {{#fields}}
+      {{#renderField}}{{/renderField}}
+    {{/fields}}
+    {{#input-submit}}calculate{{/input-submit}}
+    <table>
+        <div class=related-container>
+    </table>
+    </div>
 
-    {{$journeyHeader}}
-        {{#t}}journey.header{{/t}}
-    {{/journeyHeader}}
-
-    {{$validationSummary}}
-        {{> partials-validation-summary}}
-    {{/validationSummary}}
-
-    {{$propositionHeader}}
-        {{> partials-navigation}}
-    {{/propositionHeader}}
-
-{{$header}}{{#t}}pages.first-page.header{{/t}}{{/header}}
-
-{{$content}}
-    {{<partials-form}}
-    {{$form}}
-        <h1>{{#t}}fields.country-of-hearing.legend{{/t}}</h1>
-        {{#radio-group}}country-of-hearing{{/radio-group}}
-
-        <div class="are-dropdown">
-          <h1>{{#t}}fields.appeal-stage.legend{{/t}}</h1>
-          {{#select}}appeal-stage{{/select}}
-        </div>
-
-        <h1>{{#t}}fields.start-date.label{{/t}}</h1>
-
-        <fieldset id="start-date" class="govuk-form-group">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-                <span class="visuallyhidden">{{#t}}fields.start-date.legend{{/t}}</span>
-            </legend>
-            {{#legend}}
-                <span{{#legendClassName}} class="{{legendClassName}}"{{/legendClassName}}>
-                {{#t}}fields.start-date.legend{{/t}}
-                </span>
-            {{/legend}}
-            {{#errors.start-date}}
-                <span id="start-date-error" class="govuk-error-message">
-                  {{errors.start-date.message}}
-                </span>
-            {{/errors.start-date}}
-            <div class="govuk-date-input {{#errors.start-date}}govuk-form-group--error{{/errors.start-date}}">
-                <p id="start-date-hint" class="govuk-hint">{{#t}}fields.start-date.hint{{/t}}</p>
-                {{#input-date}}start-date{{/input-date}}
-            </div>
-        </fieldset>
-
-        {{#input-submit}}calculate{{/input-submit}}
-        <p>
-
-        <table>
-            <div class=related-container>
-        </table>
-        </div>
-
-        <div id="reference-list" class="header-context">
-           <ol role="guidance" class="group">
-             <li><strong>Guidance</strong></li>
-             <li><a href="{{#url}}/guidance{{/url}}" class="govuk-link">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-             <li><a href="{{#url}}/appealstages{{/url}}" class="govuk-link">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
-             <li><a href="{{#url}}/exclusiondates{{/url}}" class="govuk-link">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
-          </ol>
-        </div>
-        {{/form}}
-    {{/partials-form}}
-{{/content}}
-{{/layout}}
+    <div id="reference-list" class="header-context">
+       <ol role="guidance" class="group">
+         <li><strong>Guidance</strong></li>
+         <li><a href="{{#url}}/guidance{{/url}}" class="govuk-link">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+         <li><a href="{{#url}}/appealstages{{/url}}" class="govuk-link">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+         <li><a href="{{#url}}/exclusiondates{{/url}}" class="govuk-link">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+      </ol>
+    </div>
+  {{/page-content}}
+{{/partials-page}}
