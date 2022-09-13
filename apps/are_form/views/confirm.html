@@ -1,4 +1,7 @@
-{{<layout}}result
+{{<layout}}
+{{$pageTitle}}
+{{#t}}pages.result.header{{/t}}
+{{/pageTitle}}
 {{$journeyHeader}}
 {{#t}}journey.header{{/t}}
 {{/journeyHeader}}
@@ -35,7 +38,7 @@
             <B>{{#t}}pages.result.table.value.{{values.country-of-hearing}}{{/t}}</B>
         </td>
         <td>
-            <a href="first-page/edit#country-of-hearing-{{values.country-of-hearing}}" class="link no-print"
+            <a href="first-page/edit#country-of-hearing-{{values.country-of-hearing}}" class="govuk-link no-print"
               id="country-of-hearing-change">{{#t}}buttons.change{{/t}}</a>
         </td>
     </tr>
@@ -50,7 +53,7 @@
           </td>
           <td>
             <a href="first-page/edit#appeal-stage"
-               class="link no-print" id="appeal-stage-change">{{#t}}buttons.change{{/t}}</a>
+               class="govuk-link no-print" id="appeal-stage-change">{{#t}}buttons.change{{/t}}</a>
           </td>
       </tr>
     <tr>
@@ -62,7 +65,7 @@
             {{/values.input-date-before-exclusion-range}}
         </td>
         <td><a href="first-page/edit#start-date-day"
-               class="link no-print" id="start-date-day-change">{{#t}}buttons.change{{/t}}</a>
+               class="govuk-link no-print" id="start-date-day-change">{{#t}}buttons.change{{/t}}</a>
         </td>
     </tr>
     <tr>
