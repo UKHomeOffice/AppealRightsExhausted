@@ -332,6 +332,13 @@
         "formattedDate": "Monday 29 August 2022"
       },
       {
+        "title": "Bank Holiday for the State Funeral of Queen Elizabeth II",
+        "date": "2022-09-19",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Monday 19 September 2022"
+      },
+      {
         "title": "Boxing Day",
         "date": "2022-12-26",
         "notes": "",
@@ -769,6 +776,13 @@
         "notes": "",
         "bunting": true,
         "formattedDate": "Monday 01 August 2022"
+      },
+      {
+        "title": "Bank Holiday for the State Funeral of Queen Elizabeth II",
+        "date": "2022-09-19",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Monday 19 September 2022"
       },
       {
         "title": "St Andrew’s Day",
@@ -1271,6 +1285,13 @@
         "notes": "",
         "bunting": true,
         "formattedDate": "Monday 29 August 2022"
+      },
+      {
+        "title": "Bank Holiday for the State Funeral of Queen Elizabeth II",
+        "date": "2022-09-19",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Monday 19 September 2022"
       },
       {
         "title": "Boxing Day",

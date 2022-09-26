@@ -695,6 +695,11 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
+bintrees@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bintrees/-/bintrees-1.0.2.tgz#49f896d6e858a4a499df85c38fb399b9aff840f8"
+  integrity sha512-VOMgTMwjAaUG580SXn3LacVgjurrbMme7ZZNYGSSV7mmtY6QQRh0Eg3pwIcntQ77DErK1L0NxkbetjcoXzVwKw==
+
 bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
@@ -2518,10 +2523,10 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hof@^19.14.13:
-  version "19.14.13"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-19.14.13.tgz#fe68039b89e91b1ec115d8acaf4f74a5eb443c1f"
-  integrity sha512-FO7w8FMY8g6M0FFa3GcIsxNOmP+v0gX5DGf/1jagtPTWdoYiyAcUwlfLxWXQhmgOgkeTsAPfgcv2JOESdIU6UA==
+hof@^21.0.0-instrumentation-beta.0:
+  version "21.0.0-instrumentation-beta.0"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-21.0.0-instrumentation-beta.0.tgz#cf7752ea1df6068c61b990a12ec04377668da6b1"
+  integrity sha512-+4Gj+UMFb9XaTHdr4xwAOje2doXychhbReLgY4ktPJY1IrNUSI45KvTsnXutbz9ZJ/KpK2onXXcc8C7KNmGrng==
   dependencies:
     aliasify "^2.1.0"
     bluebird "^3.7.2"
@@ -2567,6 +2572,7 @@ hof@^19.14.13:
     nodemailer-smtp-transport "^2.7.4"
     nodemailer-stub-transport "^1.1.0"
     notifications-node-client "^5.1.1"
+    prom-client "^14.0.1"
     redis "^3.1.2"
     reqres "^3.0.1"
     request "^2.79.0"
@@ -4080,6 +4086,13 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
+prom-client@^14.0.1:
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/prom-client/-/prom-client-14.1.0.tgz#049609859483d900844924df740722c76ed1fdbb"
+  integrity sha512-iFWCchQmi4170omLpFXbzz62SQTmPhtBL35v0qGEVRHKcqIeiexaoYeP0vfZTujxEq3tA87iqOdRbC9svS1B9A==
+  dependencies:
+    tdigest "^0.1.1"
+
 proxy-addr@~2.0.5:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.7.tgz#f19fe69ceab311eeb94b42e70e8c2070f9ba1025"
@@ -4839,6 +4852,13 @@ table@^6.0.9:
     slice-ansi "^4.0.0"
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
+
+tdigest@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tdigest/-/tdigest-0.1.2.tgz#96c64bac4ff10746b910b0e23b515794e12faced"
+  integrity sha512-+G0LLgjjo9BZX2MfdvPfH+MKLCrxlXSYec5DaPYP1fe6Iyhf0/fSmJ0bFiZ1F8BT6cGXl2LpltQptzjXKWEkKA==
+  dependencies:
+    bintrees "1.0.2"
 
 test-exclude@^6.0.0:
   version "6.0.0"
