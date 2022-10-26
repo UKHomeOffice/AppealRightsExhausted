@@ -53,3 +53,12 @@ exclusionDates.saveExclusionDays()
     });
     module.exports = app;
   });
+
+if (process.env.NODE_ENV === 'test') {
+  const app = hof(settings);
+  app.use((req, res, next) => {
+    res.locals.htmlLang = 'en';
+    next();
+  });
+  module.exports = app;
+}
