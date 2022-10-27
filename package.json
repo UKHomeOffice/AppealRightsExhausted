@@ -31,13 +31,13 @@
     "hof": "^20.0.0",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "jquery": "^3.5.1"
   },
   "devDependencies": {
     "chai": "^4.3.4",
     "eslint": "^7.29.0",
     "eslint-config-hof": "^1.2.1",
-    "jquery": "^3.5.1",
     "jsdom": "^16.4.0",
     "mocha": "^9.2.2",
     "nyc": "^15.1.0",
