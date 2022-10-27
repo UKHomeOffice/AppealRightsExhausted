@@ -1,8 +1,9 @@
+/* eslint-disable */
 'use strict';
 
 require('hof/frontend/themes/gov-uk/client-js');
 
-const $ = require('jquery');
+var $ = require('jquery');
 
 if ($('.appeal-summary-class').length) {
   $('.appeal-summary-class').click(function () {
