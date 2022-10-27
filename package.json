@@ -23,7 +23,7 @@
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
     "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
     "build": "hof-build",
-    "postinstall": "npm run build"
+    "postinstall": "yarn run build"
   },
   "author": "HomeOffice",
   "dependencies": {
