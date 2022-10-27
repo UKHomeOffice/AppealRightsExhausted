@@ -13,7 +13,7 @@ const januaryMinusOneYear = moment().year(currentYear - 1).month(1).day(1);
 const januaryMinusOneYearToString = januaryMinusOneYear.year().toString();
 const oneYear = 1;
 
-describe.only('Exclusion Dates', () => {
+describe('Exclusion Dates', () => {
   let englishExclusionDates;
   let irelandExclusionDates;
   let scottishExclusionDates;
