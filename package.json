@@ -18,8 +18,7 @@
     "debug": "node --inspect .",
     "test": "npm run test:lint && npm run test:unit",
     "test:unit": "nyc _mocha \"test/_unit/**/*.spec.js\"",
-    "test:acceptance": "TAGS=\"${TAGS:=@feature}\" npm run test:cucumber",
-    "test:cucumber": "cucumber-js -f @cucumber/pretty-formatter \"test/_features/**/*.feature\" --require test/_features/test.setup.js --require \"test/_features/step_definitions/**/*.js\" --tags $TAGS",
+    "test:acceptance": "cd acceptance_tests/; bundle install && cucumber",
     "test:lint": "eslint . --config ./node_modules/eslint-config-hof/default.js",
     "test:snyk": "snyk config set api=SNYK_TOKEN && snyk test",
     "build": "hof-build",
@@ -34,8 +33,6 @@
     "moment": "^2.29.4"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^7.3.0",
-    "@cucumber/pretty-formatter": "^1.0.0-alpha.1",
     "chai": "^4.3.4",
     "eslint": "^7.29.0",
     "eslint-config-hof": "^1.2.1",
