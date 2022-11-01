@@ -28,7 +28,7 @@ else
   Capybara.run_server = false
   Capybara.default_driver = :poltergeist
   Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {:window_size => [1300,2000]})
+    Capybara::Poltergeist::Driver.new(app, {:window_size => [1600,3000]})
   end
 end
 
