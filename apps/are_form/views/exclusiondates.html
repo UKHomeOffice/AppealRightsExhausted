@@ -1,10 +1,11 @@
 {{<layout}}
 
-{{$header}}
+{{$pageTitle}}
     {{#t}}pages.reference-links.exclusion-dates{{/t}}
-{{/header}}
+{{/pageTitle}}
 
 {{$content}}
+<header><h1>{{#t}}pages.reference-links.exclusion-dates{{/t}}</h1></header>
 <p>
     Exclusion dates are days when the Tribunal is closed for business and
     is unable to process appeals. An ARE date can’t fall on a weekend or
@@ -25,13 +26,14 @@
   <h2>{{#t}}pages.result.exclusion-date-range{{/t}}</h2><P>
   {{values.exclusion-date-range}}
 <p>
-<div>
-    <summary id="which-england-and-wales">
-      <h2 class="exclusion-day-header">
+  <div>
+  <details class="govuk-details" data-module="govuk-details">
+    <summary id="which-england-and-wales" class="govuk-details__summary govuk-!-width-full">
+      <h2 class="exclusion-day-header govuk-details__summary-text">
         <a>{{#t}}pages.reference-links.which-england-and-wales-dates{{/t}}</a>
       </h2>
     </summary>
-    <table id="england-and-wales-dates" class="panel-indent js-hidden">
+    <table id="england-and-wales-dates" class="govuk-details__text">
         {{#values.reference-exclusiondate-list-england-and-wales}}
         <tr>
           <td><td>
@@ -40,15 +42,17 @@
         {{/values.reference-exclusiondate-list-england-and-wales}}
       </tr>
     </table>
+  </details>
 </div>
 
 <div>
-    <summary id="which-scotland">
-      <h2 class="exclusion-day-header">
+  <details class="govuk-details" data-module="govuk-details">
+    <summary id="which-scotland" class="govuk-details__summary govuk-!-width-full">
+      <h2 class="exclusion-day-header govuk-details__summary-text ">
         <a>{{#t}}pages.reference-links.which-scotland-dates{{/t}}</a>
       </h2>
     </summary>
-    <table id="scotland-dates" class="panel-indent js-hidden">
+    <table id="scotland-dates" class="govuk-details__text">
         {{#values.reference-exclusiondate-list-scotland}}
         <tr>
           <td><td>
@@ -57,15 +61,17 @@
         {{/values.reference-exclusiondate-list-scotland}}
       </tr>
     </table>
+    </details>
 </div>
 
 <div>
-    <summary id="which-northern-ireland">
-      <h2 class="exclusion-day-header">
+  <details class="govuk-details" data-module="govuk-details">
+    <summary id="which-northern-ireland" class="govuk-details__summary govuk-!-width-full">
+      <h2 class="exclusion-day-header govuk-details__summary-text">
         <a>{{#t}}pages.reference-links.which-northern-ireland-dates{{/t}}</a>
       </h2>
     </summary>
-    <table id="northern-ireland-dates" class="panel-indent js-hidden">
+    <table id="northern-ireland-dates" class="govuk-details__text">
         {{#values.reference-exclusiondate-list-northern-ireland}}
         <tr>
           <td></td>
@@ -74,6 +80,7 @@
         {{/values.reference-exclusiondate-list-northern-ireland}}
       </tr>
     </table>
+  </details>
 </div>
 
 <table><div class=related-container>
@@ -83,8 +90,8 @@
 <div id="reference-list" class="header-context">
    <ol role="guidance" class="group">
      <li><strong>Guidance</strong></li>
-     <li><a href="{{#url}}/guidance{{/url}}">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-     <li><a href="{{#url}}/appealstages{{/url}}">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
+     <li><a href="{{#url}}/guidance{{/url}}" class="govuk-link">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
+     <li><a href="{{#url}}/appealstages{{/url}}" class="govuk-link">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
   </ol>
 </div>
 

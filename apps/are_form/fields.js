@@ -10,7 +10,7 @@ module.exports = {
     legend: {
       className: 'visuallyhidden'
     },
-    className: ['inline', 'form-group'],
+    className: ['inline', 'govuk-form-group'],
     options: [{
       value: 'england-and-wales',
       label: 'England & Wales'
