@@ -31,8 +31,7 @@
     "hof": "^20.0.0",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4",
-    "jquery": "^3.5.1"
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "chai": "^4.3.4",
