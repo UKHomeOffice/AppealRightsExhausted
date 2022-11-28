@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-describe('test', () => {
+describe('Exclusion dates', () => {
   let testApp;
   let initSession;
   let now;
@@ -85,7 +85,7 @@ describe('test', () => {
     const res = await getUrl(URI);
     const docu = await parseHtml(res);
 
-    const table = docu.find('.old-exclusion-dates-england-and-wales-details');
+    const table = docu.find('#england-and-wales-old-dates');
     const regexThreeYearsAgo = new RegExp(`${threeYearsAgoFormatted}`);
 
     table.html().should.match(regexThreeYearsAgo);
@@ -99,7 +99,7 @@ describe('test', () => {
     const res = await getUrl(URI);
     const docu = await parseHtml(res);
 
-    const table = docu.find('.old-exclusion-dates-scotland-details');
+    const table = docu.find('#scotland-old-dates');
     const regexThreeYearsAgo = new RegExp(`${threeYearsAgoFormatted}`);
 
     table.html().should.match(regexThreeYearsAgo);
@@ -113,7 +113,7 @@ describe('test', () => {
     const res = await getUrl(URI);
     const docu = await parseHtml(res);
 
-    const table = docu.find('.old-exclusion-dates-northern-ireland-details');
+    const table = docu.find('#northern-ireland-old-dates');
     const regexThreeYearsAgo = new RegExp(`${threeYearsAgoFormatted}`);
 
     table.html().should.match(regexThreeYearsAgo);

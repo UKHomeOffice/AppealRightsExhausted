@@ -13,25 +13,29 @@
   however exclusion dates may also need to be factored into the calculation.
 </p>
 
-{{#values.reference-appeal-list}}
-<div>
-  <details class="govuk-details" data-module="govuk-details">
-  <summary id="appeal-summary" title="{{value}}" class="appeal-summary-class govuk-details__summary govuk-!-width-full">
-    <h2 class="appeal-stage-header govuk-details__summary-text">
-      <a name='{{label}}'>{{label}}<a>
-    </h2>
-  </summary>
-  <table id="{{value}}" class="appeal-stages-table js-hidden">
-    <tr><td>Trigger</td><td>{{trigger}}</td></tr>
-    <tr><td>Based on</td><td>{{startDateLabel}}</td> </tr>
-    <tr><td>Rules</td><td>{{rules}}</td> </tr>
-    <tr><td>Rule Number</td><td>{{ruleNumber}}</td> </tr>
-    <tr><td>Time Limit</td><td>{{timeLimit.value}} {{timeLimit.type}}</td> </tr>
-    <tr><td>Admin Allowance</td><td>{{adminAllowance.value}} {{adminAllowance.type}}</td> </tr>
-   </table>
-   </details>
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+  {{#values.reference-appeal-list}}
+  <div class="govuk-accordion__section ">
+    <div class="govuk-accordion__section-header">
+      <h2 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+          <a name='{{label}}'>{{label}}</a>
+        </span>
+      </h2>
+    </div>
+    <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+      <table id="{{value}}" class="govuk-table js-hidden">
+        <tr class="govuk-table__row"><td class="govuk-table__cell">Trigger</td><td>{{trigger}}</td></tr>
+        <tr class="govuk-table__row"><td class="govuk-table__cell">Based on</td><td>{{startDateLabel}}</td> </tr>
+        <tr class="govuk-table__row"><td class="govuk-table__cell">Rules</td><td>{{rules}}</td> </tr>
+        <tr class="govuk-table__row"><td class="govuk-table__cell">Rule Number</td><td>{{ruleNumber}}</td> </tr>
+        <tr class="govuk-table__row"><td class="govuk-table__cell">Time Limit</td><td>{{timeLimit.value}} {{timeLimit.type}}</td> </tr>
+        <tr class="govuk-table__row"><td class="govuk-table__cell ">Admin Allowance</td><td>{{adminAllowance.value}} {{adminAllowance.type}}</td> </tr>
+       </table>
+    </div>
+  </div>
+  {{/values.reference-appeal-list}}
 </div>
-{{/values.reference-appeal-list}}
 
 <table><div class=related-container>
 </table>
