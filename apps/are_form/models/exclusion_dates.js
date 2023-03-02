@@ -14,9 +14,7 @@ const bankHolidaysApi = config.bankHolidaysApi;
 const CHRISTMAS_CLOSURE_DAYS = ['12-27', '12-28', '12-29', '12-30', '12-31'];
 const now = moment();
 const currentYear = now.year();
-const januaryMinusOneYear = moment().year(currentYear - 1).month(1).day(1);
-const januaryMinusOneYearToString = januaryMinusOneYear.year().toString();
-
+const lastYear = moment().year(currentYear - 1).month(1).day(1).year().toString();
 
 module.exports = class ExclusionDates {
   constructor(country) {
@@ -143,12 +141,12 @@ module.exports = class ExclusionDates {
   }
 
   getRecentDates() {
-    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= januaryMinusOneYearToString) {return date.date;}} );
+    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= lastYear) {return date.date;}} );
     return recentDates;
   }
 
   getOldDates() {
-    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date <= januaryMinusOneYearToString)  {return date.date;}} );
+    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date <= lastYear)  {return date.date;}} );
     return oldDates;
   }
 };

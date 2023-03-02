@@ -45,18 +45,18 @@ describe('Exclusion Dates', () => {
   let fakeFutureYear;
 
   const fakeDates = [
-    { date: '2028-01-01', title: 'Excluded Day', formattedDate: 'Friday 01 January 2028', country: 'england-and-wales'},
-    { date: '2028-02-01', title: 'Excluded Day', formattedDate: 'Friday 02 January 2028', country: 'england-and-wales'},
-    { date: '2028-04-05', title: 'Excluded Day', formattedDate: 'Friday 29 December 2030', country: 'england-and-wales'},
-    { date: '2028-04-05', title: 'Excluded Day', formattedDate: 'Friday 29 December 2030', country: 'england-and-wales'},
-    { date: '2028-07-21', title: 'Excluded Day', formattedDate: 'Friday 29 December 2030', country: 'england-and-wales'},
-    { date: '2028-10-25', title: 'Excluded Day', formattedDate: 'Friday 29 December 2030', country: 'england-and-wales'},
-    { title: 'Boxing Day', date: '2028-12-29', notes: '', bunting: true, formattedDate: 'Thursday 26 December 2030',country: 'england-and-wales'},
+    { date: '2028-01-01', title: 'Excluded Day', formattedDate: 'Saturday 01 January 2028', country: 'england-and-wales'},
+    { date: '2028-02-01', title: 'Excluded Day', formattedDate: 'Sunday 02 January 2028', country: 'england-and-wales'},
+    { date: '2028-04-05', title: 'Excluded Day', formattedDate: 'Wednesday 05 April 2028', country: 'england-and-wales'},
+    { date: '2028-04-06', title: 'Excluded Day', formattedDate: 'Thursday 06 December 2028', country: 'england-and-wales'},
+    { date: '2028-07-21', title: 'Excluded Day', formattedDate: 'Friday 21 July 2028', country: 'england-and-wales'},
+    { date: '2028-10-25', title: 'Excluded Day', formattedDate: 'Wednesday 25 October 2028', country: 'england-and-wales'},
+    { title: 'Boxing Day', date: '2028-12-29', notes: '', bunting: true, formattedDate: 'Friday 29 December 2028',country: 'england-and-wales'},
     { title: 'Summer bank holiday', date: '2030-08-26', notes: '', bunting: true, formattedDate: 'Monday 26 August 2030', country: 'england-and-wales'},
     { title: 'St Andrew’s Day', date: '2030-11-30', notes: '', bunting: true, formattedDate: 'Saturday 30 November 2030', country: 'england-and-wales'},
-    { date: '2030-12-02', title: 'Excluded Day', formattedDate: 'Thursday 28 December 2030', country: 'england-and-wales'},
-    { date: '2030-12-29', title: 'Excluded Day', formattedDate: 'Friday 29 December 2030', country: 'england-and-wales'},
-    { date: '2030-12-31', title: 'Excluded Day', formattedDate: 'Friday 29 December 2030', country: 'england-and-wales'}
+    { date: '2030-12-02', title: 'Excluded Day', formattedDate: 'Monday 02 December 2030', country: 'england-and-wales'},
+    { date: '2030-12-29', title: 'Excluded Day', formattedDate: 'Sunday 29 December 2030', country: 'england-and-wales'},
+    { date: '2030-12-31', title: 'Excluded Day', formattedDate: 'Tuesday 31 December 2030', country: 'england-and-wales'}
   ];
 
   before(async () => {

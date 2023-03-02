@@ -31,9 +31,10 @@ describe('Exclusion dates', () => {
 
     header.html().should.match(/What are the exclusion dates?/);
   });
-  it('check future date exists in table after incrementing current year by 1 [eng-wales]', async () => {
-    const oneYearFromNow = now.add(1, 'years');
-    const oneYearFromNowFormatted = oneYearFromNow.format('YYYY');
+
+  it('check current year exists in england-and-wales-dates table', async () => {
+    const now = moment();
+    const currentYearToString = now.year().toString();
 
     const URI = '/exclusiondates';
     await initSession(URI);
@@ -41,14 +42,14 @@ describe('Exclusion dates', () => {
     const docu = await parseHtml(res);
 
     const table = docu.find('#england-and-wales-dates');
-    const regexOneYearFromNow = new RegExp(`${oneYearFromNowFormatted}`);
+    const regexCurrentYear = new RegExp(`${currentYearToString}`);
 
-    table.html().should.match(regexOneYearFromNow);
+    table.html().should.match(regexCurrentYear);
   });
 
-  it('check future date exists in table after incrementing current year by 1 [scotland]', async () => {
-    const oneYearFromNow = now.add(1, 'years');
-    const oneYearFromNowFormatted = oneYearFromNow.format('YYYY');
+  it('check current year exists in scotland-dates table', async () => {
+    const now = moment();
+    const currentYearToString = now.year().toString();
 
     const URI = '/exclusiondates';
     await initSession(URI);
@@ -56,14 +57,14 @@ describe('Exclusion dates', () => {
     const docu = await parseHtml(res);
 
     const table = docu.find('#scotland-dates');
-    const regexOneYearFromNow = new RegExp(`${oneYearFromNowFormatted}`);
+    const regexCurrentYear = new RegExp(`${currentYearToString}`);
 
-    table.html().should.match(regexOneYearFromNow);
+    table.html().should.match(regexCurrentYear);
   });
 
-  it('check future date exists in table after incrementing current year by 1 [n-ireland]', async () => {
-    const oneYearFromNow = now.add(1, 'years');
-    const oneYearFromNowFormatted = oneYearFromNow.format('YYYY');
+  it('check current year exists in northern-ireland-dates table', async () => {
+    const now = moment();
+    const currentYearToString = now.year().toString();
 
     const URI = '/exclusiondates';
     await initSession(URI);
@@ -71,14 +72,111 @@ describe('Exclusion dates', () => {
     const docu = await parseHtml(res);
 
     const table = docu.find('#northern-ireland-dates');
-    const regexOneYearFromNow = new RegExp(`${oneYearFromNowFormatted}`);
+    const regexCurrentYear = new RegExp(`${currentYearToString}`);
 
-    table.html().should.match(regexOneYearFromNow);
+    table.html().should.match(regexCurrentYear);
   });
 
-  it('check past date exists in old exclusion dates table by subtracting current year by 3 [eng-wales]', async () => {
-    const threeYearsAgo = now.subtract(3, 'years');
-    const threeYearsAgoFormatted = threeYearsAgo.format('YYYY');
+  it('check last year exists in england-and-wales-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const lastYear = moment().year(currentYear - 1).month(1).day(1).year().toString();
+
+    const URI = '/exclusiondates';
+    await initSession(URI);
+    const res = await getUrl(URI);
+    const docu = await parseHtml(res);
+
+    const table = docu.find('#england-and-wales-dates');
+    const regexLastYear = new RegExp(`${lastYear}`);
+
+    table.html().should.match(regexLastYear);
+  });
+
+  it('check last year exists in scotland-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const lastYear = moment().year(currentYear - 1).month(1).day(1).year().toString();
+
+    const URI = '/exclusiondates';
+    await initSession(URI);
+    const res = await getUrl(URI);
+    const docu = await parseHtml(res);
+
+    const table = docu.find('#scotland-dates');
+    const regexLastYear = new RegExp(`${lastYear}`);
+
+    table.html().should.match(regexLastYear);
+  });
+
+  it('check last year exists in northern-ireland-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const lastYear = moment().year(currentYear - 1).month(1).day(1).year().toString();
+
+    const URI = '/exclusiondates';
+    await initSession(URI);
+    const res = await getUrl(URI);
+    const docu = await parseHtml(res);
+
+    const table = docu.find('#northern-ireland-dates');
+    const regexLastYear = new RegExp(`${lastYear}`);
+
+    table.html().should.match(regexLastYear);
+  });
+
+  it('check year before last year should NOT exist in england-and-wales-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const yearBeforeLastYear = moment().year(currentYear - 2).month(1).day(1).year().toString();
+
+    const URI = '/exclusiondates';
+    await initSession(URI);
+    const res = await getUrl(URI);
+    const docu = await parseHtml(res);
+
+    const table = docu.find('#england-and-wales-dates');
+    const regexYearBeforeLastYear = new RegExp(`${yearBeforeLastYear}`);
+
+    table.html().should.not.match(regexYearBeforeLastYear);
+  });
+
+  it('check year before last year should NOT exist in scotland-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const yearBeforeLastYear = moment().year(currentYear - 2).month(1).day(1).year().toString();
+
+    const URI = '/exclusiondates';
+    await initSession(URI);
+    const res = await getUrl(URI);
+    const docu = await parseHtml(res);
+
+    const table = docu.find('#scotland-dates');
+    const regexYearBeforeLastYear = new RegExp(`${yearBeforeLastYear}`);
+
+    table.html().should.not.match(regexYearBeforeLastYear);
+  });
+
+  it('check year before last year should NOT exist in northern-ireland-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const yearBeforeLastYear = moment().year(currentYear - 2).month(1).day(1).year().toString();
+
+    const URI = '/exclusiondates';
+    await initSession(URI);
+    const res = await getUrl(URI);
+    const docu = await parseHtml(res);
+
+    const table = docu.find('#northern-ireland-dates');
+    const regexYearBeforeLastYear = new RegExp(`${yearBeforeLastYear}`);
+
+    table.html().should.not.match(regexYearBeforeLastYear);
+  });
+
+  it('check year before last year should exist in england-and-wales-old-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const yearBeforeLastYear = moment().year(currentYear - 2).month(1).day(1).year().toString();
 
     const URI = '/exclusiondates';
     await initSession(URI);
@@ -86,13 +184,15 @@ describe('Exclusion dates', () => {
     const docu = await parseHtml(res);
 
     const table = docu.find('#england-and-wales-old-dates');
-    const regexThreeYearsAgo = new RegExp(`${threeYearsAgoFormatted}`);
+    const regexYearBeforeLastYear = new RegExp(`${yearBeforeLastYear}`);
 
-    table.html().should.match(regexThreeYearsAgo);
+    table.html().should.match(regexYearBeforeLastYear);
   });
-  it('check past date exists in old exclusion dates table by subtracting current year by 3 [scotland]', async () => {
-    const threeYearsAgo = now.subtract(3, 'years');
-    const threeYearsAgoFormatted = threeYearsAgo.format('YYYY');
+
+  it('check year before last year should exist in scotland-old-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const yearBeforeLastYear = moment().year(currentYear - 2).month(1).day(1).year().toString();
 
     const URI = '/exclusiondates';
     await initSession(URI);
@@ -100,13 +200,15 @@ describe('Exclusion dates', () => {
     const docu = await parseHtml(res);
 
     const table = docu.find('#scotland-old-dates');
-    const regexThreeYearsAgo = new RegExp(`${threeYearsAgoFormatted}`);
+    const regexYearBeforeLastYear = new RegExp(`${yearBeforeLastYear}`);
 
-    table.html().should.match(regexThreeYearsAgo);
+    table.html().should.match(regexYearBeforeLastYear);
   });
-  it('check past date exists in old exclusion dates table by subtracting current year by 3 [n-ireland]', async () => {
-    const threeYearsAgo = now.subtract(3, 'years');
-    const threeYearsAgoFormatted = threeYearsAgo.format('YYYY');
+
+  it('check year before last year should exist in northern-ireland-old-dates table', async () => {
+    const now = moment();
+    const currentYear = now.year();
+    const yearBeforeLastYear = moment().year(currentYear - 2).month(1).day(1).year().toString();
 
     const URI = '/exclusiondates';
     await initSession(URI);
@@ -114,8 +216,8 @@ describe('Exclusion dates', () => {
     const docu = await parseHtml(res);
 
     const table = docu.find('#northern-ireland-old-dates');
-    const regexThreeYearsAgo = new RegExp(`${threeYearsAgoFormatted}`);
+    const regexYearBeforeLastYear = new RegExp(`${yearBeforeLastYear}`);
 
-    table.html().should.match(regexThreeYearsAgo);
+    table.html().should.match(regexYearBeforeLastYear);
   });
 });
