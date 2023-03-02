@@ -3,7 +3,6 @@ const moment = require('moment');
 describe('Exclusion dates', () => {
   let testApp;
   let initSession;
-  let now;
 
   const SUBAPP = '';
 
