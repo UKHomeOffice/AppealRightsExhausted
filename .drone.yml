@@ -25,7 +25,7 @@ trigger:
 
 linting: &linting
   pull: if-not-exists
-  image: node:14
+  image: node:18
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
@@ -33,7 +33,7 @@ linting: &linting
 
 unit_tests: &unit_tests
   pull: if-not-exists
-  image: node:14
+  image: node:18
   environment:
     NOTIFY_KEY: USE_MOCK
   commands:
@@ -68,7 +68,7 @@ steps:
 
   - name: setup_deploy
     pull: if-not-exists
-    image: node:14
+    image: node:18
     environment:
       NOTIFY_KEY: USE_MOCK
     commands:
@@ -149,7 +149,7 @@ steps:
 
   - name: setup_branch
     pull: if-not-exists
-    image: node:14
+    image: node:18
     environment:
       NOTIFY_KEY: USE_MOCK
     commands:
@@ -221,7 +221,7 @@ steps:
   # Snyk & Anchore security scans which run after branch deployment to prevent blocking of PR UAT tests
   - name: snyk_scan
     pull: if-not-exists
-    image: node:14
+    image: node:18
     environment:
       SNYK_TOKEN:
         from_secret: snyk_token
@@ -450,7 +450,7 @@ steps:
 
   - name: cron_snyk_scan
     pull: if-not-exists
-    image: node:14
+    image: node:18
     environment:
       SNYK_TOKEN:
         from_secret: snyk_token
