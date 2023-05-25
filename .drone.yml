@@ -41,7 +41,7 @@ unit_tests: &unit_tests
 
 sonar_scanner: &sonar_scanner
   pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/sonar-scanner-node:549b75f593f28da1c4a0a6f79877ec69d3b21037
+  image: quay.io/ukhomeofficedigital/gitlab-arun-test:sonar-scanner-node-v18.12.1
   commands:
     - sonar-scanner -Dproject.settings=./sonar-project.properties
 
