@@ -27,7 +27,6 @@ const exclusionDates = new ExclusionDates();
 exclusionDates.saveExclusionDays()
   .then(() => {
     const app = hof(settings);
-    console.log(process.env.GA_4_TAG)
 
     app.use((req, res, next) => {
       res.locals.htmlLang = 'en';
