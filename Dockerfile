@@ -1,5 +1,7 @@
 FROM node:14-alpine@sha256:5c33bc6f021453ae2e393e6e20650a4df0a4737b1882d389f17069dc1933fdc5
 
+ENV GA_4_TAG=G-6K6MJX0GQ1
+
 USER root
 
 # Update packages as a result of Anchore security vulnerability checks

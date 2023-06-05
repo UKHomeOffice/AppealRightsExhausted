@@ -10,5 +10,6 @@ module.exports = {
     urls: {
       root: 'https://eforms.homeoffice.gov.uk/outreach/Feedback.ofml'
     }
-  }
+  },
+  GA_TAG: process.env.GA_4_TAG
 };
