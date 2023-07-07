@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, consistent-return, max-len */
 
 'use strict';
 
@@ -12,6 +12,9 @@ const displayDateFormat = config.displayDateFormat;
 const bankHolidaysApi = config.bankHolidaysApi;
 
 const CHRISTMAS_CLOSURE_DAYS = ['12-27', '12-28', '12-29', '12-30', '12-31'];
+const now = moment();
+const currentYear = now.year();
+const lastYear = moment().year(currentYear - 1).month(0).date(1).format('YYYY-MM-DD');
 
 module.exports = class ExclusionDates {
   constructor(country) {
@@ -63,7 +66,6 @@ module.exports = class ExclusionDates {
 
       const allDatesByCountry = [].concat(dates.additionalExclusionDates, dates[this.country].events);
       this.excludedDates = _.sortBy(allDatesByCountry, 'date');
-
       return this.excludedDates;
     } catch (e) {
       return console.error(`Bank Holidays File Read Failure: ${e.message}`);
@@ -136,5 +138,15 @@ module.exports = class ExclusionDates {
 
   isWorkingDay(date) {
     return !this.isWeekend(date) && !this.isExclusionDay(date);
+  }
+
+  getRecentDates() {
+    const recentDates = _.filter(this.excludedDates, function (date) {if (date.date >= lastYear) {return date.date;}} );
+    return recentDates;
+  }
+
+  getOldDates() {
+    const oldDates = _.filter(this.excludedDates, function (date) { if (date.date < lastYear)  {return date.date;}} );
+    return oldDates;
   }
 };

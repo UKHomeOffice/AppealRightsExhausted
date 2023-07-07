@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, no-shadow */
 
 'use strict';
 
@@ -36,32 +36,35 @@ setInterval(() => {
 // overwrite exclusion_days.json with latest API data and start the application
 const exclusionDates = new ExclusionDates();
 
-exclusionDates.saveExclusionDays()
-  .then(() => {
-    const app = hof(settings);
+try {
+  exclusionDates.saveExclusionDays();
+} catch (e) {
+  console.log(e);
+}
+const app = hof(settings);
 
-    app.use((req, res, next) => {
-      res.locals.htmlLang = 'en';
-      // Set feedback link and phase banner
-      res.locals.feedbackUrl = config.survey.urls.root;
-      next();
-    });
+app.use((req, res, next) => {
+  res.locals.htmlLang = 'en';
+  // Set feedback link and phase banner
+  res.locals.feedbackUrl = config.survey.urls.root;
+  next();
 
-    // Set feedback and phase banner on cookies, accessibility and terms pages
-    // along with the getTerms: false, getCookies: false, getAccessibility: false config
-    app.use('/terms-and-conditions', (req, res, next) => {
-      res.locals = Object.assign({}, res.locals, req.translate('terms'));
-      next();
-    });
-
-    app.use('/cookies', (req, res, next) => {
-      res.locals = Object.assign({}, res.locals, req.translate('cookies'));
-      next();
-    });
-
-    app.use('/accessibility', (req, res, next) => {
-      res.locals = Object.assign({}, res.locals, req.translate('accessibility'));
-      next();
-    });
-    module.exports = app;
+  // Set feedback and phase banner on cookies, accessibility and terms pages
+  // along with the getTerms: false, getCookies: false, getAccessibility: false config
+  app.use('/terms-and-conditions', (req, res, next) => {
+    res.locals = Object.assign({}, res.locals, req.translate('terms'));
+    next();
   });
+
+  app.use('/cookies', (req, res, next) => {
+    res.locals = Object.assign({}, res.locals, req.translate('cookies'));
+    next();
+  });
+
+  app.use('/accessibility', (req, res, next) => {
+    res.locals = Object.assign({}, res.locals, req.translate('accessibility'));
+    next();
+  });
+});
+
+module.exports = app;

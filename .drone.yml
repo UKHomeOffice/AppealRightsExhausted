@@ -45,6 +45,14 @@ sonar_scanner: &sonar_scanner
   commands:
     - sonar-scanner -Dproject.settings=./sonar-project.properties
 
+ui_integration_tests: &ui_integration_tests
+  pull: if-not-exists
+  image: node:14
+  environment:
+    NOTIFY_STUB: true
+  commands:
+    - yarn run test:ui-integration
+
 acceptance_tests: &acceptance_tests
   pull: if-not-exists
   image: mcr.microsoft.com/playwright:v1.12.3-focal
@@ -98,6 +106,14 @@ steps:
 
   - name: sonar_scanner_deploy
     <<: *sonar_scanner
+    when:
+      branch:
+        include:
+          - master
+      event: push
+
+  - name: ui_integration_tests_deploy
+    <<: *ui_integration_tests
     when:
       branch:
         include:
@@ -182,6 +198,15 @@ steps:
 
   - name: sonar_scanner_branch
     <<: *sonar_scanner
+    when:
+      branch:
+        include:
+          - master
+          - feature/*
+      event: pull_request
+
+  - name: ui_integration_tests_branch
+    <<: *ui_integration_tests
     when:
       branch:
         include:
