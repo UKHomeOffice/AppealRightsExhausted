@@ -131,6 +131,26 @@ steps:
       branch: master
       event: [push, pull_request]
 
+# Trivy Security Scannner
+  - name: scan-image
+    pull: always
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    resources:
+      limits:
+        cpu: 1000
+        memory: 1024Mi
+    environment:
+      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+      SEVERITY: MEDIUM,HIGH,CRITICAL
+      FAIL_ON_DETECTION: false
+      IGNORE_UNFIXED: true
+      ALLOW_CVE_LIST_FILE: hof-services-config/Appeal_Rights_Exhausted/trivy-cve-exceptions.txt
+    when:
+      event:
+      - pull_request
+      - push
+      - tag
+
   # Deploy to pull request UAT environment
   - name: deploy_to_branch
     pull: if-not-exists
@@ -218,7 +238,7 @@ steps:
           - feature/*
       event: pull_request
 
-  # Snyk & Anchore security scans which run after branch deployment to prevent blocking of PR UAT tests
+  # Snyk security scans which run after branch deployment to prevent blocking of PR UAT tests
   - name: snyk_scan
     pull: if-not-exists
     image: node:18
@@ -234,17 +254,6 @@ steps:
           - feature/*
       event: pull_request
 
-  - name: anchore_scan
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-    pull: always
-    environment:
-      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
-      LOCAL_IMAGE: true
-      TOLERATE: medium
-      WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
-    when:
-      branch: master
-      event: pull_request
 
   # # TEST Deploy to Master UAT environment
   # - name: TEST_deploy_to_uat
@@ -423,7 +432,7 @@ steps:
       cron: tear_down_pr_envs
       event: cron
 
-  # CRON job steps that runs security scans using Snyk & Anchore
+  # CRON job steps that runs security scans using Snyk & Trivy
   - name: cron_clone_repos
     image: alpine/git
     environment:
@@ -462,17 +471,19 @@ steps:
       cron: security_scans
       event: cron
 
-  - name: cron_anchore_scan
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+  - name: cron_trivy_scan
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
     environment:
-      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
-      LOCAL_IMAGE: true
-      TOLERATE: medium
-      WHITELIST_FILE: hof-services-config/Appeal_Rights_Exhausted/anchore-cve-exceptions.txt
+        IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+        SEVERITY: MEDIUM,HIGH,CRITICAL
+        FAIL_ON_DETECTION: false
+        IGNORE_UNFIXED: true
+        ALLOW_CVE_LIST_FILE: hof-services-config/Appeal_Rights_Exhausted/trivy-cve-exceptions.txt
     when:
       cron: security_scans
       event: cron
+ 
 
   # Slack notification upon a CRON job fail
   - name: cron_notify_slack_tear_down_pr_envs
@@ -512,13 +523,6 @@ steps:
 services:
   - name: docker
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-
-  # Anchore scanning needs background service to run
-  - name: anchore-submission-server
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-    pull: always
-    commands:
-      - /run.sh server
 
   # Redis session setup in background so integration tests can run
   - name: session
