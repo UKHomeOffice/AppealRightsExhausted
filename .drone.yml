@@ -3,6 +3,10 @@ kind: pipeline
 name: default
 type: kubernetes
 
+platform:
+  os: linux
+  arch: amd64
+
 environment:
   APP_NAME: appeal-rights-exhausted
   PROD_ENV: are
