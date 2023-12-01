@@ -97,7 +97,7 @@ spec:
 
         - name: nginx-proxy
           # nginx-proxy-govuk:v4
-          image: quay.io/ukhomeofficedigital/fedora-nginx-proxy-govuk:v1.24.0
+          image: quay.io/ukhomeofficedigital/fedora-nginx-proxy-govuk@sha256:d9119b603cf6c740ed0953b0041e674571530f62d72202ec593355518096f561
           resources:
             requests:
               memory: 10Mi
