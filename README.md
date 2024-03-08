@@ -9,11 +9,11 @@ Install Node version manager:
 
 [NVM](https://github.com/nvm-sh/nvm)
 
-use Node version 14 or above:
+use Node version 20 or above:
 
 ```bash
-nvm install 14
-nvm use 14
+nvm install 20
+nvm use 20
 ```
 
 Install yarn and run yarn:

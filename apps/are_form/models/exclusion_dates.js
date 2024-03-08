@@ -3,7 +3,7 @@
 'use strict';
 
 const _ = require('lodash');
-const axios = require('axios');
+const Model = require('hof').model;
 const fs = require('fs').promises;
 const moment = require('moment');
 const config = require('../../../config');
@@ -82,11 +82,16 @@ module.exports = class ExclusionDates {
 
   async saveExclusionDays() {
     try {
-      const response = await axios.get(bankHolidaysApi);
+      const model = new Model();
+      const params = {
+        url: bankHolidaysApi,
+        method: 'GET'
+      };
+      const response = await model._request(params);
       const data = response.data;
 
       if (!_.get(data, `[${this.country}].events`)) {
-        throw new Error('Failed to retrieve data from Bank Holidays API');
+        return Promise.reject(new Error('Failed to retrieve data from Bank Holidays API'));
       }
 
       this.addFormattedDates(data);
@@ -96,11 +101,7 @@ module.exports = class ExclusionDates {
 
       const fileName = `${__dirname}/../data/exclusion_days.json`;
 
-      return await fs.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' }, err => {
-        if (err) {
-          console.error(`Bank Holidays WriteFile Error: ${err}`);
-        }
-      });
+      return await fs.promises.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' });
     } catch (e) {
       console.error(`Bank Holidays API Failure: ${e.message}`);
       return e;
