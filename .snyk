@@ -2,138 +2,16 @@
 version: v1.19.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-   SNYK-JS-USERAGENT-174737:
-     - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-REQUEST-1314897:
-     - '*':
-        reason: Need to replace request in HOF
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-ASYNC-7414156:
+  SNYK-JS-MARKDOWNIT-6483324:
+    - hof > markdown-it:
+      reason: Need to update markdown-it in HOF to version 13.0.2
+      expires: '2025-01-16T00:00:00.000Z'
+  SNYK-JS-INFLIGHT-6095116:
     - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-BROWSERIFYSIGN-6037026:
+        reason: No upgrade or patch available yet
+        expires: '2025-01-16T00:00:00.000Z'
+  SNYK-JS-ELLIPTIC-8187303:
     - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-EXPRESS-6474509:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-FOLLOWREDIRECTS-6141137:
-    - '*':
-        reason: axios needs to be upgraded in HOF to latest version
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-FOLLOWREDIRECTS-6444610:
-    - '*':
-        reason: axios needs to be upgraded in HOF to latest version
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-INFLIGHT-6095116:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-REQUEST-3361831:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-TOUGHCOOKIE-5672873:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-UNDERSCORE-1080984:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-AXIOS-6124857:
-    - '*':
-        reason: notifications-node-client needs to be upgraded in HOF to latest version
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-AXIOS-6144788:
-    - '*':
-        reason: Will be upgraded in HOF
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-AXIOS-6032459:
-    - '*':
-        reason: notifications-node-client needs to be upgraded in HOF to latest version
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-BRACES-6838727:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-BODYPARSER-7926860:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-MARKDOWNIT-6483324:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-ELLIPTIC-7577916:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-ELLIPTIC-7577917:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-ELLIPTIC-7577918:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-EXPRESS-7926867:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-     
-   SNYK-JS-PATHTOREGEXP-7925106:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-SEMVER-3247795:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-SEND-7926862:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-     
-   SNYK-JS-SERVESTATIC-7926865:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-
-   SNYK-JS-XML2JS-5414874:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
-     
-   SNYK-JS-NODEMAILER-6219989:
-    - '*':
-        reason: No available patch currently in circulation
-        expires: '2025-01-18T14:58:46.388Z'
+        reason: No direct upgrade or patch availanle
+        expires: '2025-01-16T17:02:21.865Z'
 patch: {}

@@ -9,7 +9,7 @@
     "url": "https://github.com/UKHomeOffice/AppealRightsExhausted/"
   },
   "engines": {
-    "node": ">=18.12.1"
+    "node": ">=18.12.1 <21.0.0"
   },
   "scripts": {
     "start": "node server.js",
@@ -26,8 +26,7 @@
   },
   "author": "HomeOffice",
   "dependencies": {
-    "axios": "^0.26.0",
-    "hof": "^20.4.0",
+    "hof": "~21.1.0",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4"
