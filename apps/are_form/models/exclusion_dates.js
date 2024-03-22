@@ -3,7 +3,7 @@
 'use strict';
 
 const _ = require('lodash');
-const axios = require('axios');
+const Model = require('hof').model;
 const fs = require('fs').promises;
 const moment = require('moment');
 const config = require('../../../config');
@@ -82,7 +82,12 @@ module.exports = class ExclusionDates {
 
   async saveExclusionDays() {
     try {
-      const response = await axios.get(bankHolidaysApi);
+      const model = new Model();
+      const params = {
+        url: bankHolidaysApi,
+        method: 'GET'
+      };
+      const response = await model._request(params);
       const data = response.data;
 
       if (!_.get(data, `[${this.country}].events`)) {
