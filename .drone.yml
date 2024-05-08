@@ -151,6 +151,26 @@ steps:
       - push
       - tag
 
+# Trivy Security Scannner
+  - name: scan-image
+    pull: always
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    resources:
+      limits:
+        cpu: 1000
+        memory: 1024Mi
+    environment:
+      IMAGE_NAME: node:18-alpine@sha256:2322b1bb3917b313f2e9308395aa5c39d51b91cc92a5d4d5be6d0451fcfb4d24
+      SEVERITY: MEDIUM,HIGH,CRITICAL
+      FAIL_ON_DETECTION: false
+      IGNORE_UNFIXED: true
+      ALLOW_CVE_LIST_FILE: hof-services-config/Appeal_Rights_Exhausted/trivy-cve-exceptions.txt
+    when:
+      event:
+      - pull_request
+      - push
+      - tag
+  
   # Deploy to pull request UAT environment
   - name: deploy_to_branch
     pull: if-not-exists
