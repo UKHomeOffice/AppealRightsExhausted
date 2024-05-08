@@ -130,10 +130,12 @@ steps:
     when:
       branch: master
       event: [push, pull_request]
+    depends_on:
+      - scan-dependencies-in-package.json-file
+      - scan-base-image-in-docker-file
 
 # Trivy Security Scannner
   - name: scan-dependencies-in-package.json-file
-    group: trivy
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     resources:
@@ -154,7 +156,6 @@ steps:
 
 # Trivy Security Scannner
   - name: scan-base-image-in-docker-file
-    group: trivy
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     resources:
