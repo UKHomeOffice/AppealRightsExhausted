@@ -17,6 +17,8 @@ environment:
   NON_PROD_AVAILABILITY: Mon-Fri 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
   NOTIFY_STUB: stub
+  PACKAGES: are-app:${DRONE_COMMIT_SHA}
+  BASE_IMAGE: node:18-alpine@sha256:2322b1bb3917b313f2e9308395aa5c39d51b91cc92a5d4d5be6d0451fcfb4d24
 
 trigger:
   branch:
@@ -140,7 +142,7 @@ steps:
         cpu: 1000
         memory: 1024Mi
     environment:
-      IMAGE_NAME: [are-app:${DRONE_COMMIT_SHA}, node:18-alpine@sha256:2322b1bb3917b313f2e9308395aa5c39d51b91cc92a5d4d5be6d0451fcfb4d24]
+      IMAGE_NAME: [$$PACKAGES, $$BASE_IMAGE]
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
