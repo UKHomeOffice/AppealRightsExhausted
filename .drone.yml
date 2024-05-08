@@ -130,9 +130,9 @@ steps:
     depends_on:
     - scan-dependencies-in-package.json-file
     - scan-base-image-in-docker-file
-    when:
-      branch: master
-      event: [push, pull_request]
+    #when:
+    #  branch: master
+    #  event: [push, pull_request]
 
 # Trivy Security Scannner
   - name: scan-dependencies-in-package.json-file
