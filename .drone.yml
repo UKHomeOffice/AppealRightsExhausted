@@ -142,7 +142,9 @@ steps:
         cpu: 1000
         memory: 1024Mi
     environment:
-      IMAGE_NAME: [$$PACKAGES, $$BASE_IMAGE]
+      IMAGE_NAME: 
+      - $$PACKAGES 
+      - $$BASE_IMAGE
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
