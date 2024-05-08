@@ -132,7 +132,7 @@ steps:
       event: [push, pull_request]
 
 # Trivy Security Scannner
-  - name: scan-image
+  - name: scan-dependencies-in-package.json-file
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     resources:
@@ -152,7 +152,7 @@ steps:
       - tag
 
 # Trivy Security Scannner
-  - name: scan-image
+  - name: scan-base-image-in-docker-file
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     resources:
