@@ -175,6 +175,7 @@ steps:
     commands:
       - yarn install --frozen-lockfile
       - yarn run postinstall
+      - yarn list
     when:
       branch:
         include:
