@@ -2,42 +2,88 @@
 version: v1.19.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-JS-REQUEST-1314897:
-    - hof > request:
+   SNYK-JS-USERAGENT-174737:
+     - '*':
+        reason: No available patch currently in circulation
+        expires: '2021-11-01T17:02:21.865Z'
+
+   SNYK-JS-REQUEST-1314897:
+     - '*':
         reason: Need to replace request in HOF
-        expires: '2023-01-18T14:58:46.388Z'
-  SNYK-JS-CACHEDPATHRELATIVE-2342653:
-    - hof > browserify > cached-path-relative:
-        reason: HOF Request module being replaced
-        expires: '2022-10-21T14:03:14.260Z'
-    - hof > browserify > module-deps > cached-path-relative:
-        reason: HOF Request module being replaced
-        expires: '2022-10-21T14:03:14.260Z'
-  SNYK-JS-JSONSCHEMA-1920922:
-    - hof > request > http-signature > jsprim > json-schema:
-        reason: HOF Request module being replaced
-        expires: '2022-10-21T14:03:14.260Z'
-  SNYK-JS-SHELLQUOTE-1766506:
-    - hof > browserify > shell-quote:
-        reason: HOF Request module being replaced
-        expires: '2022-10-21T14:03:14.260Z'
-  SNYK-JS-MINIMIST-2429795:
-    - hof > minimist:
-        reason: None given
-        expires: '2022-10-21T14:03:14.260Z'
-    - hof > mkdirp > minimist:
-        reason: None given
-        expires: '2022-10-21T14:03:14.260Z'
-    - hof > browserify > subarg > minimist:
-        reason: None given
-        expires: '2022-10-21T14:03:14.261Z'
-    - hof > browserify > deps-sort > subarg > minimist:
-        reason: None given
-        expires: '2022-10-21T14:03:14.261Z'
-    - hof > browserify > module-deps > subarg > minimist:
-        reason: None given
-        expires: '2022-10-21T14:03:14.261Z'
-    - hof > browserify > module-deps > detective > minimist:
-        reason: None given
-        expires: '2022-10-21T14:03:14.261Z'
+        expires: '2022-09-18T14:58:46.388Z'
+
+   SNYK-JS-ASYNC-7414156:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-BROWSERIFYSIGN-6037026:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-EXPRESS-6474509:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-FOLLOWREDIRECTS-6141137:
+    - '*':
+        reason: axios needs to be upgraded in HOF to latest version
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-FOLLOWREDIRECTS-6444610:
+    - '*':
+        reason: axios needs to be upgraded in HOF to latest version
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-INFLIGHT-6095116:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2025-01-18T14:58:46.388Z'
+
+   SNYK-JS-REQUEST-3361831:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2025-01-18T14:58:46.388Z'
+
+   SNYK-JS-TOUGHCOOKIE-5672873:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2025-01-18T14:58:46.388Z'
+
+   SNYK-JS-UNDERSCORE-1080984:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-AXIOS-6124857:
+    - '*':
+        reason: notifications-node-client needs to be upgraded in HOF to latest version
+        expires: '2025-01-18T14:58:46.388Z'
+
+   SNYK-JS-AXIOS-6144788:
+    - '*':
+        reason: Will be upgraded in HOF
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-AXIOS-6032459:
+    - '*':
+        reason: notifications-node-client needs to be upgraded in HOF to latest version
+        expires: '2025-01-18T14:58:46.388Z'
+
+   SNYK-JS-BRACES-6838727:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2024-09-18T14:58:46.388Z'
+
+   SNYK-JS-MARKDOWNIT-6483324:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2025-01-18T14:58:46.388Z'
+
+   SNYK-JS-NODEMAILER-6219989:
+    - '*':
+        reason: No available patch currently in circulation
+        expires: '2024-09-18T14:58:46.388Z'
 patch: {}
