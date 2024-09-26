@@ -28,7 +28,7 @@
   "dependencies": {
     "axios": "^0.26.0",
     "hof": "^20.4.0",
-    "jquery": "^3.6.0",
+    "jquery": "^3.7.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4"
   },
