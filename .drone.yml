@@ -10,8 +10,8 @@ environment:
   UAT_ENV: are-uat
   BRANCH_ENV: are-branch
   PRODUCTION_URL: www.appeal-rights-exhausted.homeoffice.gov.uk
-  IMAGE_URL: quay.io/ukhomeofficedigital
-  IMAGE_REPO: are-app
+  IMAGE_URL: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
+  IMAGE_REPO: so/hof-ecr
   GIT_REPO: UKHomeOffice/AppealRightsExhausted
   HOF_CONFIG: hof-services-config/Appeal_Rights_Exhausted
   NON_PROD_AVAILABILITY: Mon-Fri 08:00-23:00 Europe/London
@@ -116,20 +116,41 @@ steps:
       branch: master
       event: [push, pull_request]
 
-  - name: image_to_quay
-    pull: if-not-exists
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: DOCKER_PASSWORD
-    commands:
-    - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
-    - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
-    - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
-    - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+  # THE BELOW IS BEING REPLACED BY ECR
+  # - name: image_to_quay
+  #   pull: if-not-exists
+  #   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
+  #   environment:
+  #     DOCKER_PASSWORD:
+  #       from_secret: DOCKER_PASSWORD
+  #   commands:
+  #   - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+  #   - docker login -u="ukhomeofficedigital+are" -p=$${DOCKER_PASSWORD} quay.io
+  #   - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+  #   - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+  #   when:
+  #     branch: master
+  #     event: [push, pull_request]
+
+  - name: image_to_ecr
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      region: eu-west-2
+      repo: so/hof-ecr
+      registry: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
+      tags:
+        - ${DRONE_COMMIT_SHA}
     when:
-      branch: master
+      branch:
+        include:
+          - master
+          - feature/*
       event: [push, pull_request]
+
 
 # Trivy Security Scannner
   - name: scan-image
