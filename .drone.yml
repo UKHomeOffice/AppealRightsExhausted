@@ -13,7 +13,7 @@ environment:
   IMAGE_URL: quay.io/ukhomeofficedigital
   IMAGE_REPO: are-app
   GIT_REPO: UKHomeOffice/AppealRightsExhausted
-  HOF_CONFIG: hof-services-config/Appeal_Rights_Exhausted
+  HOF_CONFIG: hof-services-config/Appeal_Rights_Exhausted/HOFF-999
   NON_PROD_AVAILABILITY: Mon-Fri 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
   NOTIFY_STUB: stub
