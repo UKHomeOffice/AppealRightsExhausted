@@ -2,6 +2,7 @@
 A calculator to determine Appeal Rights Exhausted
 
 # Setup
+# Comment to trigger a build to test nginx ratew limiter on the nginx deployment
 
 ## Install prerequisites
 
