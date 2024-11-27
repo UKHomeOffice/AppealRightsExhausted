@@ -15,7 +15,7 @@ ignore:
         reason: No direct upgrade or patch availanle
         expires: '2025-01-16T17:02:21.865Z'
   SNYK-JS-AXIOS-6671926:
-    - hof@21.1.1 > axios@1.7.7 and 1 other path(s)
-      reason: fixed in version 1.7.8
-      expires: '2024-12-15T00:00:00.000Z'
+    - hof@21.1.1 > axios@1.7.7:
+        reason: need to update axios@1.7.7 - Fixed in version 1.7.8
+        expires: '2024-12-15T00:00:00.000Z'
 patch: {}
