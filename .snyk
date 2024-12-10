@@ -18,4 +18,8 @@ ignore:
     - '*':
         reason: Fixed in version 1.7.8
         expires: '2024-12-15T00:00:00.000Z'
+  SNYK-JS-PATHTOREGEXP-8482416:
+    - '*':
+        reason: Fixed in version 0.1.12 
+        expires: '2024-12-24T00:00:00.000Z'
 patch: {}
