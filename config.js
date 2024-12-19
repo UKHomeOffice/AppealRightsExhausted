@@ -6,5 +6,9 @@ module.exports = {
   bankHolidaysApi: 'https://www.gov.uk/bank-holidays.json',
   inputDateFormat: 'YYYY-MM-DD',
   displayDateFormat: 'dddd DD MMMM YYYY',
-  feedbackUrl: process.env.FEEDBACK_URL
+  survey: {
+    urls: {
+      root: 'https://eforms.homeoffice.gov.uk/outreach/Feedback.ofml'
+    }
+  }
 };
