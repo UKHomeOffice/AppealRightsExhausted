@@ -113,7 +113,8 @@ spec:
             - mountPath: /public
               name: public
             - mountPath: /usr/share/nginx/html/
-            - name: custom-errors
+              name: custom-errors
+              readOnly: true
           securityContext:
             runAsNonRoot: true
       volumes:
