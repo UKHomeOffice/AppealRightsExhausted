@@ -112,8 +112,13 @@ spec:
           volumeMounts:
             - mountPath: /public
               name: public
+            - mountPath: /usr/share/nginx/html/
+            - name: custom-errors
           securityContext:
             runAsNonRoot: true
       volumes:
         - name: public
           emptyDir: {}
+        - name: custom-errors
+          configMap:
+            name: custom-error-pages
