@@ -112,7 +112,7 @@ spec:
           volumeMounts:
             - mountPath: /public
               name: public
-            - mountPath: /usr/local/openresty/nginx/html
+            - mountPath: /usr/local/openresty/nginx/html/429.html
               subPath: 429.html
               name: custom-errors
               readOnly: true
