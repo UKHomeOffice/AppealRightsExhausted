@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: custom-error-pages
+  name: custom-errors
 data:
   error-429.html: |
     <html>

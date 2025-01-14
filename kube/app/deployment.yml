@@ -112,7 +112,8 @@ spec:
           volumeMounts:
             - mountPath: /public
               name: public
-            - mountPath: /usr/share/nginx/html/
+            - mountPath: /etc/nginx/html
+              subPath: error-429.html 
               name: custom-errors
               readOnly: true
           securityContext:
@@ -122,4 +123,4 @@ spec:
           emptyDir: {}
         - name: custom-errors
           configMap:
-            name: custom-error-pages
+            name: custom-errors
