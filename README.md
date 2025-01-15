@@ -2,6 +2,7 @@
 A calculator to determine Appeal Rights Exhausted
 
 # Setup
+# Trigger build
 
 ## Install prerequisites
 
