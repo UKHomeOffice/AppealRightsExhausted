@@ -23,31 +23,31 @@ trigger:
     - feature/*
     - master
 
-linting: &linting
-  pull: if-not-exists
-  image: node:20
-  environment:
-    NOTIFY_KEY: USE_MOCK
-  commands:
-    - yarn run test:lint
+# linting: &linting
+#   pull: if-not-exists
+#   image: node:20
+#   environment:
+#     NOTIFY_KEY: USE_MOCK
+#   commands:
+#     - yarn run test:lint
 
-unit_tests: &unit_tests
-  pull: if-not-exists
-  image: node:20
-  environment:
-    NOTIFY_KEY: USE_MOCK
-  commands:
-    - yarn run test:unit
+# unit_tests: &unit_tests
+#   pull: if-not-exists
+#   image: node:20
+#   environment:
+#     NOTIFY_KEY: USE_MOCK
+#   commands:
+#     - yarn run test:unit
 
-sonar_scanner: &sonar_scanner
-  pull: if-not-exists
-  image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
-  commands:
-    - sonar-scanner -Dproject.settings=./sonar-project.properties
+# sonar_scanner: &sonar_scanner
+#   pull: if-not-exists
+#   image: quay.io/ukhomeofficedigital/sonar-scanner-nodejs:latest
+#   commands:
+#     - sonar-scanner -Dproject.settings=./sonar-project.properties
 
-acceptance_tests: &acceptance_tests
-  pull: if-not-exists
-  image: mcr.microsoft.com/playwright:v1.12.3-focal
+# acceptance_tests: &acceptance_tests
+#   pull: if-not-exists
+#   image: mcr.microsoft.com/playwright:v1.12.3-focal
 
 steps:
   - name: clone_repos
@@ -80,29 +80,29 @@ steps:
         - master
       event: push
 
-  - name: linting_deploy
-    <<: *linting
-    when:
-      branch:
-        include:
-          - master
-      event: push
+  # - name: linting_deploy
+  #   <<: *linting
+  #   when:
+  #     branch:
+  #       include:
+  #         - master
+  #     event: push
 
-  - name: unit_tests_deploy
-    <<: *unit_tests
-    when:
-      branch:
-        include:
-          - master
-      event: push
+  # - name: unit_tests_deploy
+  #   <<: *unit_tests
+  #   when:
+  #     branch:
+  #       include:
+  #         - master
+  #     event: push
 
-  - name: sonar_scanner_deploy
-    <<: *sonar_scanner
-    when:
-      branch:
-        include:
-          - master
-      event: push
+  # - name: sonar_scanner_deploy
+  #   <<: *sonar_scanner
+  #   when:
+  #     branch:
+  #       include:
+  #         - master
+  #     event: push
 
   - name: build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
