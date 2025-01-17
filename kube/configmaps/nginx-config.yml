@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  custom-http-errors: "429"
+  error-pages-location: "/usr/local/openresty/nginx/html/"
