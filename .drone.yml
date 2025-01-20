@@ -180,7 +180,7 @@ steps:
         include:
           - master
           - feature/*
-      event: pull_request
+      event: push
 
   # - name: linting_branch
   #   <<: *linting
@@ -220,7 +220,7 @@ steps:
         include:
           - master
           - feature/*
-      event: pull_request
+      event: push
 
 
   # Snyk security scans which run after branch deployment to prevent blocking of PR UAT tests
