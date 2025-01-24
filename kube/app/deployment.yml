@@ -97,7 +97,7 @@ spec:
 
         - name: nginx-proxy
           # nginx-proxy-govuk:v4
-          image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/sas/hof-docker-nginx-proxy:63a5a3e3b9b504c156b9e5d352933063a25f2e63
+          image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/sas/hof-docker-nginx-proxy:ab5e7cc1ff97f21a53cd825ca515400f588a2f46
           resources:
             requests:
               memory: 10Mi
