@@ -51,7 +51,6 @@ acceptance_tests: &acceptance_tests
 
 steps:
 
-//
   - name: scan-image-official
     image: aquasec/trivy:latest
     volumes:
