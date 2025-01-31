@@ -50,13 +50,15 @@ acceptance_tests: &acceptance_tests
   image: mcr.microsoft.com/playwright:v1.12.3-focal
 
 steps:
+
+//
   - name: scan-image-official
     image: aquasec/trivy:latest
     volumes:
       - name: dockersock
         path: /var/run
     commands:
-      - trivy image --format json -o /var/run/trivy-report.json node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+      -  trivy image -f json -o /var/run/trivy-report.json node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
 
   - name: send-to-slack
     image: curlimages/curl:latest
