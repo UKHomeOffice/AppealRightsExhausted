@@ -50,7 +50,7 @@ acceptance_tests: &acceptance_tests
   image: mcr.microsoft.com/playwright:v1.12.3-focal
 
 steps:
-  - name: scan-image
+  - name: scan-image-official
     image: aquasec/trivy:latest
     volumes:
       - name: dockersock
