@@ -55,24 +55,24 @@ steps:
     image: aquasec/trivy:latest
     volumes:
       - name: cache
-        path: /tmp/cache
+        path: /var
     commands:
-      -  trivy image -f json -o /tmp/cache/trivy-report.json  node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+      -  trivy image -f json -o /var/trivy-report.json  node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
 
   - name: send-to-slack
     image: curlimages/curl:latest
     volumes:
       - name: cache
-        path: /tmp/cache
+        path: /var
     environment:
       SLACK_WEBHOOK_URL:
         from_secret: slack_sas_hof_security_webhook
     commands:
       - |
-        if [ -s /tmp/cache/trivy-report.json ]; then
-          VULNERABILITIES=$(cat /tmp/cache/trivy-report.json | jq '.Results[].Vulnerabilities | length' | awk '{sum+=$1} END {print sum}')
+        if [ -s /var/trivy-report.json ]; then
+          VULNERABILITIES=$(cat /var/trivy-report.json | jq '.Results[].Vulnerabilities | length' | awk '{sum+=$1} END {print sum}')
           if [ "$VULNERABILITIES" -gt 0 ]; then
-            PAYLOAD=$(jq -c --arg count "$VULNERABILITIES" '. as $root | {text: "⚠️ *Trivy Scan Report* \n🚨 Vulnerabilities Found: \($count)\n\n```" + ([$root.Results[].Vulnerabilities[] | {id: .VulnerabilityID, severity: .Severity, package: .PkgName}] | tostring) + "```"}' /tmp/cache/trivy-report.json)
+            PAYLOAD=$(jq -c --arg count "$VULNERABILITIES" '. as $root | {text: "⚠️ *Trivy Scan Report* \n🚨 Vulnerabilities Found: \($count)\n\n```" + ([$root.Results[].Vulnerabilities[] | {id: .VulnerabilityID, severity: .Severity, package: .PkgName}] | tostring) + "```"}' /var/trivy-report.json)
             curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL"
           else
             curl -X POST -H 'Content-type: application/json' --data '{"text": "✅ No vulnerabilities found in the Trivy scan!"}' "$SLACK_WEBHOOK_URL"
@@ -564,5 +564,5 @@ volumes:
   - name: dockersock
     temp: {}
   - name: cache
-    path: /tmp/cache
+    path: /var
 ...
