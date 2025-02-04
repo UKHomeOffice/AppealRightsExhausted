@@ -60,7 +60,7 @@ steps:
       -  trivy image -f json -o /drone/src/run/trivy-report.json  node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
 
   - name: send-to-slack
-    image: curlimages/curl:latest
+    image: alpine:latest
     volumes:
       - name: dockersock
         path: /drone/src/run
@@ -68,16 +68,32 @@ steps:
       SLACK_WEBHOOK_URL:
         from_secret: slack_sas_hof_security_webhook
     commands:
+      - echo "🔍 Installing dependencies..."
+      - apk add --no-cache curl jq
+      - echo "🔍 Checking Trivy report file..."
+      - ls -l /drone/src/run
+      - cat /drone/src/run/trivy-report.json || echo "❌ No vulnerabilities found or report is empty!"
       - |
         if [ -s /drone/src/run/trivy-report.json ]; then
-          VULNERABILITIES=$(cat /drone/src/run/trivy-report.json | jq '.Results[].Vulnerabilities | length' | awk '{sum+=$1} END {print sum}')
+          VULNERABILITIES=$(jq '[.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities | length] | add // 0' /drone/src/run/trivy-report.json)
+          echo "🔍 Found $VULNERABILITIES vulnerabilities..."
           if [ "$VULNERABILITIES" -gt 0 ]; then
-            PAYLOAD=$(jq -c --arg count "$VULNERABILITIES" '. as $root | {text: "⚠️ *Trivy Scan Report* \n🚨 Vulnerabilities Found: \($count)\n\n```" + ([$root.Results[].Vulnerabilities[] | {id: .VulnerabilityID, severity: .Severity, package: .PkgName}] | tostring) + "```"}' /drone/src/run/trivy-report.json)
-            curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL"
+            PAYLOAD=$(jq -c --arg count "$VULNERABILITIES" '
+              {
+                text: "⚠️ *Trivy Scan Report* \n🚨 Vulnerabilities Found: \($count)\n\n```" + 
+                ( [ .Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | {id: .VulnerabilityID, severity: .Severity, package: .PkgName} ] | tostring ) + 
+                "```"
+              }' /drone/src/run/trivy-report.json)
+            echo "🔍 Sending Slack notification..."
+            curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
           else
+            echo "✅ No vulnerabilities found!"
             curl -X POST -H 'Content-type: application/json' --data '{"text": "✅ No vulnerabilities found in the Trivy scan!"}' "$SLACK_WEBHOOK_URL"
           fi
+        else
+          echo "❌ Trivy report is missing or empty!"
         fi
+
 
   - name: clone_repos
     image: alpine/git
