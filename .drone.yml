@@ -79,11 +79,14 @@ steps:
           echo "🔍 Found $VULNERABILITIES vulnerabilities..."
           if [ "$VULNERABILITIES" -gt 0 ]; then
             PAYLOAD=$(jq -c --arg count "$VULNERABILITIES" '
-              {
-                text: "⚠️ *Trivy Scan Report* \n🚨 Vulnerabilities Found: \($count)\n\n```" + 
-                ( [ .Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | {id: .VulnerabilityID, severity: .Severity, package: .PkgName} ] | tostring ) + 
-                "```"
-              }' /drone/src/run/trivy-report.json)
+            {
+              text: "⚠️ *Trivy Scan Report* 🚨\nVulnerabilities Found: \($count)\n\n```" +
+              ([ .Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] |
+                {id: .VulnerabilityID, severity: .Severity, package: .PkgName}
+              ] | tostring) +
+              "```"
+            }' /drone/src/run/trivy-report.json)
+            
             echo "🔍 Sending Slack notification..."
             curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
           else
