@@ -54,7 +54,7 @@ steps:
   - name: scan-image-official
     image: aquasec/trivy:latest
     volumes:
-      - name: workspace
+      - name: dockersock
         path: /drone/src
     commands:
       -  trivy image -f json -o /drone/src/trivy-report.json  node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
@@ -62,7 +62,7 @@ steps:
   - name: send-to-slack
     image: curlimages/curl:latest
     volumes:
-      - name: workspace
+      - name: dockersock
         path: /drone/src
     environment:
       SLACK_WEBHOOK_URL:
@@ -563,7 +563,5 @@ services:
 volumes:
   - name: dockersock
     temp: {}
-    
-  - name: workspace
-    path: /drone/src
+
 ...
