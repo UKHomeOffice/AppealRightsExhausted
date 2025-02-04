@@ -86,10 +86,10 @@ steps:
             PACKAGES=$(grep -o '"PkgName": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}' | paste -sd '\n' -)
 
             # Create formatted vulnerability message
-            REPORT="⚠️ *Trivy Scan Report* 🚨\nVulnerabilities Found: $VULNERABILITIES\n\n"
-            REPORT+="\`\`\`\nCVE - SEVERITY - PACKAGE\n"
-            paste -d' - ' <(echo "$VULN_LIST") <(echo "$SEVERITIES") <(echo "$PACKAGES") >> report.txt
-            cat report.txt >> slack_message.txt
+            echo "⚠️ *Trivy Scan Report* 🚨" > slack_message.txt
+            echo "Vulnerabilities Found: $VULNERABILITIES" >> slack_message.txt
+            echo -e "\n\`\`\`\nCVE - SEVERITY - PACKAGE" >> slack_message.txt
+            paste -d' - ' <(echo "$VULN_LIST") <(echo "$SEVERITIES") <(echo "$PACKAGES") >> slack_message.txt
             echo -e "\n\`\`\`" >> slack_message.txt
 
             # Send Slack notification
