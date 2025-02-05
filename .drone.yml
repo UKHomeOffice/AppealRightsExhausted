@@ -69,40 +69,65 @@ steps:
         from_secret: slack_sas_hof_security_webhook
     commands:
       - echo "🔍 Installing dependencies..."
-      - apk add --no-cache curl
+      - apk add --no-cache curl jq
       - echo "🔍 Checking Trivy report file..."
-      - ls -l /drone/src
+      - ls -l /drone/src/run
       - cat /drone/src/run/trivy-report.json || echo "❌ No vulnerabilities found or report is empty!"
       - |
         if [ -s /drone/src/run/trivy-report.json ]; then
           # Extract total number of vulnerabilities
-          VULNERABILITIES=$(grep -o '"VulnerabilityID":' /drone/src/run/trivy-report.json | wc -l)
+          VULNERABILITIES=$(jq '[.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities | length] | add // 0' /drone/src/run/trivy-report.json)
           echo "🔍 Found $VULNERABILITIES vulnerabilities..."
 
           if [ "$VULNERABILITIES" -gt 0 ]; then
-            # Extract vulnerabilities: CVE ID, Severity, and Package Name
-            VULN_LIST=$(grep -o '"VulnerabilityID": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}')
-            SEVERITIES=$(grep -o '"Severity": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}')
-            PACKAGES=$(grep -o '"PkgName": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}')
+            # Create Slack header
+            PAYLOAD='{
+              "text": "⚠️ *Trivy Scan Report* 🚨",
+              "attachments": [
+                {
+                  "color": "#36a64f",
+                  "text": "🔍 *Image Scanned:* `'"$IMAGE_NAME"'`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+                  "mrkdwn_in": ["text"]
+                }
+              ]
+            }'
 
-            # Assign animal emojis based on severity
-            EMOJIS=$(echo "$SEVERITIES" | sed -e 's/CRITICAL/🔥/g' -e 's/HIGH/🐯/g' -e 's/MEDIUM/🐶/g' -e 's/LOW/🐭/g' -e 's/UNKNOWN/🤷/g')
+            # Process vulnerabilities and add them as Slack attachments
+            while IFS= read -r LINE; do
+              CVE=$(echo "$LINE" | awk -F'|' '{print $1}')
+              SEVERITY=$(echo "$LINE" | awk -F'|' '{print $2}')
+              PACKAGE=$(echo "$LINE" | awk -F'|' '{print $3}')
 
-            # Create formatted vulnerability message
-            echo "⚠️ *Trivy Scan Report* 🚨" > slack_message.txt
-            echo "🔍 *Image Scanned:* \`$IMAGE_NAME\`" >> slack_message.txt
-            echo "📌 *Build Link:* <$DRONE_BUILD_LINK|View Build>" >> slack_message.txt
-            echo "Vulnerabilities Found: $VULNERABILITIES" >> slack_message.txt
-            echo -e "\n\`\`\`\nCVE ID       | SEVERITY | PACKAGE   | EMOJI" >> slack_message.txt
-            echo "------------|----------|-----------|------" >> slack_message.txt
-            paste -d'|' <(echo "$VULN_LIST") <(echo "$SEVERITIES") <(echo "$PACKAGES") <(echo "$EMOJIS") >> slack_message.txt
-            echo -e "\n\`\`\`" >> slack_message.txt
+              # Assign color based on severity
+              case "$SEVERITY" in
+                "CRITICAL") COLOR="#ff0000" ;; # Red
+                "HIGH") COLOR="#ff8c00" ;; # Orange
+                "MEDIUM") COLOR="#ffd700" ;; # Yellow
+                "LOW") COLOR="#32cd32" ;; # Green
+                *) COLOR="#808080" ;; # Gray for unknown
+              esac
+
+              # Append vulnerability info to the Slack message
+              PAYLOAD=$(echo "$PAYLOAD" | jq --arg cve "$CVE" --arg sev "$SEVERITY" --arg pkg "$PACKAGE" --arg color "$COLOR" \
+                '.attachments += [{
+                  "color": $color,
+                  "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`",
+                  "mrkdwn_in": ["text"]
+                }]')
+            done < <(jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | "\(.VulnerabilityID)|\(.Severity)|\(.PkgName)"' /drone/src/run/trivy-report.json)
 
             # Send Slack notification
-            curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"$(cat slack_message.txt)\"}" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
+            curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
           else
             echo "✅ No vulnerabilities found!"
-            curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"✅ No vulnerabilities found in the Trivy scan! 📌 *Build Link:* <$DRONE_BUILD_LINK|View Build>\"}" "$SLACK_WEBHOOK_URL"
+            curl -X POST -H 'Content-type: application/json' --data '{
+              "text": "✅ No vulnerabilities found in the Trivy scan!",
+              "attachments": [{
+                "color": "#36a64f",
+                "text": "📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+                "mrkdwn_in": ["text"]
+              }]
+            }' "$SLACK_WEBHOOK_URL"
           fi
         else
           echo "❌ Trivy report is missing or empty!"
