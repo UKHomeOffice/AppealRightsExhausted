@@ -71,7 +71,7 @@ steps:
       - echo "🔍 Installing dependencies..."
       - apk add --no-cache curl
       - echo "🔍 Checking Trivy report file..."
-      - ls -l /drone/src/run
+      - ls -l /drone/src
       - cat /drone/src/run/trivy-report.json || echo "❌ No vulnerabilities found or report is empty!"
       - |
         if [ -s /drone/src/run/trivy-report.json ]; then
@@ -81,22 +81,28 @@ steps:
 
           if [ "$VULNERABILITIES" -gt 0 ]; then
             # Extract vulnerabilities: CVE ID, Severity, and Package Name
-            VULN_LIST=$(grep -o '"VulnerabilityID": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}' | paste -sd '\n' -)
-            SEVERITIES=$(grep -o '"Severity": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}' | paste -sd '\n' -)
-            PACKAGES=$(grep -o '"PkgName": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}' | paste -sd '\n' -)
+            VULN_LIST=$(grep -o '"VulnerabilityID": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}')
+            SEVERITIES=$(grep -o '"Severity": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}')
+            PACKAGES=$(grep -o '"PkgName": *"[^"]*"' /drone/src/run/trivy-report.json | awk -F'"' '{print $4}')
+
+            # Assign animal emojis based on severity
+            EMOJIS=$(echo "$SEVERITIES" | sed -e 's/CRITICAL/🔥/g' -e 's/HIGH/🐯/g' -e 's/MEDIUM/🐶/g' -e 's/LOW/🐭/g' -e 's/UNKNOWN/🤷/g')
 
             # Create formatted vulnerability message
             echo "⚠️ *Trivy Scan Report* 🚨" > slack_message.txt
+            echo "🔍 *Image Scanned:* \`$IMAGE_NAME\`" >> slack_message.txt
+            echo "📌 *Build Link:* <$DRONE_BUILD_LINK|View Build>" >> slack_message.txt
             echo "Vulnerabilities Found: $VULNERABILITIES" >> slack_message.txt
-            echo -e "\n\`\`\`\nCVE - SEVERITY - PACKAGE" >> slack_message.txt
-            paste -d' - ' <(echo "$VULN_LIST") <(echo "$SEVERITIES") <(echo "$PACKAGES") >> slack_message.txt
+            echo -e "\n\`\`\`\nCVE ID       | SEVERITY | PACKAGE   | EMOJI" >> slack_message.txt
+            echo "------------|----------|-----------|------" >> slack_message.txt
+            paste -d'|' <(echo "$VULN_LIST") <(echo "$SEVERITIES") <(echo "$PACKAGES") <(echo "$EMOJIS") >> slack_message.txt
             echo -e "\n\`\`\`" >> slack_message.txt
 
             # Send Slack notification
             curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"$(cat slack_message.txt)\"}" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
           else
             echo "✅ No vulnerabilities found!"
-            curl -X POST -H 'Content-type: application/json' --data '{"text": "✅ No vulnerabilities found in the Trivy scan!"}' "$SLACK_WEBHOOK_URL"
+            curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"✅ No vulnerabilities found in the Trivy scan! 📌 *Build Link:* <$DRONE_BUILD_LINK|View Build>\"}" "$SLACK_WEBHOOK_URL"
           fi
         else
           echo "❌ Trivy report is missing or empty!"
