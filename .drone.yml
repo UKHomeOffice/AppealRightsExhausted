@@ -58,6 +58,7 @@ steps:
         path: /drone/src/run
     commands:
       -  trivy image -f json -o /drone/src/run/trivy-report.json  node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+      -  trivy --version
 
   - name: send-to-slack
     image: alpine:latest
@@ -230,6 +231,7 @@ steps:
       IGNORE_UNFIXED: true
       ALLOW_CVE_LIST_FILE: hof-services-config/Appeal_Rights_Exhausted/trivy-cve-exceptions.txt
     commands:
+    - trivy --version
     - trivy image -f json -o /drone/src/run/trivy-report.json  ${IMAGE_NAME}
     when:
       event:
