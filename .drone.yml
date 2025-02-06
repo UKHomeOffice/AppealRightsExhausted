@@ -232,7 +232,7 @@ steps:
       ALLOW_CVE_LIST_FILE: hof-services-config/Appeal_Rights_Exhausted/trivy-cve-exceptions.txt
     commands:
     - trivy --version
-    - trivy image -f json -o /drone/src/run/trivy-report.json  ${IMAGE_NAME}
+    - trivy image -f json -o /drone/src/run/trivy-report.json  $${IMAGE_NAME}
     when:
       event:
       - pull_request
