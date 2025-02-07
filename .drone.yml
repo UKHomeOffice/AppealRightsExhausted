@@ -87,7 +87,7 @@ steps:
               "attachments": [
                 {
                   "color": "#36a64f",
-                  "text": "🔍 *Image Scanned:* `'"$IMAGE_NAME"'`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+                  "text": "🔍 *Image Scanned:* `'"${{IMAGE_NAME}}"'`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
                   "mrkdwn_in": ["text"]
                 }
               ]
