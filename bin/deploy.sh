@@ -25,9 +25,8 @@ if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} ]]; then
   $kd -f kube/configmaps -f kube/certs
   $kd -f kube/redis -f kube/app
 elif [[ ${KUBE_NAMESPACE} == ${UAT_ENV} ]]; then
-  $kd -f kube/configmaps/configmap.yml -f kube/app/service.yml
-  $kd -f kube/app/networkpolicy-internal.yml -f kube/app/ingress-internal.yml
-  $kd -f kube/redis -f kube/app/deployment.yml
+  $kd -f kube/configmaps/configmap.yml -f kube/app
+  $kd -f kube/redis
 elif [[ ${KUBE_NAMESPACE} == ${STG_ENV} ]]; then
   $kd -f kube/configmaps/configmap.yml -f kube/app/service.yml
   $kd -f kube/app/networkpolicy-internal.yml -f kube/app/ingress-internal.yml
