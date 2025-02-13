@@ -28,7 +28,7 @@
   "dependencies": {
     "cross-spawn": "^7.0.6",
     "hof": "~21.1.0",
-    "istanbul-lib-processinfo": "2.0.3",
+    "istanbul-lib-processinfo": "^2.0.3",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4"
