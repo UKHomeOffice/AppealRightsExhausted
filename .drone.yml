@@ -136,7 +136,7 @@ steps:
     pull: always
     image: aquasec/trivy:latest
     commands:
-      - trivy image my-app:latest
+      - trivy image $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
     resources:
       limits:
         cpu: 1000
