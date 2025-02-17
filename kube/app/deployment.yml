@@ -97,7 +97,7 @@ spec:
 
         - name: nginx-proxy
           # nginx-proxy-govuk:v4
-          image: quay.io/ukhomeofficedigital/nginx-proxy-govuk@sha256:4470064d0b1d20ae08c5fd85551576cb687f342a22d6cb456fda9b2c4ce8c8df
+          image: quay.io/ukhomeofficedigital/nginx-proxy-govuk@sha256:4a35285da77736800b1c3c4a97c90e7455dbd2277982a29f668cae107810ff93
           resources:
             requests:
               memory: 10Mi
