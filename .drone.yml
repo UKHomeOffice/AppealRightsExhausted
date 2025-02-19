@@ -235,7 +235,7 @@ steps:
       ALLOW_CVE_LIST_FILE: hof-services-config/Appeal_Rights_Exhausted/trivy-cve-exceptions.txt
     commands:
     - trivy --version
-    - trivy image -f json -o /drone/src/run/trivy-acp-report.json  are-app:${DRONE_COMMIT_SHA}
+    - trivy image -f json -o /drone/src/run/trivy-acp-report.json  $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
     when:
       event:
       - pull_request
