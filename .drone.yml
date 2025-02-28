@@ -92,7 +92,7 @@ steps:
               "attachments": [
                 {
                   "color": "#36a64f",
-                  "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+                  "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0` \\n📌 *🔍 Found $VULNERABILITIES vulnerabilities using Aquasec trivy* \\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
                   "mrkdwn_in": ["text"]
                 }
               ]
@@ -233,7 +233,7 @@ steps:
       - name: dockersock
         path: /drone/src/run
     environment:
-      IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
+      IMAGE_NAME: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
       SEVERITY: MEDIUM,HIGH,CRITICAL
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: true
@@ -274,7 +274,7 @@ steps:
               "attachments": [
                 {
                   "color": "#36a64f",
-                  "text": "🔍 *Image Scanned:* `'"$IMAGE_NAME"'`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+                  "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0`\\n📌 *🔍 Found $VULNERABILITIES vulnerabilities using ACP trivy* \\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
                   "mrkdwn_in": ["text"]
                 }
               ]
