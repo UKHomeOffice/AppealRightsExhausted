@@ -57,8 +57,13 @@ steps:
       - name: dockersock
         path: /drone/src/run
     commands:
-      -  trivy image -f json -o /drone/src/run/trivy-report.json  node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
       -  trivy --version
+      # Scan the image and output results in JSON format to a file
+      - trivy image -f json -o /drone/src/run/trivy-report.json node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+
+      # Scan the image again and print vulnerabilities in table format to the logs
+      - trivy image --exit-code 0 --severity LOW,MEDIUM,HIGH,CRITICAL,UNKNOWN node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+
 
   - name: send-to-slack-aquasec
     image: alpine:latest
@@ -87,7 +92,7 @@ steps:
               "attachments": [
                 {
                   "color": "#36a64f",
-                  "text": "🔍 *Image Scanned:* `'"${{IMAGE_NAME}}"'`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+                  "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0`\\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
                   "mrkdwn_in": ["text"]
                 }
               ]
