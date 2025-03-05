@@ -39,6 +39,8 @@ module.exports = {
     '/exclusiondates': {
       behaviours: referenceList,
       backLink: false
-    }
+    },
+    '/session-timeout': {},
+    '/exit': {}
   }
 };

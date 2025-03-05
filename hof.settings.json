@@ -5,7 +5,8 @@
     "./apps/are_form"
   ],
   "behaviours": [
-    "hof/components/clear-session"
+    "hof/components/clear-session",
+    "hof/components/session-timeout-warning"
   ],
   "build": {
     "watch": {

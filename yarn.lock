@@ -1615,9 +1615,9 @@ create-hmac@^1.1.4, create-hmac@^1.1.7:
     sha.js "^2.4.8"
 
 cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
-  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.6.tgz#8a58fe78f00dcd70c370451759dfbfaf03e8ee9f"
+  integrity sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==
   dependencies:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
@@ -1835,6 +1835,11 @@ detective@^5.2.0:
     acorn-node "^1.8.2"
     defined "^1.0.0"
     minimist "^1.2.6"
+
+dialog-polyfill@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/dialog-polyfill/-/dialog-polyfill-0.5.6.tgz#7507b4c745a82fcee0fa07ce64d835979719599a"
+  integrity sha512-ZbVDJI9uvxPAKze6z146rmfUZjBqNEwcnFTVamQzXH+svluiV7swmVIGr7miwADgfgt1G2JQIytypM9fbyhX4w==
 
 diff@5.0.0:
   version "5.0.0"
@@ -3068,10 +3073,10 @@ hmac-drbg@^1.0.1:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
 
-hof@~21.1.0:
-  version "21.1.1"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-21.1.1.tgz#1f70c0a4c30ac82293761541c0524032042da11b"
-  integrity sha512-zQwFIrr4s9ev2ag5Aq4XZUb1agZC8Zw7DzzSqVX/gCen+hseC+swV8jIo5psvjUN8moAVaDDQG1Lwi4j54XzYg==
+hof@~22.1.1:
+  version "22.1.3"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-22.1.3.tgz#5e39dd9def5384d8b4b1ea202ec8c363b9a5cb14"
+  integrity sha512-CUn+XXqgDsZD9LEeRtTzpJowZHruKhtlonJs+PniRtBs3erA0j3pO0QIsmrQlC9/rG+IpGURkceNo13246mNvA==
   dependencies:
     aliasify "^2.1.0"
     axios "^1.5.1"
@@ -3087,6 +3092,7 @@ hof@~21.1.0:
     csrf "^3.1.0"
     debug "^4.3.1"
     deprecate "^1.0.0"
+    dialog-polyfill "^0.5.6"
     dotenv "^4.0.0"
     duplexify "^3.5.0"
     express "^4.17.1"
@@ -3105,6 +3111,7 @@ hof@~21.1.0:
     i18n-future "^2.0.0"
     i18n-lookup "^0.1.0"
     is-pdf "^1.0.0"
+    jquery "^3.6.0"
     libphonenumber-js "^1.9.44"
     lodash "^4.17.21"
     markdown-it "^12.3.2"
@@ -3116,7 +3123,6 @@ hof@~21.1.0:
     mustache "^4.2.0"
     nodemailer "^6.6.3"
     nodemailer-ses-transport "^1.5.1"
-    nodemailer-smtp-transport "^2.7.4"
     nodemailer-stub-transport "^1.1.0"
     notifications-node-client "^8.2.0"
     redis "^3.1.2"
@@ -3182,19 +3188,6 @@ http-errors@2.0.0:
     setprototypeof "1.2.0"
     statuses "2.0.1"
     toidentifier "1.0.1"
-
-httpntlm@1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/httpntlm/-/httpntlm-1.6.1.tgz#ad01527143a2e8773cfae6a96f58656bb52a34b2"
-  integrity sha512-Tcz3Ct9efvNqw3QdTl3h6IgRRlIQxwKkJELN/aAIGnzi2xvb3pDHdnMs8BrxWLV6OoT4DlVyhzSVhFt/tk0lIw==
-  dependencies:
-    httpreq ">=0.4.22"
-    underscore "~1.7.0"
-
-httpreq@>=0.4.22:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/httpreq/-/httpreq-1.1.1.tgz#b8818316cdfd6b1bfb0f68b822fa1306cd24be68"
-  integrity sha512-uhSZLPPD2VXXOSN8Cni3kIsoFHaU2pT/nySEU/fHr/ePbqHYr0jeiQRmUKLEirC09SFPsdMoA7LU7UXMd/w0Kw==
 
 https-browserify@^1.0.0:
   version "1.0.0"
@@ -4218,11 +4211,6 @@ node-releases@^2.0.18:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.18.tgz#f010e8d35e2fe8d6b2944f03f70213ecedc4ca3f"
   integrity sha512-d9VeXT4SJ7ZeOqGX6R5EM022wpL+eWPooLI+5UpWn2jCT1aosUQEhQP214x33Wkwx3JQMvIm+tIoVOdodFS40g==
 
-nodemailer-fetch@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/nodemailer-fetch/-/nodemailer-fetch-1.6.0.tgz#79c4908a1c0f5f375b73fe888da9828f6dc963a4"
-  integrity sha512-P7S5CEVGAmDrrpn351aXOLYs1R/7fD5NamfMCHyi6WIkbjS2eeZUB/TkuvpOQr0bvRZicVqo59+8wbhR3yrJbQ==
-
 nodemailer-ses-transport@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/nodemailer-ses-transport/-/nodemailer-ses-transport-1.5.1.tgz#dc0598c1bf53e8652e632e8f31692ce022d7dea9"
@@ -4230,31 +4218,10 @@ nodemailer-ses-transport@^1.5.1:
   dependencies:
     aws-sdk "^2.2.36"
 
-nodemailer-shared@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/nodemailer-shared/-/nodemailer-shared-1.1.0.tgz#cf5994e2fd268d00f5cf0fa767a08169edb07ec0"
-  integrity sha512-68xW5LSyPWv8R0GLm6veAvm7E+XFXkVgvE3FW0FGxNMMZqMkPFeGDVALfR1DPdSfcoO36PnW7q5AAOgFImEZGg==
-  dependencies:
-    nodemailer-fetch "1.6.0"
-
-nodemailer-smtp-transport@^2.7.4:
-  version "2.7.4"
-  resolved "https://registry.yarnpkg.com/nodemailer-smtp-transport/-/nodemailer-smtp-transport-2.7.4.tgz#0d89af019a144a480fd8ecc99997d9f838f13685"
-  integrity sha512-1e86YhJ633OZWk3OHWS5TpuoYXG/LtY2/RzNiB5+EkFifDdqHCNHBnExd5cobx0ZSHJLNGM8EKnDuHRFIjFi6Q==
-  dependencies:
-    nodemailer-shared "1.1.0"
-    nodemailer-wellknown "0.1.10"
-    smtp-connection "2.12.0"
-
 nodemailer-stub-transport@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/nodemailer-stub-transport/-/nodemailer-stub-transport-1.1.0.tgz#11421d2d66b4ee6f405354f914c1f4641eb24b0d"
   integrity sha512-4fwl2f+647IIyuNuf6wuEMqK4oEU9FMJSYme8kPckVSr1rXIXcmI6BNcIWO+1cAK8XeexYKxYoFztam0jAwjkA==
-
-nodemailer-wellknown@0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/nodemailer-wellknown/-/nodemailer-wellknown-0.1.10.tgz#586db8101db30cb4438eb546737a41aad0cf13d5"
-  integrity sha512-/VV4mjAEjfm2fn0loUvrpjvugw5rgurNjPO4WU24CuVSoeumsyLOTgaEWG8WoGdPxh1biOAp5JxDoy1hlA2zsw==
 
 nodemailer@^6.6.3:
   version "6.9.16"
@@ -5238,14 +5205,6 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
-smtp-connection@2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/smtp-connection/-/smtp-connection-2.12.0.tgz#d76ef9127cb23c2259edb1e8349c2e8d5e2d74c1"
-  integrity sha512-UP5jK4s5SGcUcqPN4U9ingqKt9mXYSKa52YhqxPuMecAnUOsVJpOmtgGaOm1urUBJZlzDt1M9WhZZkgbhxQlvg==
-  dependencies:
-    httpntlm "1.6.1"
-    nodemailer-shared "1.1.0"
-
 snyk@^1.675.0:
   version "1.1293.1"
   resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1293.1.tgz#07615a1a57b40c9779f7678f09135ee832681d60"
@@ -5696,7 +5655,7 @@ undeclared-identifiers@^1.1.2:
     simple-concat "^1.0.0"
     xtend "^4.0.1"
 
-underscore@^1.12.1, underscore@^1.13.6, underscore@^1.7.0, underscore@^1.8.2, underscore@~1.7.0:
+underscore@^1.12.1, underscore@^1.13.6, underscore@^1.7.0, underscore@^1.8.2:
   version "1.13.7"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.7.tgz#970e33963af9a7dda228f17ebe8399e5fbe63a10"
   integrity sha512-GMXzWtsc57XAtguZgaQViUOzs0KTkk8ojr3/xAxXLITqf/3EMwxC0inyETfDFjH/Krbhuep0HNbbjI9i/q3F3g==
