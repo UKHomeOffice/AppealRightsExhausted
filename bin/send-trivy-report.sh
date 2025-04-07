@@ -46,7 +46,7 @@ if [ -s "$TRIVY_REPORT" ]; then
       PAYLOAD=$(echo "$PAYLOAD" | jq --arg cve "$CVE" --arg sev "$SEVERITY" --arg pkg "$PACKAGE" --arg cur "$CURRENT" --arg fix "$FIXED" --arg dep "$DEP_TREE" --arg color "$COLOR" \
         '.attachments += [{
           "color": $color,
-          "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`\n*Installed Version:* `\($cur)`\n*Fixed Version:* `\($fix)`\n*Path:* `\($path)`",
+          "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`\n*Installed Version:* `\($cur)`\n*Fixed Version:* `\($fix)`\n*Dependency Path:* `\($dep)`",
           "mrkdwn_in": ["text"]
         }]')
     done < <(jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] |"\(.VulnerabilityID)|\(.Severity)|\(.PkgName)|\(.InstalledVersion)|\(.FixedVersion // "N/A")|\(.DependencyPath // ["N/A"] | join(" > "))"' "$TRIVY_REPORT")
