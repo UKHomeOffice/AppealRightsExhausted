@@ -43,7 +43,7 @@ if [ -s "$TRIVY_REPORT" ]; then
         *) COLOR="#808080" ;;
       esac
 
-      PAYLOAD=$(echo "$PAYLOAD" | jq --arg cve "$CVE" --arg sev "$SEVERITY" --arg pkg "$PACKAGE" --arg cur "$CURRENT" --arg fix "$FIXED" --arg path "$PKGPATH" --arg color "$COLOR" \
+      PAYLOAD=$(echo "$PAYLOAD" | jq --arg cve "$CVE" --arg sev "$SEVERITY" --arg pkg "$PACKAGE" --arg cur "$CURRENT" --arg fix "$FIXED" --arg dep "$DEP_TREE" --arg color "$COLOR" \
         '.attachments += [{
           "color": $color,
           "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`\n*Installed Version:* `\($cur)`\n*Fixed Version:* `\($fix)`\n*Path:* `\($path)`",
