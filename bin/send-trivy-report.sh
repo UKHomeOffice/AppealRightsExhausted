@@ -33,7 +33,7 @@ if [ -s "$TRIVY_REPORT" ]; then
       PACKAGE=$(echo "$LINE" | awk -F'|' '{print $3}')
       CURRENT=$(echo "$LINE" | awk -F'|' '{print $4}')
       FIXED=$(echo "$LINE" | awk -F'|' '{print $5}')
-      PKGPATH=$(echo "$LINE" | awk -F'|' '{print $6}')
+      DEP_TREE=$(echo "$LINE" | awk -F'|' '{print $6}')
 
       case "$SEVERITY" in
         "CRITICAL") COLOR="#ff0000" ;;
@@ -49,7 +49,7 @@ if [ -s "$TRIVY_REPORT" ]; then
           "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`\n*Installed Version:* `\($cur)`\n*Fixed Version:* `\($fix)`\n*Path:* `\($path)`",
           "mrkdwn_in": ["text"]
         }]')
-    done < <(jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | "\(.VulnerabilityID)|\(.Severity)|\(.PkgName)|\(.InstalledVersion)|\(.FixedVersion // "N/A")|\(.PkgPath // "N/A")"' "$TRIVY_REPORT")
+    done < <(jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] |"\(.VulnerabilityID)|\(.Severity)|\(.PkgName)|\(.InstalledVersion)|\(.FixedVersion // "N/A")|\(.DependencyPath // ["N/A"] | join(" > "))"' "$TRIVY_REPORT")
 
     curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
   else
