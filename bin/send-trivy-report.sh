@@ -10,7 +10,7 @@ ls -l /drone/src/run
 cat /drone/src/run/trivy-report.json || echo "❌ No vulnerabilities found or report is empty!"
 
 TRIVY_REPORT="/drone/src/run/trivy-report.json"
-
+IMAGE_NAME="${SCANNED_IMAGE:-unknown-image}"
 if [ -s "$TRIVY_REPORT" ]; then
   VULNERABILITIES=$(jq '[.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities | length] | add // 0' "$TRIVY_REPORT")
   echo "🔍 Found $VULNERABILITIES vulnerabilities using Aquasec trivy..."
@@ -21,7 +21,7 @@ if [ -s "$TRIVY_REPORT" ]; then
       "attachments": [
         {
           "color": "#ffcc00",
-          "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0` \\n📌 *Found '"$VULNERABILITIES"' vulnerabilities using Aquasec Trivy* \\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+          "text": "🔍 *Image Scanned:* `"${IMAGE_NAME}"` \\n📌 *Found ${VULNERABILITIES} vulnerabilities using Aquasec Trivy* \\n📌 *Build Link:* <${DRONE_BUILD_LINK}|View Build>",
           "mrkdwn_in": ["text"]
         }
       ]
