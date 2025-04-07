@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 echo "🔍 Installing dependencies..."
 apk add --no-cache curl jq
 
@@ -7,8 +9,10 @@ echo "🔍 Checking Trivy report file..."
 ls -l /drone/src/run
 cat /drone/src/run/trivy-report.json || echo "❌ No vulnerabilities found or report is empty!"
 
-if [ -s /drone/src/run/trivy-report.json ]; then
-  VULNERABILITIES=$(jq '[.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities | length] | add // 0' /drone/src/run/trivy-report.json)
+TRIVY_REPORT="/drone/src/run/trivy-report.json"
+
+if [ -s "$TRIVY_REPORT" ]; then
+  VULNERABILITIES=$(jq '[.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities | length] | add // 0' "$TRIVY_REPORT")
   echo "🔍 Found $VULNERABILITIES vulnerabilities using Aquasec trivy..."
 
   if [ "$VULNERABILITIES" -gt 0 ]; then
@@ -16,8 +20,8 @@ if [ -s /drone/src/run/trivy-report.json ]; then
       "text": "⚠️ *Trivy Scan Report* 🚨",
       "attachments": [
         {
-          "color": "#36a64f",
-          "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:...` \\n📌 *🔍 Found '"$VULNERABILITIES"' vulnerabilities using Aquasec trivy* \\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
+          "color": "#ffcc00",
+          "text": "🔍 *Image Scanned:* `node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0` \\n📌 *Found '"$VULNERABILITIES"' vulnerabilities using Aquasec Trivy* \\n📌 *Build Link:* <'"$DRONE_BUILD_LINK"'|View Build>",
           "mrkdwn_in": ["text"]
         }
       ]
@@ -27,7 +31,9 @@ if [ -s /drone/src/run/trivy-report.json ]; then
       CVE=$(echo "$LINE" | awk -F'|' '{print $1}')
       SEVERITY=$(echo "$LINE" | awk -F'|' '{print $2}')
       PACKAGE=$(echo "$LINE" | awk -F'|' '{print $3}')
-      FIXED=$(echo "$LINE" | awk -F'|' '{print $4}')
+      CURRENT=$(echo "$LINE" | awk -F'|' '{print $4}')
+      FIXED=$(echo "$LINE" | awk -F'|' '{print $5}')
+      PKGPATH=$(echo "$LINE" | awk -F'|' '{print $6}')
 
       case "$SEVERITY" in
         "CRITICAL") COLOR="#ff0000" ;;
@@ -37,13 +43,13 @@ if [ -s /drone/src/run/trivy-report.json ]; then
         *) COLOR="#808080" ;;
       esac
 
-      PAYLOAD=$(echo "$PAYLOAD" | jq --arg cve "$CVE" --arg sev "$SEVERITY" --arg pkg "$PACKAGE" --arg fix "$FIXED" --arg color "$COLOR" \
+      PAYLOAD=$(echo "$PAYLOAD" | jq --arg cve "$CVE" --arg sev "$SEVERITY" --arg pkg "$PACKAGE" --arg cur "$CURRENT" --arg fix "$FIXED" --arg path "$PKGPATH" --arg color "$COLOR" \
         '.attachments += [{
           "color": $color,
-          "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`\n*Fixed Version:* `\($fix)`",
+          "text": "*CVE:* `\($cve)`\n*Severity:* \($sev)\n*Package:* `\($pkg)`\n*Installed Version:* `\($cur)`\n*Fixed Version:* `\($fix)`\n*Path:* `\($path)`",
           "mrkdwn_in": ["text"]
         }]')
-    done < <(jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | "\(.VulnerabilityID)|\(.Severity)|\(.PkgName)|\(.FixedVersion // "N/A")"' /drone/src/run/trivy-report.json)
+    done < <(jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | "\(.VulnerabilityID)|\(.Severity)|\(.PkgName)|\(.InstalledVersion)|\(.FixedVersion // "N/A")|\(.PkgPath // "N/A")"' "$TRIVY_REPORT")
 
     curl -X POST -H 'Content-type: application/json' --data "$PAYLOAD" "$SLACK_WEBHOOK_URL" || echo "❌ Failed to send Slack notification!"
   else
