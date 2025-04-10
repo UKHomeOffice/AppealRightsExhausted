@@ -16,5 +16,5 @@
   "session": {
     "name": "are.hof.sid"
   },
-  "getAccessibility": true
+  "getAccessibility": false
 }
