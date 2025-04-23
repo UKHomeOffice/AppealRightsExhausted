@@ -14,4 +14,12 @@ ignore:
     - '*':
         reason: No direct upgrade or patch availanle
         expires: '2025-06-06T17:02:21.865Z'
+  SNYK-JS-AXIOS-9292519:
+    - '*':
+        reason: Upgrade to HOF@22.2.2 to fix
+        expires: '2025-06-06T17:02:21.865Z'
+  SNYK-JS-AXIOS-9403194:
+    - '*':
+        reason: No direct upgrade.  Issue fixed in axios@1.8.3
+        expires: '2025-06-06T17:02:21.865Z'
 patch: {}
