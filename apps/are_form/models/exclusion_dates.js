@@ -101,7 +101,7 @@ module.exports = class ExclusionDates {
 
       const fileName = `${__dirname}/../data/exclusion_days.json`;
 
-      return await fs.promises.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' });
+      return await fs.writeFile(fileName, JSON.stringify(data, null, 2), { flag: 'w+' });
     } catch (e) {
       console.error(`Bank Holidays API Failure: ${e.message}`);
       return e;
