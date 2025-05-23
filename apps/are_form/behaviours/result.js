@@ -11,7 +11,7 @@ module.exports = superclass => class ReferenceList extends superclass {
   getValues(req, res, callback) {
     super.getValues(req, res, async err => {
       const json = req.sessionModel.toJSON();
-      const exclusionDates = new ExclusionDates();
+      const exclusionDates = new ExclusionDates(json['country-of-hearing']);
       await exclusionDates.fetchExcludedDates();
 
       const calculator = new ARECalculator(
