@@ -31,8 +31,8 @@ spec:
     spec:
       containers:
         - name: redis
-          # redis:v5.0.6-1
-          image: quay.io/ukhomeofficedigital/hof-docker-redis@sha256:61b31c68c30de6211f55c3d0c2a7454f932bff08c55adf1fa4ea1bc580c86f1c
+          # redis:v7.0.15-1
+          image: quay.io/ukhomeofficedigital/hof-docker-redis:a94152bc40b0ddb6ed9cb4fec3cc2c7a51c172c1
           ports:
             - containerPort: 6379
           volumeMounts:
