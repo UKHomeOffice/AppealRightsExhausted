@@ -32,7 +32,7 @@ spec:
       containers:
         - name: redis
           # redis:v7.0.15-1
-          image: quay.io/ukhomeofficedigital/hof-docker-redis:a94152bc40b0ddb6ed9cb4fec3cc2c7a51c172c1
+          image: quay.io/ukhomeofficedigital/hof-docker-redis:1af6ea46456860379b5fe62b4c54df9746e53ff8
           ports:
             - containerPort: 6379
           volumeMounts:
