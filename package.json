@@ -26,7 +26,7 @@
   },
   "author": "HomeOffice",
   "dependencies": {
-    "hof": "~22.1.1",
+    "hof": "22.7.5-beta-fix-svg.2",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.4"
