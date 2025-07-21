@@ -49,4 +49,6 @@ spec:
               memory: "200Mi"
       volumes:
         - name: data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: redis-pvc
+
