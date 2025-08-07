@@ -50,5 +50,5 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: redis-pvc-{{APP_NAME}}-{{ .DRONE_SOURCE_BRANCH }}
+            claimName: redis-pvc-{{ .APP_NAME }}-{{ .DRONE_SOURCE_BRANCH }}
 
