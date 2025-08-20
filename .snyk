@@ -2,24 +2,17 @@
 version: v1.19.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-JS-MARKDOWNIT-6483324:
-    - hof > markdown-it:
-      reason: Need to update markdown-it in HOF to version 13.0.2
-      expires: '2025-06-06T00:00:00.000Z'
   SNYK-JS-INFLIGHT-6095116:
     - '*':
         reason: No upgrade or patch available yet
-        expires: '2025-06-06T00:00:00.000Z'
+        expires: '2025-09-20T00:00:00.000Z'
   SNYK-JS-ELLIPTIC-8187303:
     - '*':
-        reason: No direct upgrade or patch availanle
-        expires: '2025-06-06T17:02:21.865Z'
-  SNYK-JS-AXIOS-9292519:
+        reason: No upgrade or patch available yet
+        expires: '2025-09-20T00:00:00.000Z'
+  SNYK-JS-MARKDOWNIT-12143043:
     - '*':
-        reason: Upgrade to HOF@22.2.2 to fix
-        expires: '2025-06-06T17:02:21.865Z'
-  SNYK-JS-AXIOS-9403194:
-    - '*':
-        reason: No direct upgrade.  Issue fixed in axios@1.8.3
-        expires: '2025-06-06T17:02:21.865Z'
+        reason: No upgrade or patch available yet
+        expires: '2025-09-20T00:00:00.000Z'
+      
 patch: {}
