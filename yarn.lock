@@ -2776,10 +2776,10 @@ hide-powered-by@1.1.0:
   resolved "https://registry.yarnpkg.com/hide-powered-by/-/hide-powered-by-1.1.0.tgz#be3ea9cab4bdb16f8744be873755ca663383fa7a"
   integrity sha512-Io1zA2yOA1YJslkr+AJlWSf2yWFkKjvkcL9Ni1XSUqnGLr/qRQe2UI3Cn/J9MsJht7yEVCe0SscY1HgVMujbgg==
 
-hof@24.0.0-vite-beta.3:
-  version "24.0.0-vite-beta.3"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-vite-beta.3.tgz#198a77cd99ddd4e6c304d1db2b2145104f21a335"
-  integrity sha512-q6TVJVB5tWpjdUBhl0Tb1WDTKys0DfjM1nphCdhfl+UsnSBOKRji38TWZcyGsutJ2KYxp5onrLNCCUqXw99VlQ==
+hof@24.0.0-vite-beta.5:
+  version "24.0.0-vite-beta.5"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-vite-beta.5.tgz#ea37e95a0f8504c0a0c3a358c7507c201610efe1"
+  integrity sha512-A+mKL0P+7Zcoha5s6WI+irYTBcVmb5pnVnyf0qqUI615srCLSM5I2dUrNkPKLOy3Tzd1uhTcY0KMLe2XPKGapQ==
   dependencies:
     aliasify "^2.1.0"
     axios "^1.12.2"
