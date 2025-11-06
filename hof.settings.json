@@ -8,6 +8,7 @@
     "hof/components/clear-session",
     "hof/components/session-timeout-warning"
   ],
+  "translations": "apps/are_form/translations",
   "build": {
     "watch": {
       "ignore": ["apps/are_form/data"]

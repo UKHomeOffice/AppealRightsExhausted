@@ -40,7 +40,6 @@ module.exports = {
       behaviours: referenceList,
       backLink: false
     },
-    '/session-timeout': {},
     '/exit': {}
   }
 };
