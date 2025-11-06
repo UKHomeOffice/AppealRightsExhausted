@@ -6,6 +6,7 @@ const hof = require('hof');
 let settings = require('./hof.settings');
 const ExclusionDates = require('./apps/are_form/models/exclusion_dates');
 const config = require('./config.js');
+console.log('********* CONFIG********* ', config);
 
 settings = Object.assign({}, settings, {
   behaviours: settings.behaviours.map(require),
