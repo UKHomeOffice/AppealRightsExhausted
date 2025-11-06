@@ -5,14 +5,16 @@ ignore:
   SNYK-JS-INFLIGHT-6095116:
     - '*':
         reason: No upgrade or patch available yet
-        expires: '2025-09-20T00:00:00.000Z'
-  SNYK-JS-ELLIPTIC-8187303:
-    - '*':
-        reason: No upgrade or patch available yet
-        expires: '2025-09-20T00:00:00.000Z'
+        expires: '2025-12-20T00:00:00.000Z'
   SNYK-JS-MARKDOWNIT-12143043:
     - '*':
         reason: No upgrade or patch available yet
-        expires: '2025-09-20T00:00:00.000Z'
-      
-patch: {}
+        expires: '2025-12-20T00:00:00.000Z'
+  SNYK-JS-MARKDOWNIT-6483324:
+    - '*':
+        reason: Needs to be updated in hof
+        expires: '2025-12-20T00:00:00.000Z'
+  SNYK-JS-NODEMAILER-13378253:
+    - '*':
+        reason: Needs to be updated in hof
+        expires: '2025-12-20T00:00:00.000Z'
