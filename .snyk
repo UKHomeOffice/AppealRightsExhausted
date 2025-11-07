@@ -10,7 +10,7 @@ ignore:
     - '*':
         reason: No upgrade or patch available yet
         expires: '2026-02-07T00:00:00.000Z'
-  SNYK-JS-MARKDOWNIT-12143043:
+  SNYK-JS-MARKDOWNIT-6483324:
     - '*':
         reason: No upgrade or patch available yet
         expires: '2026-02-07T00:00:00.000Z'
