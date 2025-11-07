@@ -5,14 +5,18 @@ ignore:
   SNYK-JS-INFLIGHT-6095116:
     - '*':
         reason: No upgrade or patch available yet
-        expires: '2025-09-20T00:00:00.000Z'
+        expires: '2026-02-07T00:00:00.000Z'
   SNYK-JS-ELLIPTIC-8187303:
     - '*':
         reason: No upgrade or patch available yet
-        expires: '2025-09-20T00:00:00.000Z'
+        expires: '2026-02-07T00:00:00.000Z'
   SNYK-JS-MARKDOWNIT-12143043:
     - '*':
         reason: No upgrade or patch available yet
-        expires: '2025-09-20T00:00:00.000Z'
+        expires: '2026-02-07T00:00:00.000Z'
+  SNYK-JS-NODEMAILER-13378253:
+    - '*':
+      reason: HOF framework needs updating to use nodemailer@7.0.7
+      expires: '2026-02-07T00:00:00.000Z'
       
 patch: {}
