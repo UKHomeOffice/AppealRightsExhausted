@@ -2824,10 +2824,10 @@ hide-powered-by@1.1.0:
   resolved "https://registry.yarnpkg.com/hide-powered-by/-/hide-powered-by-1.1.0.tgz#be3ea9cab4bdb16f8744be873755ca663383fa7a"
   integrity sha512-Io1zA2yOA1YJslkr+AJlWSf2yWFkKjvkcL9Ni1XSUqnGLr/qRQe2UI3Cn/J9MsJht7yEVCe0SscY1HgVMujbgg==
 
-hof@24.0.0-vite-beta.9:
-  version "24.0.0-vite-beta.9"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-vite-beta.9.tgz#8f41e5e739e064b6f711aabf23ed675bbe4ad66d"
-  integrity sha512-qoQ7YTqGPiUrelBMO8WQFevCV5JWGic09IhcYUQEhS8VqogNN95tf3nGzhQRmpk2XdmYIQ+b8kMrryoe1OJqIg==
+hof@24.0.0-vite-beta.10:
+  version "24.0.0-vite-beta.10"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-vite-beta.10.tgz#8d6778ec400405f5a6bf3b53132cb1007fbf68f2"
+  integrity sha512-Zz1PQkWxvcm8NPh0DPFa6d/mB5xNLsyZos2YTtptHJyzv1xsrVAY7MjPbI8chAs+0euxmHImxGdeBBL5sxU+pg==
   dependencies:
     "@rollup/plugin-commonjs" "^29.0.0"
     "@rollup/plugin-node-resolve" "^16.0.3"
