@@ -15,8 +15,7 @@ jobs:
       - name: Echo scan message
         id: scan_echo
         run: |
-          echo "Scanning for evil packages"
-          echo "scan_message=Scanning for evil packages" >> $GITHUB_OUTPUT
+          echo "scan_message=ARE: Scanning for evil packages" >> $GITHUB_OUTPUT
 
   notify-slack:
     needs: [ scan ]
