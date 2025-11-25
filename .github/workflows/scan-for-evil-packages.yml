@@ -12,3 +12,17 @@ jobs:
     steps:
       - name: Echo scan message
         run: echo "Scanning for evil packages"
+
+  notify-slack:
+    needs: [ scan ]
+    runs-on: ubuntu-latest
+    # Ensure we notify regardless of success/failure of previous jobs
+    if: always()
+    steps:
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          STATUS: ${{ job.status }}
+        run: |
+          payload=$(jq -n --arg text ":github: AppealRightsExhausted workflow finished: *$STATUS*\nRepo: ${{ github.repository }}\nRun: ${{ github.run_id }}\nJob: scan\nCommit: ${{ github.sha }}\nBranch: ${{ github.ref_name }}\nURL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" '{text: $text}')
+          curl -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
