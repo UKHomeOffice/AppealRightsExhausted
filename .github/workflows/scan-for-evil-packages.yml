@@ -18,18 +18,11 @@ jobs:
           node-version: '20'
       - name: Clone hof-vulnerabilities-scanner
         run: git clone https://github.com/UKHomeOfficeForms/hof-vulnerabilities-scanner.git
-      - name: Run hof-vulnerabilities-scanner
-        run: node hof-vulnerabilities-scanner/index.js
-        id: scan_hof_vuln
-      - name: Save scan output for Slack
+      - name: Run hof-vulnerabilities-scanner and capture output
         id: scan_echo
         run: |
-          if [ -f scan-results.json ]; then
-            summary=$(jq -r 'if .findingsCount == 0 then "No compromised packages found. ✅" else "Vulnerabilities found: " + (.findingsCount|tostring) + " ❌" end' scan-results.json)
-          else
-            summary="Scan did not produce a results file."
-          fi
-          echo "summary=$summary" >> $GITHUB_OUTPUT
+          output=$(node hof-vulnerabilities-scanner/index.js)
+          echo "summary=ARE: $output" >> $GITHUB_OUTPUT
 
   notify-slack:
     needs: [ scan ]
