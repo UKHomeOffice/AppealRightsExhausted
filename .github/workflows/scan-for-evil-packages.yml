@@ -27,9 +27,9 @@ jobs:
           if [ -f scan-results.json ]; then
             count=$(jq '.vulnerabilitiesCount // 0' scan-results.json)
             if [ "$count" -eq 0 ]; then
-              msg="No compromised packages."
+              msg="ARE: No compromised packages."
             else
-              msg="Compromised packages found: $count"
+              msg="ARE: Compromised packages found: $count"
             fi
           else
             msg="scan-results.json not found"
