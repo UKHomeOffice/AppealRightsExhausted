@@ -82,7 +82,7 @@ jobs:
 
   notify-slack:
     needs: [ scan ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: always()
     steps:
       # Send the scan summary to Slack
