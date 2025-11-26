@@ -21,15 +21,20 @@ jobs:
       - name: Run hof-vulnerabilities-scanner
         id: scan_hof_vuln
         run: node hof-vulnerabilities-scanner/index.js
-      - name: Save scan-results.json for Slack
+      - name: Save vulnerability count for Slack
         id: scan_echo
         run: |
           if [ -f scan-results.json ]; then
-            content=$(jq -c . scan-results.json)
+            count=$(jq '.findingsCount' scan-results.json)
+            if [ "$count" -eq 0 ]; then
+              msg="No compromised packages."
+            else
+              msg="Compromised packages found: $count"
+            fi
           else
-            content="scan-results.json not found"
+            msg="scan-results.json not found"
           fi
-          echo "summary=$content" >> $GITHUB_OUTPUT
+          echo "summary=$msg" >> $GITHUB_OUTPUT
 
   notify-slack:
     needs: [ scan ]
