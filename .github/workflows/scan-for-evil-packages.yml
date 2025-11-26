@@ -41,5 +41,3 @@ jobs:
         run: |
           payload=$(jq -n --arg text "$SCAN_OUTPUT" '{text: $text}')
           curl -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
-    outputs:
-      scan_echo: ${{ steps.scan_echo.outputs.stdout }}
