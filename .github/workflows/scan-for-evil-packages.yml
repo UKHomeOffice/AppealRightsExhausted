@@ -3,6 +3,8 @@ name: Scan for Evil Packages
 on:
   repository_dispatch:
     types: [trigger-from-scanmaestro]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   scan:
@@ -12,6 +14,8 @@ jobs:
     steps:
       # Checkout the repository code
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       # Set up Node.js environment
       - uses: actions/setup-node@v4
         with:
@@ -23,6 +27,38 @@ jobs:
       - name: Run hof-vulnerabilities-scanner
         id: scan_hof_vuln
         run: node hof-vulnerabilities-scanner/index.js
+      # Scan all remote branches in workflow
+      - name: Scan all remote branches
+        id: scan_branches
+        run: |
+          set -euo pipefail
+          git fetch --all --prune
+          branches=$(git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/heads/||')
+          summary=""
+          any_compromised=0
+
+          for br in $branches; do
+            echo "=== Scanning branch: $br ==="
+            git checkout --force -B "$br" "origin/$br"
+            node hof-vulnerabilities-scanner/index.js --out "scan-results-${br}.json" || true
+            cnt=$(jq '.vulnerabilitiesCount // 0' "scan-results-${br}.json" 2>/dev/null || echo 0)
+            if [ "$cnt" -gt 0 ]; then
+              any_compromised=1
+              summary="${summary}${br}: ${cnt} compromised packages\n"
+            else
+              summary="${summary}${br}: 0\n"
+            fi
+          done
+
+          if [ "$any_compromised" -eq 0 ]; then
+            final="ARE: No compromised packages across branches scanned."
+          else
+            final="ARE: Compromised packages found:\n${summary}"
+          fi
+
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$final" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
       # Parse scan-results.json and prepare a summary for Slack
       - name: Save vulnerability count for Slack
         id: scan_echo
