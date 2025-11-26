@@ -36,6 +36,7 @@ jobs:
           branches=$(git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/heads/||')
           summary=""
           any_compromised=0
+          repo_name=ARE
 
           for br in $branches; do
             echo "=== Scanning branch: $br ==="
@@ -51,9 +52,9 @@ jobs:
           done
 
           if [ "$any_compromised" -eq 0 ]; then
-            final="ARE: No compromised packages found. ✅"
+            final="$repo_name: No compromised packages found. ✅"
           else
-            final="ARE: Compromised packages found:\n${summary}. ❌"
+            final="$repo_name: Compromised packages found:\n${summary}. ❌"
           fi
 
           echo "summary<<EOF" >> $GITHUB_OUTPUT
@@ -69,9 +70,9 @@ jobs:
             if [ -f scan-results.json ]; then
               count=$(jq '.vulnerabilitiesCount // 0' scan-results.json)
               if [ "$count" -eq 0 ]; then
-                summary="ARE: No compromised packages. ✅"
+                summary="$repo_name: No compromised packages. ✅"
               else
-                summary="ARE: Compromised packages found: $count. ❌"
+                summary="$repo_name: Compromised packages found: $count. ❌"
               fi
             else
               summary="No scan summary found. ❌"
