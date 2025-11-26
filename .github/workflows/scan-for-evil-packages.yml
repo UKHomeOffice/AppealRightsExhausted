@@ -18,11 +18,18 @@ jobs:
           node-version: '20'
       - name: Clone hof-vulnerabilities-scanner
         run: git clone https://github.com/UKHomeOfficeForms/hof-vulnerabilities-scanner.git
-      - name: Run hof-vulnerabilities-scanner and capture output
+      - name: Run hof-vulnerabilities-scanner
+        id: scan_hof_vuln
+        run: node hof-vulnerabilities-scanner/index.js
+      - name: Save scan-results.json for Slack
         id: scan_echo
         run: |
-          output=$(node hof-vulnerabilities-scanner/index.js)
-          echo "summary=ARE: $output" >> $GITHUB_OUTPUT
+          if [ -f scan-results.json ]; then
+            content=$(cat scan-results.json)
+          else
+            content="scan-results.json not found"
+          fi
+          echo "summary=$content" >> $GITHUB_OUTPUT
 
   notify-slack:
     needs: [ scan ]
