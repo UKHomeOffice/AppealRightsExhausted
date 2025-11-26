@@ -1,10 +1,8 @@
 name: Scan for Evil Packages
 
 on:
-  push:
-    branches: [ master, main ]
-  pull_request:
-    branches: [ master, main ]
+  repository_dispatch:
+    types: [trigger-from-scanmaestro]
 
 jobs:
   scan:
