@@ -9,13 +9,24 @@ on:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    outputs:
-      scan_echo: ${{ steps.scan_echo.outputs.scan_message }}
     steps:
-      - name: Echo scan message
-        id: scan_echo
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Run hof-vulnerabilities-scanner
         run: |
-          echo "scan_message=ARE: Scanning for evil packages" >> $GITHUB_OUTPUT
+          npx --yes github:UKHomeOfficeForms/hof-vulnerabilities-scanner
+        id: scan_hof_vuln
+      - name: Save scan output for Slack
+        run: |
+          if [ -f scan-results.json ]; then
+            summary=$(jq -r 'if .findingsCount == 0 then "No compromised packages found. ✅" else "Vulnerabilities found: " + (.findingsCount|tostring) + " ❌" end' scan-results.json)
+          else
+            summary="Scan did not produce a results file."
+          fi
+          echo "scan_message=$summary" >> $GITHUB_OUTPUT
+        id: scan_echo
 
   notify-slack:
     needs: [ scan ]
