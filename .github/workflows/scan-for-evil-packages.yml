@@ -6,19 +6,24 @@ on:
 
 jobs:
   scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     outputs:
       scan_summary: ${{ steps.scan_echo.outputs.summary }}
     steps:
+      # Checkout the repository code
       - uses: actions/checkout@v4
+      # Set up Node.js environment
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      # Clone the vulnerabilities scanner tool
       - name: Clone hof-vulnerabilities-scanner
         run: git clone https://github.com/UKHomeOfficeForms/hof-vulnerabilities-scanner.git
+      # Run the scanner to generate scan-results.json
       - name: Run hof-vulnerabilities-scanner
         id: scan_hof_vuln
         run: node hof-vulnerabilities-scanner/index.js
+      # Parse scan-results.json and prepare a summary for Slack
       - name: Save vulnerability count for Slack
         id: scan_echo
         run: |
@@ -39,6 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
+      # Send the scan summary to Slack
       - name: Notify Slack
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
