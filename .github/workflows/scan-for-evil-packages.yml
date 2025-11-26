@@ -14,9 +14,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Clone hof-vulnerabilities-scanner
+        run: git clone https://github.com/UKHomeOfficeForms/hof-vulnerabilities-scanner.git
       - name: Run hof-vulnerabilities-scanner
-        run: |
-          npx --yes github:UKHomeOfficeForms/hof-vulnerabilities-scanner
+        run: node hof-vulnerabilities-scanner/index.js
         id: scan_hof_vuln
       - name: Save scan output for Slack
         run: |
