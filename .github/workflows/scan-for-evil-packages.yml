@@ -29,10 +29,10 @@ jobs:
       - name: Scan all remote branches
         id: scan_branches
         run: |
-        # Exit on error, undefined variable, or pipe failure
+          # Exit on error, undefined variable, or pipe failure
           set -euo pipefail 
           git fetch --all --prune
-        # Makes branch refs more readable
+          # Makes branch refs more readable
           branches=$(git ls-remote --heads origin | awk '{print $2}' | sed 's|refs/heads/||')
           summary=""
           any_compromised=0
