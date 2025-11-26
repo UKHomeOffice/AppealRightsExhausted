@@ -25,7 +25,7 @@ jobs:
         id: scan_echo
         run: |
           if [ -f scan-results.json ]; then
-            count=$(jq '.findingsCount' scan-results.json)
+            count=$(jq '.vulnerabilitiesCount // 0' scan-results.json)
             if [ "$count" -eq 0 ]; then
               msg="No compromised packages."
             else
