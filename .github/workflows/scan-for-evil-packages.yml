@@ -1,0 +1,54 @@
+name: Scan for Evil Packages
+
+on:
+  repository_dispatch:
+    types: [trigger-from-scanmaestro]
+
+jobs:
+  scan:
+    runs-on: ubuntu-22.04
+    outputs:
+      scan_summary: ${{ steps.scan_echo.outputs.summary }}
+    steps:
+      # Checkout the repository code
+      - uses: actions/checkout@v4
+      # Set up Node.js environment
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      # Clone the vulnerabilities scanner tool
+      - name: Clone hof-vulnerabilities-scanner
+        run: git clone https://github.com/UKHomeOfficeForms/hof-vulnerabilities-scanner.git
+      # Run the scanner to generate scan-results.json
+      - name: Run hof-vulnerabilities-scanner
+        id: scan_hof_vuln
+        run: node hof-vulnerabilities-scanner/index.js
+      # Parse scan-results.json and prepare a summary for Slack
+      - name: Save vulnerability count for Slack
+        id: scan_echo
+        run: |
+          if [ -f scan-results.json ]; then
+            count=$(jq '.vulnerabilitiesCount // 0' scan-results.json)
+            if [ "$count" -eq 0 ]; then
+              msg="ARE: No compromised packages."
+            else
+              msg="ARE: Compromised packages found: $count"
+            fi
+          else
+            msg="scan-results.json not found"
+          fi
+          echo "summary=$msg" >> $GITHUB_OUTPUT
+
+  notify-slack:
+    needs: [ scan ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      # Send the scan summary to Slack
+      - name: Notify Slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SCAN_OUTPUT: ${{ needs.scan.outputs.scan_summary }}
+        run: |
+          payload=$(jq -n --arg text "$SCAN_OUTPUT" '{text: $text}')
+          curl -X POST -H 'Content-type: application/json' --data "$payload" "$SLACK_WEBHOOK_URL"
