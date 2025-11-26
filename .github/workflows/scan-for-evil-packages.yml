@@ -25,7 +25,7 @@ jobs:
         id: scan_echo
         run: |
           if [ -f scan-results.json ]; then
-            content=$(cat scan-results.json)
+            content=$(jq -c . scan-results.json)
           else
             content="scan-results.json not found"
           fi
