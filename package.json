@@ -26,6 +26,7 @@
   },
   "author": "HomeOffice",
   "dependencies": {
+    "accessible-autocomplete": "3.0.1",
     "hof": "~22.10.4",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
