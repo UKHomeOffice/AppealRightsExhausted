@@ -26,7 +26,7 @@
   },
   "author": "HomeOffice",
   "dependencies": {
-    "hof": "~22.10.4",
+    "hof": "24.0.0-vite-beta.12",
     "jquery": "^3.7.1",
     "lodash": "^4.17.21",
     "moment": "^2.30.1"
