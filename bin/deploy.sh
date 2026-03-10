@@ -7,7 +7,7 @@ export CONFIGMAP_VALUES=$HOF_CONFIG/configmap-values.yaml
 export NGINX_SETTINGS=$HOF_CONFIG/nginx-settings.yaml
 
 kd='kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s'
-redis_storage_files='kube/redis/redis-persistent-volume.yml -f kube/redis/redis-persistent-volume-claim.yml'
+redis_storage_files='kube/redis/redis-persistent-volume-claim.yml'
 redis_runtime_files='kube/redis/redis-service.yml -f kube/redis/redis-network-policy.yml -f kube/redis/redis-deployment.yml'
 
 if [[ $1 == 'tear_down' ]]; then
