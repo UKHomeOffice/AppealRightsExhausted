@@ -16,9 +16,3 @@ spec:
       {{ else }}
       storage: 1Gi
       {{ end }}
-  storageClassName: redis-manual
-  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
-  volumeName: redis-pv-{{ .DRONE_SOURCE_BRANCH }}
-  {{ else }}
-  volumeName: redis-pv
-  {{ end }}
