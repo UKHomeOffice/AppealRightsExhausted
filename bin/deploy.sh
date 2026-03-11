@@ -23,6 +23,10 @@ fi
 export KUBE_NAMESPACE=$1
 export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
 
+if [[ ${REDIS_PVC_RECREATE} == "true" ]]; then
+  $kd --delete -f kube/redis/redis-persistent-volume-claim.yml || true
+fi
+
 if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} ]]; then
   $kd -f kube/configmaps -f kube/certs
   $kd -f $redis_storage_files
