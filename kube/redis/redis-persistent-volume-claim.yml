@@ -9,6 +9,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: {{ .REDIS_STORAGE_CLASS }}
   resources:
     requests:
       {{ if eq .KUBE_NAMESPACE .PROD_ENV }}

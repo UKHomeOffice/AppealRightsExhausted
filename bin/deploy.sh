@@ -22,6 +22,7 @@ fi
 
 export KUBE_NAMESPACE=$1
 export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
+export REDIS_STORAGE_CLASS=${REDIS_STORAGE_CLASS:-gp2-encrypted-eu-west-2b}
 
 if [[ ${REDIS_PVC_RECREATE} == "true" ]]; then
   $kd --delete -f kube/redis/redis-persistent-volume-claim.yml || true
