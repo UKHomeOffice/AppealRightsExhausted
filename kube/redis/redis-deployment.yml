@@ -29,6 +29,9 @@ spec:
         app: redis
         {{ end }}
     spec:
+      securityContext:
+        fsGroup: 994
+        fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: redis
           # redis:v7.0.15
