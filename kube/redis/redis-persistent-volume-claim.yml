@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: redis-pvc-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
+  name: redis-pvc
+  {{ end }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .REDIS_STORAGE_CLASS }}
+  resources:
+    requests:
+      {{ if eq .KUBE_NAMESPACE .PROD_ENV }}
+      storage: 10Gi
+      {{ else }}
+      storage: 1Gi
+      {{ end }}

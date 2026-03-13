@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  {{ if eq .KUBE_NAMESPACE .BRANCH_ENV }}
+  name: redis-pv-{{ .DRONE_SOURCE_BRANCH }}
+  {{ else }}
+  name: redis-pv
+  {{ end }}
+spec:
+  capacity:
+    {{ if eq .KUBE_NAMESPACE .PROD_ENV }}
+    storage: 10Gi
+    {{ else }}
+    storage: 1Gi
+    {{ end }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: redis-manual
+  hostPath:
+    path: /mnt/data/redis
+    type: DirectoryOrCreate
