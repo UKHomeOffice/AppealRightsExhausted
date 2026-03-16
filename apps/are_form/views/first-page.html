@@ -1,7 +1,6 @@
 {% extends "partials/page.html" %}
 
 {% block page_content %}
-
   {% for field in fields %}
     {{ renderField(field) }}
   {% endfor %}
@@ -16,9 +15,9 @@
     <div id="reference-list" class="header-context">
        <ol class="group">
          <li><strong>Guidance</strong></li>
-         <li><a href="{% if url %}{{ url }}/guidance{% endif %}" class="govuk-link">{% if t %} {{t('pages.reference-links.guidance')}}{% endif %}</a></li>
-         <li><a href="{% if url %}{{ url }}/appealstages{% endif %}" class="govuk-link">{% if t %} {{t('pages.reference-links.appeal-stages')}}{% endif %}</a></li>
-         <li><a href="{% if url %}{{ url }}/exclusiondates{% endif %}" class="govuk-link">{% if t %} {{t('pages.reference-links.exclusion-dates')}}{% endif %}</a></li>
+         <li><a href="{% if url %}/guidance{% endif %}" class="govuk-link">{{ t('pages.reference-links.guidance') }}</a></li>
+         <li><a href="{% if url %}/appealstages{% endif %}" class="govuk-link">{{ t('pages.reference-links.appeal-stages') }}</a></li>
+         <li><a href="{% if url %}/exclusiondates{% endif %}" class="govuk-link">{{ t('pages.reference-links.exclusion-dates') }}</a></li>
       </ol>
     </div>
 {% endblock %}
