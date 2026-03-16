@@ -17,8 +17,8 @@ module.exports = {
       behaviours: checkCountryAppealStage,
       fields: [
         'country-of-hearing',
-        'appeal-stage',
-        'start-date'
+        // 'appeal-stage',
+        // 'start-date'
       ],
       backLink: false,
       next: '/confirm'
