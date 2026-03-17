@@ -51,5 +51,18 @@ fi
 sleep $READY_FOR_TEST_DELAY
 
 if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} ]]; then
-  echo "Branch - are-$DRONE_SOURCE_BRANCH.internal.$BRANCH_ENV.homeoffice.gov.uk"
+  echo "Branch internal 1 - $DRONE_BUILD_NUMBER.internal.$BRANCH_ENV.homeoffice.gov.uk"
+  echo "Branch internal 2 - are-$DRONE_SOURCE_BRANCH.internal.$BRANCH_ENV.homeoffice.gov.uk"
+  echo "Branch external 1 - are-$DRONE_SOURCE_BRANCH.$BRANCH_ENV.homeoffice.gov.uk"
+  echo "Branch external 2 - $DRONE_SOURCE_BRANCH.$BRANCH_ENV.homeoffice.gov.uk"
+elif [[ ${KUBE_NAMESPACE} == ${UAT_ENV} ]]; then
+  echo "UAT internal 1 - are.uat.internal.sas-notprod.homeoffice.gov.uk"
+  echo "UAT internal 2 - $APP_NAME.uat.internal.sas-notprod.homeoffice.gov.uk"
+  echo "UAT external - $APP_NAME.uat.sas-notprod.homeoffice.gov.uk"
+elif [[ ${KUBE_NAMESPACE} == ${STG_ENV} ]]; then
+  echo "STG internal 1 - stg.internal.are.sas.homeoffice.gov.uk"
+  echo "STG internal 2 - stg.internal.$APP_NAME.sas.homeoffice.gov.uk"
+  echo "STG external - preprod.notprod.$APP_NAME.homeoffice.gov.uk"
+elif [[ ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
+  echo "PROD external - $PRODUCTION_URL"
 fi
