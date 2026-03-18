@@ -884,11 +884,6 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.3.0.tgz#d06bbb384ebcf6c505fde1c3d0ed4ddffe0aaff8"
   integrity sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==
 
-a-sync-waterfall@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/a-sync-waterfall/-/a-sync-waterfall-1.0.1.tgz#75b6b6aa72598b497a125e7a2770f14f4c8a1fa7"
-  integrity sha512-RYTOHHdWipFUliRFMCS4X2Yn2X8M87V/OpSqWzKKOGhzqyUxzyVmhHDH9sAvG+ZuQf/TAOFsLCpMw09I1ufUnA==
-
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -1085,11 +1080,6 @@ arraybuffer.prototype.slice@^1.0.4:
     es-errors "^1.3.0"
     get-intrinsic "^1.2.6"
     is-array-buffer "^3.0.4"
-
-asap@^2.0.3:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
-  integrity sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
 
 assertion-error@^2.0.1:
   version "2.0.1"
@@ -1479,11 +1469,6 @@ combined-stream@^1.0.8:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
-
-commander@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
-  integrity sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==
 
 commander@~2.1.0:
   version "2.1.0"
@@ -2741,6 +2726,11 @@ govuk_frontend_toolkit@^7.1.0:
   resolved "https://registry.yarnpkg.com/govuk_frontend_toolkit/-/govuk_frontend_toolkit-7.6.0.tgz#b09a60631afbba4bfac76a8b7c02e72419c29cf5"
   integrity sha512-BlJsYnC0HJomBNCiBm2oQCqgbvP7vaA06XyJ2NocpWM4vFcK/AxAC/7gAU6iCjP3LVhyobR+o2MTFFGozPIE6A==
 
+govuk_template_mustache@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/govuk_template_mustache/-/govuk_template_mustache-0.26.0.tgz#295950809a7f16aa7dcef7bcbeec5113ad4acd1f"
+  integrity sha512-EkeyXYuALh+7IF/WX0GorsLR9tXfrTNZV4rQ5CFjiIiaEdxzikIEV4KY4/zLr9qUr9t8EHNFlJ3T/OGfBRmm1w==
+
 graceful-fs@^4.1.15:
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
@@ -2849,10 +2839,10 @@ hide-powered-by@1.1.0:
   resolved "https://registry.yarnpkg.com/hide-powered-by/-/hide-powered-by-1.1.0.tgz#be3ea9cab4bdb16f8744be873755ca663383fa7a"
   integrity sha512-Io1zA2yOA1YJslkr+AJlWSf2yWFkKjvkcL9Ni1XSUqnGLr/qRQe2UI3Cn/J9MsJht7yEVCe0SscY1HgVMujbgg==
 
-hof@24.0.0-nunjucks-refactoring-layout-radio-beta.6:
-  version "24.0.0-nunjucks-refactoring-layout-radio-beta.6"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-nunjucks-refactoring-layout-radio-beta.6.tgz#874a58393679b9ff154cb48156a73ce4c618fbf3"
-  integrity sha512-OUMjPWFGHApPTPuD9GkbsazhzsweRVe4rz8oXa3h/pg32xo68ABmpRJt9ZdaaFkyAf7ZVziG2BTCpG3Wi2twwQ==
+hof@23.0.1:
+  version "23.0.1"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-23.0.1.tgz#28bef47686a515309043ab0a428870070e160a75"
+  integrity sha512-Kn/GJ+01lLrfZTU7FMEdhAQeKyFFOawrLJ1xX1ruJc5jSQ0/ZJBS50gdYoL6jTY3GYgxVHUx4k0FPK32GoeYVg==
   dependencies:
     "@rollup/plugin-commonjs" "^29.0.0"
     "@rollup/plugin-node-resolve" "^16.0.3"
@@ -2881,6 +2871,7 @@ hof@24.0.0-nunjucks-refactoring-layout-radio-beta.6:
     glob "^7.2.3"
     govuk-elements-sass "^3.1.3"
     govuk-frontend "4.10"
+    govuk_template_mustache "^0.26.0"
     helmet "^3.23.3"
     hogan-express-strict "^0.5.4"
     hogan.js "^3.0.2"
@@ -2897,11 +2888,11 @@ hof@24.0.0-nunjucks-refactoring-layout-radio-beta.6:
     mixwith "^0.1.1"
     moment "^2.30.1"
     morgan "^1.10.1"
+    mustache "^4.2.0"
     nodemailer "^6.10.1"
     nodemailer-ses-transport "^1.5.1"
     nodemailer-stub-transport "^1.1.0"
     notifications-node-client "^8.2.1"
-    nunjucks "3.2.4"
     redis "^3.1.2"
     reqres "^3.0.1"
     rimraf "^3.0.2"
@@ -3864,6 +3855,11 @@ ms@2.1.3, ms@^2.1.1, ms@^2.1.3:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
+mustache@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/mustache/-/mustache-4.2.0.tgz#e5892324d60a12ec9c2a73359edca52972bf6f64"
+  integrity sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==
+
 nanoid@^3.3.11:
   version "3.3.11"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.11.tgz#4f4f112cefbe303202f2199838128936266d185b"
@@ -3948,15 +3944,6 @@ notifications-node-client@^8.2.1:
   dependencies:
     axios "^1.7.2"
     jsonwebtoken "^9.0.2"
-
-nunjucks@3.2.4:
-  version "3.2.4"
-  resolved "https://registry.yarnpkg.com/nunjucks/-/nunjucks-3.2.4.tgz#f0878eef528ce7b0aa35d67cc6898635fd74649e"
-  integrity sha512-26XRV6BhkgK0VOxfbU5cQI+ICFUtMLixv1noZn1tGU38kQH5A5nmmbk/O45xdyBhD1esk47nKrY0mvQpZIhRjQ==
-  dependencies:
-    a-sync-waterfall "^1.0.0"
-    asap "^2.0.3"
-    commander "^5.1.0"
 
 nyc@^17.1.0:
   version "17.1.0"
