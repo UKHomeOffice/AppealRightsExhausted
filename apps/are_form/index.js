@@ -16,7 +16,7 @@ module.exports = {
     '/first-page': {
       behaviours: checkCountryAppealStage,
       fields: [
-        'country-of-hearing',
+        'country-of-hearing'
         // 'appeal-stage',
         // 'start-date'
       ],
