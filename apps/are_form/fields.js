@@ -5,7 +5,7 @@ const dateComponent = require('hof').components.date;
 
 module.exports = {
   'country-of-hearing': {
-    mixin: 'radioGroup',
+    mixin: 'radio-group',
     validate: ['required'],
     legend: {
       className: 'govuk-fieldset__legend--m '
