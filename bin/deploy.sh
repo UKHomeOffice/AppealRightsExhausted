@@ -9,6 +9,7 @@ export NGINX_SETTINGS=$HOF_CONFIG/nginx-settings.yaml
 kd='kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s'
 redis_storage_files='kube/redis/redis-persistent-volume-claim.yml'
 redis_runtime_files='kube/redis/redis-service.yml -f kube/redis/redis-network-policy.yml -f kube/redis/redis-deployment.yml'
+export REDIS_STORAGE_CLASS=${REDIS_STORAGE_CLASS:-gp2-encrypted-eu-west-2b}
 
 if [[ $1 == 'tear_down' ]]; then
   export KUBE_NAMESPACE=$BRANCH_ENV
@@ -22,7 +23,6 @@ fi
 
 export KUBE_NAMESPACE=$1
 export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
-export REDIS_STORAGE_CLASS=${REDIS_STORAGE_CLASS:-gp2-encrypted-eu-west-2b}
 
 if [[ ${REDIS_PVC_RECREATE} == "true" ]]; then
   $kd --delete -f kube/redis/redis-persistent-volume-claim.yml || true
