@@ -1,6 +1,4 @@
 #!/bin/bash
 
 docker build -t test-repo-image:latest . || docker build -t test-repo-image:latest ..
-snyk config set api=$SNYK_TOKEN
-snyk container test test-repo-image
-curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r test-repo-image:latest
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image --severity LOW,MEDIUM,HIGH,CRITICAL test-repo-image:latest
