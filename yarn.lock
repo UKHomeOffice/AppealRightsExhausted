@@ -2772,10 +2772,10 @@ hide-powered-by@1.1.0:
   resolved "https://registry.yarnpkg.com/hide-powered-by/-/hide-powered-by-1.1.0.tgz#be3ea9cab4bdb16f8744be873755ca663383fa7a"
   integrity sha512-Io1zA2yOA1YJslkr+AJlWSf2yWFkKjvkcL9Ni1XSUqnGLr/qRQe2UI3Cn/J9MsJht7yEVCe0SscY1HgVMujbgg==
 
-hof@24.0.0-nunjucks-refactoring-select-beta.8:
-  version "24.0.0-nunjucks-refactoring-select-beta.8"
-  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-nunjucks-refactoring-select-beta.8.tgz#579ccafa423d2b01f9313c419cf48b048a638d93"
-  integrity sha512-GG2RMrr4zB1J6gC7oSb6YQJPBcSJnMcEgktkZZe0KbU8pQ3xHbSKQVVvhuxV+y3dnx9S6d7wfKgwPcK4MblzRg==
+hof@24.0.0-nunjucks-refactoring-terms-bullet-list-beta:
+  version "24.0.0-nunjucks-refactoring-terms-bullet-list-beta"
+  resolved "https://registry.yarnpkg.com/hof/-/hof-24.0.0-nunjucks-refactoring-terms-bullet-list-beta.tgz#7b3cf96bb98b6378487145addfb2ccaf79633e0d"
+  integrity sha512-B0bNFKKGp45wSuH9NUOudMcZ2thJVLPLWfnxPEVavJBDh7aWa/buhXXd5wCiKdGM3NtdmH2o6suBYL9Qcz2cMw==
   dependencies:
     "@rollup/plugin-commonjs" "^29.0.0"
     "@rollup/plugin-node-resolve" "^16.0.3"
