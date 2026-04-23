@@ -35,7 +35,19 @@ $path: "../img/";
 }
 
 h1 {
-  @include bold-24;
+  @extend .govuk-heading-l;
+}
+
+a {
+  @extend .govuk-link;
+}
+
+p {
+  @extend .govuk-body;
+}
+
+h2 {
+  @extend .govuk-heading-m;
 }
 
 .column-two-thirds {

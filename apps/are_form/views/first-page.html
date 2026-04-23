@@ -1,10 +1,13 @@
-{{<partials-page}}
-  {{$page-content}}
-    {{#fields}}
-      {{#renderField}}{{/renderField}}
-    {{/fields}}
-    {{#input-submit}}calculate{{/input-submit}}
-    <table>
+{% extends "partials/page.html" %}
+
+{% block page_content %}
+  {% for field in fields %}
+    {{ renderField(field) }}
+  {% endfor %}
+
+{{ inputSubmit("calculate") }}
+
+ <table>
         <div class=related-container>
     </table>
     </div>
@@ -12,10 +15,9 @@
     <div id="reference-list" class="header-context">
        <ol class="group">
          <li><strong>Guidance</strong></li>
-         <li><a href="{{#url}}/guidance{{/url}}" class="govuk-link">{{#t}}pages.reference-links.guidance{{/t}}</a></li>
-         <li><a href="{{#url}}/appealstages{{/url}}" class="govuk-link">{{#t}}pages.reference-links.appeal-stages{{/t}}</a></li>
-         <li><a href="{{#url}}/exclusiondates{{/url}}" class="govuk-link">{{#t}}pages.reference-links.exclusion-dates{{/t}}</a></li>
+         <li><a href="{% if url %}/guidance{% endif %}" class="govuk-link">{{ t('pages.reference-links.guidance') }}</a></li>
+         <li><a href="{% if url %}/appealstages{% endif %}" class="govuk-link">{{ t('pages.reference-links.appeal-stages') }}</a></li>
+         <li><a href="{% if url %}/exclusiondates{% endif %}" class="govuk-link">{{ t('pages.reference-links.exclusion-dates') }}</a></li>
       </ol>
     </div>
-  {{/page-content}}
-{{/partials-page}}
+{% endblock %}
