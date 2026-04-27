@@ -27,7 +27,7 @@
   "dependencies": {
     "hof": "~22.10.4",
     "jquery": "^3.7.1",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "moment": "^2.30.1"
   },
   "devDependencies": {
