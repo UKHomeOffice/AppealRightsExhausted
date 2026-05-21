@@ -1,12 +1,6 @@
-{{<layout}}
+{% extends "layout.njk" %}
 
-  {{$propositionHeader}}{{/propositionHeader}}
-
-  {{$header}}
-    {{header}}
-  {{/header}}
-
-  {{$content}}
+  {% block mainContent %}
     <p class="govuk-body">This service is run by the Home Office. We want as many people as possible to be able to use this service. For example, that means you should be able to:</p>
     <ul class="govuk-list govuk-list--bullet">
         <li>change colours, contrast levels and fonts</li>
@@ -30,5 +24,4 @@
     <p class="govuk-body">This statement was prepared on 1 June 2020. It was last reviewed on 05 March 2025.</p>
     <p class="govuk-body">This website was last tested on 07 December 2024. The test was carried out internally by the Home Office.</p>
     <p class="govuk-body">We tested the service based on a user's ability to complete key journeys. All parts of the chosen journeys were tested, including documents. Journeys were chosen on a number of factors including usage statistics, risk assessments and subject matter.</p>
-  {{/content}}
-{{/layout}}
+  {% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.njk" %}
+
+{% block pageTitle %}How are ARE dates calculated? - {{ t("journey.header") }} - GOV.UK{% endblock %}
+
+{% block mainContent %}
+<h1 class="govuk-heading-l">What are ARE dates?</h1>
+
+<p class="govuk-body">If someone wants to appeal against the decision made by the Home Office or
+Tribunal, they must do so before the Appeal Rights Exhausted (ARE) date.
+If the person doesn’t appeal before this date, the decision becomes final.</p>
+
+<h1 class="govuk-heading-l">How are ARE dates calculated?</h1>
+
+<p class="govuk-body">ARE dates arise when a set number of days have passed since the most recent
+Home Office or Tribunal decision has been made regarding a particular case.</p>
+
+<p class="govuk-body">The number of days is determined by the decision type and the
+<a href="{% if url %}/appealstages{% endif %}" class="govuk-link">stage of the appeal</a>.
+The ARE date can’t fall on a weekend or on an
+<a href="{% if url %}/exclusiondates{% endif %}" class="govuk-link">{{ t("exclusion date") }}</a>, so
+will fall on the next suitable date.</p>
+
+<table><div class=related-container>
+</table>
+</div>
+
+<div id="reference-list" class="header-context">
+   <ol class="group">
+     <li><strong>Guidance</strong></li>
+     <li><a href="{% if url %}/appealstages{% endif %}" class="govuk-link">{{ t("pages.reference-links.appeal-stages") }}</a></li>
+     <li><a href="{% if url %}/exclusiondates{% endif %}" class="govuk-link">{{ t("pages.reference-links.exclusion-dates") }}</a></li>
+  </ol>
+</div>
+{% endblock %}

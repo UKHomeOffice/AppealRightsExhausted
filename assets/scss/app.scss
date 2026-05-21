@@ -7,21 +7,16 @@ $path: "../img/";
 @import "./validation.scss";
 
 
-.phase-banner {
-  @include phase-banner(beta);
-}
-
 #step {
-  @include core-16;
+  @include govuk-font(16);
   a {
     display: inline-block;
-    margin-top: $gutter-half;
+    margin-top: govuk-spacing(3);
     padding-left: 14px;
-    border-bottom: $black 1px solid;
-    color: $black;
+    border-bottom: 1px solid govuk-colour("black");
+    color: govuk-colour("black");
     text-decoration: none;
-    background: url("../images/icons/icon-caret-left.png") no-repeat 0 4px;
-    @include media(mobile) {
+    @include govuk-media-query($until: tablet) {
       background-position: 0 1px;
     }
     margin-right: 14px;
@@ -29,13 +24,25 @@ $path: "../img/";
 
   span {
     display: inline-block;
-    margin-top: $gutter-half;
-    color: $secondary-text-colour;
+    margin-top: govuk-spacing(3);
+    color: govuk-colour("dark-grey");
   }
 }
 
 h1 {
-  @include bold-24;
+  @extend .govuk-heading-l;
+}
+
+a {
+  @extend .govuk-link;
+}
+
+p {
+  @extend .govuk-body;
+}
+
+h2 {
+  @extend .govuk-heading-m;
 }
 
 .column-two-thirds {
@@ -43,7 +50,7 @@ h1 {
 }
 
 .form-label-bold {
-  @include core-19;
+   @include govuk-font(19);
 }
 
 //autocomplete styling
@@ -77,9 +84,9 @@ h1 {
 
 //custom form styling
 .form-control {
-  padding: 0.5em;
+  padding: govuk-spacing(2);
 
-  @include media(desktop) {
+  @include govuk-media-query($from: desktop) {
     width: 65%;
   }
 }
@@ -90,7 +97,7 @@ h1 {
 
 #country-of-hearing {
   margin-top: 25px;
-  margin-bottom:  0px;
+  margin-bottom: 0px;
   width: 110%;
 }
 
@@ -106,34 +113,13 @@ h1 {
   margin-top: 12px;
 }
 
-// GOVUK Elements `.form-date` overrides
-.form-date {
-  border-left: none;
-  padding-left: 0;
-
-  label {
-    @include core-19();
-  }
-
-  .form-group {
-    input {
-      &[id$="-year"] {
-        width: 70px;
-      }
-    }
-  }
-  .form-hint {
-    margin-top: 5px;
-    margin-bottom: 4px;
-  }
-}
-
 #delivery-details {
   width: 100%;
 }
 
 #england-and-wales-dates.panel-indent,
-#scotland-dates.panel-indent, #northern-ireland-dates.panel-indent {
+#scotland-dates.panel-indent,
+#northern-ireland-dates.panel-indent {
   tbody {
     td {
       font-family: "nta", Arial, sans-serif;
@@ -150,11 +136,11 @@ h1 {
 }
 
 .highlighted-result {
-  background-color:#28a197;
+  background-color: #28a197;
   color: white;
   font-size: 18px;
-  text-align:center;
-  padding:19px;
+  text-align: center;
+  padding: 19px;
 }
 
 .highlighted-result h1 {
@@ -163,12 +149,15 @@ h1 {
 }
 
 @media print {
-  .no-print, .noprint * {
+
+  .no-print,
+  .noprint * {
     display: none !important;
   }
 }
+
 .are-dropdown select {
-  background: #dee0e2;  //grey
+  background: #dee0e2; //grey
   background: white;
   font-size: 19px;
   width: 150%;
@@ -198,27 +187,6 @@ h1 {
   padding-left: 10px;
 }
 
-.appeal-stages-table {
-  width: 150%;
-  tbody {
-    td:nth-child(1) {
-      width: 15%;
-      font-family: "nta", Arial, sans-serif;
-      font-size: 16px;
-      line-height: 1.50;
-    }
-    td:nth-child(2) {
-      width: 85%;
-      font-family: "nta", Arial, sans-serif;
-      font-size: 16px;
-    }
-    td:nth-child(3) {
-      text-align: right;
-      padding-right: 0;
-    }
-  }
-}
-
 .table-details tbody td:not(.no-white-space) {
   white-space: normal;
 }
@@ -233,10 +201,12 @@ h1 {
       white-space: inherit;
       font-size: 16px;
     }
+
     td:nth-child(2) {
       width: 60%;
       font-size: 16px;
     }
+
     td:nth-child(3) {
       text-align: right;
       padding-right: 0;
@@ -250,14 +220,15 @@ h1 {
   }
 
   @media print {
-    .no-print, .no-print *
-    {
+
+    .no-print,
+    .no-print * {
       display: none !important;
     }
   }
 }
 
-#supporting-info{
+#supporting-info {
   width: 100%;
 
   tbody {
@@ -293,16 +264,17 @@ h1 {
 
 .list-bullet {
   padding-bottom: 15px;
+
   li {
     line-height: 1.6;
   }
 }
 
-.govuk-details{
+.govuk-details {
   margin: -30px;
 }
 
-summary{
+summary {
   padding-left: 25px !important;
   padding-right: 25px !important;
 }

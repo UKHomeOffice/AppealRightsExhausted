@@ -1,0 +1,154 @@
+{% extends "layout.njk" %}
+{% from "partials/form.njk" import form %}
+
+{% block content %}
+<header><h1>{{ t("pages.result.header") }}</h1></header>
+
+{% call form() %}
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 class="govuk-panel__title"><B>{{ values["are-date"] }}</B></h1>
+  {% if values["are-date-after-exclusion-range"] %}
+  <br><i>{{ t("pages.result.are-date-after-exclusion-range") }}</i>
+  {% endif %}
+</div>
+
+<table id="summary" class="table-details">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{ t("pages.result.table.headers.country-of-hearing") }}</td>
+        <td>
+            <B>{{ t("pages.result.table.value." + values["country-of-hearing"]) }}</B>
+        </td>
+        <td>
+            <a href="first-page/edit#country-of-hearing-{{values.country-of-hearing}}" class="govuk-link no-print"
+              id="country-of-hearing-change">{{ t("buttons.change") }}</a>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td>{{ t("pages.result.table.headers.appeal-stage") }}
+              <br><a href="appealstages#{{values.appeal-stage-label}}" class="govuk-link">(Details)</a>
+          </td>
+          <td>
+              {{ values["appeal-stage-label"] }}
+          </td>
+          <td>
+            <a href="first-page/edit#appeal-stage"
+               class="govuk-link no-print" id="appeal-stage-change">{{ t("buttons.change") }}</a>
+          </td>
+      </tr>
+    <tr>
+        <td>{{ t("pages.result.table.headers.display-start-date") }}</td>
+        <td>
+            {{ values["input-date"] }}
+            {% if values["input-date-before-exclusion-range"] %}
+            <br><i>{{ t("pages.result.input-date-before-exclusion-range") }}</i>
+            {% endif %}
+        </td>
+        <td><a href="first-page/edit#start-date-day"
+               class="govuk-link no-print" id="start-date-day-change">{{ t("buttons.change") }}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>{{ t("pages.result.table.headers.start-date") }}</td>
+        <td>
+            <strong>{{ values["start-date"] }}</strong>
+        </td>
+        <td></td>
+    </tr>
+  </tbody>
+</table>
+
+{{ inputSubmit("start-again") }}
+  <h3>  {{ t("pages.result.description") }}</h3>
+  <table id="supporting-info" class="table-details">
+      <tbody>
+      <tr>
+          <td>{{ t("Based on") }}</td>
+          <td>
+              {{ values["start-date-label"] }}
+          </td>
+          <td></td>
+      </tr>    <tr>
+          <td>{{ t("pages.result.table.headers.time-limit") }}</td>
+          <td>
+              {{ values["time-limit-value"] }} {{ values["time-limit-type"] }}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{ t("pages.result.table.headers.rules") }}</td>
+          <td>
+              {{ values.rules }}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{ t("pages.result.table.headers.ruleNumber") }}</td>
+          <td>
+              {{ values.ruleNumber }}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{ t("pages.result.table.headers.admin-allowance") }}</td>
+          <td>
+              {{ values["admin-allowance-value"] }} {{ values["admin-allowance-type"] }}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{ t("pages.result.table.headers.trigger") }}</td>
+          <td>
+              {{ values.trigger }}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{ t("pages.result.table.headers.number-of-exclusion-dates-applied") }}</td>
+          <td>
+              {{ values["number-of-exclusion-dates-applied"] }}
+          </td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>{{ t("pages.result.table.headers.excluded-dates") }}</td>
+          <td>
+
+            {% if values["excluded-dates-in-period"] %}
+              {% for value in values["excluded-dates-in-period"] %}
+              <p>{{ value }}</p>
+              {% endfor %}
+            {% else %}
+              <p>None</p>
+            {% endif %}
+          </td>
+          <td></td>
+     </tr>
+      </tbody>
+  </table>
+
+<p><p><p>
+  <h3>{{ t("pages.result.exclusion-date-range") }}</h3><P>
+  {{ values["exclusion-date-range"] }}
+<p><p>
+  <table><div class=related-container>
+  </table>
+  </div>
+  <div id="reference-list" class="header-context">
+     <ul class="govuk-list group">
+       <li><strong>Guidance</strong></li>
+       <li><a href="/guidance" class="govuk-link">{{ t("pages.reference-links.guidance") }}</a></li>
+       <li><a href="/appealstages" class="govuk-link">{{ t("pages.reference-links.appeal-stages") }}</a></li>
+       <li><a href="/exclusiondates" class="govuk-link">{{ t("pages.reference-links.exclusion-dates") }}</a></li>
+    </ul>
+  </div>
+
+{% include "partials/session-timeout-warning.html" %}
+
+{% endcall %}
+
+{% endblock %}

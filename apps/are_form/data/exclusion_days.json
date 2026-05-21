@@ -526,6 +526,62 @@
         "notes": "Substitute day",
         "bunting": true,
         "formattedDate": "Tuesday 28 December 2027"
+      },
+      {
+        "title": "New Year’s Day",
+        "date": "2028-01-03",
+        "notes": "Substitute day",
+        "bunting": true,
+        "formattedDate": "Monday 03 January 2028"
+      },
+      {
+        "title": "Good Friday",
+        "date": "2028-04-14",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Friday 14 April 2028"
+      },
+      {
+        "title": "Easter Monday",
+        "date": "2028-04-17",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 17 April 2028"
+      },
+      {
+        "title": "Early May bank holiday",
+        "date": "2028-05-01",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 01 May 2028"
+      },
+      {
+        "title": "Spring bank holiday",
+        "date": "2028-05-29",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 29 May 2028"
+      },
+      {
+        "title": "Summer bank holiday",
+        "date": "2028-08-28",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 28 August 2028"
+      },
+      {
+        "title": "Christmas Day",
+        "date": "2028-12-25",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 25 December 2028"
+      },
+      {
+        "title": "Boxing Day",
+        "date": "2028-12-26",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Tuesday 26 December 2028"
       }
     ]
   },
@@ -1030,6 +1086,13 @@
         "formattedDate": "Monday 25 May 2026"
       },
       {
+        "title": "World Cup bank holiday",
+        "date": "2026-06-15",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 15 June 2026"
+      },
+      {
         "title": "Summer bank holiday",
         "date": "2026-08-03",
         "notes": "",
@@ -1119,6 +1182,69 @@
         "notes": "Substitute day",
         "bunting": true,
         "formattedDate": "Tuesday 28 December 2027"
+      },
+      {
+        "title": "New Year’s Day",
+        "date": "2028-01-03",
+        "notes": "Substitute day",
+        "bunting": true,
+        "formattedDate": "Monday 03 January 2028"
+      },
+      {
+        "title": "2nd January",
+        "date": "2028-01-04",
+        "notes": "Substitute day",
+        "bunting": true,
+        "formattedDate": "Tuesday 04 January 2028"
+      },
+      {
+        "title": "Good Friday",
+        "date": "2028-04-14",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Friday 14 April 2028"
+      },
+      {
+        "title": "Early May bank holiday",
+        "date": "2028-05-01",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 01 May 2028"
+      },
+      {
+        "title": "Spring bank holiday",
+        "date": "2028-05-29",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 29 May 2028"
+      },
+      {
+        "title": "Summer bank holiday",
+        "date": "2028-08-07",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 07 August 2028"
+      },
+      {
+        "title": "St Andrew’s Day",
+        "date": "2028-11-30",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Thursday 30 November 2028"
+      },
+      {
+        "title": "Christmas Day",
+        "date": "2028-12-25",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 25 December 2028"
+      },
+      {
+        "title": "Boxing Day",
+        "date": "2028-12-26",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Tuesday 26 December 2028"
       }
     ]
   },
@@ -1775,6 +1901,76 @@
         "notes": "Substitute day",
         "bunting": true,
         "formattedDate": "Tuesday 28 December 2027"
+      },
+      {
+        "title": "New Year’s Day",
+        "date": "2028-01-03",
+        "notes": "Substitute day",
+        "bunting": true,
+        "formattedDate": "Monday 03 January 2028"
+      },
+      {
+        "title": "St Patrick’s Day",
+        "date": "2028-03-17",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Friday 17 March 2028"
+      },
+      {
+        "title": "Good Friday",
+        "date": "2028-04-14",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Friday 14 April 2028"
+      },
+      {
+        "title": "Easter Monday",
+        "date": "2028-04-17",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 17 April 2028"
+      },
+      {
+        "title": "Early May bank holiday",
+        "date": "2028-05-01",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 01 May 2028"
+      },
+      {
+        "title": "Spring bank holiday",
+        "date": "2028-05-29",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 29 May 2028"
+      },
+      {
+        "title": "Battle of the Boyne (Orangemen’s Day)",
+        "date": "2028-07-12",
+        "notes": "",
+        "bunting": false,
+        "formattedDate": "Wednesday 12 July 2028"
+      },
+      {
+        "title": "Summer bank holiday",
+        "date": "2028-08-28",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 28 August 2028"
+      },
+      {
+        "title": "Christmas Day",
+        "date": "2028-12-25",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Monday 25 December 2028"
+      },
+      {
+        "title": "Boxing Day",
+        "date": "2028-12-26",
+        "notes": "",
+        "bunting": true,
+        "formattedDate": "Tuesday 26 December 2028"
       }
     ]
   },
@@ -1913,6 +2109,21 @@
       "date": "2027-12-31",
       "title": "Excluded Day",
       "formattedDate": "Friday 31 December 2027"
+    },
+    {
+      "date": "2028-12-27",
+      "title": "Excluded Day",
+      "formattedDate": "Wednesday 27 December 2028"
+    },
+    {
+      "date": "2028-12-28",
+      "title": "Excluded Day",
+      "formattedDate": "Thursday 28 December 2028"
+    },
+    {
+      "date": "2028-12-29",
+      "title": "Excluded Day",
+      "formattedDate": "Friday 29 December 2028"
     }
   ]
 }

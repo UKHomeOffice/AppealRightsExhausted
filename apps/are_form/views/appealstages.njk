@@ -1,0 +1,91 @@
+{% extends "layout.njk" %}
+{% from "partials/details-summary.njk" import detailsComponent %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% block pageTitle %}
+  {{ t("pages.reference-links.appeal-stages") }} - {{ t("journey.header") }} - GOV.UK
+{% endblock %}
+
+{% block mainContent %}
+<header><h1 class="govuk-heading-l">{{ t("pages.reference-links.appeal-stages") }}</h1></header>
+<p class="govuk-body">
+  This table shows the <strong>{{ values["reference-appeal-list-count"] }}</strong>
+  appeal stage types and the set number of succeeding days during which an
+  appeal can be made. These numbers are used to determine the ARE date,
+  however exclusion dates may also need to be factored into the calculation.
+</p>
+
+{% for value in values["reference-appeal-list"] %}
+<br>
+  {% set overrideSummary = value.label %}
+  {% set overrideText %}
+    {{ govukTable({
+      firstCellIsHeader: true,
+      rows: [
+        [
+          {
+            text: "Trigger"
+          },
+          {
+            text: value.trigger
+          }
+        ],
+        [
+          {
+            text: "Based on"
+          },
+          {
+            text: value.startDateLabel
+          }
+        ],
+        [
+          {
+            text: "Rules"
+          },
+          {
+            text: value.rules
+          }
+        ],
+        [
+          {
+            text: "Rule Number"
+          },
+          {
+            text: value.ruleNumber
+          }
+        ],
+        [
+          {
+            text: "Time Limit"
+          },
+          {
+            text: value.timeLimit.value + " " + value.timeLimit.type
+          }
+        ],
+        [
+          {
+            text: "Admin Allowance"
+          },
+          {
+            text: value.adminAllowance.value + " " + value.adminAllowance.type 
+          }
+        ]
+      ]
+    }) }}
+  {% endset %}
+
+  {{ detailsComponent(details, overrideSummary, overrideText) }}
+  <br><br><br>
+{% endfor %}
+<table><div class=related-container>
+</table>
+</div>
+
+<div id="reference-list" class="header-context">
+  <ul class="govuk-list group">
+    <li><strong>Guidance</strong></li>
+    <li><a href="{% if url %}/guidance{% endif %}" class="govuk-link">{{ t("pages.reference-links.guidance") }}</a></li>
+    <li><a href="{% if url %}/exclusiondates{% endif %}" class="govuk-link">{{ t("pages.reference-links.exclusion-dates") }}</a></li>
+ </ul>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout.njk" %}
+{% from "partials/details-summary.njk" import detailsComponent %}
+
+{% block pageTitle %}
+  {{ t("pages.reference-links.exclusion-dates") }} - {{ t("journey.header") }} - GOV.UK
+{% endblock %}
+
+{% block mainContent %}
+  <header><h1 class="govuk-heading-l">{{ t("pages.reference-links.exclusion-dates") }}</h1></header>
+  <p class="govuk-body">
+    Exclusion dates are days when the Tribunal is closed for business and
+    is unable to process appeals. An ARE date can’t fall on a weekend or
+    an exclusion date
+  </p>
+  <p class="govuk-body">
+    For example, if the type of decision and appeal stage permits the person
+    14 days to make an appeal, but that date is a bank holiday Monday, the
+    ARE date will be the following suitable date. In most cases, this would
+    be the Tuesday (as long as the Tuesday isn’t also an Exclusion date).
+  </p>
+  <p class="govuk-body">
+    The calculator factors exclusion dates into its calculations. The following
+    exclusion dates have been added to the ARE calculator for each
+    of the following countries:
+  </p>
+  <h2 class="govuk-heading-m">{{ t("pages.result.exclusion-date-range") }}</h2>
+  <p class="govuk-body">{{ values["exclusion-date-range"] }}</p>
+  <div>
+    <br>
+    {% set overrideSummary = t("pages.reference-links.which-england-and-wales-dates") %}
+    {% set overrideText %}
+      <table id="england-and-wales-dates">
+        {% for value in values["reference-exclusiondate-list-england-and-wales"] %}
+          <tr>
+            <td><td>
+            <td>{{ value.formattedDate }}</td>
+            <td>{{ value.title }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% endset %}
+
+    {{ detailsComponent(details, overrideSummary, overrideText) }}
+    <br>
+  </div>
+  <div>
+    <br><br><br>
+      {% set overrideSummary = t("pages.reference-links.which-scotland-dates") %}
+      {% set overrideText %}
+        <table id="scotland-dates">
+          {% for value in values["reference-exclusiondate-list-scotland"] %}
+            <tr>
+              <td><td>
+              <td>{{ value.formattedDate }}</td>
+              <td>{{ value.title }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endset %}
+
+      {{ detailsComponent(details, overrideSummary, overrideText) }}
+      <br> 
+  </div>
+  <div>
+    <br><br><br>
+      {% set overrideSummary = t("pages.reference-links.which-northern-ireland-dates") %}
+      {% set overrideText %}
+        <table id="northern-ireland-dates">
+          {% for value in values["reference-exclusiondate-list-northern-ireland"] %}
+            <tr>
+              <td></td>
+              <td>{{ value.formattedDate }}</td>
+              <td>{{ value.title }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      {% endset %}
+
+      {{ detailsComponent(details, overrideSummary, overrideText) }}
+      <br>
+    </div>
+
+    <table><div class=related-container>
+    </table>
+  </div>
+  <div id="reference-list" class="header-context">
+    <ul class="govuk-list group">
+      <li><strong>Guidance</strong></li>
+      <li><a href="{% if url %}/guidance{% endif %}" class="govuk-link">{{ t("pages.reference-links.guidance") }}</a></li>
+      <li><a href="{% if url %}/appealstages{% endif %}" class="govuk-link">{{ t("pages.reference-links.appeal-stages") }}</a></li>
+    </ol>
+  </div>
+{% endblock %}

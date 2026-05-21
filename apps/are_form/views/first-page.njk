@@ -1,0 +1,22 @@
+{% extends "partials/page.njk" %}
+
+{% block pageContent %}
+  {% for field in fields %}
+    {{ renderField(field) }}
+  {% endfor %}
+{{ inputSubmit("calculate") }}
+
+ <table class="govuk-table">
+        <div class=related-container>
+    </table>
+    </div>
+
+    <div id="reference-list" class="header-context">
+       <ul class="group govuk-list">
+         <li><strong>Guidance</strong></li>
+         <li><a href="{% if url %}/guidance{% endif %}" class="govuk-link">{{ t('pages.reference-links.guidance') }}</a></li>
+         <li><a href="{% if url %}/appealstages{% endif %}" class="govuk-link">{{ t('pages.reference-links.appeal-stages') }}</a></li>
+         <li><a href="{% if url %}/exclusiondates{% endif %}" class="govuk-link">{{ t('pages.reference-links.exclusion-dates') }}</a></li>
+      </ul>
+    </div>
+{% endblock %}

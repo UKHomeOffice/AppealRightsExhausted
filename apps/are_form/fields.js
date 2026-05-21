@@ -5,7 +5,7 @@ const dateComponent = require('hof').components.date;
 
 module.exports = {
   'country-of-hearing': {
-    mixin: 'radio-group',
+    mixin: 'radioGroup',
     validate: ['required'],
     legend: {
       className: 'govuk-fieldset__legend--m '
@@ -27,7 +27,7 @@ module.exports = {
     }].concat(appealStages)
   },
   'start-date': dateComponent('start-date', {
-    mixin: 'input-date',
+    mixin: 'inputDate',
     validate: ['required', 'date', 'before', {type: 'after', arguments: '2014-10-20'}],
     legend: {
       className: 'govuk-fieldset__legend--m'

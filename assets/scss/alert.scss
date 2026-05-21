@@ -4,7 +4,7 @@
 
 
 %alert {
-  border-left: 4px solid $error-colour;
+  border-left: 4px solid govuk-functional-colour(error);
   clear: both;
   margin: 0 0 1.05263em;
   padding: 1.05263em;
@@ -13,32 +13,30 @@
 
 .alert-success {
   @extend %alert;
-  border-color: $turquoise;
+  border-color: $govuk-success-colour;
 }
-
 
 .alert-info {
   @extend %alert;
-  border-color: $grey-2;
+  border-color: $govuk-link-colour;
 }
-
 
 .alert-error {
   @extend %alert;
-  border-color: $error-colour;
+  border-color: $govuk-error-colour;
 }
 
 
 .alert-complete {
   @extend %alert;
-  background-color: $turquoise;
-  border-color: $turquoise;
-  color: $white;
+  background-color: $govuk-success-colour;
+  border-color: $govuk-success-colour;
+  color: govuk-colour("white");
 }
 
 
 .alert-header {
-  @extend .bold-medium;
+  // @extend .bold-medium;
   clear: both;
   margin-bottom: .5em;
   overflow: hidden;
@@ -47,7 +45,7 @@
 
 
 .alert-number {
-  @extend .bold-xlarge;
+  // @extend .bold-xlarge;
   float: left;
   margin-right: .41666667em; /* 20px ÷ 48px font size */
 }
