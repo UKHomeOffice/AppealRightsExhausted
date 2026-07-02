@@ -9,11 +9,13 @@ Install Node version manager:
 
 [NVM](https://github.com/nvm-sh/nvm)
 
-use Node version 20 or above:
+Use appropriate Node version - for supported versions see `engines.node` in [package.json](package.json).
+
+Commands bellow illustrate how to install and switch to Node 24:
 
 ```bash
-nvm install 20
-nvm use 20
+nvm install 24
+nvm use 24
 ```
 
 Install yarn and run yarn:
@@ -49,6 +51,8 @@ yarn start
 yarn start:dev
 yarn run debug
 ```
+After upgrading to HOF 24.4.0, a session secret is required for local development. 
+Create a .env file and set SESSION_SECRET to a 32-byte value.
 
 ## Bank Holiday Exclusion Dates
 

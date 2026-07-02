@@ -1,6 +1,11 @@
 'use strict';
 
-global.chai = require('chai').use(require('sinon-chai'));
+const chai = require('chai');
+const sinonChai = require('sinon-chai');
+
+chai.use(sinonChai.default || sinonChai);
+
+global.chai = chai;
 global.should = chai.should();
 
 global.sinon = require('sinon');
