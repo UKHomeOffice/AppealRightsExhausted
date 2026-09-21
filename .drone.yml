@@ -34,7 +34,7 @@ trigger:
 
 node_image: &node_image
   pull: if-not-exists
-  image: node:24.18.0-alpine3.24@sha256:4ba75f835bb8802193e4c114572113d4b26f95f6f094f4b5229d2a77773e0afc
+  image: quay.io/ukhomeofficedigital/hof-nodejs:24.21.0-alpine3.24@sha256:80b294ce5027fdc87c58cc990f4d9804323a1734c1e8a1ae9d6bbe569fa8b01e
 
 linting: &linting
   <<: *node_image
@@ -190,10 +190,10 @@ steps:
         cpu: 1000
         memory: 1024Mi
     environment:
-      IMAGE_NAME: node:24.18.0-alpine3.24@sha256:4ba75f835bb8802193e4c114572113d4b26f95f6f094f4b5229d2a77773e0afc
+      IMAGE_NAME: quay.io/ukhomeofficedigital/hof-nodejs:24.21.0-alpine3.24@sha256:80b294ce5027fdc87c58cc990f4d9804323a1734c1e8a1ae9d6bbe569fa8b01e
       SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
       SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree
-      FAIL_ON_DETECTION: false
+      FAIL_ON_DETECTION: true
       IGNORE_UNFIXED: false
       ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     volumes:
@@ -232,7 +232,7 @@ steps:
     environment:
       IMAGE_NAME: are-app:${DRONE_COMMIT_SHA}
       SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree
-      FAIL_ON_DETECTION: false
+      FAIL_ON_DETECTION: true
       IGNORE_UNFIXED: false
       ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     volumes:
@@ -566,7 +566,7 @@ steps:
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
     environment:
-      IMAGE_NAME: node:24.18.0-alpine3.24@sha256:4ba75f835bb8802193e4c114572113d4b26f95f6f094f4b5229d2a77773e0afc
+      IMAGE_NAME: quay.io/ukhomeofficedigital/hof-nodejs:24.21.0-alpine3.24@sha256:80b294ce5027fdc87c58cc990f4d9804323a1734c1e8a1ae9d6bbe569fa8b01e
       FAIL_ON_DETECTION: true
       IGNORE_UNFIXED: false
       ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
