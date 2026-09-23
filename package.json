@@ -56,5 +56,17 @@
     "require": "test/setup.js",
     "recursive": "true",
     "timeout": "6000"
+  },
+  "resolutions": {
+    "baseline-browser-mapping": "^2.11.0",
+    "brace-expansion": "^5.0.9",
+    "browserslist": "^4.28.7",
+    "js-yaml": "^4.3.2",
+    "morgan": "^1.12.0",
+    "nanoid": "^5.1.16",
+    "postcss": "^8.5.23",
+    "qs": "^6.16.0",
+    "serialize-javascript": "^7.0.5",
+    "uuid": "^13.0.1"
   }
 }
