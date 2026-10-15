@@ -67,6 +67,7 @@
     "postcss": "^8.5.23",
     "qs": "^6.16.0",
     "serialize-javascript": "^7.0.5",
-    "uuid": "^13.0.1"
+    "uuid": "^13.0.1",
+    "source-map-js": "^1.2.2"
   }
 }
