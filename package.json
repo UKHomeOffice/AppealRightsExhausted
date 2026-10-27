@@ -31,7 +31,7 @@
   "author": "HomeOffice",
   "dependencies": {
     "@cucumber/cucumber": "^13.0.0",
-    "hof": "~24.4.0",
+    "hof": "~24.6.0",
     "jquery": "^4.0.0",
     "lodash": "^4.18.1",
     "moment": "^2.30.1"
