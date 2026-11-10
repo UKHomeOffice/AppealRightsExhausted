@@ -13,7 +13,7 @@ export REDIS_STORAGE_CLASS=${REDIS_STORAGE_CLASS:-gp2-encrypted-eu-west-2b}
 
 if [[ $1 == 'tear_down' ]]; then
   export KUBE_NAMESPACE=$BRANCH_ENV
-  export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt)
+  export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt | tr '[:upper:]' '[:lower:]' | tr '/.' '-')
 
   $kd --delete -f kube/configmaps/configmap.yml
   $kd --delete -f kube/redis -f kube/app
@@ -22,7 +22,7 @@ if [[ $1 == 'tear_down' ]]; then
 fi
 
 export KUBE_NAMESPACE=$1
-export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
+export DRONE_SOURCE_BRANCH=$(printf '%s' "$DRONE_SOURCE_BRANCH" | tr '[:upper:]' '[:lower:]' | tr '/.' '-')
 
 if [[ ${REDIS_PVC_RECREATE} == "true" ]]; then
   $kd --delete -f kube/redis/redis-persistent-volume-claim.yml || true
